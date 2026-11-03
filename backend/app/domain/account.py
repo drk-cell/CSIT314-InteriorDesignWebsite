@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 from uuid import uuid4
 
 from app.domain.enums import AccountStatus, Role
-from app.security import verify_password
+from app.domain.passwords import verify_password
 
 
 @dataclass

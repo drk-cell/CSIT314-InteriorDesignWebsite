@@ -13,8 +13,8 @@ from app.domain.errors import (
     NotPermitted,
     WeakPassword,
 )
+from app.domain.passwords import hash_password, verify_password
 from app.repositories.account_repository import AccountRepository
-from app.security import hash_password, verify_password
 
 MIN_PASSWORD_LENGTH: int = 8
 

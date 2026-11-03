@@ -9,7 +9,7 @@ import pytest
 
 from app.domain.account import Account
 from app.domain.enums import AccountStatus, Role
-from app.security import hash_password
+from app.domain.passwords import hash_password
 
 PASSWORD = "secret123"
 
