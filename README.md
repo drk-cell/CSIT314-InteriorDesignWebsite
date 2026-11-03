@@ -79,6 +79,76 @@ cd backend
 `.github/workflows/ci.yml` runs the backend tests and the frontend build on every
 push and pull request.
 
+## Planned implementations
+
+One line per stage. Tick a line only when the work is merged to `main`, and add
+the short commit hash so this list and the history agree.
+
+Both coders update this list in the same commit as their feature. A tick means
+"merged and reviewed", not "started". If you build something that is not listed,
+add a line with the next number.
+
+### Foundation
+
+- [x] S1 repository ignore rules (`f2f4b38`)
+- [x] S2 account slice: register, login, me, roles and status (`0e3bb47`)
+- [x] S3 review fixes: session status gate, startup guard, sign in timing (`225dc65`)
+
+### Accounts
+
+- [ ] S4 account approval and suspension by an administrator
+- [ ] S5 account administration screen
+
+### Profile management
+
+- [ ] S6 company profile entity, one profile per designer
+- [ ] S7 company profile service with ownership checks
+- [ ] S8 company profile endpoints, readable by customers
+- [ ] S9 designer profile page
+- [ ] S10 designer detail page for customers
+
+### Projects
+
+- [ ] S11 project entity with style, category, budget band and status
+- [ ] S12 project service with create, edit and delete rules
+- [ ] S13 project endpoints with owner scoped access
+- [ ] S14 project editor form with field validation
+
+### Portfolio
+
+- [ ] S15 owner scoped project queries with status and name filters
+- [ ] S16 portfolio screen with list, filter and delete actions
+
+### Search
+
+- [ ] S17 project search with keyword, category, style and budget filters
+- [ ] S18 search endpoint with result paging
+- [ ] S19 search screen with filter controls
+
+### Favourites and interest
+
+- [ ] S20 shortlist entity, one list per customer
+- [ ] S21 view and shortlist counters inside the project entity
+- [ ] S22 shortlist endpoints with add, remove and list
+- [ ] S23 project detail page with the save action and counter display
+- [ ] S24 interest summary on the designer portfolio
+
+### Quoting
+
+- [ ] S25 quote request entity with pending, answered and cancelled states
+- [ ] S26 quote service with submit, answer and cancel rules
+- [ ] S27 quote endpoints for customers and designers
+- [ ] S28 customer quote screens with submit and cancel
+- [ ] S29 designer quote inbox with reply
+
+### Platform
+
+- [ ] S30 category management with platform manager access
+- [ ] S31 activity reports with daily, weekly and monthly buckets
+- [ ] S32 reporting screen with period selection
+- [ ] S33 demo seed generator with 100 records per type
+- [ ] S34 demo walkthrough in this file
+
 ## Working agreement
 
 - One feature branch per person. Merge to `main` after the build is green.
