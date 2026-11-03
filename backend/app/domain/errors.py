@@ -60,3 +60,15 @@ class WeakPassword(DomainError):
     """The chosen password does not meet the minimum length."""
 
     default_message = "Password must be at least 8 characters"
+
+
+class NotPermitted(DomainError):
+    """The caller may not perform this operation."""
+
+    default_message = "You are not allowed to do that"
+
+
+class AccountNotFound(DomainError):
+    """No account matches the supplied identifier."""
+
+    default_message = "Account not found"

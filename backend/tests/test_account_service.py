@@ -94,3 +94,25 @@ def test_authenticate_suspended_account_is_blocked(account_service: AccountServi
         account_service.authenticate("casey@example.com", PASSWORD)
     assert error.value.status is AccountStatus.SUSPENDED
     assert error.value.message == "Account suspended"
+
+def test_ensure_staff_account_creates_once(account_service: AccountService) -> None:
+    first = account_service.ensure_staff_account(
+        "admin@example.com", PASSWORD, "Administrator", Role.ADMIN
+    )
+    second = account_service.ensure_staff_account(
+        "admin@example.com", PASSWORD, "Administrator", Role.ADMIN
+    )
+
+    assert first is not None
+    assert first.role is Role.ADMIN
+    assert first.status is AccountStatus.ACTIVE
+    assert second is None
+
+
+def test_ensure_staff_account_rejects_a_weak_password(
+    account_service: AccountService,
+) -> None:
+    with pytest.raises(WeakPassword):
+        account_service.ensure_staff_account(
+            "admin@example.com", "short", "Administrator", Role.ADMIN
+        )

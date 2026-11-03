@@ -7,8 +7,16 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import auth, health
-from app.config import APP_VERSION, is_default_secret, is_production
+from app.api import admin, auth, health
+from app.api.deps import get_account_service
+from app.config import (
+    APP_VERSION,
+    get_bootstrap_admin_email,
+    get_bootstrap_admin_password,
+    is_default_secret,
+    is_production,
+)
+from app.domain.enums import Role
 
 logger = logging.getLogger(__name__)
 
@@ -17,6 +25,21 @@ ALLOWED_ORIGINS: tuple[str, ...] = (
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 )
+
+
+def _bootstrap_administrator() -> None:
+    """Create the first administrator when the environment supplies one.
+
+    The store is empty at every start, so without this account nobody could
+    approve a designer or suspend a user.
+    """
+    email = get_bootstrap_admin_email()
+    password = get_bootstrap_admin_password()
+    if not email or not password:
+        return
+    get_account_service().ensure_staff_account(
+        email, password, "Administrator", Role.ADMIN
+    )
 
 
 def create_app() -> FastAPI:
@@ -37,6 +60,8 @@ def create_app() -> FastAPI:
     )
     application.include_router(health.router, prefix=API_PREFIX)
     application.include_router(auth.router, prefix=API_PREFIX)
+    application.include_router(admin.router, prefix=API_PREFIX)
+    _bootstrap_administrator()
     return application
 
 

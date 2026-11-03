@@ -1,4 +1,4 @@
-"""Account use cases: registration and sign in."""
+"""Account use cases: registration, sign in and administration."""
 
 from __future__ import annotations
 
@@ -6,9 +6,11 @@ from app.domain.account import Account
 from app.domain.enums import AccountStatus, Role
 from app.domain.errors import (
     AccountNotActive,
+    AccountNotFound,
     EmailAlreadyRegistered,
     InvalidCredentials,
     InvalidRoleForSelfRegistration,
+    NotPermitted,
     WeakPassword,
 )
 from app.repositories.account_repository import AccountRepository
@@ -70,6 +72,63 @@ class AccountService:
     def get(self, account_id: str) -> Account | None:
         """Return the account with ``account_id``, or ``None``."""
         return self._repository.get(account_id)
+
+    def list_accounts(
+        self, actor: Account, status: AccountStatus | None = None
+    ) -> list[Account]:
+        """Return accounts for an administrator, newest first."""
+        self._require_admin(actor)
+        accounts = self._repository.list_all()
+        if status is not None:
+            accounts = [account for account in accounts if account.status is status]
+        return sorted(accounts, key=lambda account: account.created_at, reverse=True)
+
+    def approve(self, actor: Account, account_id: str) -> Account:
+        """Activate an account so it may sign in."""
+        account = self._require_target(actor, account_id)
+        account.activate()
+        return account
+
+    def suspend(self, actor: Account, account_id: str) -> Account:
+        """Suspend an account so it cannot sign in again."""
+        account = self._require_target(actor, account_id)
+        account.suspend()
+        return account
+
+    def ensure_staff_account(
+        self, email: str, password: str, display_name: str, role: Role
+    ) -> Account | None:
+        """Create a staff account when the address is free.
+
+        Used at startup to guarantee at least one administrator. Calling it
+        twice with the same address changes nothing.
+        """
+        normalised_email = email.strip().lower()
+        if self._repository.get_by_email(normalised_email) is not None:
+            return None
+        self._require_strong_password(password)
+        account = Account(
+            email=normalised_email,
+            display_name=display_name,
+            password_hash=hash_password(password),
+            role=role,
+            status=AccountStatus.ACTIVE,
+        )
+        return account if self._repository.add(account) else None
+
+    @staticmethod
+    def _require_admin(actor: Account) -> None:
+        if actor.role is not Role.ADMIN:
+            raise NotPermitted("Only an administrator may manage accounts")
+
+    def _require_target(self, actor: Account, account_id: str) -> Account:
+        self._require_admin(actor)
+        account = self._repository.get(account_id)
+        if account is None:
+            raise AccountNotFound()
+        if account.id == actor.id:
+            raise NotPermitted("You cannot change your own account status")
+        return account
 
     @staticmethod
     def _require_self_registration_role(role: Role) -> None:

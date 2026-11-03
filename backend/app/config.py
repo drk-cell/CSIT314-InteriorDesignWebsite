@@ -64,3 +64,13 @@ def get_token_minutes() -> int:
 def is_default_secret() -> bool:
     """Return ``True`` when no real secret has been configured."""
     return load_settings().is_default_secret()
+
+
+def get_bootstrap_admin_email() -> str:
+    """Return the address of the first administrator, or an empty string."""
+    return os.environ.get("APP_ADMIN_EMAIL", "").strip().lower()
+
+
+def get_bootstrap_admin_password() -> str:
+    """Return the starting password for the first administrator."""
+    return os.environ.get("APP_ADMIN_PASSWORD", "")

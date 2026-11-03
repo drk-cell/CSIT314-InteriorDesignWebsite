@@ -54,8 +54,20 @@ Environment variables:
 
 | Name | Default | Purpose |
 |---|---|---|
-| `APP_SECRET_KEY` | `dev-only-change-me` | JWT signing key. Set this outside local development. |
+| `APP_SECRET_KEY` | development value | JWT signing key. Must be set when `APP_ENV` is not `development`, or the app refuses to start. |
 | `APP_TOKEN_MINUTES` | `480` | Access token lifetime in minutes. |
+| `APP_ENV` | `development` | Any other value turns on the startup guard. |
+| `APP_ADMIN_EMAIL` | unset | Address of the first administrator, created at startup. |
+| `APP_ADMIN_PASSWORD` | unset | Password for that administrator. |
+
+Start the backend with an administrator so a designer can be approved:
+
+```bash
+APP_ADMIN_EMAIL=admin@example.com APP_ADMIN_PASSWORD=passw0rd123 \
+  .venv/Scripts/python.exe -m uvicorn app.main:app --port 8000
+```
+
+The store is in memory, so the administrator is created again on every start.
 
 ## Run the frontend
 
