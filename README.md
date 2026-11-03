@@ -109,7 +109,7 @@ add a line with the next number.
 ### Accounts
 
 - [x] S4 account approval and suspension by an administrator (`eadec74`)
-- [ ] S5 account administration screen
+- [x] S5 account administration screen (`9ea66b8`)
 
 ### Profile management
 
