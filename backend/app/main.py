@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import auth, health
-from app.config import APP_VERSION, is_default_secret
+from app.config import APP_VERSION, is_default_secret, is_production
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +21,8 @@ ALLOWED_ORIGINS: tuple[str, ...] = (
 
 def create_app() -> FastAPI:
     """Build the FastAPI application for the interior design platform."""
+    if is_default_secret() and is_production():
+        raise RuntimeError("APP_SECRET_KEY must be set when APP_ENV is not development")
     application = FastAPI(
         title="Interior Design Platform API",
         version=APP_VERSION,

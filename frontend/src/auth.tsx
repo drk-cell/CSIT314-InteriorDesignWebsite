@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
+  ApiError,
   clearToken,
   getToken,
   login as loginRequest,
@@ -39,10 +40,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (cancelled) return;
         setAccount(current);
         setTokenState(getToken());
-      } catch {
+      } catch (error) {
         if (cancelled) return;
-        clearToken();
-        setTokenState(null);
+        // Only a rejected token ends the session. A network failure keeps the
+        // token so the next reload can retry instead of forcing a new sign in.
+        if (error instanceof ApiError && (error.status === 401 || error.status === 403)) {
+          clearToken();
+        }
+        setTokenState(getToken());
         setAccount(null);
       } finally {
         if (!cancelled) setLoading(false);

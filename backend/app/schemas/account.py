@@ -26,7 +26,7 @@ class RegisterRequest(BaseModel):
     """Payload accepted by the registration endpoint."""
 
     email: str = Field(min_length=3, max_length=254)
-    password: str
+    password: str = Field(max_length=128)
     display_name: str = Field(min_length=1, max_length=80)
     role: Role = Role.CUSTOMER
 

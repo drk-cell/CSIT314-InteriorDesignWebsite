@@ -13,6 +13,17 @@ from dataclasses import dataclass
 DEFAULT_SECRET_KEY: str = "dev-only-change-me-32-bytes-minimum!!"
 DEFAULT_TOKEN_MINUTES: int = 480
 APP_VERSION: str = "0.1.0"
+DEFAULT_ENVIRONMENT: str = "development"
+
+
+def app_environment() -> str:
+    """Return the deployment environment name, defaulting to development."""
+    return os.environ.get("APP_ENV", DEFAULT_ENVIRONMENT).strip().lower()
+
+
+def is_production() -> bool:
+    """Return ``True`` when the process is not running in development."""
+    return app_environment() != DEFAULT_ENVIRONMENT
 
 
 @dataclass(frozen=True)

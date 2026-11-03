@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { ApiError } from '../api';
 import { useAuth } from '../auth';
 
 export default function Login() {
   const { account, loading, login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const destination = (location.state as { from?: string } | null)?.from ?? '/dashboard';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   if (!loading && account !== null) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to={destination} replace />;
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -22,7 +24,7 @@ export default function Login() {
     setSubmitting(true);
     try {
       await login({ email: email.trim(), password });
-      navigate('/dashboard', { replace: true });
+      navigate(destination, { replace: true });
     } catch (caught) {
       setError(caught instanceof ApiError ? caught.detail : 'Unable to sign in. Try again.');
     } finally {

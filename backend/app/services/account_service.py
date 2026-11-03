@@ -12,9 +12,13 @@ from app.domain.errors import (
     WeakPassword,
 )
 from app.repositories.account_repository import AccountRepository
-from app.security import hash_password
+from app.security import hash_password, verify_password
 
 MIN_PASSWORD_LENGTH: int = 8
+
+# Verifying against a real hash keeps the sign in path equally slow whether or
+# not the email exists, so response time does not reveal registered addresses.
+_TIMING_DECOY_HASH: str = hash_password("decoy-password-for-timing")
 
 INITIAL_STATUS_BY_ROLE: dict[Role, AccountStatus] = {
     Role.CUSTOMER: AccountStatus.ACTIVE,
@@ -36,17 +40,16 @@ class AccountService:
         """
         self._require_self_registration_role(role)
         self._require_strong_password(password)
-        normalised_email = email.strip().lower()
-        if self._repository.get_by_email(normalised_email) is not None:
-            raise EmailAlreadyRegistered()
         account = Account(
-            email=normalised_email,
+            email=email.strip().lower(),
             display_name=display_name,
             password_hash=hash_password(password),
             role=role,
             status=INITIAL_STATUS_BY_ROLE[role],
         )
-        return self._repository.add(account)
+        if not self._repository.add(account):
+            raise EmailAlreadyRegistered()
+        return account
 
     def authenticate(self, email: str, password: str) -> Account:
         """Return the account matching ``email`` and ``password``.
@@ -55,7 +58,10 @@ class AccountService:
         password, and ``AccountNotActive`` when the status blocks sign in.
         """
         account = self._repository.get_by_email(email)
-        if account is None or not account.check_password(password):
+        if account is None:
+            verify_password(password, _TIMING_DECOY_HASH)
+            raise InvalidCredentials()
+        if not account.check_password(password):
             raise InvalidCredentials()
         if not account.can_login():
             raise AccountNotActive(account.status)

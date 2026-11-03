@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import threading
+
 from app.domain.account import Account
 
 
@@ -16,12 +18,21 @@ class AccountRepository:
     def __init__(self) -> None:
         self._by_id: dict[str, Account] = {}
         self._ids_by_email: dict[str, str] = {}
+        self._lock = threading.Lock()
 
-    def add(self, account: Account) -> Account:
-        """Store ``account`` and return it."""
-        self._by_id[account.id] = account
-        self._ids_by_email[account.email] = account.id
-        return account
+    def add(self, account: Account) -> bool:
+        """Store ``account`` unless its email is already taken.
+
+        FastAPI runs sync handlers in a thread pool, so the check and the
+        insert must happen under one lock. Returns whether the account was
+        stored.
+        """
+        with self._lock:
+            if account.email in self._ids_by_email:
+                return False
+            self._by_id[account.id] = account
+            self._ids_by_email[account.email] = account.id
+            return True
 
     def get(self, account_id: str) -> Account | None:
         """Return the account with ``account_id``, or ``None``."""
