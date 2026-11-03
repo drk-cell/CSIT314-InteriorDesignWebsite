@@ -1,0 +1,1 @@
+"""Domain layer: entities, enumerations and business rule errors."""

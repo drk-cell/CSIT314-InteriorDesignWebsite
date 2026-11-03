@@ -1,0 +1,1 @@
+"""Repository layer: in memory persistence for domain entities."""

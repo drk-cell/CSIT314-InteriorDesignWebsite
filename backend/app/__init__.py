@@ -1,0 +1,1 @@
+"""Interior design platform backend application package."""

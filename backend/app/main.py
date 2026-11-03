@@ -1,0 +1,46 @@
+"""Application factory and module level ASGI entry point."""
+
+from __future__ import annotations
+
+import logging
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.api import auth, health
+from app.config import APP_VERSION, is_default_secret
+
+logger = logging.getLogger(__name__)
+
+API_PREFIX: str = "/api"
+ALLOWED_ORIGINS: tuple[str, ...] = (
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+)
+
+
+def create_app() -> FastAPI:
+    """Build the FastAPI application for the interior design platform."""
+    application = FastAPI(
+        title="Interior Design Platform API",
+        version=APP_VERSION,
+        description="Accounts, roles and approval workflow for the CSIT314 project.",
+    )
+    application.add_middleware(
+        CORSMiddleware,
+        allow_origins=list(ALLOWED_ORIGINS),
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+    application.include_router(health.router, prefix=API_PREFIX)
+    application.include_router(auth.router, prefix=API_PREFIX)
+    return application
+
+
+app = create_app()
+
+if is_default_secret():
+    # Surfaced once at import time so a real deployment cannot silently ship
+    # with the development signing key.
+    logger.warning("APP_SECRET_KEY is unset, using the development secret")

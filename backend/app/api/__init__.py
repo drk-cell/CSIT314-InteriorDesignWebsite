@@ -1,0 +1,1 @@
+"""Boundary layer: FastAPI routers and request dependencies."""
