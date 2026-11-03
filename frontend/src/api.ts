@@ -3,6 +3,7 @@ import type {
   HealthResponse,
   LoginRequest,
   RegisterRequest,
+  Status,
   TokenResponse,
 } from './types';
 
@@ -112,4 +113,17 @@ export function login(body: LoginRequest): Promise<TokenResponse> {
 
 export function me(): Promise<AccountPublic> {
   return request<AccountPublic>('/auth/me');
+}
+
+export function adminListAccounts(status?: Status): Promise<AccountPublic[]> {
+  const query = status === undefined ? '' : `?status=${status}`;
+  return request<AccountPublic[]>(`/admin/accounts${query}`);
+}
+
+export function adminApprove(accountId: string): Promise<AccountPublic> {
+  return request<AccountPublic>(`/admin/accounts/${accountId}/approve`, { method: 'POST' });
+}
+
+export function adminSuspend(accountId: string): Promise<AccountPublic> {
+  return request<AccountPublic>(`/admin/accounts/${accountId}/suspend`, { method: 'POST' });
 }

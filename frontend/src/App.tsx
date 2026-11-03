@@ -1,6 +1,7 @@
 import { Link, Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import { useAuth } from './auth';
 import ProtectedRoute from './components/ProtectedRoute';
+import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -23,6 +24,7 @@ export default function App() {
             {account !== null && (
               <>
                 <NavLink to="/dashboard">Dashboard</NavLink>
+                {account.role === 'ADMIN' && <NavLink to="/admin">Admin</NavLink>}
                 <span className="nav-account">{account.display_name}</span>
                 <button type="button" className="link-button" onClick={logout}>
                   Sign out
@@ -49,6 +51,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute roles={['ADMIN']}>
+                <Admin />
               </ProtectedRoute>
             }
           />
