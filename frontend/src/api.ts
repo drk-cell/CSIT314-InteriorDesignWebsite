@@ -1,5 +1,6 @@
 import type {
   AccountPublic,
+  Catalogue,
   CompanyInput,
   CompanyPublic,
   HealthResponse,
@@ -166,4 +167,8 @@ export function searchProjects(params: SearchParams): Promise<SearchResponse> {
     }
   }
   return request<SearchResponse>(`/projects/search?${query.toString()}`);
+}
+
+export function getCatalogue(): Promise<Catalogue> {
+  return request<Catalogue>('/catalogue');
 }

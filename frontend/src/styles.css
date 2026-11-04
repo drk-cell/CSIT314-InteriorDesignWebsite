@@ -164,6 +164,58 @@ a:hover { color: var(--accent-hover); }
 }
 .pager { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
+.search-layout {
+  display: grid; grid-template-columns: 272px 1fr; gap: 24px; align-items: start;
+}
+.filter-panel { position: sticky; top: 24px; }
+.filter-panel h2 { font-size: 1.05rem; margin-bottom: 14px; }
+.filter-fields { display: grid; gap: 14px; }
+.filter-actions { display: flex; gap: 10px; margin-top: 4px; }
+.filter-actions .button { flex: 1; padding: 9px 10px; text-align: center; }
+.field-label { font-size: 0.9rem; font-weight: 550; }
+.range-value { display: block; color: var(--muted); font-size: 0.9rem; margin-bottom: 6px; }
+
+.range { position: relative; height: 36px; margin-top: 2px; }
+.range-track, .range-fill {
+  position: absolute; top: 15px; height: 4px; border-radius: 2px;
+}
+.range-track { left: 0; right: 0; background: var(--border); }
+.range-fill { background: var(--accent); }
+.range input[type='range'] {
+  position: absolute; inset: 0; width: 100%; margin: 0;
+  background: none; border: 0; padding: 0; height: 36px;
+  -webkit-appearance: none; appearance: none; pointer-events: none;
+}
+.range input[type='range']:focus-visible { outline: none; }
+.range input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; pointer-events: auto;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--accent); border: 3px solid var(--surface);
+  box-shadow: 0 0 0 1px var(--accent), 0 1px 3px rgba(0, 0, 0, 0.25);
+  cursor: grab;
+}
+.range input[type='range']::-moz-range-thumb {
+  pointer-events: auto;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--accent); border: 3px solid var(--surface);
+  box-shadow: 0 0 0 1px var(--accent), 0 1px 3px rgba(0, 0, 0, 0.25);
+  cursor: grab;
+}
+
+.result-count { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.project-card { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.project-card .project-photo { margin: 0; border-radius: 0; }
+.project-body { padding: 18px 20px; display: grid; gap: 8px; }
+.project-body h2 { margin: 0; }
+.project-meta { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.project-budget { margin: 0; font-weight: 600; color: var(--text); }
+.project-body .actions { margin-top: 6px; }
+
+@media (max-width: 760px) {
+  .search-layout { grid-template-columns: 1fr; }
+  .filter-panel { position: static; }
+}
+
 @media (max-width: 600px) {
   .hero h1 { font-size: 1.7rem; }
   .card { padding: 20px; }

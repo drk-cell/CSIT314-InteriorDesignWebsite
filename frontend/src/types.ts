@@ -80,6 +80,18 @@ export interface SearchParams {
   page_size?: number;
 }
 
+export interface BudgetRange {
+  min: number;
+  max: number;
+  step: number;
+}
+
+export interface Catalogue {
+  categories: string[];
+  styles: string[];
+  budget: BudgetRange;
+}
+
 export interface RegisterRequest {
   email: string;
   password: string;
