@@ -5,7 +5,7 @@ from __future__ import annotations
 import pytest
 
 from app.domain.enums import ProjectStatus
-from app.domain.project import Project
+from app.domain.project import Project, SearchCriteria
 
 OWNER = "account-1"
 COMPANY = "company-1"
@@ -147,3 +147,37 @@ def test_is_owned_by_compares_the_owner() -> None:
 
     assert project.is_owned_by(OWNER) is True
     assert project.is_owned_by("account-2") is False
+
+def test_matches_accepts_a_project_when_no_criteria_are_given() -> None:
+    project = make_project()
+    assert project.matches(SearchCriteria()) is True
+
+
+def test_matches_rejects_a_different_category() -> None:
+    project = make_project()
+    assert project.matches(SearchCriteria(category="Kitchen")) is False
+
+
+def test_matches_ignores_the_case_of_the_style() -> None:
+    project = make_project()
+    assert project.matches(SearchCriteria(style="minimal")) is True
+
+
+def test_matches_accepts_a_budget_that_overlaps_the_band() -> None:
+    project = make_project(budget_min=20000, budget_max=40000)
+    assert project.matches(SearchCriteria(budget_min=30000, budget_max=50000)) is True
+
+
+def test_matches_rejects_a_budget_above_the_band() -> None:
+    project = make_project(budget_min=20000, budget_max=40000)
+    assert project.matches(SearchCriteria(budget_min=60000, budget_max=80000)) is False
+
+
+def test_criteria_refuse_a_minimum_above_the_maximum() -> None:
+    with pytest.raises(ValueError, match="must not exceed"):
+        SearchCriteria(budget_min=50000, budget_max=30000)
+
+
+def test_criteria_refuse_a_negative_budget() -> None:
+    with pytest.raises(ValueError, match="must not be negative"):
+        SearchCriteria(budget_min=-1)

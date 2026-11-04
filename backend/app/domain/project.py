@@ -17,6 +17,34 @@ MAX_TITLE_LENGTH: int = 120
 MAX_IMAGES: int = 8
 
 
+@dataclass(frozen=True)
+class SearchCriteria:
+    """The filter a customer submits to the catalogue.
+
+    An empty field does not filter. Each budget is optional, so the screen can
+    send one end of the slider only.
+    """
+
+    keyword: str = ""
+    category: str = ""
+    style: str = ""
+    budget_min: int | None = None
+    budget_max: int | None = None
+
+    def __post_init__(self) -> None:
+        """Refuse a budget range that cannot be answered."""
+        if self.budget_min is not None and self.budget_min < 0:
+            raise ValueError("Minimum budget must not be negative")
+        if self.budget_max is not None and self.budget_max < 0:
+            raise ValueError("Maximum budget must not be negative")
+        if (
+            self.budget_min is not None
+            and self.budget_max is not None
+            and self.budget_min > self.budget_max
+        ):
+            raise ValueError("Minimum budget must not exceed the maximum")
+
+
 @dataclass
 class Project:
     """One entry in a designer's portfolio."""
@@ -138,6 +166,30 @@ class Project:
     def is_owned_by(self, account_id: str) -> bool:
         """Return ``True`` when ``account_id`` is the designer behind this project."""
         return self.owner_id == account_id
+
+    def matches(self, criteria: SearchCriteria) -> bool:
+        """Return ``True`` when this project answers ``criteria``.
+
+        The keyword searches the title and the description. The category and the
+        style must be equal, ignoring case. Budgets match on overlap, so a
+        project priced 20k to 40k answers a search from 30k to 50k. An empty
+        field does not filter.
+        """
+        needle = criteria.keyword.strip().lower()
+        if needle and needle not in self.title.lower():
+            if needle not in self.description.lower():
+                return False
+        wanted_category = criteria.category.strip().lower()
+        if wanted_category and self.category.lower() != wanted_category:
+            return False
+        wanted_style = criteria.style.strip().lower()
+        if wanted_style and self.style.lower() != wanted_style:
+            return False
+        if criteria.budget_min is not None and self.budget_max < criteria.budget_min:
+            return False
+        if criteria.budget_max is not None and self.budget_min > criteria.budget_max:
+            return False
+        return True
 
     @staticmethod
     def _require_valid_budget(minimum: int, maximum: int) -> None:

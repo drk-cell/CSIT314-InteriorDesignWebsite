@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from app.domain.project import Project
+from app.domain.project import Project, SearchCriteria
 from app.repositories.project_repository import ProjectRepository
 
 DEFAULT_PAGE_SIZE: int = 12
@@ -58,12 +58,15 @@ class ProjectSearchService:
         if budget_min is not None and budget_max is not None and budget_min > budget_max:
             raise ValueError("Minimum budget must not exceed the maximum")
 
+        criteria = SearchCriteria(
+            keyword=keyword,
+            category=category,
+            style=style,
+            budget_min=budget_min,
+            budget_max=budget_max,
+        )
         size = min(page_size, MAX_PAGE_SIZE)
-        matches = [
-            project
-            for project in self._projects.list_all()
-            if self._matches(project, keyword, category, style, budget_min, budget_max)
-        ]
+        matches = [project for project in self._projects.list_all() if project.matches(criteria)]
         matches.sort(key=lambda project: project.created_at, reverse=True)
         start = (page - 1) * size
         return SearchResult(
@@ -72,28 +75,3 @@ class ProjectSearchService:
             page=page,
             page_size=size,
         )
-
-    @staticmethod
-    def _matches(
-        project: Project,
-        keyword: str,
-        category: str,
-        style: str,
-        budget_min: int | None,
-        budget_max: int | None,
-    ) -> bool:
-        needle = keyword.strip().lower()
-        if needle and needle not in project.title.lower():
-            if needle not in project.description.lower():
-                return False
-        wanted_category = category.strip().lower()
-        if wanted_category and project.category.lower() != wanted_category:
-            return False
-        wanted_style = style.strip().lower()
-        if wanted_style and project.style.lower() != wanted_style:
-            return False
-        if budget_min is not None and project.budget_max < budget_min:
-            return False
-        if budget_max is not None and project.budget_min > budget_max:
-            return False
-        return True
