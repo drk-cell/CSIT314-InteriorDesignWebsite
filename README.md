@@ -133,9 +133,9 @@ add a line with the next number.
 
 ### Search
 
-- [ ] S17 project search with keyword, category, style and budget filters
-- [ ] S18 search endpoint with result paging
-- [ ] S19 search screen with filter controls
+- [x] S17 project search with keyword, category, style and budget filters (`a91a861`)
+- [x] S18 search endpoint with result paging (`38b8756`)
+- [x] S19 search screen with filter controls (`744b8ec`)
 
 ### Favourites and interest
 
