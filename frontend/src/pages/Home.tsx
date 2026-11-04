@@ -6,6 +6,16 @@ import type { HealthResponse } from '../types';
 
 type HealthState = 'loading' | 'online' | 'offline';
 
+function describeFailure(caught: unknown): string {
+  if (!(caught instanceof ApiError)) {
+    return 'Unable to reach the backend. Start the API server and reload.';
+  }
+  if (caught.status >= 500) {
+    return `${caught.detail} The API server may be stopped or crashing.`;
+  }
+  return caught.detail;
+}
+
 export default function Home() {
   const { account } = useAuth();
   const [state, setState] = useState<HealthState>('loading');
@@ -23,7 +33,7 @@ export default function Home() {
       })
       .catch((caught: unknown) => {
         if (cancelled) return;
-        setError(caught instanceof ApiError ? caught.detail : 'Unable to reach the backend.');
+        setError(describeFailure(caught));
         setState('offline');
       });
 
