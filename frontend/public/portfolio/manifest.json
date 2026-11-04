@@ -1,0 +1,146 @@
+[
+  {
+    "file": "room-01.svg",
+    "title": "Living Room",
+    "style": "Minimal",
+    "palette": "sand"
+  },
+  {
+    "file": "room-02.svg",
+    "title": "Bedroom",
+    "style": "Scandinavian",
+    "palette": "sage"
+  },
+  {
+    "file": "room-03.svg",
+    "title": "Kitchen",
+    "style": "Industrial",
+    "palette": "terracotta"
+  },
+  {
+    "file": "room-04.svg",
+    "title": "Studio",
+    "style": "Japandi",
+    "palette": "slate"
+  },
+  {
+    "file": "room-05.svg",
+    "title": "Dining Room",
+    "style": "Contemporary",
+    "palette": "cream"
+  },
+  {
+    "file": "room-06.svg",
+    "title": "Home Office",
+    "style": "Traditional",
+    "palette": "olive"
+  },
+  {
+    "file": "room-07.svg",
+    "title": "Bathroom",
+    "style": "Minimal",
+    "palette": "sand"
+  },
+  {
+    "file": "room-08.svg",
+    "title": "Balcony",
+    "style": "Scandinavian",
+    "palette": "sage"
+  },
+  {
+    "file": "room-09.svg",
+    "title": "Living Room",
+    "style": "Industrial",
+    "palette": "terracotta"
+  },
+  {
+    "file": "room-10.svg",
+    "title": "Bedroom",
+    "style": "Japandi",
+    "palette": "slate"
+  },
+  {
+    "file": "room-11.svg",
+    "title": "Kitchen",
+    "style": "Contemporary",
+    "palette": "cream"
+  },
+  {
+    "file": "room-12.svg",
+    "title": "Studio",
+    "style": "Traditional",
+    "palette": "olive"
+  },
+  {
+    "file": "room-13.svg",
+    "title": "Dining Room",
+    "style": "Minimal",
+    "palette": "sand"
+  },
+  {
+    "file": "room-14.svg",
+    "title": "Home Office",
+    "style": "Scandinavian",
+    "palette": "sage"
+  },
+  {
+    "file": "room-15.svg",
+    "title": "Bathroom",
+    "style": "Industrial",
+    "palette": "terracotta"
+  },
+  {
+    "file": "room-16.svg",
+    "title": "Balcony",
+    "style": "Japandi",
+    "palette": "slate"
+  },
+  {
+    "file": "room-17.svg",
+    "title": "Living Room",
+    "style": "Contemporary",
+    "palette": "cream"
+  },
+  {
+    "file": "room-18.svg",
+    "title": "Bedroom",
+    "style": "Traditional",
+    "palette": "olive"
+  },
+  {
+    "file": "room-19.svg",
+    "title": "Kitchen",
+    "style": "Minimal",
+    "palette": "sand"
+  },
+  {
+    "file": "room-20.svg",
+    "title": "Studio",
+    "style": "Scandinavian",
+    "palette": "sage"
+  },
+  {
+    "file": "room-21.svg",
+    "title": "Dining Room",
+    "style": "Industrial",
+    "palette": "terracotta"
+  },
+  {
+    "file": "room-22.svg",
+    "title": "Home Office",
+    "style": "Japandi",
+    "palette": "slate"
+  },
+  {
+    "file": "room-23.svg",
+    "title": "Bathroom",
+    "style": "Contemporary",
+    "palette": "cream"
+  },
+  {
+    "file": "room-24.svg",
+    "title": "Balcony",
+    "style": "Traditional",
+    "palette": "olive"
+  }
+]
