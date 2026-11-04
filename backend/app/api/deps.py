@@ -16,10 +16,13 @@ from app.domain.account import Account
 from app.domain.enums import AccountStatus
 from app.domain.errors import inactive_message
 from app.repositories.account_repository import AccountRepository
+from app.repositories.company_repository import CompanyRepository
 from app.security import decode_access_token
 from app.services.account_service import AccountService
+from app.services.company_service import CompanyService
 
 _account_repository = AccountRepository()
+_company_repository = CompanyRepository()
 _bearer_scheme = HTTPBearer(auto_error=False)
 
 
@@ -31,6 +34,16 @@ def get_account_repository() -> AccountRepository:
 def get_account_service() -> AccountService:
     """Return a service bound to the shared account store."""
     return AccountService(get_account_repository())
+
+
+def get_company_repository() -> CompanyRepository:
+    """Return the process wide company store."""
+    return _company_repository
+
+
+def get_company_service() -> CompanyService:
+    """Return a service bound to the shared company store."""
+    return CompanyService(get_company_repository())
 
 
 def get_current_account(
