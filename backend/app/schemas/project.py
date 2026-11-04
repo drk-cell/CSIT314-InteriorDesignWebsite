@@ -57,3 +57,13 @@ class ProjectUpdate(BaseModel):
     budget_max: int | None = Field(default=None, ge=0)
     status: ProjectStatus | None = None
     images: list[str] | None = Field(default=None, max_length=8)
+
+
+class SearchResponse(BaseModel):
+    """One page of search results plus the counts the screen shows."""
+
+    items: list[ProjectPublic]
+    total: int
+    page: int
+    page_size: int
+    pages: int

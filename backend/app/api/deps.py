@@ -21,6 +21,7 @@ from app.repositories.project_repository import ProjectRepository
 from app.security import decode_access_token
 from app.services.account_service import AccountService
 from app.services.company_service import CompanyService
+from app.services.project_search_service import ProjectSearchService
 from app.services.project_service import ProjectService
 
 _account_repository = AccountRepository()
@@ -57,6 +58,11 @@ def get_project_repository() -> ProjectRepository:
 def get_project_service() -> ProjectService:
     """Return a service bound to the shared project and company stores."""
     return ProjectService(get_project_repository(), get_company_repository())
+
+
+def get_project_search_service() -> ProjectSearchService:
+    """Return a search service bound to the shared project store."""
+    return ProjectSearchService(get_project_repository())
 
 
 def get_current_account(

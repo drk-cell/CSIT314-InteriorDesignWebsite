@@ -6,16 +6,23 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Response, status as http_status
 
-from app.api.deps import get_current_account, get_project_service
+from app.api.deps import get_current_account, get_project_search_service, get_project_service
 from app.domain.account import Account
 from app.domain.enums import ProjectStatus
 from app.domain.errors import CompanyNotFound, NotPermitted, ProjectNotFound
-from app.schemas.project import ProjectCreate, ProjectPublic, ProjectUpdate
+from app.schemas.project import (
+    ProjectCreate,
+    ProjectPublic,
+    ProjectUpdate,
+    SearchResponse,
+)
+from app.services.project_search_service import ProjectSearchService
 from app.services.project_service import ProjectService
 
 router = APIRouter(prefix="/projects", tags=["projects"])
 
 ServiceDep = Annotated[ProjectService, Depends(get_project_service)]
+SearchDep = Annotated[ProjectSearchService, Depends(get_project_search_service)]
 CurrentAccountDep = Annotated[Account, Depends(get_current_account)]
 
 
@@ -76,6 +83,46 @@ def list_company_projects(
     """Return the portfolio a customer browsing a designer would see."""
     projects = service.list_for_company(company_id)
     return [ProjectPublic.model_validate(project) for project in projects]
+
+
+@router.get(
+    "/search",
+    response_model=SearchResponse,
+    summary="Search the project catalogue",
+)
+def search_projects(
+    actor: CurrentAccountDep,
+    service: SearchDep,
+    keyword: str = "",
+    category: str = "",
+    style: str = "",
+    budget_min: int | None = None,
+    budget_max: int | None = None,
+    page: int = 1,
+    page_size: int = 12,
+) -> SearchResponse:
+    """Return one page of projects that match the filters."""
+    try:
+        result = service.search(
+            keyword=keyword,
+            category=category,
+            style=style,
+            budget_min=budget_min,
+            budget_max=budget_max,
+            page=page,
+            page_size=page_size,
+        )
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=http_status.HTTP_400_BAD_REQUEST, detail=str(exc)
+        ) from exc
+    return SearchResponse(
+        items=[ProjectPublic.model_validate(project) for project in result.items],
+        total=result.total,
+        page=result.page,
+        page_size=result.page_size,
+        pages=result.pages,
+    )
 
 
 @router.get(
