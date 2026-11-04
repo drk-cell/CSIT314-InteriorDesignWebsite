@@ -164,16 +164,18 @@ a:hover { color: var(--accent-hover); }
 }
 .pager { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
-.search-layout {
-  display: grid; grid-template-columns: 272px 1fr; gap: 24px; align-items: start;
-}
-.filter-panel { position: sticky; top: 24px; }
-.filter-panel h2 { font-size: 1.05rem; margin-bottom: 14px; }
-.filter-fields { display: grid; gap: 14px; }
 .filter-actions { display: flex; gap: 10px; margin-top: 4px; }
 .filter-actions .button { flex: 1; padding: 9px 10px; text-align: center; }
 .field-label { font-size: 0.9rem; font-weight: 550; }
 .range-value { display: block; color: var(--muted); font-size: 0.9rem; margin-bottom: 6px; }
+
+.filter-bar {
+  display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px;
+}
+.filter-bar .field { flex: 1 1 160px; min-width: 150px; }
+.filter-bar .field-budget { flex: 1.4 1 240px; min-width: 220px; }
+.filter-bar .filter-actions { flex: 0 0 auto; margin-top: 0; }
+.filter-bar .filter-actions .button { flex: 0 0 auto; padding: 9px 18px; }
 
 .range { position: relative; height: 36px; margin-top: 2px; }
 .range-track, .range-fill {
@@ -205,16 +207,17 @@ a:hover { color: var(--accent-hover); }
 .result-count { margin: 0; color: var(--muted); font-size: 0.95rem; }
 .project-card { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
 .project-card .project-photo { margin: 0; border-radius: 0; }
-.project-body { padding: 18px 20px; display: grid; gap: 8px; }
-.project-body h2 { margin: 0; }
-.project-meta { margin: 0; color: var(--muted); font-size: 0.9rem; }
-.project-budget { margin: 0; font-weight: 600; color: var(--text); }
-.project-body .actions { margin-top: 6px; }
-
-@media (max-width: 760px) {
-  .search-layout { grid-template-columns: 1fr; }
-  .filter-panel { position: static; }
+.project-body { padding: 16px 18px 18px; display: grid; gap: 4px; }
+.project-eyebrow {
+  margin: 0; font-size: 0.72rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); font-weight: 600;
 }
+.project-body h2 { margin: 0; font-size: 1.05rem; }
+.project-designer { margin: 0; color: var(--muted); font-size: 0.88rem; }
+.project-budget { margin: 6px 0 0; font-weight: 650; color: var(--text); }
+.project-body .actions { margin-top: 10px; }
+.project-body .actions .button { padding: 6px 14px; font-size: 0.86rem; }
+.empty-state { display: grid; gap: 10px; justify-items: start; }
 
 @media (max-width: 600px) {
   .hero h1 { font-size: 1.7rem; }

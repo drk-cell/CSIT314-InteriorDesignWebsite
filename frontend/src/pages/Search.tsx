@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ApiError, getCatalogue, searchProjects } from '../api';
+import { ApiError, getCatalogue, listCompanies, searchProjects } from '../api';
 import BudgetSlider from '../components/BudgetSlider';
 import type { Catalogue, SearchResponse } from '../types';
 
@@ -11,6 +11,7 @@ function formatBudget(value: number): string {
 
 export default function Search() {
   const [catalogue, setCatalogue] = useState<Catalogue | null>(null);
+  const [designers, setDesigners] = useState<Record<string, string>>({});
   const [keyword, setKeyword] = useState('');
   const [category, setCategory] = useState('');
   const [style, setStyle] = useState('');
@@ -32,6 +33,12 @@ export default function Search() {
       .catch(() => {
         if (live) setError('Cannot load the filters. Check that the backend is running.');
       });
+    listCompanies()
+      .then((rows) => {
+        if (!live) return;
+        setDesigners(Object.fromEntries(rows.map((row) => [row.id, row.name])));
+      })
+      .catch(() => undefined);
     return () => {
       live = false;
     };
@@ -96,164 +103,163 @@ export default function Search() {
         </div>
       </div>
 
-      <div className="search-layout">
-        <aside className="card filter-panel">
-          <h2>Filters</h2>
-          <form onSubmit={submit} className="filter-fields">
-            <div className="field">
-              <label htmlFor="search-keyword">Keyword</label>
-              <input
-                id="search-keyword"
-                value={keyword}
-                onChange={(event) => setKeyword(event.target.value)}
-                placeholder="e.g. birch, calm, open"
-              />
-            </div>
+      <section className="card">
+        <form className="filter-bar" onSubmit={submit}>
+          <div className="field">
+            <label htmlFor="search-keyword">Keyword</label>
+            <input
+              id="search-keyword"
+              value={keyword}
+              onChange={(event) => setKeyword(event.target.value)}
+              placeholder="e.g. birch, calm, open"
+            />
+          </div>
 
-            <div className="field">
-              <label htmlFor="search-category">Room</label>
-              <select
-                id="search-category"
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
-              >
-                <option value="">All rooms</option>
-                {catalogue?.categories.map((room) => (
-                  <option key={room} value={room}>
-                    {room}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="field">
-              <label htmlFor="search-style">Style</label>
-              <select
-                id="search-style"
-                value={style}
-                onChange={(event) => setStyle(event.target.value)}
-              >
-                <option value="">All styles</option>
-                {catalogue?.styles.map((entry) => (
-                  <option key={entry} value={entry}>
-                    {entry}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="field">
-              <span className="field-label">Budget</span>
-              <output className="range-value">
-                {formatBudget(low)} – {formatBudget(high)}
-              </output>
-              <BudgetSlider
-                min={catalogue?.budget.min ?? 0}
-                max={catalogue?.budget.max ?? 200000}
-                step={catalogue?.budget.step ?? 5000}
-                low={low}
-                high={high}
-                onChange={(nextLow, nextHigh) => {
-                  setLow(nextLow);
-                  setHigh(nextHigh);
-                }}
-              />
-            </div>
-
-            <div className="filter-actions">
-              <button className="button" type="submit" disabled={loading}>
-                {loading ? 'Searching…' : 'Search'}
-              </button>
-              <button
-                className="button button-secondary"
-                type="button"
-                onClick={clear}
-                disabled={loading}
-              >
-                Clear
-              </button>
-            </div>
-          </form>
-        </aside>
-
-        <section className="stack">
-          {error !== null && (
-            <p className="alert alert-error" role="alert">
-              {error}
-            </p>
-          )}
-
-          {result !== null && (
-            <p className="result-count">
-              {result.total} project{result.total === 1 ? '' : 's'} found
-            </p>
-          )}
-
-          {result !== null && result.items.length === 0 && (
-            <p className="page-state">
-              Nothing matches these filters. Widen the budget or clear the room.
-            </p>
-          )}
-
-          {result !== null && result.items.length > 0 && (
-            <section className="grid">
-              {result.items.map((project) => (
-                <article className="card project-card" key={project.id}>
-                  {project.images.length > 0 && (
-                    <img
-                      className="project-photo"
-                      src={project.images[0]}
-                      alt={project.title}
-                    />
-                  )}
-                  <div className="project-body">
-                    <h2>{project.title}</h2>
-                    <p className="project-meta">
-                      {project.category} · {project.style}
-                    </p>
-                    <p className="project-budget">
-                      {formatBudget(project.budget_min)} –{' '}
-                      {formatBudget(project.budget_max)}
-                    </p>
-                    <div className="actions">
-                      <Link
-                        className="button button-secondary"
-                        to={`/designers/${project.company_id}`}
-                      >
-                        View designer
-                      </Link>
-                    </div>
-                  </div>
-                </article>
+          <div className="field">
+            <label htmlFor="search-category">Room</label>
+            <select
+              id="search-category"
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+            >
+              <option value="">All rooms</option>
+              {catalogue?.categories.map((room) => (
+                <option key={room} value={room}>
+                  {room}
+                </option>
               ))}
-            </section>
-          )}
+            </select>
+          </div>
 
-          {totalPages > 1 && (
-            <div className="pager">
-              <button
-                type="button"
-                className="button button-secondary"
-                disabled={currentPage <= 1 || loading}
-                onClick={() => void run(currentPage - 1)}
-              >
-                Previous
-              </button>
-              <span className="muted">
-                Page {currentPage} of {totalPages}
-              </span>
-              <button
-                type="button"
-                className="button button-secondary"
-                disabled={currentPage >= totalPages || loading}
-                onClick={() => void run(currentPage + 1)}
-              >
-                Next
-              </button>
-            </div>
-          )}
+          <div className="field">
+            <label htmlFor="search-style">Style</label>
+            <select
+              id="search-style"
+              value={style}
+              onChange={(event) => setStyle(event.target.value)}
+            >
+              <option value="">All styles</option>
+              {catalogue?.styles.map((entry) => (
+                <option key={entry} value={entry}>
+                  {entry}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="field field-budget">
+            <span className="field-label" id="budget-label">
+              Budget
+            </span>
+            <output className="range-value">
+              {formatBudget(low)} – {formatBudget(high)}
+            </output>
+            <BudgetSlider
+              min={catalogue?.budget.min ?? 0}
+              max={catalogue?.budget.max ?? 200000}
+              step={catalogue?.budget.step ?? 5000}
+              low={low}
+              high={high}
+              onChange={(nextLow, nextHigh) => {
+                setLow(nextLow);
+                setHigh(nextHigh);
+              }}
+            />
+          </div>
+
+          <div className="filter-actions">
+            <button className="button" type="submit" disabled={loading}>
+              {loading ? 'Searching…' : 'Search'}
+            </button>
+            <button
+              className="button button-secondary"
+              type="button"
+              onClick={clear}
+              disabled={loading}
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+      </section>
+
+      {error !== null && (
+        <p className="alert alert-error" role="alert">
+          {error}
+        </p>
+      )}
+
+      {result !== null && (
+        <p className="result-count">
+          {result.total} project{result.total === 1 ? '' : 's'} found
+        </p>
+      )}
+
+      {result !== null && result.items.length === 0 && (
+        <section className="card empty-state">
+          <h2>No projects match these filters</h2>
+          <p className="muted">Widen the budget or choose a different room.</p>
+          <button className="button button-secondary" type="button" onClick={clear}>
+            Clear all filters
+          </button>
         </section>
-      </div>
+      )}
+
+      {result !== null && result.items.length > 0 && (
+        <section className="grid">
+          {result.items.map((project) => (
+            <article className="card project-card" key={project.id}>
+              {project.images.length > 0 && (
+                <img className="project-photo" src={project.images[0]} alt={project.title} />
+              )}
+              <div className="project-body">
+                <p className="project-eyebrow">
+                  {project.category} · {project.style}
+                </p>
+                <h2>{project.title}</h2>
+                <p className="project-designer">
+                  {designers[project.company_id] ?? 'Independent studio'}
+                </p>
+                <p className="project-budget">
+                  {formatBudget(project.budget_min)} – {formatBudget(project.budget_max)}
+                </p>
+                <div className="actions">
+                  <Link
+                    className="button button-secondary"
+                    to={`/designers/${project.company_id}`}
+                  >
+                    View designer
+                  </Link>
+                </div>
+              </div>
+            </article>
+          ))}
+        </section>
+      )}
+
+      {totalPages > 1 && (
+        <div className="pager">
+          <button
+            type="button"
+            className="button button-secondary"
+            disabled={currentPage <= 1 || loading}
+            onClick={() => void run(currentPage - 1)}
+          >
+            Previous
+          </button>
+          <span className="muted">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            type="button"
+            className="button button-secondary"
+            disabled={currentPage >= totalPages || loading}
+            onClick={() => void run(currentPage + 1)}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 }
