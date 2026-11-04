@@ -122,8 +122,8 @@ add a line with the next number.
 ### Projects
 
 - [x] S11 project entity with style, category, budget band and status (`44bd040`)
-- [ ] S12 project service with create, edit and delete rules
-- [ ] S13 project endpoints with owner scoped access
+- [x] S12 project service with create, edit and delete rules (`4b263b6`)
+- [x] S13 project endpoints with owner scoped access (`f300a8d`)
 - [ ] S14 project editor form with field validation
 
 ### Portfolio
