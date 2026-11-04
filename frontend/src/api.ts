@@ -151,3 +151,7 @@ export function updateMyCompany(body: CompanyInput): Promise<CompanyPublic> {
 export function companyById(companyId: string): Promise<CompanyPublic> {
   return request<CompanyPublic>(`/companies/${companyId}`);
 }
+
+export function listCompanies(): Promise<CompanyPublic[]> {
+  return request<CompanyPublic[]>('/companies');
+}

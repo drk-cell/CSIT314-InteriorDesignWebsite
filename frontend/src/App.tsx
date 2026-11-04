@@ -3,6 +3,8 @@ import { useAuth } from './auth';
 import ProtectedRoute from './components/ProtectedRoute';
 import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
+import DesignerDetail from './pages/DesignerDetail';
+import Designers from './pages/Designers';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -25,6 +27,7 @@ export default function App() {
             {account !== null && (
               <>
                 <NavLink to="/dashboard">Dashboard</NavLink>
+                <NavLink to="/designers">Designers</NavLink>
                 {account.role === 'DESIGNER' && (
                   <NavLink to="/profile">Company profile</NavLink>
                 )}
@@ -55,6 +58,22 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/designers"
+            element={
+              <ProtectedRoute>
+                <Designers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/designers/:companyId"
+            element={
+              <ProtectedRoute>
+                <DesignerDetail />
               </ProtectedRoute>
             }
           />

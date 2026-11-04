@@ -90,6 +90,10 @@ class CompanyService:
             raise CompanyNotFound()
         return company
 
+    def list_companies(self) -> list[Company]:
+        """Return every company, sorted by name for a stable listing."""
+        return sorted(self._companies.list_all(), key=lambda company: company.name.lower())
+
     @staticmethod
     def _require_designer(actor: Account) -> None:
         if actor.role is not Role.DESIGNER:

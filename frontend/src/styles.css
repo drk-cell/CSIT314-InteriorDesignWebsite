@@ -148,6 +148,11 @@ a:hover { color: var(--accent-hover); }
 .row-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
 .row-actions .button { padding: 5px 12px; font-size: 0.85rem; }
 
+.company-logo {
+  display: block; max-height: 72px; max-width: 220px;
+  object-fit: contain; margin-bottom: 14px;
+}
+
 @media (max-width: 600px) {
   .hero h1 { font-size: 1.7rem; }
   .card { padding: 20px; }

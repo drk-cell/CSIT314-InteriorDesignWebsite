@@ -144,3 +144,29 @@ def test_an_unknown_company_returns_404(client: TestClient) -> None:
 def test_the_endpoints_require_a_token(client: TestClient) -> None:
     assert client.get("/api/companies/me").status_code == 401
     assert client.post("/api/companies", json=COMPANY).status_code == 401
+
+def test_listing_requires_a_token(client: TestClient) -> None:
+    assert client.get("/api/companies").status_code == 401
+
+
+def test_a_customer_lists_the_published_profiles(client: TestClient) -> None:
+    owner_headers = sign_in(client, DESIGNER)
+    client.post("/api/companies", json=COMPANY, headers=owner_headers)
+    shopper_headers = sign_in(client, CUSTOMER)
+
+    response = client.get("/api/companies", headers=shopper_headers)
+
+    assert response.status_code == 200
+    assert [row["name"] for row in response.json()] == ["Studio Verde"]
+
+
+def test_the_listing_is_sorted_by_name(client: TestClient) -> None:
+    zed = sign_in(client, {**DESIGNER, "email": "zed@example.com", "display_name": "Zed"})
+    amy = sign_in(client, {**DESIGNER, "email": "amy@example.com", "display_name": "Amy"})
+    client.post("/api/companies", json={**COMPANY, "name": "Zed Atelier"}, headers=zed)
+    client.post("/api/companies", json={**COMPANY, "name": "Amy Interiors"}, headers=amy)
+    shopper_headers = sign_in(client, CUSTOMER)
+
+    response = client.get("/api/companies", headers=shopper_headers)
+
+    assert [row["name"] for row in response.json()] == ["Amy Interiors", "Zed Atelier"]

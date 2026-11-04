@@ -80,6 +80,16 @@ def update_my_company(
 
 
 @router.get(
+    "",
+    response_model=list[CompanyPublic],
+    summary="List every company profile",
+)
+def list_companies(actor: CurrentAccountDep, service: ServiceDep) -> list[CompanyPublic]:
+    """Return the published profiles so a customer can browse them."""
+    return [CompanyPublic.model_validate(company) for company in service.list_companies()]
+
+
+@router.get(
     "/{company_id}",
     response_model=CompanyPublic,
     summary="Read any company profile by id",
