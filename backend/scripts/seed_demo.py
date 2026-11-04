@@ -1,0 +1,131 @@
+"""Seed the demo: three designers, three companies, eight projects, one customer.
+
+Run against a fresh backend on http://127.0.0.1:8000. The admin credentials
+come from APP_ADMIN_EMAIL and APP_ADMIN_PASSWORD.
+
+Usage: python scripts/seed_demo.py
+"""
+
+from __future__ import annotations
+
+import os
+
+import httpx
+
+BASE = os.environ.get("DEMO_BASE", "http://127.0.0.1:8000/api")
+ADMIN_EMAIL = os.environ.get("APP_ADMIN_EMAIL", "admin@example.com")
+ADMIN_PASSWORD = os.environ.get("APP_ADMIN_PASSWORD", "change-me")
+
+DESIGNERS = [
+    {
+        "email": "verde@example.com",
+        "name": "Studio Verde",
+        "location": "Singapore",
+        "contact_email": "hello@studioverde.sg",
+        "contact_phone": "+65 6000 1000",
+        "projects": [
+            ("Warm Minimal Living Room", "Minimal", "Living Room", 20000, 40000, "photo-01.jpg"),
+            ("Soft Neutral Bedroom", "Scandinavian", "Bedroom", 25000, 50000, "photo-05.jpg"),
+            ("Open Birch Kitchen", "Scandinavian", "Kitchen", 30000, 65000, "photo-07.jpg"),
+        ],
+    },
+    {
+        "email": "nordic@example.com",
+        "name": "Nordic Haus",
+        "location": "Kuala Lumpur",
+        "contact_email": "hello@nordichaus.my",
+        "contact_phone": "+60 3 6000 2000",
+        "projects": [
+            ("Cool Grey Study", "Contemporary", "Home Office", 15000, 35000, "photo-13.jpg"),
+            ("Linen Bedroom", "Minimal", "Bedroom", 22000, 48000, "photo-14.jpg"),
+            ("Panel Dining Room", "Traditional", "Dining Room", 35000, 70000, "photo-10.jpg"),
+        ],
+    },
+    {
+        "email": "atelier@example.com",
+        "name": "Atelier One",
+        "location": "Singapore",
+        "contact_email": "hello@atelierone.sg",
+        "contact_phone": "+65 6000 3000",
+        "projects": [
+            ("Bold Kitchen", "Contemporary", "Kitchen", 40000, 80000, "photo-08.jpg"),
+            ("Curated Living Room", "Japandi", "Living Room", 30000, 60000, "photo-03.jpg"),
+        ],
+    },
+]
+
+PASSWORD = "passw0rd123"
+
+
+def main() -> None:
+    """Seed everything and print a short report."""
+    with httpx.Client(base_url=BASE, timeout=30) as client:
+        admin_token = login(client, ADMIN_EMAIL, ADMIN_PASSWORD)
+        for designer in DESIGNERS:
+            account_id = register(
+                client, designer["email"], PASSWORD, designer["name"], "DESIGNER"
+            )
+            client.post(
+                f"/admin/accounts/{account_id}/approve",
+                headers=auth(admin_token),
+            )
+            token = login(client, designer["email"], PASSWORD)
+            client.post(
+                "/companies",
+                headers=auth(token),
+                json={
+                    "name": designer["name"],
+                    "description": "Residential interiors with a calm, warm feel.",
+                    "contact_email": designer["contact_email"],
+                    "contact_phone": designer["contact_phone"],
+                    "location": designer["location"],
+                },
+            )
+            for title, style, category, low, high, image in designer["projects"]:
+                response = client.post(
+                    "/projects",
+                    headers=auth(token),
+                    json={
+                        "title": title,
+                        "description": "A home that breathes: layout, light and texture tuned for daily life.",
+                        "style": style,
+                        "category": category,
+                        "budget_min": low,
+                        "budget_max": high,
+                        "images": [f"/portfolio/photos/{image}"],
+                    },
+                )
+                response.raise_for_status()
+            print(f"seeded {designer['name']}: {len(designer['projects'])} projects")
+        register(client, "casey@example.com", PASSWORD, "Casey Tan", "CUSTOMER")
+        print("seeded customer: casey@example.com")
+
+
+def auth(token: str) -> dict[str, str]:
+    return {"Authorization": f"Bearer {token}"}
+
+
+def register(
+    client: httpx.Client, email: str, password: str, display_name: str, role: str
+) -> str:
+    response = client.post(
+        "/auth/register",
+        json={
+            "email": email,
+            "password": password,
+            "display_name": display_name,
+            "role": role,
+        },
+    )
+    response.raise_for_status()
+    return response.json()["id"]
+
+
+def login(client: httpx.Client, email: str, password: str) -> str:
+    response = client.post("/auth/login", json={"email": email, "password": password})
+    response.raise_for_status()
+    return response.json()["access_token"]
+
+
+if __name__ == "__main__":
+    main()
