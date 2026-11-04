@@ -95,10 +95,11 @@ a:hover { color: var(--accent-hover); }
 .form { display: grid; gap: 16px; margin-top: 18px; }
 .field { display: grid; gap: 6px; }
 .field label { font-size: 0.9rem; font-weight: 550; }
-.field input, .field select {
+.field input, .field select, .field textarea {
   width: 100%; border: 1px solid var(--border); border-radius: 8px;
   background: var(--surface); color: var(--text); font: inherit; padding: 9px 12px;
 }
+.field textarea { resize: vertical; min-height: 96px; }
 .hint { margin: 0; color: var(--muted); font-size: 0.82rem; }
 .form-foot { margin: 18px 0 0; font-size: 0.9rem; }
 

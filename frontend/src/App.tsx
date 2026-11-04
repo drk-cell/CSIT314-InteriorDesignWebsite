@@ -5,6 +5,7 @@ import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 import Register from './pages/Register';
 
 export default function App() {
@@ -24,6 +25,9 @@ export default function App() {
             {account !== null && (
               <>
                 <NavLink to="/dashboard">Dashboard</NavLink>
+                {account.role === 'DESIGNER' && (
+                  <NavLink to="/profile">Company profile</NavLink>
+                )}
                 {account.role === 'ADMIN' && <NavLink to="/admin">Admin</NavLink>}
                 <span className="nav-account">{account.display_name}</span>
                 <button type="button" className="link-button" onClick={logout}>
@@ -51,6 +55,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute roles={['DESIGNER']}>
+                <Profile />
               </ProtectedRoute>
             }
           />

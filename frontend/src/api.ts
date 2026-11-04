@@ -1,5 +1,7 @@
 import type {
   AccountPublic,
+  CompanyInput,
+  CompanyPublic,
   HealthResponse,
   LoginRequest,
   RegisterRequest,
@@ -126,4 +128,26 @@ export function adminApprove(accountId: string): Promise<AccountPublic> {
 
 export function adminSuspend(accountId: string): Promise<AccountPublic> {
   return request<AccountPublic>(`/admin/accounts/${accountId}/suspend`, { method: 'POST' });
+}
+
+export function myCompany(): Promise<CompanyPublic> {
+  return request<CompanyPublic>('/companies/me');
+}
+
+export function createCompany(body: CompanyInput): Promise<CompanyPublic> {
+  return request<CompanyPublic>('/companies', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export function updateMyCompany(body: CompanyInput): Promise<CompanyPublic> {
+  return request<CompanyPublic>('/companies/me', {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  });
+}
+
+export function companyById(companyId: string): Promise<CompanyPublic> {
+  return request<CompanyPublic>(`/companies/${companyId}`);
 }

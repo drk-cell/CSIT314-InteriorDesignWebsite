@@ -20,6 +20,28 @@ export interface HealthResponse {
   time: string;
 }
 
+export interface CompanyPublic {
+  id: string;
+  owner_id: string;
+  name: string;
+  description: string;
+  contact_email: string;
+  contact_phone: string;
+  location: string;
+  logo_url: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CompanyInput {
+  name: string;
+  description: string;
+  contact_email: string;
+  contact_phone: string;
+  location: string;
+  logo_url: string;
+}
+
 export interface RegisterRequest {
   email: string;
   password: string;
