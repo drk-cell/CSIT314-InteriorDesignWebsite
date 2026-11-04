@@ -110,3 +110,13 @@ export interface TokenResponse {
   expires_in: number;
   account: AccountPublic;
 }
+
+export interface ProjectInput {
+  title: string;
+  description: string;
+  category: string;
+  style: string;
+  budget_min: number;
+  budget_max: number;
+  images: string[];
+}
