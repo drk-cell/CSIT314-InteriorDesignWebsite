@@ -47,6 +47,11 @@ class ProjectRepository:
         """Return how many projects are stored."""
         return len(self._by_id)
 
+    def remove(self, project_id: str) -> bool:
+        """Drop the project with ``project_id``. Returns whether it was present."""
+        with self._lock:
+            return self._by_id.pop(project_id, None) is not None
+
     def clear(self) -> None:
         """Remove every stored project."""
         self._by_id.clear()

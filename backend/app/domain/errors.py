@@ -84,3 +84,9 @@ class CompanyNotFound(DomainError):
     """No company profile matches the request."""
 
     default_message = "Company profile not found"
+
+
+class ProjectNotFound(DomainError):
+    """No project matches the request."""
+
+    default_message = "Project not found"
