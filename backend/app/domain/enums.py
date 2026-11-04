@@ -32,5 +32,12 @@ class AccountStatus(str, Enum):
     SUSPENDED = "SUSPENDED"
 
 
+class ProjectStatus(str, Enum):
+    """Whether a portfolio project is on site or finished."""
+
+    CURRENT = "CURRENT"
+    PAST = "PAST"
+
+
 PRIVILEGED_ROLES: frozenset[Role] = frozenset({Role.ADMIN, Role.PLATFORM_MANAGER})
 SELF_REGISTRATION_ROLES: frozenset[Role] = frozenset({Role.CUSTOMER, Role.DESIGNER})
