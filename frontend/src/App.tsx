@@ -10,6 +10,8 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Search from './pages/Search';
+import ProjectEditor from './pages/ProjectEditor';
+import MyProjects from './pages/MyProjects';
 
 export default function App() {
   const { account, loading, logout } = useAuth();
@@ -31,7 +33,11 @@ export default function App() {
                 <NavLink to="/search">Find a project</NavLink>
                 <NavLink to="/designers">Designers</NavLink>
                 {account.role === 'DESIGNER' && (
+                  <>
                   <NavLink to="/profile">Company profile</NavLink>
+                  <NavLink to="/projects/new">Create Project</NavLink>
+                  <NavLink to="/projects">My Projects</NavLink>
+                  </>
                 )}
                 {account.role === 'ADMIN' && <NavLink to="/admin">Admin</NavLink>}
                 <span className="nav-account">{account.display_name}</span>
@@ -100,6 +106,30 @@ export default function App() {
             element={
               <ProtectedRoute roles={['ADMIN']}>
                 <Admin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/projects/new"
+            element={
+              <ProtectedRoute roles={['DESIGNER']}>
+                <ProjectEditor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/projects/:projectId/edit"
+            element={
+              <ProtectedRoute roles={['DESIGNER']}>
+                <ProjectEditor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/projects"
+            element={
+              <ProtectedRoute roles={['DESIGNER']}>
+                <MyProjects />
               </ProtectedRoute>
             }
           />

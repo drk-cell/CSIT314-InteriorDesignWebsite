@@ -10,6 +10,8 @@ import type {
   SearchResponse,
   Status,
   TokenResponse,
+  ProjectInput,
+  ProjectPublic,
 } from './types';
 
 const API_BASE = '/api';
@@ -171,4 +173,37 @@ export function searchProjects(params: SearchParams): Promise<SearchResponse> {
 
 export function getCatalogue(): Promise<Catalogue> {
   return request<Catalogue>('/catalogue');
+}
+
+export function createProject(
+  body: ProjectInput
+): Promise<ProjectPublic> {
+  return request<ProjectPublic>('/projects', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export function getProject(
+  projectId: string
+): Promise<ProjectPublic> {
+  return request<ProjectPublic>(
+    `/projects/${encodeURIComponent(projectId)}`
+  );
+}
+
+export function updateProject(
+  projectId: string,
+  body: Partial<ProjectInput>
+): Promise<ProjectPublic> {
+  return request<ProjectPublic>(
+    `/projects/${encodeURIComponent(projectId)}`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify(body),
+    }
+  );
+}
+export function myProjects(): Promise<ProjectPublic[]> {
+  return request<ProjectPublic[]>('/projects/mine');
 }
