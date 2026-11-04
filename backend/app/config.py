@@ -74,3 +74,47 @@ def get_bootstrap_admin_email() -> str:
 def get_bootstrap_admin_password() -> str:
     """Return the starting password for the first administrator."""
     return os.environ.get("APP_ADMIN_PASSWORD", "")
+
+
+STAFF_ROLE_NAMES: frozenset[str] = frozenset({"ADMIN", "PLATFORM_MANAGER"})
+
+
+def get_bootstrap_admins() -> list[tuple[str, str, str, str]]:
+    """Return the staff accounts to create at startup.
+
+    Each entry is ``(email, password, display_name, role_name)``. When
+    ``APP_ADMIN_ACCOUNTS`` is set it supplies the list as comma separated
+    ``email:password:name:role`` items. Otherwise the single
+    ``APP_ADMIN_EMAIL`` and ``APP_ADMIN_PASSWORD`` pair is used, when both
+    are set.
+    """
+    raw_list = os.environ.get("APP_ADMIN_ACCOUNTS", "").strip()
+    if raw_list:
+        entries = _parse_admin_list(raw_list)
+        if entries:
+            return entries
+    email = get_bootstrap_admin_email()
+    password = get_bootstrap_admin_password()
+    if email and password:
+        return [(email, password, "Administrator", "ADMIN")]
+    return []
+
+
+def _parse_admin_list(raw: str) -> list[tuple[str, str, str, str]]:
+    """Parse ``email:password:name:role`` entries separated by commas.
+
+    Malformed entries and unprivileged roles are skipped. The password must
+    not contain a colon.
+    """
+    entries: list[tuple[str, str, str, str]] = []
+    for chunk in raw.split(","):
+        parts = [part.strip() for part in chunk.split(":")]
+        if len(parts) != 4:
+            continue
+        email, password, name, role = parts
+        if not email or not password:
+            continue
+        if role.upper() not in STAFF_ROLE_NAMES:
+            continue
+        entries.append((email.lower(), password, name or "Administrator", role.upper()))
+    return entries

@@ -11,8 +11,7 @@ from app.api import admin, auth, catalogue, companies, health, projects
 from app.api.deps import get_account_service
 from app.config import (
     APP_VERSION,
-    get_bootstrap_admin_email,
-    get_bootstrap_admin_password,
+    get_bootstrap_admins,
     is_default_secret,
     is_production,
 )
@@ -27,19 +26,15 @@ ALLOWED_ORIGINS: tuple[str, ...] = (
 )
 
 
-def _bootstrap_administrator() -> None:
-    """Create the first administrator when the environment supplies one.
+def _bootstrap_administrators() -> None:
+    """Create the staff accounts the environment supplies.
 
-    The store is empty at every start, so without this account nobody could
+    The store is empty at every start, so without these accounts nobody could
     approve a designer or suspend a user.
     """
-    email = get_bootstrap_admin_email()
-    password = get_bootstrap_admin_password()
-    if not email or not password:
-        return
-    get_account_service().ensure_staff_account(
-        email, password, "Administrator", Role.ADMIN
-    )
+    for email, password, name, role_name in get_bootstrap_admins():
+        role = Role(role_name)
+        get_account_service().ensure_staff_account(email, password, name, role)
 
 
 def create_app() -> FastAPI:
@@ -64,7 +59,7 @@ def create_app() -> FastAPI:
     application.include_router(companies.router, prefix=API_PREFIX)
     application.include_router(projects.router, prefix=API_PREFIX)
     application.include_router(catalogue.router, prefix=API_PREFIX)
-    _bootstrap_administrator()
+    _bootstrap_administrators()
     return application
 
 
