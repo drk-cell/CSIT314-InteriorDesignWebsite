@@ -54,6 +54,7 @@ def create_project(
     return ProjectPublic.model_validate(project)
 
 
+
 @router.get(
     "/mine",
     response_model=list[ProjectPublic],
@@ -63,14 +64,22 @@ def list_my_projects(
     actor: CurrentAccountDep,
     service: ServiceDep,
     status: ProjectStatus | None = None,
+    name: str = "",
 ) -> list[ProjectPublic]:
-    """Return the caller's projects, newest first, optionally filtered."""
+    """Return the owner's projects filtered by status and title."""
     try:
-        projects = service.list_for_owner(actor, status)
+        projects = service.list_for_owner(
+            actor,
+            status=status,
+            name=name,
+        )
     except NotPermitted as exc:
         raise _to_http(exc) from exc
-    return [ProjectPublic.model_validate(project) for project in projects]
 
+    return [
+        ProjectPublic.model_validate(project)
+        for project in projects
+    ]
 
 @router.get(
     "/company/{company_id}",

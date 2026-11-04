@@ -12,6 +12,7 @@ import type {
   TokenResponse,
   ProjectInput,
   ProjectPublic,
+  ProjectStatus,
 } from './types';
 
 const API_BASE = '/api';
@@ -194,7 +195,7 @@ export function getProject(
 
 export function updateProject(
   projectId: string,
-  body: Partial<ProjectInput>
+  body: Partial<ProjectInput> & { status?: ProjectStatus }
 ): Promise<ProjectPublic> {
   return request<ProjectPublic>(
     `/projects/${encodeURIComponent(projectId)}`,
@@ -204,6 +205,37 @@ export function updateProject(
     }
   );
 }
-export function myProjects(): Promise<ProjectPublic[]> {
-  return request<ProjectPublic[]>('/projects/mine');
+
+export function myProjects(
+  filters: {
+    status?: ProjectStatus;
+    name?: string;
+  } = {}
+): Promise<ProjectPublic[]> {
+  const query = new URLSearchParams();
+
+  if (filters.status) {
+    query.set('status', filters.status);
+  }
+
+  if (filters.name?.trim()) {
+    query.set('name', filters.name.trim());
+  }
+
+  const search = query.toString();
+  const path = search
+    ? `/projects/mine?${search}`
+    : '/projects/mine';
+
+  return request<ProjectPublic[]>(path);
+}
+export function deleteProject(
+  projectId: string
+): Promise<void> {
+  return request<void>(
+    `/projects/${encodeURIComponent(projectId)}`,
+    {
+      method: 'DELETE',
+    }
+  );
 }

@@ -229,3 +229,39 @@ def test_nine_images_are_rejected(client: TestClient) -> None:
     response = client.post("/api/projects", json=payload, headers=headers)
 
     assert response.status_code == 422
+    
+def test_mine_endpoint_filters_by_title_and_status(
+    client: TestClient,
+) -> None:
+    headers = designer_with_company(
+        client,
+        "designer@example.com",
+    )
+
+    current = client.post(
+        "/api/projects",
+        json={**PROJECT, "title": "Modern Living Room"},
+        headers=headers,
+    ).json()
+
+    past = client.post(
+        "/api/projects",
+        json={**PROJECT, "title": "Past Living Room"},
+        headers=headers,
+    ).json()
+
+    client.patch(
+        f"/api/projects/{past['id']}",
+        json={"status": "PAST"},
+        headers=headers,
+    )
+
+    response = client.get(
+        "/api/projects/mine?status=CURRENT&name=LiViNg",
+        headers=headers,
+    )
+
+    assert response.status_code == 200
+    assert [item["id"] for item in response.json()] == [
+        current["id"]
+    ]

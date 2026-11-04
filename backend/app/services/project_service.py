@@ -107,14 +107,43 @@ class ProjectService:
         self._projects.remove(project.id)
 
     def list_for_owner(
-        self, actor: Account, status: ProjectStatus | None = None
+        self,
+        actor: Account,
+        status: ProjectStatus | None = None,
+        name: str = "",
     ) -> list[Project]:
-        """Return the caller's portfolio, newest first."""
+        """List the owner's projects, optionally filtered by status and title."""
+
+        # Only designers are allowed to manage portfolios.
         self._require_designer(actor)
+
+        # Get only projects belonging to the logged-in designer.
         projects = self._projects.list_by_owner(actor.id)
+
+        # Filter by status, if one was selected.
         if status is not None:
-            projects = [project for project in projects if project.status is status]
-        return sorted(projects, key=lambda project: project.created_at, reverse=True)
+            projects = [
+                project
+                for project in projects
+                if project.status is status
+            ]
+
+        # Filter by project title, ignoring uppercase/lowercase.
+        search_name = name.strip().casefold()
+
+        if search_name:
+            projects = [
+                project
+                for project in projects
+                if search_name in project.title.casefold()
+            ]
+
+        # Show newest projects first.
+        return sorted(
+            projects,
+            key=lambda project: project.created_at,
+            reverse=True,
+        )
 
     def list_for_company(self, company_id: str) -> list[Project]:
         """Return the projects published under one company, newest first."""

@@ -180,3 +180,41 @@ def test_a_company_lists_its_projects(
     listed = project_service.list_for_company(project.company_id)
 
     assert [entry.id for entry in listed] == [project.id]
+    
+def test_owner_filters_projects_by_name_and_status(
+    account_service: AccountService,
+    company_service: CompanyService,
+    project_service: ProjectService,
+) -> None:
+    owner = designer_with_company(
+        account_service,
+        company_service,
+    )
+
+    other_designer = designer_with_company(
+        account_service,
+        company_service,
+        "another@example.com",
+    )
+
+    # Create three projects.
+    living = sample_project(project_service, owner)
+
+    bedroom = sample_project(project_service, owner)
+    project_service.update(
+        owner,
+        bedroom.id,
+        title="Past Bedroom",
+        status=ProjectStatus.PAST,
+    )
+
+    # A different designer owns this project.
+    sample_project(project_service, other_designer)
+
+    results = project_service.list_for_owner(
+        owner,
+        status=ProjectStatus.CURRENT,
+        name="  LiViNg  ",
+    )
+
+    assert [project.id for project in results] == [living.id]

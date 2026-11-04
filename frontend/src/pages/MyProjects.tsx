@@ -1,40 +1,130 @@
 
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ApiError, myProjects } from '../api';
-import type { ProjectPublic } from '../types';
+import {
+  ApiError,
+  deleteProject,
+  myProjects,
+  updateProject,
+} from '../api';
+import type { ProjectPublic, ProjectStatus } from '../types';
 
 export default function MyProjects() {
   const [projects, setProjects] = useState<ProjectPublic[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
+  // Filters
+  const [searchName, setSearchName] = useState('');
+  const [statusFilter, setStatusFilter] =
+    useState<ProjectStatus | ''>('');
+
+  // Page status
+  const [loading, setLoading] = useState(true);
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  // Retrieve projects whenever the filters change.
   useEffect(() => {
     let active = true;
 
-    myProjects()
-      .then((data) => {
-        if (active) setProjects(data);
+    const timer = setTimeout(() => {
+      setLoading(true);
+      setError(null);
+
+      myProjects({
+        name: searchName,
+        status: statusFilter || undefined,
       })
-      .catch((caught: unknown) => {
-        if (!active) return;
-        setError(
-          caught instanceof ApiError
-            ? caught.detail
-            : 'Unable to load projects.'
-        );
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
+        .then((data) => {
+          if (active) setProjects(data);
+        })
+        .catch((caught: unknown) => {
+          if (!active) return;
+
+          setError(
+            caught instanceof ApiError
+              ? caught.detail
+              : 'Unable to load projects.'
+          );
+        })
+        .finally(() => {
+          if (active) setLoading(false);
+        });
+    }, 250);
 
     return () => {
       active = false;
+      clearTimeout(timer);
     };
-  }, []);
+  }, [searchName, statusFilter]);
 
-  if (loading) {
-    return <p className="page-state">Loading projects...</p>;
+  // Delete one of the designer's projects.
+  async function handleDelete(project: ProjectPublic) {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${project.title}"? This cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    setBusyId(project.id);
+    setError(null);
+    setNotice(null);
+
+    try {
+      await deleteProject(project.id);
+
+      // Remove the deleted project from the screen.
+      setProjects((current) =>
+        current.filter((item) => item.id !== project.id)
+      );
+
+      setNotice(`"${project.title}" was deleted successfully.`);
+    } catch (caught) {
+      setError(
+        caught instanceof ApiError
+          ? caught.detail
+          : 'Unable to delete project.'
+      );
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  // Change a project's status between CURRENT and PAST.
+  async function handleStatusChange(project: ProjectPublic) {
+    const newStatus: ProjectStatus =
+      project.status === 'CURRENT' ? 'PAST' : 'CURRENT';
+
+    setBusyId(project.id);
+    setError(null);
+    setNotice(null);
+
+    try {
+      const updated = await updateProject(project.id, {
+        status: newStatus,
+      });
+
+      setProjects((current) =>
+        current
+          .map((item) =>
+            item.id === updated.id ? updated : item
+          )
+          .filter(
+            (item) =>
+              !statusFilter || item.status === statusFilter
+          )
+      );
+
+      setNotice(`"${project.title}" is now ${newStatus.toLowerCase()}.`);
+    } catch (caught) {
+      setError(
+        caught instanceof ApiError
+          ? caught.detail
+          : 'Unable to update project status.'
+      );
+    } finally {
+      setBusyId(null);
+    }
   }
 
   return (
@@ -43,7 +133,7 @@ export default function MyProjects() {
         <div>
           <h1>My Projects</h1>
           <p className="muted">
-            View and edit your renovation projects.
+            Search, filter and manage your renovation portfolio.
           </p>
         </div>
 
@@ -58,48 +148,159 @@ export default function MyProjects() {
         </p>
       )}
 
-      {!error && projects.length === 0 && (
-        <section className="card">
-          <p>You have not created any projects yet.</p>
-        </section>
+      {notice && (
+        <p className="alert alert-success" role="status">
+          {notice}
+        </p>
       )}
 
-      <section className="grid">
-        {projects.map((project) => (
-          <article className="card" key={project.id}>
-            {project.images.length > 0 && (
-              <img
-                className="project-photo"
-                src={project.images[0]}
-                alt={project.title}
-              />
-            )}
+      {/* Search and filter controls */}
+      <section className="card">
+        <div className="filter-form">
+          <div className="field">
+            <label htmlFor="project-search">
+              Search by Project Title
+            </label>
+            <input
+              id="project-search"
+              type="search"
+              placeholder="Search projects..."
+              value={searchName}
+              onChange={(event) =>
+                setSearchName(event.target.value)
+              }
+            />
+          </div>
 
-            <h2>{project.title}</h2>
+          <div className="field">
+            <label htmlFor="project-status">
+              Project Status
+            </label>
+            <select
+              id="project-status"
+              value={statusFilter}
+              onChange={(event) =>
+                setStatusFilter(
+                  event.target.value as ProjectStatus | ''
+                )
+              }
+            >
+              <option value="">All Statuses</option>
+              <option value="CURRENT">Current</option>
+              <option value="PAST">Past</option>
+            </select>
+          </div>
 
-            <p className="muted">
-              {project.category} — {project.style}
-            </p>
-
-            <p>
-              Budget: S${project.budget_min.toLocaleString()}
-              {' - '}
-              S${project.budget_max.toLocaleString()}
-            </p>
-
-            <p>Status: {project.status}</p>
-
-            <div className="actions">
-              <Link
-                className="button"
-                to={`/projects/${project.id}/edit`}
-              >
-                Edit Project
-              </Link>
-            </div>
-          </article>
-        ))}
+          <button
+            type="button"
+            className="button button-secondary"
+            onClick={() => {
+              setSearchName('');
+              setStatusFilter('');
+            }}
+          >
+            Clear Filters
+          </button>
+        </div>
       </section>
+
+      {loading ? (
+        <p className="page-state" role="status">
+          Loading projects...
+        </p>
+      ) : !error && (
+        <>
+          <p className="muted">
+            {projects.length} project
+            {projects.length === 1 ? '' : 's'} found
+          </p>
+
+          {projects.length === 0 ? (
+            <section className="card">
+              <h2>No projects found</h2>
+              <p className="muted">
+                Try changing your filters or creating a new project.
+              </p>
+            </section>
+          ) : (
+            <section className="grid">
+              {projects.map((project) => (
+                <article className="card" key={project.id}>
+                  {project.images.length > 0 && (
+                    <img
+                      className="project-photo"
+                      src={project.images[0]}
+                      alt={project.title}
+                    />
+                  )}
+
+                  <h2>{project.title}</h2>
+
+                  <p className="muted">
+                    {project.category} — {project.style}
+                  </p>
+
+                  <p>
+                    Budget: S$
+                    {project.budget_min.toLocaleString()}
+                    {' – S$'}
+                    {project.budget_max.toLocaleString()}
+                  </p>
+
+                  <p>
+                    <span
+                      className={
+                        project.status === 'CURRENT'
+                          ? 'badge badge-active'
+                          : 'badge'
+                      }
+                    >
+                      {project.status === 'CURRENT'
+                        ? 'Current'
+                        : 'Past'}
+                    </span>
+                  </p>
+
+                  <div className="actions">
+                    <Link
+                      className="button"
+                      to={`/projects/${project.id}/edit`}
+                    >
+                      Edit
+                    </Link>
+
+                    <button
+                      type="button"
+                      className="button button-secondary"
+                      disabled={busyId !== null}
+                      onClick={() =>
+                        void handleStatusChange(project)
+                      }
+                    >
+                      {project.status === 'CURRENT'
+                        ? 'Mark as Past'
+                        : 'Mark as Current'}
+                    </button>
+
+                    <button
+                      type="button"
+                      className="button button-secondary"
+                      disabled={busyId !== null}
+                      onClick={() =>
+                        void handleDelete(project)
+                      }
+                    >
+                      {busyId === project.id
+                        ? 'Processing...'
+                        : 'Delete'}
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </section>
+          )}
+        </>
+      )}
     </div>
   );
 }
