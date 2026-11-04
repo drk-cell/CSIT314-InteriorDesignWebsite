@@ -10,7 +10,9 @@ from fastapi.testclient import TestClient
 from app.api.deps import get_account_repository
 from app.main import create_app
 from app.repositories.account_repository import AccountRepository
+from app.repositories.company_repository import CompanyRepository
 from app.services.account_service import AccountService
+from app.services.company_service import CompanyService
 
 
 @pytest.fixture()
@@ -33,3 +35,16 @@ def client(account_repository: AccountRepository) -> Iterator[TestClient]:
     """A client for the application, sharing the cleared store."""
     with TestClient(create_app()) as test_client:
         yield test_client
+
+@pytest.fixture()
+def company_repository() -> Iterator[CompanyRepository]:
+    """A company store emptied before and after each test."""
+    repository = CompanyRepository()
+    yield repository
+    repository.clear()
+
+
+@pytest.fixture()
+def company_service(company_repository: CompanyRepository) -> CompanyService:
+    """A company service bound to the empty store."""
+    return CompanyService(company_repository)

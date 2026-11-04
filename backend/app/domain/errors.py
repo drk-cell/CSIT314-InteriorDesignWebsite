@@ -72,3 +72,15 @@ class AccountNotFound(DomainError):
     """No account matches the supplied identifier."""
 
     default_message = "Account not found"
+
+
+class CompanyAlreadyExists(DomainError):
+    """The designer already holds a company profile."""
+
+    default_message = "This designer already has a company profile"
+
+
+class CompanyNotFound(DomainError):
+    """No company profile matches the request."""
+
+    default_message = "Company profile not found"
