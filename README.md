@@ -116,7 +116,7 @@ add a line with the next number.
 - [x] S6 company profile entity, one profile per designer (`bb5e653`)
 - [x] S7 company profile service with ownership checks (`03e0671`)
 - [x] S8 company profile endpoints, readable by customers (`f5e6d53`)
-- [ ] S9 designer profile page
+- [x] S9 designer profile page (`8cc635f`)
 - [ ] S10 designer detail page for customers
 
 ### Projects
