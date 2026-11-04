@@ -76,6 +76,7 @@ class ProjectService:
         budget_min: int | None = None,
         budget_max: int | None = None,
         status: ProjectStatus | None = None,
+        images: list[str] | None = None,
     ) -> Project:
         """Change only the fields that were supplied. Owner only."""
         project = self._require_owned(actor, project_id)
@@ -96,18 +97,8 @@ class ProjectService:
             project.mark_past()
         elif status is ProjectStatus.CURRENT:
             project.mark_current()
-        return project
-
-    def add_image(self, actor: Account, project_id: str, url: str) -> Project:
-        """Attach one photo. Owner only."""
-        project = self._require_owned(actor, project_id)
-        project.add_image(url)
-        return project
-
-    def remove_image(self, actor: Account, project_id: str, url: str) -> Project:
-        """Detach one photo. Owner only."""
-        project = self._require_owned(actor, project_id)
-        project.remove_image(url)
+        if images is not None:
+            project.replace_images(images)
         return project
 
     def delete(self, actor: Account, project_id: str) -> None:

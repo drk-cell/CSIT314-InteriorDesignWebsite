@@ -115,6 +115,14 @@ class Project:
             self.images.remove(candidate)
             self._touch()
 
+    def replace_images(self, urls: list[str]) -> None:
+        """Replace the whole photo list, dropping blank and repeated entries."""
+        cleaned = list(dict.fromkeys(url.strip() for url in urls if url.strip()))
+        if len(cleaned) > MAX_IMAGES:
+            raise ValueError(f"A project may hold at most {MAX_IMAGES} images")
+        self.images = cleaned
+        self._touch()
+
     def record_view(self) -> None:
         """Count one look at the detail page."""
         self.view_count += 1
