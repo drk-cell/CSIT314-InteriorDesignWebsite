@@ -42,6 +42,44 @@ export interface CompanyInput {
   logo_url: string;
 }
 
+export type ProjectStatus = 'CURRENT' | 'PAST';
+
+export interface ProjectPublic {
+  id: string;
+  owner_id: string;
+  company_id: string;
+  title: string;
+  description: string;
+  style: string;
+  category: string;
+  budget_min: number;
+  budget_max: number;
+  status: ProjectStatus;
+  images: string[];
+  view_count: number;
+  shortlist_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SearchResponse {
+  items: ProjectPublic[];
+  total: number;
+  page: number;
+  page_size: number;
+  pages: number;
+}
+
+export interface SearchParams {
+  keyword?: string;
+  category?: string;
+  style?: string;
+  budget_min?: number;
+  budget_max?: number;
+  page?: number;
+  page_size?: number;
+}
+
 export interface RegisterRequest {
   email: string;
   password: string;

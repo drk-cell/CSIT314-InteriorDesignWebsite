@@ -5,6 +5,8 @@ import type {
   HealthResponse,
   LoginRequest,
   RegisterRequest,
+  SearchParams,
+  SearchResponse,
   Status,
   TokenResponse,
 } from './types';
@@ -154,4 +156,14 @@ export function companyById(companyId: string): Promise<CompanyPublic> {
 
 export function listCompanies(): Promise<CompanyPublic[]> {
   return request<CompanyPublic[]>('/companies');
+}
+
+export function searchProjects(params: SearchParams): Promise<SearchResponse> {
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined && value !== '') {
+      query.set(key, String(value));
+    }
+  }
+  return request<SearchResponse>(`/projects/search?${query.toString()}`);
 }

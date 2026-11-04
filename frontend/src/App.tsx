@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
+import Search from './pages/Search';
 
 export default function App() {
   const { account, loading, logout } = useAuth();
@@ -27,6 +28,7 @@ export default function App() {
             {account !== null && (
               <>
                 <NavLink to="/dashboard">Dashboard</NavLink>
+                <NavLink to="/search">Find a project</NavLink>
                 <NavLink to="/designers">Designers</NavLink>
                 {account.role === 'DESIGNER' && (
                   <NavLink to="/profile">Company profile</NavLink>
@@ -58,6 +60,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <ProtectedRoute>
+                <Search />
               </ProtectedRoute>
             }
           />
