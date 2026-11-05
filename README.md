@@ -124,12 +124,12 @@ add a line with the next number.
 - [x] S11 project entity with style, category, budget band and status (`44bd040`)
 - [x] S12 project service with create, edit and delete rules (`4b263b6`)
 - [x] S13 project endpoints with owner scoped access (`f300a8d`)
-- [ ] S14 project editor form with field validation
+- [x] S14 project editor form with field validation (`49ca8e9`)
 
 ### Portfolio
 
-- [ ] S15 owner scoped project queries with status and name filters
-- [ ] S16 portfolio screen with list, filter and delete actions
+- [x] S15 owner scoped project queries with status and name filters (`b535952`)
+- [x] S16 portfolio screen with list, filter and delete actions (`b535952`)
 
 ### Search
 
