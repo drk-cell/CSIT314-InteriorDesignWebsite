@@ -54,7 +54,6 @@ def create_project(
     return ProjectPublic.model_validate(project)
 
 
-
 @router.get(
     "/mine",
     response_model=list[ProjectPublic],
