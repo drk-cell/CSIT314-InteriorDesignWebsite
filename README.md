@@ -161,6 +161,10 @@ add a line with the next number.
 - [ ] S33 demo seed generator with 100 records per type
 - [ ] S34 demo walkthrough in this file
 
+### Tags
+
+- [x] S35 photo tag suggestions from colour and light, with searchable tags (`bc5dc28`, `9078b41`)
+
 ## Working agreement
 
 - One feature branch per person. Merge to `main` after the build is green.
