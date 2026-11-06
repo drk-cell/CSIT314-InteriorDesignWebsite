@@ -56,6 +56,7 @@ export interface ProjectPublic {
   budget_max: number;
   status: ProjectStatus;
   images: string[];
+  tags: string[];
   view_count: number;
   shortlist_count: number;
   created_at: string;
@@ -119,4 +120,12 @@ export interface ProjectInput {
   budget_min: number;
   budget_max: number;
   images: string[];
+  tags: string[];
+}
+
+export interface TagSuggestion {
+  palette: { hex: string; percent: number }[];
+  tags: string[];
+  width: number;
+  height: number;
 }

@@ -223,6 +223,15 @@ export default function Search() {
                 <p className="project-budget">
                   {formatBudget(project.budget_min)} – {formatBudget(project.budget_max)}
                 </p>
+                {project.tags.length > 0 && (
+                  <div className="tag-list">
+                    {project.tags.map((tag) => (
+                      <span className="tag-pill" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <div className="actions">
                   <Link
                     className="button button-secondary"

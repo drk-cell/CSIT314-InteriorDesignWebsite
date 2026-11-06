@@ -8,8 +8,9 @@ import {
   getProject,
   updateProject,
   getCatalogue,
+  suggestTags,
 } from '../api';
-import type { Catalogue, ProjectInput } from '../types';
+import type { Catalogue, ProjectInput, TagSuggestion } from '../types';
 
 export default function ProjectEditor() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -23,6 +24,9 @@ export default function ProjectEditor() {
   const [budgetMin, setBudgetMin] = useState('0');
   const [budgetMax, setBudgetMax] = useState('0');
   const [imageUrls, setImageUrls] = useState('');
+  const [tags, setTags] = useState('');
+  const [suggestion, setSuggestion] = useState<TagSuggestion | null>(null);
+  const [suggesting, setSuggesting] = useState(false);
 
   const [catalogue, setCatalogue] = useState<Catalogue | null>(null);
   const [loading, setLoading] = useState(editing);
@@ -68,6 +72,7 @@ export default function ProjectEditor() {
         setBudgetMin(String(project.budget_min));
         setBudgetMax(String(project.budget_max));
         setImageUrls(project.images.join('\n'));
+        setTags(project.tags.join(', '));
       })
       .catch((caught: unknown) => {
         if (!active) return;
@@ -136,6 +141,10 @@ export default function ProjectEditor() {
       budget_min: min,
       budget_max: max,
       images,
+      tags: tags
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter(Boolean),
     };
 
     setSaving(true);
@@ -158,6 +167,34 @@ export default function ProjectEditor() {
     } finally {
       setSaving(false);
     }
+  }
+
+  async function handleSuggest() {
+    if (!projectId || suggesting) return;
+    setSuggesting(true);
+    setError(null);
+    try {
+      setSuggestion(await suggestTags(projectId));
+    } catch (caught) {
+      setError(
+        caught instanceof ApiError
+          ? caught.detail
+          : 'Unable to analyse the photo.'
+      );
+    } finally {
+      setSuggesting(false);
+    }
+  }
+
+  function takeTag(tag: string) {
+    const current = tags
+      .split(',')
+      .map((entry) => entry.trim())
+      .filter(Boolean);
+    const known = current.some(
+      (entry) => entry.toLowerCase() === tag.toLowerCase()
+    );
+    if (!known) setTags([...current, tag].join(', '));
   }
 
   if (loading) {
@@ -276,6 +313,45 @@ export default function ProjectEditor() {
               onChange={(e) => setImageUrls(e.target.value)}
               placeholder="Enter one image URL per line"
             />
+          </div>
+
+          <div className="field">
+            <label htmlFor="project-tags">Description tags</label>
+            <input
+              id="project-tags"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+              placeholder="warm neutrals, bright, oak"
+            />
+            <p className="hint">
+              Separate tags with commas. Customers can search them.
+            </p>
+            {editing && (
+              <div className="tag-suggest">
+                <button
+                  className="button button-secondary"
+                  type="button"
+                  onClick={handleSuggest}
+                  disabled={suggesting}
+                >
+                  {suggesting ? 'Reading the photo…' : 'Suggest tags from the photo'}
+                </button>
+                {suggestion !== null && (
+                  <div className="tag-row">
+                    {suggestion.tags.map((tag) => (
+                      <button
+                        key={tag}
+                        type="button"
+                        className="tag-chip"
+                        onClick={() => takeTag(tag)}
+                      >
+                        + {tag}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="actions">

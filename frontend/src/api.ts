@@ -8,11 +8,12 @@ import type {
   RegisterRequest,
   SearchParams,
   SearchResponse,
-  Status,
-  TokenResponse,
   ProjectInput,
   ProjectPublic,
   ProjectStatus,
+  Status,
+  TagSuggestion,
+  TokenResponse,
 } from './types';
 
 const API_BASE = '/api';
@@ -229,6 +230,16 @@ export function myProjects(
 
   return request<ProjectPublic[]>(path);
 }
+export function suggestTags(
+  projectId: string,
+  imageIndex = 0
+): Promise<TagSuggestion> {
+  return request<TagSuggestion>(
+    `/projects/${encodeURIComponent(projectId)}/suggest-tags?image_index=${imageIndex}`,
+    { method: 'POST' }
+  );
+}
+
 export function deleteProject(
   projectId: string
 ): Promise<void> {
