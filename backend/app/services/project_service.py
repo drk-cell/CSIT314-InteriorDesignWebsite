@@ -32,6 +32,7 @@ class ProjectService:
         budget_min: int,
         budget_max: int,
         images: list[str] | None = None,
+        tags: list[str] | None = None,
     ) -> Project:
         """Publish a project under the caller's company.
 
@@ -54,6 +55,8 @@ class ProjectService:
         )
         for url in images or []:
             project.add_image(url)
+        for tag in tags or []:
+            project.add_tag(tag)
         self._projects.add(project)
         return project
 
@@ -77,6 +80,7 @@ class ProjectService:
         budget_max: int | None = None,
         status: ProjectStatus | None = None,
         images: list[str] | None = None,
+        tags: list[str] | None = None,
     ) -> Project:
         """Change only the fields that were supplied. Owner only."""
         project = self._require_owned(actor, project_id)
@@ -99,7 +103,13 @@ class ProjectService:
             project.mark_current()
         if images is not None:
             project.replace_images(images)
+        if tags is not None:
+            project.replace_tags(tags)
         return project
+
+    def require_owned(self, actor: Account, project_id: str) -> Project:
+        """Return the project only when the caller owns it."""
+        return self._require_owned(actor, project_id)
 
     def delete(self, actor: Account, project_id: str) -> None:
         """Remove a project. Owner only."""

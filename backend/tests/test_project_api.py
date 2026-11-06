@@ -119,6 +119,7 @@ def test_publish_returns_the_public_shape(client: TestClient) -> None:
         "budget_max",
         "status",
         "images",
+        "tags",
         "view_count",
         "shortlist_count",
         "created_at",

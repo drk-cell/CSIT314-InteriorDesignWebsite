@@ -15,6 +15,8 @@ from app.domain.enums import ProjectStatus
 
 MAX_TITLE_LENGTH: int = 120
 MAX_IMAGES: int = 8
+MAX_TAGS: int = 12
+MAX_TAG_LENGTH: int = 40
 
 
 @dataclass(frozen=True)
@@ -59,6 +61,7 @@ class Project:
     budget_max: int = 0
     status: ProjectStatus = ProjectStatus.CURRENT
     images: list[str] = field(default_factory=list)
+    tags: list[str] = field(default_factory=list)
     view_count: int = 0
     shortlist_count: int = 0
     id: str = field(default_factory=lambda: str(uuid4()))
@@ -77,6 +80,7 @@ class Project:
         self.category = self.category.strip()
         self._require_valid_budget(self.budget_min, self.budget_max)
         self.images = [url.strip() for url in self.images if url.strip()]
+        self.tags = self._clean_tags(self.tags)
         if self.updated_at is None:
             self.updated_at = self.created_at
 
@@ -151,6 +155,45 @@ class Project:
         self.images = cleaned
         self._touch()
 
+    def _clean_tags(self, tags: list[str]) -> list[str]:
+        """Strip, deduplicate and bound a tag list."""
+        cleaned: list[str] = []
+        seen: set[str] = set()
+        for tag in tags:
+            candidate = tag.strip()
+            if not candidate:
+                continue
+            if len(candidate) > MAX_TAG_LENGTH:
+                raise ValueError(
+                    f"A tag must be {MAX_TAG_LENGTH} characters or fewer"
+                )
+            key = candidate.casefold()
+            if key in seen:
+                continue
+            seen.add(key)
+            cleaned.append(candidate)
+        if len(cleaned) > MAX_TAGS:
+            raise ValueError(f"A project may hold at most {MAX_TAGS} tags")
+        return cleaned
+
+    def replace_tags(self, tags: list[str]) -> None:
+        """Replace the whole tag list after checking it."""
+        self.tags = self._clean_tags(tags)
+        self._touch()
+
+    def add_tag(self, tag: str) -> None:
+        """Attach one tag. A repeated tag changes nothing."""
+        self.tags = self._clean_tags([*self.tags, tag])
+        self._touch()
+
+    def remove_tag(self, tag: str) -> None:
+        """Detach one tag when it is present."""
+        key = tag.strip().casefold()
+        kept = [entry for entry in self.tags if entry.casefold() != key]
+        if len(kept) != len(self.tags):
+            self.tags = kept
+            self._touch()
+
     def record_view(self) -> None:
         """Count one look at the detail page."""
         self.view_count += 1
@@ -170,14 +213,15 @@ class Project:
     def matches(self, criteria: SearchCriteria) -> bool:
         """Return ``True`` when this project answers ``criteria``.
 
-        The keyword searches the title and the description. The category and the
+        The keyword searches the title, the description and the tags. The category and the
         style must be equal, ignoring case. Budgets match on overlap, so a
         project priced 20k to 40k answers a search from 30k to 50k. An empty
         field does not filter.
         """
         needle = criteria.keyword.strip().lower()
-        if needle and needle not in self.title.lower():
-            if needle not in self.description.lower():
+        if needle:
+            haystack = (self.title, self.description, *self.tags)
+            if not any(needle in field.lower() for field in haystack):
                 return False
         wanted_category = criteria.category.strip().lower()
         if wanted_category and self.category.lower() != wanted_category:

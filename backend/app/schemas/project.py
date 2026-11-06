@@ -25,6 +25,7 @@ class ProjectPublic(BaseModel):
     budget_max: int
     status: ProjectStatus
     images: list[str]
+    tags: list[str]
     view_count: int
     shortlist_count: int
     created_at: datetime
@@ -41,6 +42,7 @@ class ProjectCreate(BaseModel):
     budget_min: int = Field(default=0, ge=0)
     budget_max: int = Field(default=0, ge=0)
     images: list[str] = Field(default_factory=list, max_length=8)
+    tags: list[str] = Field(default_factory=list, max_length=12)
 
 
 class ProjectUpdate(BaseModel):
@@ -57,6 +59,7 @@ class ProjectUpdate(BaseModel):
     budget_max: int | None = Field(default=None, ge=0)
     status: ProjectStatus | None = None
     images: list[str] | None = Field(default=None, max_length=8)
+    tags: list[str] | None = Field(default=None, max_length=12)
 
 
 class SearchResponse(BaseModel):
@@ -67,3 +70,19 @@ class SearchResponse(BaseModel):
     page: int
     page_size: int
     pages: int
+
+
+class PaletteEntryPublic(BaseModel):
+    """One colour of a photo and how much of it the photo holds."""
+
+    hex: str
+    percent: float
+
+
+class TagSuggestionPublic(BaseModel):
+    """What the analyser offers the designer. Nothing is applied automatically."""
+
+    palette: list[PaletteEntryPublic]
+    tags: list[str]
+    width: int
+    height: int

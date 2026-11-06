@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+from pathlib import Path
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Response, status as http_status
@@ -11,15 +13,26 @@ from app.domain.account import Account
 from app.domain.enums import ProjectStatus
 from app.domain.errors import CompanyNotFound, NotPermitted, ProjectNotFound
 from app.schemas.project import (
+    PaletteEntryPublic,
     ProjectCreate,
     ProjectPublic,
     ProjectUpdate,
     SearchResponse,
+    TagSuggestionPublic,
 )
+from app.services.image_source import ImageUnavailable, load_image_bytes
 from app.services.project_search_service import ProjectSearchService
 from app.services.project_service import ProjectService
+from app.services.tag_suggestion_service import suggest_tags
 
 router = APIRouter(prefix="/projects", tags=["projects"])
+
+PUBLIC_DIR = Path(
+    os.environ.get(
+        "APP_PUBLIC_DIR",
+        Path(__file__).resolve().parents[3] / "frontend" / "public",
+    )
+)
 
 ServiceDep = Annotated[ProjectService, Depends(get_project_service)]
 SearchDep = Annotated[ProjectSearchService, Depends(get_project_search_service)]
@@ -183,3 +196,59 @@ def delete_project(
     except (ProjectNotFound, NotPermitted) as exc:
         raise _to_http(exc) from exc
     return Response(status_code=http_status.HTTP_204_NO_CONTENT)
+
+
+@router.post(
+    "/{project_id}/suggest-tags",
+    response_model=TagSuggestionPublic,
+    summary="Suggest description tags for one of your project photos",
+)
+def suggest_project_tags(
+    project_id: str,
+    actor: CurrentAccountDep,
+    service: ServiceDep,
+    image_index: int = 0,
+) -> TagSuggestionPublic:
+    """Read one photo of your project and offer palette and mood tags.
+
+    Nothing is saved. The designer accepts what fits and edits the rest.
+    """
+    try:
+        project = service.require_owned(actor, project_id)
+    except (ProjectNotFound, NotPermitted) as exc:
+        raise _to_http(exc) from exc
+
+    if not project.images:
+        raise HTTPException(
+            status_code=http_status.HTTP_400_BAD_REQUEST,
+            detail="The project has no photo to analyse",
+        )
+    if image_index < 0 or image_index >= len(project.images):
+        raise HTTPException(
+            status_code=http_status.HTTP_400_BAD_REQUEST,
+            detail="The photo index is out of range",
+        )
+
+    try:
+        data = load_image_bytes(project.images[image_index], PUBLIC_DIR)
+        suggestion = suggest_tags(data)
+    except ImageUnavailable as exc:
+        raise HTTPException(
+            status_code=http_status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(exc),
+        ) from exc
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=http_status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(exc),
+        ) from exc
+
+    return TagSuggestionPublic(
+        palette=[
+            PaletteEntryPublic(hex=entry.hex, percent=entry.percent)
+            for entry in suggestion.palette
+        ],
+        tags=suggestion.tags,
+        width=suggestion.width,
+        height=suggestion.height,
+    )
