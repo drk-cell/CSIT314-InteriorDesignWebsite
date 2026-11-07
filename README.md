@@ -150,8 +150,8 @@ add a line with the next number.
 - [x] S25 quote request entity with pending, answered and cancelled states (`e7e083d`)
 - [x] S26 quote service with submit, answer and cancel rules (`e7e083d`)
 - [x] S27 quote endpoints for customers and designers (`e7e083d`)
-- [ ] S28 customer quote screens with submit and cancel
-- [ ] S29 designer quote inbox with reply
+- [x] S28 customer quote screens with submit and cancel (`ee4a982`)
+- [x] S29 designer quote inbox with reply (`ee4a982`)
 
 ### Platform
 
