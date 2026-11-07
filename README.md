@@ -143,7 +143,7 @@ add a line with the next number.
 - [x] S21 view and shortlist counters inside the project entity (`4a514a5`)
 - [x] S22 shortlist endpoints with add, remove and list (`4a514a5`)
 - [x] S23 project detail page with the save action and counter display (`0dedd36`)
-- [ ] S24 interest summary on the designer portfolio
+- [x] S24 interest summary on the designer portfolio
 
 ### Quoting
 
@@ -155,15 +155,58 @@ add a line with the next number.
 
 ### Platform
 
-- [ ] S30 category management with platform manager access
-- [ ] S31 activity reports with daily, weekly and monthly buckets
-- [ ] S32 reporting screen with period selection
-- [ ] S33 demo seed generator with 100 records per type
-- [ ] S34 demo walkthrough in this file
+- [x] S30 category management with platform manager access (`1e90701`)
+- [x] S31 activity reports with daily, weekly and monthly buckets (`1e90701`)
+- [x] S32 reporting screen with period selection (`105f0ff`)
+- [x] S33 demo seed generator with 100 records per type (`803e3a6`)
+- [x] S34 demo walkthrough in this file
 
 ### Tags
 
 - [x] S35 photo tag suggestions from colour and light, with searchable tags (`bc5dc28`, `9078b41`)
+
+## Demo walkthrough
+
+Six screens carry the whole story. Run them in this order.
+
+**Setup.** Start the backend, then the frontend:
+
+```
+cd backend && APP_ADMIN_EMAIL=admin@example.com APP_ADMIN_PASSWORD=passw0rd123 \
+  .venv/Scripts/python.exe -m uvicorn app.main:app --port 8000
+cd frontend && npm run dev
+```
+
+Then load the data. `scripts/seed_demo.py` gives three designers with eight projects.
+`scripts/seed_bulk.py` adds 20 designers, 100 customers, 100 projects and 100 quote
+requests in about 10 seconds.
+
+**1. A customer searches.** Sign in as `casey@example.com` / `passw0rd123`. Open
+"Find a project". Set Room to `Bedroom`, drag the budget handles, then open a card.
+The detail page counts the view and offers "Save to shortlist". The Saved link shows
+the list.
+
+**2. A designer publishes.** Sign in as `verde@example.com`. "My projects" lists the
+portfolio with view and save counts. "New project" takes a title, the fixed room and
+style dropdowns, a budget, photo addresses and tags. "Suggest tags from the photo"
+reads the first photo and offers palette chips. Accept one, save, then find the
+project from the customer account by searching that tag.
+
+**3. A designer answers a request.** Open "Quote inbox". A pending request shows the
+scope, the budget band and the target price. Answer with a total, validity days and a
+GST position. The version table shows the offer and its expiry date.
+
+**4. A customer negotiates.** Return to the customer. The request shows the quote. Send
+a target price with a note. The designer revises, which supersedes the previous
+version. Accept the new version. The other open request stays open.
+
+**5. Staff curate the catalogue.** Sign in as `admin@example.com`. "Platform" holds the
+category list and the activity report. Add `Rooftop`, see it appear in the customer
+dropdown, archive it, see it disappear from the dropdown but stay in the staff list.
+Switch the report between daily, weekly and monthly.
+
+**6. Staff apply the rules.** "Admin" lists the accounts. Approve a new designer, then
+sign in as that designer. Suspend an account and watch the sign in refuse.
 
 ## Working agreement
 
