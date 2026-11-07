@@ -134,3 +134,62 @@ export interface ShortlistResponse {
   project_ids: string[];
   items: ProjectPublic[];
 }
+
+export type QuoteRequestState =
+  | 'PENDING'
+  | 'ANSWERED'
+  | 'ACCEPTED'
+  | 'DECLINED'
+  | 'CANCELLED'
+  | 'REFUSED'
+  | 'EXPIRED';
+
+export type QuoteState =
+  | 'OFFERED'
+  | 'ACCEPTED'
+  | 'DECLINED'
+  | 'SUPERSEDED'
+  | 'EXPIRED';
+
+export interface QuoteCounter {
+  id: string;
+  target_cents: number;
+  note: string;
+  created_at: string;
+}
+
+export interface QuotePublic {
+  id: string;
+  request_id: string;
+  version: number;
+  total_cents: number;
+  gst_included: boolean;
+  gst_rate_bp: number;
+  gst_cents: number;
+  grand_total_cents: number;
+  valid_until: string;
+  note: string;
+  state: QuoteState;
+  created_at: string;
+}
+
+export interface QuoteRequestPublic {
+  id: string;
+  customer_id: string;
+  company_id: string;
+  project_id: string | null;
+  title: string;
+  scope: string;
+  budget_min_cents: number;
+  budget_max_cents: number;
+  target_cents: number | null;
+  state: QuoteRequestState;
+  counters: QuoteCounter[];
+  closed_reason: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface QuoteRequestDetail extends QuoteRequestPublic {
+  quotes: QuotePublic[];
+}

@@ -8,10 +8,14 @@ import type {
   RegisterRequest,
   SearchParams,
   SearchResponse,
-  ShortlistResponse,
   ProjectInput,
   ProjectPublic,
   ProjectStatus,
+  QuotePublic,
+  QuoteRequestDetail,
+  QuoteRequestPublic,
+  QuoteRequestState,
+  ShortlistResponse,
   Status,
   TagSuggestion,
   TokenResponse,
@@ -261,6 +265,96 @@ export function saveProject(projectId: string): Promise<ShortlistResponse> {
 export function unsaveProject(projectId: string): Promise<void> {
   return request<void>(`/shortlist/${encodeURIComponent(projectId)}`, {
     method: 'DELETE',
+  });
+}
+
+export function submitQuoteRequest(body: {
+  company_id: string;
+  title: string;
+  scope: string;
+  budget_min_cents: number;
+  budget_max_cents: number;
+  target_cents?: number;
+  project_id?: string;
+}): Promise<QuoteRequestPublic> {
+  return request<QuoteRequestPublic>('/quotes/requests', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export function listQuoteRequests(state?: QuoteRequestState): Promise<QuoteRequestPublic[]> {
+  const query = state ? `?state=${state}` : '';
+  return request<QuoteRequestPublic[]>(`/quotes/requests${query}`);
+}
+
+export function getQuoteRequest(requestId: string): Promise<QuoteRequestDetail> {
+  return request<QuoteRequestDetail>(
+    `/quotes/requests/${encodeURIComponent(requestId)}`
+  );
+}
+
+export function counterQuoteRequest(
+  requestId: string,
+  targetCents: number,
+  note: string
+): Promise<QuoteRequestDetail> {
+  return request<QuoteRequestDetail>(
+    `/quotes/requests/${encodeURIComponent(requestId)}/counter`,
+    { method: 'POST', body: JSON.stringify({ target_cents: targetCents, note }) }
+  );
+}
+
+export function cancelQuoteRequest(
+  requestId: string,
+  reason: string
+): Promise<QuoteRequestPublic> {
+  return request<QuoteRequestPublic>(
+    `/quotes/requests/${encodeURIComponent(requestId)}/cancel`,
+    { method: 'POST', body: JSON.stringify({ reason }) }
+  );
+}
+
+export function answerQuoteRequest(
+  requestId: string,
+  body: { total_cents: number; valid_days: number; gst_included: boolean; note: string }
+): Promise<QuotePublic> {
+  return request<QuotePublic>(
+    `/quotes/requests/${encodeURIComponent(requestId)}/quotes`,
+    { method: 'POST', body: JSON.stringify(body) }
+  );
+}
+
+export function reviseQuote(
+  quoteId: string,
+  body: { total_cents: number; valid_days: number; gst_included: boolean; note: string }
+): Promise<QuotePublic> {
+  return request<QuotePublic>(`/quotes/${encodeURIComponent(quoteId)}/revise`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export function refuseQuoteRequest(
+  requestId: string,
+  reason: string
+): Promise<QuoteRequestPublic> {
+  return request<QuoteRequestPublic>(
+    `/quotes/requests/${encodeURIComponent(requestId)}/refuse`,
+    { method: 'POST', body: JSON.stringify({ reason }) }
+  );
+}
+
+export function acceptQuote(quoteId: string): Promise<QuotePublic> {
+  return request<QuotePublic>(`/quotes/${encodeURIComponent(quoteId)}/accept`, {
+    method: 'POST',
+  });
+}
+
+export function declineQuote(quoteId: string, reason: string): Promise<QuotePublic> {
+  return request<QuotePublic>(`/quotes/${encodeURIComponent(quoteId)}/decline`, {
+    method: 'POST',
+    body: JSON.stringify({ reason }),
   });
 }
 

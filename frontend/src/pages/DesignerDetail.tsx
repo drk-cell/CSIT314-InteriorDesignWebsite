@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ApiError, companyById } from '../api';
+import { useAuth } from '../auth';
 import type { CompanyPublic } from '../types';
 
 export default function DesignerDetail() {
   const { companyId } = useParams<{ companyId: string }>();
+  const { account } = useAuth();
   const [company, setCompany] = useState<CompanyPublic | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -92,6 +94,14 @@ export default function DesignerDetail() {
             <dd>{new Date(company.updated_at).toLocaleDateString()}</dd>
           </div>
         </dl>
+
+        {account?.role === 'CUSTOMER' && (
+          <div className="actions">
+            <Link className="button" to={`/quotes/new/${company.id}`}>
+              Request a quote
+            </Link>
+          </div>
+        )}
       </section>
     </div>
   );

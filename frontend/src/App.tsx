@@ -8,6 +8,9 @@ import Designers from './pages/Designers';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ProjectDetail from './pages/ProjectDetail';
+import QuoteDetail from './pages/QuoteDetail';
+import Quotes from './pages/Quotes';
+import RequestQuote from './pages/RequestQuote';
 import Saved from './pages/Saved';
 import Register from './pages/Register';
 import Search from './pages/Search';
@@ -35,6 +38,9 @@ export default function App() {
                 <NavLink to="/search">Find a project</NavLink>
                 <NavLink to="/designers">Designers</NavLink>
                 {account.role === 'CUSTOMER' && <NavLink to="/saved">Saved</NavLink>}
+                <NavLink to="/quotes">
+                  {account.role === 'DESIGNER' ? 'Quote inbox' : 'Requests'}
+                </NavLink>
                 {account.role === 'DESIGNER' && (
                   <>
                   <NavLink to="/profile">Company profile</NavLink>
@@ -149,6 +155,30 @@ export default function App() {
             element={
               <ProtectedRoute roles={['DESIGNER']}>
                 <MyProjects />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quotes/new/:companyId"
+            element={
+              <ProtectedRoute roles={['CUSTOMER']}>
+                <RequestQuote />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quotes/:requestId"
+            element={
+              <ProtectedRoute>
+                <QuoteDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quotes"
+            element={
+              <ProtectedRoute>
+                <Quotes />
               </ProtectedRoute>
             }
           />
