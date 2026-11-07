@@ -161,9 +161,12 @@ add a line with the next number.
 - [x] S33 demo seed generator with 100 records per type (`803e3a6`)
 - [x] S34 demo walkthrough in this file
 
-### Tags
+### Extensions beyond the plan
 
-- [x] S35 photo tag suggestions from colour and light, with searchable tags (`bc5dc28`, `9078b41`)
+Work that was requested after the 34 stages were agreed. It is not part of the
+numbered plan above.
+
+- [x] E1 photo tag suggestions from colour and light, with searchable tags (`bc5dc28`, `9078b41`)
 
 ## Demo walkthrough
 
