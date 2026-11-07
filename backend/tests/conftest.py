@@ -11,11 +11,13 @@ from app.api.deps import (
     get_account_repository,
     get_company_repository,
     get_project_repository,
+    get_shortlist_repository,
 )
 from app.main import create_app
 from app.repositories.account_repository import AccountRepository
 from app.repositories.company_repository import CompanyRepository
 from app.repositories.project_repository import ProjectRepository
+from app.repositories.shortlist_repository import ShortlistRepository
 from app.services.account_service import AccountService
 from app.services.company_service import CompanyService
 from app.services.project_service import ProjectService
@@ -49,6 +51,15 @@ def project_repository() -> Iterator[ProjectRepository]:
 
 
 @pytest.fixture()
+def shortlist_repository() -> Iterator[ShortlistRepository]:
+    """The singleton shortlist store, emptied before and after each test."""
+    repository = get_shortlist_repository()
+    repository.clear()
+    yield repository
+    repository.clear()
+
+
+@pytest.fixture()
 def account_service(account_repository: AccountRepository) -> AccountService:
     """A service bound to the freshly cleared account store."""
     return AccountService(account_repository)
@@ -74,6 +85,7 @@ def client(
     account_repository: AccountRepository,
     company_repository: CompanyRepository,
     project_repository: ProjectRepository,
+    shortlist_repository: ShortlistRepository,
 ) -> Iterator[TestClient]:
     """A client for the application, sharing the cleared stores."""
     with TestClient(create_app()) as test_client:

@@ -18,15 +18,18 @@ from app.domain.errors import inactive_message
 from app.repositories.account_repository import AccountRepository
 from app.repositories.company_repository import CompanyRepository
 from app.repositories.project_repository import ProjectRepository
+from app.repositories.shortlist_repository import ShortlistRepository
 from app.security import decode_access_token
 from app.services.account_service import AccountService
 from app.services.company_service import CompanyService
 from app.services.project_search_service import ProjectSearchService
 from app.services.project_service import ProjectService
+from app.services.shortlist_service import ShortlistService
 
 _account_repository = AccountRepository()
 _company_repository = CompanyRepository()
 _project_repository = ProjectRepository()
+_shortlist_repository = ShortlistRepository()
 _bearer_scheme = HTTPBearer(auto_error=False)
 
 
@@ -63,6 +66,16 @@ def get_project_service() -> ProjectService:
 def get_project_search_service() -> ProjectSearchService:
     """Return a search service bound to the shared project store."""
     return ProjectSearchService(get_project_repository())
+
+
+def get_shortlist_repository() -> ShortlistRepository:
+    """Return the process wide shortlist store."""
+    return _shortlist_repository
+
+
+def get_shortlist_service() -> ShortlistService:
+    """Return a service bound to the shared shortlist and project stores."""
+    return ShortlistService(get_shortlist_repository(), get_project_repository())
 
 
 def get_current_account(

@@ -199,6 +199,23 @@ def delete_project(
 
 
 @router.post(
+    "/{project_id}/view",
+    status_code=http_status.HTTP_204_NO_CONTENT,
+    summary="Count one look at a project",
+)
+def record_project_view(
+    project_id: str, actor: CurrentAccountDep, service: ServiceDep
+) -> Response:
+    """Raise the view counter. The read endpoint stays free of side effects."""
+    try:
+        project = service.get(project_id)
+    except ProjectNotFound as exc:
+        raise _to_http(exc) from exc
+    project.record_view()
+    return Response(status_code=http_status.HTTP_204_NO_CONTENT)
+
+
+@router.post(
     "/{project_id}/suggest-tags",
     response_model=TagSuggestionPublic,
     summary="Suggest description tags for one of your project photos",
