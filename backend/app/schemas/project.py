@@ -86,3 +86,4 @@ class TagSuggestionPublic(BaseModel):
     tags: list[str]
     width: int
     height: int
+    engine: str = ""

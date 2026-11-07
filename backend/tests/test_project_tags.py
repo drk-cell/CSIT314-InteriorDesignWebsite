@@ -205,9 +205,10 @@ def test_the_owner_gets_tag_suggestions(client: TestClient) -> None:
 
     assert response.status_code == 200, response.text
     body = response.json()
-    assert set(body) == {"palette", "tags", "width", "height"}
+    assert set(body) == {"palette", "tags", "width", "height", "engine"}
     assert len(body["palette"]) == 5
     assert body["tags"]
+    assert body["engine"] in {"objects and colour", "colour only"}
 
 
 def test_another_designer_cannot_ask_for_suggestions(client: TestClient) -> None:
