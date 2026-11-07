@@ -3,6 +3,19 @@
 Platform that matches renovation customers to interior designers. Group project for
 CSIT314 Software Development Methodologies.
 
+## Testing this build
+
+Testers start with **[TESTING.md](TESTING.md)**. It walks through installing and
+running the app with five double-click files and annotated screenshots.
+
+| File | Purpose |
+|---|---|
+| `1-check-my-pc.bat` | check Git, Node.js and Python are present |
+| `2-install.bat` | create the Python environment and install the packages |
+| `3-start-app.bat` | start the backend and the frontend, then open the browser |
+| `4-load-demo-data.bat` | load the demo data, or the 100-record bulk data |
+| `5-stop-app.bat` | stop both servers and free the ports |
+
 ## Stack
 
 | Layer | Choice |
