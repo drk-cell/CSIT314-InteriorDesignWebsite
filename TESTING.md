@@ -15,27 +15,63 @@ You need:
 
 ---
 
-## 1. Get the project onto your computer
+## 1. Get the project onto your Desktop
+
+The project must sit on your **Desktop**, so you can find it again. Do not put it
+in Documents or in your user folder.
+
+### Easiest way: download the ZIP (no typing)
+
+![GitHub page with the Code button, the five batch files and TESTING.md marked](testing/screenshots/07-download.png)
+
+1. Open this page in your browser:
+   `https://github.com/drk-cell/CSIT314-InteriorDesignWebsite`
+2. Press the green **Code** button, then choose **Download ZIP**.
+3. Your browser saves `CSIT314-InteriorDesignWebsite-main.zip` in **Downloads**.
+4. Open **Downloads**, right-click the ZIP, choose **Extract All...**, and set the
+   location to your **Desktop**.
+5. You now have a folder on the Desktop called
+   `CSIT314-InteriorDesignWebsite-main`. **Rename it to `CSIT314`** so it is short.
+
+The five files from section 2 are inside that folder.
+
+> Windows blocks batch files that came from the internet. If a file opens and
+> closes at once, right-click it, choose **Properties**, tick **Unblock** at the
+> bottom, and press OK.
+
+### Other way: clone with PowerShell
+
+Use this only if you already have Git and prefer it. The `cd` line is important:
+it puts the folder on the Desktop.
 
 1. Press the Windows key, type `powershell`, and press Enter.
-2. Copy the line below, paste it into the blue window, and press Enter.
+2. Paste these two lines one after the other, pressing Enter after each:
 
 ```
-git clone https://github.com/drk-cell/CSIT314-InteriorDesignWebsite.git
+cd $env:USERPROFILE\Desktop
+git clone https://github.com/drk-cell/CSIT314-InteriorDesignWebsite.git CSIT314
 ```
 
-Wait for it to finish. It creates a folder called
-`CSIT314-InteriorDesignWebsite` in your user folder, for example
-`C:\Users\YourName\CSIT314-InteriorDesignWebsite`.
+3. You now have a folder on the Desktop called `CSIT314`.
 
 > If the window says `git is not recognised`, install Git from
-> https://git-scm.com/download/win first, using the default options, then open a
-> new PowerShell window and try again.
+> https://git-scm.com/download/win using the default options, then open a **new**
+> PowerShell window and run the two lines again.
 
-**If you downloaded a ZIP instead of cloning:** right-click the ZIP, choose
-Extract All, and open the extracted folder. Windows may mark the batch files as
-blocked. If a batch file opens and closes at once, right-click it, choose
-Properties, tick `Unblock` at the bottom, and press OK.
+### Check you are in the right place
+
+Open the folder. You must see these five files, and no other folder around them:
+
+```
+1-check-my-pc.bat
+2-install.bat
+3-start-app.bat
+4-load-demo-data.bat
+5-stop-app.bat
+```
+
+If you see a single folder called `CSIT314-InteriorDesignWebsite-main` and the
+files are inside it, you are one level too high. Open that folder and work there.
 
 ## 2. The five files
 

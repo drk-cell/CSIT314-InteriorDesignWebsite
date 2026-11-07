@@ -72,6 +72,14 @@ PLAN: dict[str, dict] = {
             ((176, 934, 1088, 968), "Activity report continues below"),
         ],
     },
+    "07-download": {
+        "out": "07-download.png",
+        "boxes": [
+            ((812, 260, 926, 296), "Press Code, then Download ZIP"),
+            ((36, 575, 920, 782), "These five .bat files are the ones you double-click"),
+            ((36, 823, 920, 850), "TESTING.md is the guide you are reading"),
+        ],
+    },
 }
 
 
