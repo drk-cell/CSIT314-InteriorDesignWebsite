@@ -33,10 +33,32 @@ class AccountStatus(str, Enum):
 
 
 class ProjectStatus(str, Enum):
-    """Whether a portfolio project is on site or finished."""
+    """Where a project sits in its life."""
 
     CURRENT = "CURRENT"
     PAST = "PAST"
+
+
+class QuoteRequestState(str, Enum):
+    """Where a customer's quote request sits."""
+
+    PENDING = "PENDING"
+    ANSWERED = "ANSWERED"
+    ACCEPTED = "ACCEPTED"
+    DECLINED = "DECLINED"
+    CANCELLED = "CANCELLED"
+    REFUSED = "REFUSED"
+    EXPIRED = "EXPIRED"
+
+
+class QuoteState(str, Enum):
+    """Where one priced answer sits."""
+
+    OFFERED = "OFFERED"
+    ACCEPTED = "ACCEPTED"
+    DECLINED = "DECLINED"
+    SUPERSEDED = "SUPERSEDED"
+    EXPIRED = "EXPIRED"
 
 
 PRIVILEGED_ROLES: frozenset[Role] = frozenset({Role.ADMIN, Role.PLATFORM_MANAGER})

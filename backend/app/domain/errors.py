@@ -90,3 +90,21 @@ class ProjectNotFound(DomainError):
     """No project matches the request."""
 
     default_message = "Project not found"
+
+
+class QuoteRequestNotFound(DomainError):
+    """No quote request matches the request."""
+
+    default_message = "Quote request not found"
+
+
+class QuoteNotFound(DomainError):
+    """No quote matches the request."""
+
+    default_message = "Quote not found"
+
+
+class InvalidState(DomainError):
+    """The record is in a state that does not allow this action."""
+
+    default_message = "The record is not in a state that allows this action"

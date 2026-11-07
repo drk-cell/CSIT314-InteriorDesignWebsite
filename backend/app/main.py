@@ -7,7 +7,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import admin, auth, catalogue, companies, health, projects, shortlist
+from app.api import admin, auth, catalogue, companies, health, projects, quotes, shortlist
 from app.api.deps import get_account_service
 from app.config import (
     APP_VERSION,
@@ -60,6 +60,7 @@ def create_app() -> FastAPI:
     application.include_router(projects.router, prefix=API_PREFIX)
     application.include_router(catalogue.router, prefix=API_PREFIX)
     application.include_router(shortlist.router, prefix=API_PREFIX)
+    application.include_router(quotes.router, prefix=API_PREFIX)
     _bootstrap_administrators()
     return application
 

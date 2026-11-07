@@ -18,18 +18,22 @@ from app.domain.errors import inactive_message
 from app.repositories.account_repository import AccountRepository
 from app.repositories.company_repository import CompanyRepository
 from app.repositories.project_repository import ProjectRepository
+from app.repositories.quote_repository import QuoteRepository, QuoteRequestRepository
 from app.repositories.shortlist_repository import ShortlistRepository
 from app.security import decode_access_token
 from app.services.account_service import AccountService
 from app.services.company_service import CompanyService
 from app.services.project_search_service import ProjectSearchService
 from app.services.project_service import ProjectService
+from app.services.quote_service import QuoteService
 from app.services.shortlist_service import ShortlistService
 
 _account_repository = AccountRepository()
 _company_repository = CompanyRepository()
 _project_repository = ProjectRepository()
 _shortlist_repository = ShortlistRepository()
+_quote_request_repository = QuoteRequestRepository()
+_quote_repository = QuoteRepository()
 _bearer_scheme = HTTPBearer(auto_error=False)
 
 
@@ -76,6 +80,26 @@ def get_shortlist_repository() -> ShortlistRepository:
 def get_shortlist_service() -> ShortlistService:
     """Return a service bound to the shared shortlist and project stores."""
     return ShortlistService(get_shortlist_repository(), get_project_repository())
+
+
+def get_quote_request_repository() -> QuoteRequestRepository:
+    """Return the process wide quote request store."""
+    return _quote_request_repository
+
+
+def get_quote_repository() -> QuoteRepository:
+    """Return the process wide quote store."""
+    return _quote_repository
+
+
+def get_quote_service() -> QuoteService:
+    """Return a service bound to the shared quote, company and project stores."""
+    return QuoteService(
+        get_quote_request_repository(),
+        get_quote_repository(),
+        get_company_repository(),
+        get_project_repository(),
+    )
 
 
 def get_current_account(

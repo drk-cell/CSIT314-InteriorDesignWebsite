@@ -11,6 +11,8 @@ from app.api.deps import (
     get_account_repository,
     get_company_repository,
     get_project_repository,
+    get_quote_repository,
+    get_quote_request_repository,
     get_shortlist_repository,
 )
 from app.main import create_app
@@ -60,6 +62,18 @@ def shortlist_repository() -> Iterator[ShortlistRepository]:
 
 
 @pytest.fixture()
+def quote_repositories() -> Iterator[None]:
+    """Empty both quote stores before and after each test."""
+    requests = get_quote_request_repository()
+    quotes = get_quote_repository()
+    requests.clear()
+    quotes.clear()
+    yield None
+    requests.clear()
+    quotes.clear()
+
+
+@pytest.fixture()
 def account_service(account_repository: AccountRepository) -> AccountService:
     """A service bound to the freshly cleared account store."""
     return AccountService(account_repository)
@@ -86,6 +100,7 @@ def client(
     company_repository: CompanyRepository,
     project_repository: ProjectRepository,
     shortlist_repository: ShortlistRepository,
+    quote_repositories: None,
 ) -> Iterator[TestClient]:
     """A client for the application, sharing the cleared stores."""
     with TestClient(create_app()) as test_client:
