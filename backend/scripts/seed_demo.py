@@ -9,6 +9,7 @@ Usage: python scripts/seed_demo.py
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import httpx
 
@@ -82,6 +83,7 @@ def main() -> None:
                 },
             )
             for title, style, category, low, high, image in designer["projects"]:
+                tags = photo_tags(client, token, image)
                 response = client.post(
                     "/projects",
                     headers=auth(token),
@@ -93,6 +95,7 @@ def main() -> None:
                         "budget_min": low,
                         "budget_max": high,
                         "images": [f"/portfolio/photos/{image}"],
+                        "tags": tags,
                     },
                 )
                 response.raise_for_status()
@@ -125,6 +128,29 @@ def login(client: httpx.Client, email: str, password: str) -> str:
     response = client.post("/auth/login", json={"email": email, "password": password})
     response.raise_for_status()
     return response.json()["access_token"]
+
+
+PUBLIC = Path(__file__).resolve().parents[2] / "frontend" / "public"
+
+
+def photo_tags(client: httpx.Client, token: str, image: str) -> list[str]:
+    """Ask the analyser what the photo shows, the way a designer would.
+
+    The tag search only works when the seeded projects speak the analyser's
+    vocabulary, so the seed runs the same endpoint the editor calls.
+    """
+    path = PUBLIC / "portfolio" / "photos" / image
+    if not path.is_file():
+        return []
+    response = client.post(
+        "/images/tags",
+        headers=auth(token),
+        files={"file": (image, path.read_bytes(), "image/jpeg")},
+        timeout=30.0,
+    )
+    if response.status_code != 200:
+        return []
+    return response.json().get("tags", [])
 
 
 if __name__ == "__main__":
