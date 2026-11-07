@@ -180,7 +180,8 @@ add a line with the next number.
 Work that was requested after the 34 stages were agreed. It is not part of the
 numbered plan above.
 
-- [x] E1 photo tag suggestions from colour and light, with searchable tags (`bc5dc28`, `9078b41`)
+- [x]  E1 photo tag suggestions from colour and light, with searchable tags (`bc5dc28`, `9078b41`)
+- [x]  E2 photo tags from a 14 MB object model, with a photo search for customers (`fcd22eb`, `7bc2c1d`, `d82a0d4`)
 
 ## Demo walkthrough
 
@@ -202,6 +203,11 @@ requests in about 10 seconds.
 "Find a project". Set Room to `Bedroom`, drag the budget handles, then open a card.
 The detail page counts the view and offers "Save to shortlist". The Saved link shows
 the list.
+
+**1b. A customer searches from a photo.** On the same screen press "Choose a photo"
+and pick any room picture. Six tags appear as chips and the list reranks: projects
+holding an object tag ("sofa", "dining table") come first, and a project with none is
+dropped. Click a chip to remove it and watch the list change.
 
 **2. A designer publishes.** Sign in as `verde@example.com`. "My projects" lists the
 portfolio with view and save counts. "New project" takes a title, the fixed room and
