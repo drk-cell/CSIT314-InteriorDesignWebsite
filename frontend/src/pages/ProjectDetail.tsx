@@ -10,7 +10,7 @@ import {
   unsaveProject,
 } from '../api';
 import { useAuth } from '../auth';
-import type { ProjectPublic } from '../types';
+import type { CompanyPublic, ProjectPublic } from '../types';
 
 function formatBudget(value: number): string {
   return `S$${value.toLocaleString('en-SG')}`;
@@ -20,7 +20,7 @@ export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
   const { account } = useAuth();
   const [project, setProject] = useState<ProjectPublic | null>(null);
-  const [designer, setDesigner] = useState('');
+  const [companies, setCompanies] = useState<CompanyPublic[]>([]);
   const [active, setActive] = useState(0);
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -50,16 +50,13 @@ export default function ProjectDetail() {
 
     listCompanies()
       .then((rows) => {
-        if (!live) return;
-        setDesigner(rows.find((row) => row.id === project?.company_id)?.name ?? '');
+        if (live) setCompanies(rows);
       })
       .catch(() => undefined);
 
     return () => {
       live = false;
     };
-    // ``project`` is read for the designer name only; the fetch runs per id.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
 
   useEffect(() => {
@@ -128,11 +125,14 @@ export default function ProjectDetail() {
           </p>
           <h1>{project.title}</h1>
           <p className="muted">
-            {designer !== '' ? (
-              <Link to={`/designers/${project.company_id}`}>{designer}</Link>
-            ) : (
-              'Independent studio'
-            )}
+            {(() => {
+              const name = companies.find((row) => row.id === project.company_id)?.name;
+              return name !== undefined ? (
+                <Link to={`/designers/${project.company_id}`}>{name}</Link>
+              ) : (
+                'Independent studio'
+              );
+            })()}
           </p>
         </div>
         {account?.role === 'CUSTOMER' && (

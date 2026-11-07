@@ -39,9 +39,11 @@ export default function App() {
                 <NavLink to="/search">Find a project</NavLink>
                 <NavLink to="/designers">Designers</NavLink>
                 {account.role === 'CUSTOMER' && <NavLink to="/saved">Saved</NavLink>}
-                <NavLink to="/quotes">
-                  {account.role === 'DESIGNER' ? 'Quote inbox' : 'Requests'}
-                </NavLink>
+                {(account.role === 'CUSTOMER' || account.role === 'DESIGNER') && (
+                  <NavLink to="/quotes">
+                    {account.role === 'DESIGNER' ? 'Quote inbox' : 'Requests'}
+                  </NavLink>
+                )}
                 {account.role === 'DESIGNER' && (
                   <>
                   <NavLink to="/profile">Company profile</NavLink>
