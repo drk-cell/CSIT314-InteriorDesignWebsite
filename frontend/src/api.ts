@@ -84,7 +84,7 @@ async function readBody(response: Response): Promise<unknown> {
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const headers = new Headers(init.headers);
   headers.set('Accept', 'application/json');
-  if (init.body !== undefined) {
+  if (init.body !== undefined && !(init.body instanceof FormData)) {
     headers.set('Content-Type', 'application/json');
   }
   const token = getToken();
@@ -245,6 +245,12 @@ export function suggestTags(
     `/projects/${encodeURIComponent(projectId)}/suggest-tags?image_index=${imageIndex}`,
     { method: 'POST' }
   );
+}
+
+export function suggestTagsFromUpload(file: File): Promise<TagSuggestion> {
+  const form = new FormData();
+  form.append('file', file);
+  return request<TagSuggestion>('/images/tags', { method: 'POST', body: form });
 }
 
 export function recordView(projectId: string): Promise<void> {

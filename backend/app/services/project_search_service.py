@@ -47,10 +47,16 @@ class ProjectSearchService:
         style: str = "",
         budget_min: int | None = None,
         budget_max: int | None = None,
+        tags: list[str] | None = None,
         page: int = 1,
         page_size: int = DEFAULT_PAGE_SIZE,
     ) -> SearchResult:
-        """Return the matches for one page of results."""
+        """Return the matches for one page of results.
+
+        When ``tags`` is given, a project must carry at least one of them and
+        the results are ordered by how many it carries. A photo that produces
+        four tags therefore puts the closest listings first.
+        """
         if page < 1:
             raise ValueError("Page must be 1 or higher")
         if page_size < 1:
@@ -64,10 +70,19 @@ class ProjectSearchService:
             style=style,
             budget_min=budget_min,
             budget_max=budget_max,
+            tags=list(tags or []),
         )
         size = min(page_size, MAX_PAGE_SIZE)
         matches = [project for project in self._projects.list_all() if project.matches(criteria)]
-        matches.sort(key=lambda project: project.created_at, reverse=True)
+        if criteria.tags:
+            matches.sort(
+                key=lambda project: (
+                    -project.tag_score(criteria.tags),
+                    -project.created_at.timestamp(),
+                )
+            )
+        else:
+            matches.sort(key=lambda project: project.created_at, reverse=True)
         start = (page - 1) * size
         return SearchResult(
             items=matches[start : start + size],

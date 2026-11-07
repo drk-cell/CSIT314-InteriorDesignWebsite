@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import type { FormEvent } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ApiError, getCatalogue, listCompanies, searchProjects } from '../api';
+import {
+  ApiError,
+  getCatalogue,
+  listCompanies,
+  searchProjects,
+  suggestTagsFromUpload,
+} from '../api';
 import BudgetSlider from '../components/BudgetSlider';
 import type { Catalogue, SearchResponse } from '../types';
 
@@ -20,6 +26,9 @@ export default function Search() {
   const [result, setResult] = useState<SearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [tags, setTags] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [photoNote, setPhotoNote] = useState<string | null>(null);
 
   useEffect(() => {
     let live = true;
@@ -56,6 +65,7 @@ export default function Search() {
             style,
             budget_min: low,
             budget_max: high,
+            tags: tags.join(','),
             page,
           }),
         );
@@ -66,7 +76,7 @@ export default function Search() {
         setLoading(false);
       }
     },
-    [keyword, category, style, low, high],
+    [keyword, category, style, low, high, tags],
   );
 
   useEffect(() => {
@@ -89,6 +99,30 @@ export default function Search() {
     setStyle('');
     setLow(catalogue.budget.min);
     setHigh(catalogue.budget.max);
+    setTags([]);
+    setPhotoNote(null);
+  }
+
+  async function analysePhoto(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    setUploading(true);
+    setError(null);
+    try {
+      const suggestion = await suggestTagsFromUpload(file);
+      setTags(suggestion.tags);
+      setPhotoNote(
+        `${suggestion.tags.length} tags read by ${suggestion.engine ?? 'the analyser'}. Click a tag to remove it.`,
+      );
+    } catch (caught) {
+      setError(
+        caught instanceof ApiError ? caught.detail : 'That file could not be read as a photo.',
+      );
+      setPhotoNote(null);
+    } finally {
+      setUploading(false);
+    }
   }
 
   const currentPage = result?.page ?? 1;
@@ -102,6 +136,47 @@ export default function Search() {
           <p className="muted">Filter the catalogue by room, style and budget.</p>
         </div>
       </div>
+
+      <section className="card photo-search">
+        <div className="photo-search-head">
+          <div>
+            <h2>Find similar from a photo</h2>
+            <p className="muted">
+              Upload a room you like. We read the tags from it and rank projects by the
+              closest match.
+            </p>
+          </div>
+          <label className="button button-secondary file-button">
+            {uploading ? 'Reading…' : 'Choose a photo'}
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={(event) => void analysePhoto(event)}
+              disabled={uploading}
+              hidden
+            />
+          </label>
+        </div>
+        {photoNote !== null && <p className="muted photo-note">{photoNote}</p>}
+        {tags.length > 0 && (
+          <div className="tag-list">
+            {tags.map((tag) => (
+              <button
+                type="button"
+                className="tag-pill tag-pill-button"
+                key={tag}
+                title={`Remove ${tag}`}
+                onClick={() =>
+                  setTags((current) => current.filter((entry) => entry !== tag))
+                }
+              >
+                {tag}
+                <span aria-hidden="true"> ×</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </section>
 
       <section className="card">
         <form className="filter-bar" onSubmit={submit}>
@@ -192,6 +267,7 @@ export default function Search() {
       {result !== null && (
         <p className="result-count">
           {result.total} project{result.total === 1 ? '' : 's'} found
+          {tags.length > 0 ? ' · ranked by tag match' : ''}
         </p>
       )}
 

@@ -264,6 +264,17 @@ a:hover { color: var(--accent-hover); }
   font-size: 0.75rem; padding: 2px 9px; border-radius: 999px;
   background: var(--bg); border: 1px solid var(--border); color: var(--muted);
 }
+.tag-pill-button { font: inherit; font-size: 0.75rem; cursor: pointer; }
+.tag-pill-button:hover { border-color: var(--accent); color: var(--accent); }
+
+.photo-search { display: grid; gap: 10px; }
+.photo-search-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.photo-search-head h2 { font-size: 1.05rem; margin: 0 0 4px; }
+.photo-note { font-size: 0.85rem; margin: 0; }
+.file-button { white-space: nowrap; }
 
 @media (max-width: 600px) {
   .hero h1 { font-size: 1.7rem; }

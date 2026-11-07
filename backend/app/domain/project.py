@@ -18,6 +18,27 @@ MAX_IMAGES: int = 8
 MAX_TAGS: int = 12
 MAX_TAG_LENGTH: int = 40
 
+# Tags the analyser derives from light and colour. They describe almost every
+# photograph, so they rank a search but must not drive it: "busy detail" alone
+# would match the whole catalogue.
+MOOD_TAGS: frozenset[str] = frozenset(
+    {
+        "bright",
+        "moody",
+        "balanced light",
+        "neutral palette",
+        "warm palette",
+        "saturated palette",
+        "soft contrast",
+        "high contrast",
+        "calm detail",
+        "busy detail",
+    }
+)
+
+SPECIFIC_TAG_WEIGHT: int = 2
+MOOD_TAG_WEIGHT: int = 1
+
 
 @dataclass(frozen=True)
 class SearchCriteria:
@@ -32,6 +53,7 @@ class SearchCriteria:
     style: str = ""
     budget_min: int | None = None
     budget_max: int | None = None
+    tags: list[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         """Refuse a budget range that cannot be answered."""
@@ -233,7 +255,52 @@ class Project:
             return False
         if criteria.budget_max is not None and self.budget_min > criteria.budget_max:
             return False
+        if criteria.tags:
+            wanted = [tag for tag in criteria.tags if tag.strip()]
+            if wanted:
+                has_specific = any(
+                    tag.casefold() not in MOOD_TAGS for tag in wanted
+                )
+                if has_specific:
+                    if self.specific_overlap(wanted) == 0:
+                        return False
+                elif self.tag_overlap(wanted) == 0:
+                    return False
         return True
+
+    def tag_overlap(self, wanted: list[str]) -> int:
+        """Return how many of ``wanted`` this project carries, ignoring case.
+
+        Duplicates in ``wanted`` count once.
+        """
+        mine = {tag.casefold() for tag in self.tags}
+        asked = {tag.strip().casefold() for tag in wanted if tag.strip()}
+        return len(mine & asked)
+
+    def specific_overlap(self, wanted: list[str]) -> int:
+        """Return how many of ``wanted`` are object tags this project carries.
+
+        A photo produces "sofa, warm palette"; only "sofa" says what the room
+        contains. That half decides whether a project is a candidate at all.
+        """
+        mine = {tag.casefold() for tag in self.tags}
+        asked = {
+            tag.strip().casefold()
+            for tag in wanted
+            if tag.strip() and tag.strip().casefold() not in MOOD_TAGS
+        }
+        return len(mine & asked)
+
+    def tag_score(self, wanted: list[str]) -> int:
+        """Return the ranking weight: objects count double, mood counts once."""
+        return (
+            SPECIFIC_TAG_WEIGHT * self.specific_overlap(wanted)
+            + MOOD_TAG_WEIGHT
+            * len(
+                {tag.strip().casefold() for tag in wanted if tag.strip()}
+                & {tag.casefold() for tag in self.tags}
+            )
+        )
 
     @staticmethod
     def _require_valid_budget(minimum: int, maximum: int) -> None:

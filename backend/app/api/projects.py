@@ -21,6 +21,7 @@ from app.schemas.project import (
     TagSuggestionPublic,
 )
 from app.services.image_source import ImageUnavailable, load_image_bytes
+from app.services.object_labels import engine_name
 from app.services.project_search_service import ProjectSearchService
 from app.services.project_service import ProjectService
 from app.services.tag_suggestion_service import suggest_tags
@@ -119,10 +120,15 @@ def search_projects(
     style: str = "",
     budget_min: int | None = None,
     budget_max: int | None = None,
+    tags: str = "",
     page: int = 1,
     page_size: int = 12,
 ) -> SearchResponse:
-    """Return one page of projects that match the filters."""
+    """Return one page of projects that match the filters.
+
+    ``tags`` takes a comma separated list. A project must carry at least one of
+    them, and the closest match comes first.
+    """
     try:
         result = service.search(
             keyword=keyword,
@@ -130,6 +136,7 @@ def search_projects(
             style=style,
             budget_min=budget_min,
             budget_max=budget_max,
+            tags=[tag.strip() for tag in tags.split(",") if tag.strip()],
             page=page,
             page_size=page_size,
         )
@@ -268,4 +275,5 @@ def suggest_project_tags(
         tags=suggestion.tags,
         width=suggestion.width,
         height=suggestion.height,
+        engine=engine_name(),
     )

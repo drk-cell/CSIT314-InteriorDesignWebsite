@@ -77,6 +77,7 @@ export interface SearchParams {
   style?: string;
   budget_min?: number;
   budget_max?: number;
+  tags?: string;
   page?: number;
   page_size?: number;
 }
@@ -128,6 +129,7 @@ export interface TagSuggestion {
   tags: string[];
   width: number;
   height: number;
+  engine?: string;
 }
 
 export interface ShortlistResponse {

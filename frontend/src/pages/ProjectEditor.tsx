@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import type { FormEvent } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   ApiError,
@@ -9,6 +9,7 @@ import {
   updateProject,
   getCatalogue,
   suggestTags,
+  suggestTagsFromUpload,
 } from '../api';
 import type { Catalogue, ProjectInput, TagSuggestion } from '../types';
 
@@ -186,6 +187,25 @@ export default function ProjectEditor() {
     }
   }
 
+  async function handleUpload(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file || suggesting) return;
+    setSuggesting(true);
+    setError(null);
+    try {
+      setSuggestion(await suggestTagsFromUpload(file));
+    } catch (caught) {
+      setError(
+        caught instanceof ApiError
+          ? caught.detail
+          : 'That file could not be read as a photo.'
+      );
+    } finally {
+      setSuggesting(false);
+    }
+  }
+
   function takeTag(tag: string) {
     const current = tags
       .split(',')
@@ -326,8 +346,8 @@ export default function ProjectEditor() {
             <p className="hint">
               Separate tags with commas. Customers can search them.
             </p>
-            {editing && (
-              <div className="tag-suggest">
+            <div className="tag-suggest">
+              {editing && (
                 <button
                   className="button button-secondary"
                   type="button"
@@ -336,22 +356,32 @@ export default function ProjectEditor() {
                 >
                   {suggesting ? 'Reading the photo…' : 'Suggest tags from the photo'}
                 </button>
-                {suggestion !== null && (
-                  <div className="tag-row">
-                    {suggestion.tags.map((tag) => (
-                      <button
-                        key={tag}
-                        type="button"
-                        className="tag-chip"
-                        onClick={() => takeTag(tag)}
-                      >
-                        + {tag}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
+              )}
+              <label className="button button-secondary file-button">
+                {suggesting ? 'Reading the photo…' : 'Upload a photo for tags'}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={(event) => void handleUpload(event)}
+                  disabled={suggesting}
+                  hidden
+                />
+              </label>
+              {suggestion !== null && (
+                <div className="tag-row">
+                  {suggestion.tags.map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      className="tag-chip"
+                      onClick={() => takeTag(tag)}
+                    >
+                      + {tag}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="actions">
