@@ -79,6 +79,10 @@ class QuoteRepository:
         versions = self.list_by_request(request_id)
         return versions[-1] if versions else None
 
+    def list_all(self) -> list[Quote]:
+        """Return every stored quote."""
+        return list(self._by_id.values())
+
     def count(self) -> int:
         """Return how many quotes are stored."""
         return len(self._by_id)

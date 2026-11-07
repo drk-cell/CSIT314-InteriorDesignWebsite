@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 
 from app.api.deps import (
     get_account_repository,
+    get_category_repository,
     get_company_repository,
     get_project_repository,
     get_quote_repository,
@@ -74,6 +75,15 @@ def quote_repositories() -> Iterator[None]:
 
 
 @pytest.fixture()
+def category_repository() -> Iterator[None]:
+    """Reset the category store to its ten defaults around each test."""
+    repository = get_category_repository()
+    repository.reset_defaults()
+    yield None
+    repository.reset_defaults()
+
+
+@pytest.fixture()
 def account_service(account_repository: AccountRepository) -> AccountService:
     """A service bound to the freshly cleared account store."""
     return AccountService(account_repository)
@@ -101,6 +111,7 @@ def client(
     project_repository: ProjectRepository,
     shortlist_repository: ShortlistRepository,
     quote_repositories: None,
+    category_repository: None,
 ) -> Iterator[TestClient]:
     """A client for the application, sharing the cleared stores."""
     with TestClient(create_app()) as test_client:

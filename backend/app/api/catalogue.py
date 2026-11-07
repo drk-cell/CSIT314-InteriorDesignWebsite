@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter
+from typing import Annotated
+
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 
+from app.api.deps import get_category_repository
 from app.domain import catalogue
+from app.repositories.category_repository import CategoryRepository
 
 router = APIRouter(prefix="/catalogue", tags=["catalogue"])
 
@@ -31,10 +35,12 @@ class CatalogueResponse(BaseModel):
     response_model=CatalogueResponse,
     summary="Read the fixed category and style lists",
 )
-def read_catalogue() -> CatalogueResponse:
+def read_catalogue(
+    categories: Annotated[CategoryRepository, Depends(get_category_repository)],
+) -> CatalogueResponse:
     """Return the platform vocabulary. No sign in needed."""
     return CatalogueResponse(
-        categories=list(catalogue.CATEGORIES),
+        categories=[entry.name for entry in categories.list_active()],
         styles=list(catalogue.STYLES),
         budget=BudgetRange(
             min=catalogue.BUDGET_MIN,

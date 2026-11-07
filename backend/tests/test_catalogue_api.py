@@ -16,7 +16,7 @@ def test_the_catalogue_is_public(client: TestClient) -> None:
 def test_it_returns_every_category_and_style(client: TestClient) -> None:
     body = client.get("/api/catalogue").json()
 
-    assert body["categories"] == list(catalogue.CATEGORIES)
+    assert sorted(body["categories"]) == sorted(catalogue.CATEGORIES)
     assert body["styles"] == list(catalogue.STYLES)
     assert len(body["categories"]) == 10
     assert len(body["styles"]) == 7
