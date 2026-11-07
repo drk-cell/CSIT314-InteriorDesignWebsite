@@ -1,0 +1,6 @@
+email,display_name,role,password
+# One row per login. Delete these examples before you send the file back.
+nadia@example.com,Nadia Rahman,CUSTOMER,passw0rd123
+wei@example.com,Wei Tan,CUSTOMER,passw0rd123
+lin@example.com,Lin Wei,DESIGNER,passw0rd123
+amara@example.com,Amara Silva,DESIGNER,passw0rd123

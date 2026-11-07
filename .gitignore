@@ -34,3 +34,6 @@ dist/
 # Logs and temporary files
 *.log
 tmp/
+
+# Tester data
+testing/data/import-report.txt

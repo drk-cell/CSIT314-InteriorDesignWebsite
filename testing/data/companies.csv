@@ -1,0 +1,4 @@
+designer_email,name,description,contact_email,contact_phone,location,logo_url
+# One row per designer company. The designer email must exist in accounts.csv.
+lin@example.com,Studio Lin,Warm residential work with an eye on storage,hello@studiolin.sg,+65 6123 4567,Singapore,
+amara@example.com,Silva Interiors,Colour-led flats and small homes,hello@silvainteriors.sg,+65 6234 5678,Singapore,

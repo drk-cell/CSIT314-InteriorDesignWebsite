@@ -15,6 +15,7 @@ running the app with five double-click files and annotated screenshots.
 | `3-start-app.bat` | start the backend and the frontend, then open the browser |
 | `4-load-demo-data.bat` | load the demo data, or the 100-record bulk data |
 | `5-stop-app.bat` | stop both servers and free the ports |
+| `6-load-my-data.bat` | check and load the tester CSV files in `testing/data` |
 
 ## Stack
 

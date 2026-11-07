@@ -1,0 +1,4 @@
+customer_email,company_name,title,scope,budget_min,budget_max,target,answer_total,answer_days,gst_included
+# One row per quote request. answer_total is optional: fill it to have the designer answer at once.
+nadia@example.com,Studio Lin,Kitchen quote,"Repaint and new cabinets for a 4 room flat",20000,40000,35000,36000,14,NO
+wei@example.com,Silva Interiors,Living room refresh,"New sofa, shelving and paint",15000,30000,24000,,,

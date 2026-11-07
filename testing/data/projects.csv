@@ -1,0 +1,5 @@
+designer_email,title,category,style,budget_min,budget_max,description,status,images,tags
+# One row per project. Room and style must be from the platform list. Photos: /portfolio/photos/photo-01.jpg to photo-16.jpg
+lin@example.com,Compact Kitchen,Kitchen,Minimal,18000,32000,Reworked for one cook,CURRENT,/portfolio/photos/photo-07.jpg,warm palette;oak
+lin@example.com,Quiet Bedroom,Bedroom,Japandi,22000,38000,Storage wall and soft light,CURRENT,/portfolio/photos/photo-05.jpg;photo-14.jpg,calm detail;linen
+amara@example.com,Colour Flat,Living Room,Eclectic,30000,60000,Three colours and one big sofa,PAST,/portfolio/photos/photo-03.jpg;photo-11.jpg,saturated palette;high contrast

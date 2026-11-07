@@ -73,9 +73,9 @@ Open the folder. You must see these five files, and no other folder around them:
 If you see a single folder called `CSIT314-InteriorDesignWebsite-main` and the
 files are inside it, you are one level too high. Open that folder and work there.
 
-## 2. The five files
+## 2. The six files
 
-All five sit in the top folder of the project. Run them in order. Each one prints
+All six sit in the top folder of the project. Run them in order. Each one prints
 what it is doing, and each one waits at the end so you can read it.
 
 | File | What it does | How long |
@@ -85,6 +85,7 @@ what it is doing, and each one waits at the end so you can read it.
 | `3-start-app.bat` | starts the app and opens your browser | 20 seconds |
 | `4-load-demo-data.bat` | fills the app with example designers and projects | 15 seconds |
 | `5-stop-app.bat` | closes the app when you finish | 5 seconds |
+| `6-load-my-data.bat` | checks and loads the CSV files you write in Task 7 | 30 seconds |
 
 ## 3. Check your computer
 
@@ -266,6 +267,62 @@ and never a crash.
 | Reload the page while signed in | you stay signed in |
 
 ---
+
+# Task 7: generate data for the large run
+
+The app ships with eight example projects. For a real-world simulation we need
+hundreds. You do not type into the app for that: you fill four CSV files.
+
+Open **`testing/data/README.md`**. It lists every column, the allowed values and
+the limits, with two example rows per file.
+
+| File | One row means |
+|---|---|
+| `testing/data/accounts.csv` | one login, customer or designer |
+| `testing/data/companies.csv` | one designer company |
+| `testing/data/projects.csv` | one portfolio project |
+| `testing/data/quote_requests.csv` | one customer asking a company for a price |
+
+Fill them in Excel, Google Sheets or Notepad. Save as **CSV**, keep the header
+row, remove the example rows, and keep the four file names.
+
+When the file is ready, double-click **`6-load-my-data.bat`** and choose **C** to
+check it. Nothing is saved during a check. Read the summary:
+
+```
+accounts.csv            12 accepted    0 skipped    0 rejected
+companies.csv            4 accepted    0 skipped    0 rejected
+projects.csv            30 accepted    0 skipped    0 rejected
+quote_requests.csv      18 accepted    0 skipped    0 rejected
+
+Every row was accepted.
+```
+
+A rejected row names its line and the reason, for example
+`projects.csv line 5: budget_min is above budget_max`. Fix it and check again.
+
+When the check is clean, run the same file and choose **L** to load it. Then send
+me `testing/data/import-report.txt` together with your four CSV files.
+
+Two rules that catch most mistakes:
+
+1. A comma inside a value must sit inside double quotes:
+   `"New sofa, shelving and paint"`. Otherwise the columns shift and the row is
+   rejected with a column-count message.
+2. Use a semicolon to separate a list: `photo-01.jpg;photo-02.jpg`.
+
+### What we need most
+
+| Aim | File | Suggested count |
+|---|---|---|
+| enough customers to fill the screens | `accounts.csv` | 60 to 100 customers |
+| enough designers to make search interesting | `accounts.csv` | 10 to 20 designers |
+| one company per designer | `companies.csv` | one row per designer |
+| a portfolio worth browsing | `projects.csv` | 100 or more, at least two per designer |
+| activity for the reports and the inbox | `quote_requests.csv` | 60 or more, half with `answer_total` filled |
+
+Spread the rooms and the styles. A catalogue where every project is a Minimal
+Bedroom cannot be tested.
 
 # Report what you find
 
