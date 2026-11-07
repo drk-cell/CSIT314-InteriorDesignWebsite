@@ -212,7 +212,9 @@ export default function MyProjects() {
         <>
           <p className="muted">
             {projects.length} project
-            {projects.length === 1 ? '' : 's'} found
+            {projects.length === 1 ? '' : 's'} found ·{' '}
+            {projects.reduce((total, project) => total + project.view_count, 0)} views ·{' '}
+            {projects.reduce((total, project) => total + project.shortlist_count, 0)} saves
           </p>
 
           {projects.length === 0 ? (
@@ -245,6 +247,11 @@ export default function MyProjects() {
                     {project.budget_min.toLocaleString()}
                     {' – S$'}
                     {project.budget_max.toLocaleString()}
+                  </p>
+
+                  <p className="muted">
+                    {project.view_count} view{project.view_count === 1 ? '' : 's'} ·{' '}
+                    {project.shortlist_count} save{project.shortlist_count === 1 ? '' : 's'}
                   </p>
 
                   <p>

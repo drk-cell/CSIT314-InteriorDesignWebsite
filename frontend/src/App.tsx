@@ -8,6 +8,7 @@ import Designers from './pages/Designers';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ProjectDetail from './pages/ProjectDetail';
+import Platform from './pages/Platform';
 import QuoteDetail from './pages/QuoteDetail';
 import Quotes from './pages/Quotes';
 import RequestQuote from './pages/RequestQuote';
@@ -49,6 +50,7 @@ export default function App() {
                   </>
                 )}
                 {account.role === 'ADMIN' && <NavLink to="/admin">Admin</NavLink>}
+                {account.role === 'ADMIN' && <NavLink to="/platform">Platform</NavLink>}
                 <span className="nav-account">{account.display_name}</span>
                 <button type="button" className="link-button" onClick={logout}>
                   Sign out
@@ -179,6 +181,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Quotes />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/platform"
+            element={
+              <ProtectedRoute roles={['ADMIN', 'PLATFORM_MANAGER']}>
+                <Platform />
               </ProtectedRoute>
             }
           />

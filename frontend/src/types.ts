@@ -193,3 +193,26 @@ export interface QuoteRequestPublic {
 export interface QuoteRequestDetail extends QuoteRequestPublic {
   quotes: QuotePublic[];
 }
+
+export interface CategoryPublic {
+  id: string;
+  name: string;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ReportBucket {
+  label: string;
+  start: string;
+  end: string;
+  accounts: number;
+  projects: number;
+  quote_requests: number;
+  quotes: number;
+}
+
+export interface Report {
+  period: string;
+  buckets: ReportBucket[];
+}

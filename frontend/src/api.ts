@@ -1,11 +1,13 @@
 import type {
   AccountPublic,
   Catalogue,
+  CategoryPublic,
   CompanyInput,
   CompanyPublic,
   HealthResponse,
   LoginRequest,
   RegisterRequest,
+  Report,
   SearchParams,
   SearchResponse,
   ProjectInput,
@@ -356,6 +358,31 @@ export function declineQuote(quoteId: string, reason: string): Promise<QuotePubl
     method: 'POST',
     body: JSON.stringify({ reason }),
   });
+}
+
+export function listAllCategories(): Promise<CategoryPublic[]> {
+  return request<CategoryPublic[]>('/categories/all');
+}
+
+export function createCategory(name: string): Promise<CategoryPublic> {
+  return request<CategoryPublic>('/categories', {
+    method: 'POST',
+    body: JSON.stringify({ name }),
+  });
+}
+
+export function patchCategory(
+  categoryId: string,
+  body: { name?: string; active?: boolean }
+): Promise<CategoryPublic> {
+  return request<CategoryPublic>(`/categories/${encodeURIComponent(categoryId)}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  });
+}
+
+export function getReport(period: string, buckets: number): Promise<Report> {
+  return request<Report>(`/reports?period=${period}&buckets=${buckets}`);
 }
 
 export function deleteProject(
