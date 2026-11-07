@@ -7,11 +7,13 @@ import DesignerDetail from './pages/DesignerDetail';
 import Designers from './pages/Designers';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Profile from './pages/Profile';
+import ProjectDetail from './pages/ProjectDetail';
+import Saved from './pages/Saved';
 import Register from './pages/Register';
 import Search from './pages/Search';
 import ProjectEditor from './pages/ProjectEditor';
 import MyProjects from './pages/MyProjects';
+import Profile from './pages/Profile';
 
 export default function App() {
   const { account, loading, logout } = useAuth();
@@ -32,6 +34,7 @@ export default function App() {
                 <NavLink to="/dashboard">Dashboard</NavLink>
                 <NavLink to="/search">Find a project</NavLink>
                 <NavLink to="/designers">Designers</NavLink>
+                {account.role === 'CUSTOMER' && <NavLink to="/saved">Saved</NavLink>}
                 {account.role === 'DESIGNER' && (
                   <>
                   <NavLink to="/profile">Company profile</NavLink>
@@ -122,6 +125,22 @@ export default function App() {
             element={
               <ProtectedRoute roles={['DESIGNER']}>
                 <ProjectEditor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/projects/:projectId"
+            element={
+              <ProtectedRoute>
+                <ProjectDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/saved"
+            element={
+              <ProtectedRoute roles={['CUSTOMER']}>
+                <Saved />
               </ProtectedRoute>
             }
           />

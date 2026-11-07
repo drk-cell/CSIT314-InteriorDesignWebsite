@@ -216,7 +216,9 @@ export default function Search() {
                 <p className="project-eyebrow">
                   {project.category} · {project.style}
                 </p>
-                <h2>{project.title}</h2>
+                <h2>
+                  <Link to={`/projects/${project.id}`}>{project.title}</Link>
+                </h2>
                 <p className="project-designer">
                   {designers[project.company_id] ?? 'Independent studio'}
                 </p>

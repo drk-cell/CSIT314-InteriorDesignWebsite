@@ -8,6 +8,7 @@ import type {
   RegisterRequest,
   SearchParams,
   SearchResponse,
+  ShortlistResponse,
   ProjectInput,
   ProjectPublic,
   ProjectStatus,
@@ -238,6 +239,29 @@ export function suggestTags(
     `/projects/${encodeURIComponent(projectId)}/suggest-tags?image_index=${imageIndex}`,
     { method: 'POST' }
   );
+}
+
+export function recordView(projectId: string): Promise<void> {
+  return request<void>(`/projects/${encodeURIComponent(projectId)}/view`, {
+    method: 'POST',
+  });
+}
+
+export function getShortlist(): Promise<ShortlistResponse> {
+  return request<ShortlistResponse>('/shortlist');
+}
+
+export function saveProject(projectId: string): Promise<ShortlistResponse> {
+  return request<ShortlistResponse>(
+    `/shortlist/${encodeURIComponent(projectId)}`,
+    { method: 'POST' }
+  );
+}
+
+export function unsaveProject(projectId: string): Promise<void> {
+  return request<void>(`/shortlist/${encodeURIComponent(projectId)}`, {
+    method: 'DELETE',
+  });
 }
 
 export function deleteProject(

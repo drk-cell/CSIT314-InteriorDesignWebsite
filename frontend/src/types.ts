@@ -129,3 +129,8 @@ export interface TagSuggestion {
   width: number;
   height: number;
 }
+
+export interface ShortlistResponse {
+  project_ids: string[];
+  items: ProjectPublic[];
+}
