@@ -139,10 +139,10 @@ add a line with the next number.
 
 ### Favourites and interest
 
-- [ ] S20 shortlist entity, one list per customer
-- [ ] S21 view and shortlist counters inside the project entity
-- [ ] S22 shortlist endpoints with add, remove and list
-- [ ] S23 project detail page with the save action and counter display
+- [x] S20 shortlist entity, one list per customer (`4a514a5`)
+- [x] S21 view and shortlist counters inside the project entity (`4a514a5`)
+- [x] S22 shortlist endpoints with add, remove and list (`4a514a5`)
+- [x] S23 project detail page with the save action and counter display (`0dedd36`)
 - [ ] S24 interest summary on the designer portfolio
 
 ### Quoting
