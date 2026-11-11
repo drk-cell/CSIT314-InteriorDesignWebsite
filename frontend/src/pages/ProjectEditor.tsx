@@ -28,6 +28,7 @@ export default function ProjectEditor() {
   const [tags, setTags] = useState('');
   const [suggestion, setSuggestion] = useState<TagSuggestion | null>(null);
   const [suggesting, setSuggesting] = useState(false);
+  const [preview, setPreview] = useState<string | null>(null);
 
   const [catalogue, setCatalogue] = useState<Catalogue | null>(null);
   const [loading, setLoading] = useState(editing);
@@ -74,6 +75,8 @@ export default function ProjectEditor() {
         setBudgetMax(String(project.budget_max));
         setImageUrls(project.images.join('\n'));
         setTags(project.tags.join(', '));
+        // The tags follow the photo. No button: opening the project is enough.
+        if (project.images.length > 0) void handleSuggest();
       })
       .catch((caught: unknown) => {
         if (!active) return;
@@ -202,6 +205,10 @@ export default function ProjectEditor() {
     const file = event.target.files?.[0];
     event.target.value = '';
     if (!file || suggesting) return;
+    setPreview((old) => {
+      if (old !== null && old.startsWith('blob:')) URL.revokeObjectURL(old);
+      return URL.createObjectURL(file);
+    });
     setSuggesting(true);
     setError(null);
     try {
@@ -369,18 +376,24 @@ export default function ProjectEditor() {
               Separate tags with commas. Customers can search them.
             </p>
             <div className="tag-suggest">
-              {editing && (
-                <button
-                  className="button button-secondary"
-                  type="button"
-                  onClick={handleSuggest}
-                  disabled={suggesting}
-                >
-                  {suggesting ? 'Reading the photo…' : 'Suggest tags from the photo'}
-                </button>
+              {preview !== null ? (
+                <figure className="photo-preview">
+                  <img src={preview} alt="The photo you uploaded" />
+                  <figcaption className="muted">The photo the tags come from</figcaption>
+                </figure>
+              ) : (
+                imageUrls.trim() !== '' && (
+                  <figure className="photo-preview">
+                    <img
+                      src={imageUrls.split('\n')[0].trim()}
+                      alt="The project photo"
+                    />
+                    <figcaption className="muted">The project photo</figcaption>
+                  </figure>
+                )
               )}
               <label className="button button-secondary file-button">
-                {suggesting ? 'Reading the photo…' : 'Upload a photo for tags'}
+                {suggesting ? 'Reading the photo…' : 'Upload a photo to read tags'}
                 <input
                   type="file"
                   accept="image/jpeg,image/png,image/webp"

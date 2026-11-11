@@ -29,6 +29,7 @@ export default function Search() {
   const [tags, setTags] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
   const [photoNote, setPhotoNote] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
 
   useEffect(() => {
     let live = true;
@@ -101,12 +102,20 @@ export default function Search() {
     setHigh(catalogue.budget.max);
     setTags([]);
     setPhotoNote(null);
+    setPreview((old) => {
+      if (old !== null) URL.revokeObjectURL(old);
+      return null;
+    });
   }
 
   async function analysePhoto(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     event.target.value = '';
     if (!file) return;
+    setPreview((old) => {
+      if (old !== null) URL.revokeObjectURL(old);
+      return URL.createObjectURL(file);
+    });
     setUploading(true);
     setError(null);
     try {
@@ -172,6 +181,12 @@ export default function Search() {
             />
           </label>
         </div>
+        {preview !== null && (
+          <figure className="photo-preview">
+            <img src={preview} alt="The photo you uploaded" />
+            <figcaption className="muted">Your reference photo</figcaption>
+          </figure>
+        )}
         {photoNote !== null && <p className="muted photo-note">{photoNote}</p>}
         {tags.length > 0 && (
           <div className="tag-list">

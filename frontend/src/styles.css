@@ -275,6 +275,12 @@ a:hover { color: var(--accent-hover); }
 .photo-search-head h2 { font-size: 1.05rem; margin: 0 0 4px; }
 .photo-note { font-size: 0.85rem; margin: 0; }
 .file-button { white-space: nowrap; }
+.photo-preview { margin: 0; display: grid; gap: 4px; justify-items: start; }
+.photo-preview img {
+  max-width: 260px; max-height: 170px; object-fit: cover;
+  border-radius: 10px; border: 1px solid var(--border);
+}
+.photo-preview figcaption { font-size: 0.8rem; }
 
 @media (max-width: 600px) {
   .hero h1 { font-size: 1.7rem; }
