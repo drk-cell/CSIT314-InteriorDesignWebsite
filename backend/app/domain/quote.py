@@ -24,6 +24,16 @@ def _now() -> datetime:
     return datetime.now(timezone.utc)
 
 
+def _today() -> date:
+    """Return the business date on the local calendar.
+
+    Timestamps stay in UTC, but a validity window is a calendar promise to the
+    person who made it. In Singapore the UTC date is still yesterday until 08:00
+    local, which would shorten every quote by one day.
+    """
+    return datetime.now(timezone.utc).astimezone().date()
+
+
 @dataclass
 class Quote:
     """One total, one validity date, one state."""
@@ -53,7 +63,7 @@ class Quote:
         self.note = self.note.strip()
         if len(self.note) > MAX_NOTE:
             raise ValueError(f"A note must be {MAX_NOTE} characters or fewer")
-        window = (self.valid_until - self.created_at.date()).days
+        window = (self.valid_until - _today()).days
         if window < MIN_VALID_DAYS or window > MAX_VALID_DAYS:
             raise ValueError(
                 f"A quote must be valid for {MIN_VALID_DAYS} to {MAX_VALID_DAYS} days"
@@ -75,7 +85,7 @@ class Quote:
 
     def is_expired(self, today: date | None = None) -> bool:
         """Return whether the validity date passed."""
-        return (today or _now().date()) > self.valid_until
+        return (today or _today()) > self.valid_until
 
     def supersede(self) -> None:
         """Retire this version because a newer one exists."""
@@ -115,7 +125,7 @@ class Quote:
             raise ValueError(
                 f"A quote must be valid for {MIN_VALID_DAYS} to {MAX_VALID_DAYS} days"
             )
-        return (today or _now().date()) + timedelta(days=days)
+        return (today or _today()) + timedelta(days=days)
 
     def _touch(self) -> None:
         self.updated_at = _now()
