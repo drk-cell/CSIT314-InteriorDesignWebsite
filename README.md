@@ -17,6 +17,36 @@ running the app with five double-click files and annotated screenshots.
 | `5-stop-app.bat` | stop both servers and free the ports |
 | `6-load-my-data.bat` | check and load the tester CSV files in `testing/data` |
 
+## Rebuilding the demonstration dataset
+
+The stores live in process memory, so the catalogue cannot be cloned as a
+database file. One committed script rebuilds the exact dataset the walkthrough
+and the screen recording were made on:
+
+```
+APP_ADMIN_EMAIL=admin@example.com APP_ADMIN_PASSWORD=passw0rd123 \
+  backend/.venv/Scripts/python.exe backend/scripts/seed_all.py
+```
+
+It runs `seed_demo.py` and then `seed_bulk.py`, and ends with:
+
+```
+this month: 125 accounts, 108 projects, 100 requests, 100 quotes
+```
+
+`testing/fixtures/video-environment.json` is a read-only dump of that dataset:
+125 accounts, 23 companies, 108 projects, 10 categories and 100 quote requests.
+Each photo is analysed through `POST /api/images/tags` while seeding, so the
+projects carry the tags the photo search matches on. The dump is there to check
+a rebuild and to read the data without starting the app; nothing loads it back.
+
+If another service already holds port 8000, start the backend on another port
+and tell the frontend:
+
+```
+cd frontend && VITE_API_TARGET=http://127.0.0.1:8010 npm run dev
+```
+
 ## Stack
 
 | Layer | Choice |
