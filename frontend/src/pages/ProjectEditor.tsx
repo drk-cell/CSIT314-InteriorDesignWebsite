@@ -175,7 +175,18 @@ export default function ProjectEditor() {
     setSuggesting(true);
     setError(null);
     try {
-      setSuggestion(await suggestTags(projectId));
+      const result = await suggestTags(projectId);
+      if (result.subject === 'other') {
+        setSuggestion(null);
+        setError('That photo does not look like an interior. Choose a picture of a room.');
+        return;
+      }
+      if ((result.objects ?? []).length === 0) {
+        setSuggestion(null);
+        setError('No furniture was recognised in that photo. Try a wider shot of the room.');
+        return;
+      }
+      setSuggestion(result);
     } catch (caught) {
       setError(
         caught instanceof ApiError
@@ -194,7 +205,18 @@ export default function ProjectEditor() {
     setSuggesting(true);
     setError(null);
     try {
-      setSuggestion(await suggestTagsFromUpload(file));
+      const result = await suggestTagsFromUpload(file);
+      if (result.subject === 'other') {
+        setSuggestion(null);
+        setError('That photo does not look like an interior. Choose a picture of a room.');
+        return;
+      }
+      if ((result.objects ?? []).length === 0) {
+        setSuggestion(null);
+        setError('No furniture was recognised in that photo. Try a wider shot of the room.');
+        return;
+      }
+      setSuggestion(result);
     } catch (caught) {
       setError(
         caught instanceof ApiError

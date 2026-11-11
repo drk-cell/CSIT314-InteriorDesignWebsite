@@ -87,3 +87,5 @@ class TagSuggestionPublic(BaseModel):
     width: int
     height: int
     engine: str = ""
+    subject: str = "room"
+    objects: list[str] = Field(default_factory=list)

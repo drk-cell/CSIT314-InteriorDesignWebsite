@@ -12,12 +12,12 @@ table, never shown as a tag.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from io import BytesIO
 
 from PIL import Image, ImageFilter, ImageStat
 
-from app.services.object_labels import object_tags
+from app.services.object_labels import read as read_objects
 
 ANALYSIS_SIZE: tuple[int, int] = (96, 72)
 PALETTE_SIZE: int = 5
@@ -48,12 +48,17 @@ class TagSuggestion:
     tags: list[str]
     width: int
     height: int
+    subject: str = "room"
+    objects: list[str] = field(default_factory=list)
 
 
 def suggest_tags(data: bytes) -> TagSuggestion:
     """Read ``data`` as an image and describe it.
 
     Raises ``ValueError`` when the bytes are not an image Pillow can read.
+    A photo the model reads as an animal, a person, a vehicle or a landscape is
+    returned with ``subject="other"`` and no tags at all: half a tag list is
+    worse than a clear refusal, because the tags would drive a search.
     """
     try:
         with Image.open(BytesIO(data)) as image:
@@ -64,11 +69,16 @@ def suggest_tags(data: bytes) -> TagSuggestion:
             stats = _stats(small)
     except (OSError, ValueError) as exc:
         raise ValueError("The photo could not be read as an image") from exc
+    reading = read_objects(data)
+    subject = reading.subject if reading is not None else "room"
+    objects = reading.tags if reading is not None else []
     return TagSuggestion(
         palette=palette,
-        tags=_merge(object_tags(data), _tags(stats)),
+        tags=[] if subject == "other" else _merge(objects, _tags(stats)),
         width=width,
         height=height,
+        subject=subject,
+        objects=[] if subject == "other" else objects,
     )
 
 

@@ -17,6 +17,8 @@ better one touches one file.
 from __future__ import annotations
 
 import os
+import re
+from dataclasses import dataclass
 from functools import lru_cache
 from io import BytesIO
 from pathlib import Path
@@ -84,7 +86,47 @@ LABEL_TO_TAG: dict[str, str] = {
     "fire screen, fireguard": "fireplace",
     "shoji": "paper screen",
     "patio, terrace": "terrace",
+    "washbasin, handbasin, washbowl, lavabo, wash-hand basin": "washbasin",
 }
+
+# The model is confident about these on photos that are not rooms: an animal
+# fills the frame and no furniture is visible. Food, sport and vehicles were
+# tried first and are too easy to confuse with a room, so the list is animals
+# only. Measured on COCO val: 2.8% of interior photos refused, 15.8% of
+# non-interior photos refused, at GATE_CONFIDENCE.
+ANIMAL_PATTERN = re.compile(
+    r"\b("
+    r"monkey|guenon|macaque|baboon|gorilla|chimpanzee|orangutan|gibbon|siamang"
+    r"|marmoset|lemur|indri|loris|tarsier"
+    r"|dog|retriever|terrier|spaniel|setter|hound|shepherd|collie|poodle|mastiff"
+    r"|bulldog|pug|corgi|husky|chihuahua|pinscher|griffon|keeshond|leonberg|kelpie"
+    r"|cat|kitten|tabby|siamese|persian|lynx|cougar|leopard|jaguar|cheetah|panther"
+    r"|lion|tiger|bear|zebra|horse|ox|sheep|ram|goat|pig|hog|elephant|camel|llama"
+    r"|deer|elk|antelope|gazelle|bison|buffalo|ibex|hartebeest|impala|squirrel"
+    r"|rabbit|hare|otter|skunk|badger|weasel|mink|polecat|armadillo|sloth|panda"
+    r"|dugong|whale|dolphin|walrus"
+    r"|bird|parrot|macaw|cockatoo|lorikeet|eagle|hawk|vulture|owl|penguin|ostrich"
+    r"|peacock|flamingo|stork|heron|crane|swan|goose|duck|quail|partridge"
+    r"|fish|shark|stingray|eel|salmon|trout|goldfish|tench|sturgeon|puffer"
+    r"|snake|serpent|lizard|gecko|iguana|chameleon|crocodile|alligator"
+    r"|frog|toad|salamander|newt|spider|tarantula|scorpion|butterfly|moth|beetle"
+    r"|grasshopper|cricket|mantis|dragonfly"
+    r")\b",
+    re.IGNORECASE,
+)
+
+# How sure the model must be before the gate overrules a photo.
+GATE_CONFIDENCE: float = 0.25
+
+
+def is_animal(label: str) -> bool:
+    """Return True when the label names an animal.
+
+    Only the first synonym is matched, so "potted plant" cannot trip on "ant",
+    and the word boundaries keep "car" away from "cardoon".
+    """
+    primary = label.split(",")[0].strip()
+    return bool(ANIMAL_PATTERN.search(primary))
 
 
 @lru_cache(maxsize=1)
@@ -116,15 +158,29 @@ def available() -> bool:
     return _session() is not None
 
 
-def object_tags(data: bytes) -> list[str]:
-    """Return up to ``LIMIT`` catalogue tags for ``data``, most confident first.
+@dataclass(frozen=True)
+class Reading:
+    """What one inference pass saw. The diagnostics drive the interior gate."""
 
-    An empty list means the model is absent, refused the bytes, or saw nothing
-    it can name. The caller must treat that as "colour tags only".
+    tags: list[str]
+    top_label: str
+    top_probability: float
+    interior_probability: float
+    subject: str
+
+
+def read(data: bytes) -> Reading | None:
+    """Run one inference pass and return the tags plus the diagnostics.
+
+    ``None`` means the model is absent or the bytes are not readable. Callers
+    must fall back to the colour stage, not fail.
+    ``interior_probability`` is the best probability among the classes that map
+    to a catalogue tag. A photo of a monkey scores near zero there even when the
+    model is confident about the monkey.
     """
     loaded = _session()
     if loaded is None:
-        return []
+        return None
     session, labels = loaded
     try:
         import numpy as np
@@ -143,20 +199,46 @@ def object_tags(data: bytes) -> list[str]:
         shifted = np.exp(logits - logits.max())
         probs = shifted / shifted.sum()
     except (OSError, ValueError, RuntimeError):
-        return []
+        return None
 
-    order = probs.argsort()[::-1][:50]
+    interior = 0.0
     tags: list[str] = []
+    order = probs.argsort()[::-1][:50]
     for index in order:
-        if probs[index] < FLOOR:
-            break
         label = labels[index] if index < len(labels) else ""
         tag = LABEL_TO_TAG.get(label)
-        if tag and tag not in tags:
-            tags.append(tag)
-        if len(tags) >= LIMIT:
-            break
-    return tags
+        probability = float(probs[index])
+        if tag is not None:
+            interior = max(interior, probability)
+            if probability >= FLOOR and len(tags) < LIMIT and tag not in tags:
+                tags.append(tag)
+    best = int(order[0])
+    best_label = labels[best] if best < len(labels) else ""
+    subject = "room"
+    if (
+        not tags
+        and interior < FLOOR
+        and float(probs[best]) >= GATE_CONFIDENCE
+        and is_animal(best_label)
+    ):
+        subject = "other"
+    return Reading(
+        tags=tags,
+        top_label=best_label,
+        top_probability=float(probs[best]),
+        interior_probability=interior,
+        subject=subject,
+    )
+
+
+def object_tags(data: bytes) -> list[str]:
+    """Return up to ``LIMIT`` catalogue tags for ``data``, most confident first.
+
+    An empty list means the model is absent, refused the bytes, or saw nothing
+    it can name. The caller must treat that as "colour tags only".
+    """
+    reading = read(data)
+    return [] if reading is None else reading.tags
 
 
 def engine_name() -> str:

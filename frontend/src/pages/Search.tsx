@@ -111,7 +111,22 @@ export default function Search() {
     setError(null);
     try {
       const suggestion = await suggestTagsFromUpload(file);
+      if (suggestion.subject === 'other') {
+        setTags([]);
+        setPhotoNote(
+          'That photo does not look like an interior. Choose a picture of a room.',
+        );
+        return;
+      }
       setTags(suggestion.tags);
+      const objects = suggestion.objects ?? [];
+      if (objects.length === 0) {
+        setTags([]);
+        setPhotoNote(
+          'No furniture was recognised in that photo. Try a wider shot of the room.',
+        );
+        return;
+      }
       setPhotoNote(
         `${suggestion.tags.length} tags read by ${suggestion.engine ?? 'the analyser'}. Click a tag to remove it.`,
       );

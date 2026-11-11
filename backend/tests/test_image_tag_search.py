@@ -118,6 +118,52 @@ def test_the_colour_stage_still_works_alone() -> None:
     assert len(suggestion.palette) == 5
 
 
+def test_the_analyser_answers_the_same_way_twice() -> None:
+    """One photo must not produce a different list on a second upload."""
+    data = photo()
+
+    first = suggest_tags(data)
+    second = suggest_tags(data)
+
+    assert first.tags == second.tags
+    assert first.subject == second.subject
+    assert first.palette == second.palette
+
+
+# --- the interior gate ----------------------------------------------------
+
+
+def test_a_monkey_label_is_an_animal() -> None:
+    from app.services.object_labels import is_animal
+
+    assert is_animal("guenon, guenon monkey") is True
+    assert is_animal("macaque") is True
+    assert is_animal("Labrador retriever") is True
+
+
+def test_a_furniture_label_is_not_an_animal() -> None:
+    from app.services.object_labels import is_animal
+
+    assert is_animal("studio couch, day bed") is False
+    assert is_animal("potted plant") is False
+    assert is_animal("dining table, board") is False
+
+
+def test_a_word_boundary_keeps_plants_out_of_the_gate() -> None:
+    """"ant" inside "plant", "car" inside "cardoon": neither may trigger."""
+    from app.services.object_labels import is_animal
+
+    assert is_animal("cardoon") is False
+    assert is_animal("plant") is False
+    assert is_animal("bathtub, bathing tub, bath, tub") is False
+
+
+def test_the_gate_needs_confidence() -> None:
+    from app.services.object_labels import GATE_CONFIDENCE
+
+    assert GATE_CONFIDENCE >= 0.2
+
+
 # --- tag ranking ---------------------------------------------------------
 
 

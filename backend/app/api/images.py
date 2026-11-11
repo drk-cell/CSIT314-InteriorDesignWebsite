@@ -81,4 +81,6 @@ async def tags_for_upload(
         width=suggestion.width,
         height=suggestion.height,
         engine=engine_name(),
+        subject=suggestion.subject,
+        objects=suggestion.objects,
     )

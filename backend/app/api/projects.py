@@ -276,4 +276,6 @@ def suggest_project_tags(
         width=suggestion.width,
         height=suggestion.height,
         engine=engine_name(),
+        subject=suggestion.subject,
+        objects=suggestion.objects,
     )

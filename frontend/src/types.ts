@@ -130,6 +130,8 @@ export interface TagSuggestion {
   width: number;
   height: number;
   engine?: string;
+  subject?: string;
+  objects?: string[];
 }
 
 export interface ShortlistResponse {
