@@ -8,10 +8,38 @@ import {
   getProject,
   updateProject,
   getCatalogue,
-  suggestTags,
   suggestTagsFromUpload,
+  uploadImage,
 } from '../api';
-import type { Catalogue, ProjectInput, TagSuggestion } from '../types';
+import type { Catalogue, ProjectInput } from '../types';
+
+const MAX_IMAGES = 8;
+
+interface QueueItem {
+  key: string;
+  url: string;
+  tags: string[];
+}
+
+function splitTags(value: string): string[] {
+  return value
+    .split(',')
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
+
+function mergeTags(current: string[], extra: string[]): string[] {
+  const seen = new Set(current.map((tag) => tag.toLowerCase()));
+  const out = [...current];
+  for (const tag of extra) {
+    const key = tag.toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      out.push(tag);
+    }
+  }
+  return out;
+}
 
 export default function ProjectEditor() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -24,11 +52,9 @@ export default function ProjectEditor() {
   const [style, setStyle] = useState('');
   const [budgetMin, setBudgetMin] = useState('0');
   const [budgetMax, setBudgetMax] = useState('0');
-  const [imageUrls, setImageUrls] = useState('');
+  const [queue, setQueue] = useState<QueueItem[]>([]);
   const [tags, setTags] = useState('');
-  const [suggestion, setSuggestion] = useState<TagSuggestion | null>(null);
-  const [suggesting, setSuggesting] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const [catalogue, setCatalogue] = useState<Catalogue | null>(null);
   const [loading, setLoading] = useState(editing);
@@ -73,10 +99,8 @@ export default function ProjectEditor() {
         setStyle(project.style);
         setBudgetMin(String(project.budget_min));
         setBudgetMax(String(project.budget_max));
-        setImageUrls(project.images.join('\n'));
+        setQueue(project.images.map((url) => ({ key: url, url, tags: [] })));
         setTags(project.tags.join(', '));
-        // The tags follow the photo. No button: opening the project is enough.
-        if (project.images.length > 0) void handleSuggest();
       })
       .catch((caught: unknown) => {
         if (!active) return;
@@ -123,14 +147,7 @@ export default function ProjectEditor() {
       return;
     }
 
-    const images = [
-      ...new Set(
-        imageUrls
-          .split('\n')
-          .map((url) => url.trim())
-          .filter(Boolean)
-      ),
-    ];
+    const images = queue.map((item) => item.url);
 
     if (images.length > 8) {
       setError('A project can contain at most 8 images.');
@@ -173,57 +190,47 @@ export default function ProjectEditor() {
     }
   }
 
-  async function handleSuggest() {
-    if (!projectId || suggesting) return;
-    setSuggesting(true);
-    setError(null);
-    try {
-      const result = await suggestTags(projectId);
-      if (result.subject === 'other') {
-        setSuggestion(null);
-        setError('That photo does not look like an interior. Choose a picture of a room.');
-        return;
-      }
-      if ((result.objects ?? []).length === 0 && result.objects !== undefined) {
-        setSuggestion(null);
-        setError('No furniture was recognised in that photo. Try a wider shot of the room.');
-        return;
-      }
-      setSuggestion(result);
-    } catch (caught) {
-      setError(
-        caught instanceof ApiError
-          ? caught.detail
-          : 'Unable to analyse the photo.'
-      );
-    } finally {
-      setSuggesting(false);
-    }
-  }
-
-  async function handleUpload(event: ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
+  async function handleAdd(event: ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(event.target.files ?? []);
     event.target.value = '';
-    if (!file || suggesting) return;
-    setPreview((old) => {
-      if (old !== null && old.startsWith('blob:')) URL.revokeObjectURL(old);
-      return URL.createObjectURL(file);
-    });
-    setSuggesting(true);
+    if (files.length === 0 || uploading) return;
+
+    const room = MAX_IMAGES - queue.length;
+    if (room <= 0) {
+      setError('A project can show 8 photos. Remove one before adding another.');
+      return;
+    }
+
+    setUploading(true);
     setError(null);
+    const added: QueueItem[] = [];
+    const warnings: string[] = [];
+
     try {
-      const result = await suggestTagsFromUpload(file);
-      if (result.subject === 'other') {
-        setSuggestion(null);
-        setError('That photo does not look like an interior. Choose a picture of a room.');
-        return;
+      for (const file of files.slice(0, room)) {
+        const stored = await uploadImage(file);
+        const reading = await suggestTagsFromUpload(file);
+
+        // A photo is kept even when the analyser refuses to read it. The
+        // designer chose the picture; only the tags depend on the reading.
+        const tags = reading.subject === 'other' ? [] : reading.tags;
+        if (reading.subject === 'other') {
+          warnings.push(`${file.name} does not look like an interior, so it added no tags.`);
+        } else if ((reading.objects ?? []).length === 0 && reading.objects !== undefined) {
+          warnings.push(`No furniture was recognised in ${file.name}, so it added no tags.`);
+        }
+        added.push({ key: stored.url, url: stored.url, tags });
       }
-      if ((result.objects ?? []).length === 0 && result.objects !== undefined) {
-        setSuggestion(null);
-        setError('No furniture was recognised in that photo. Try a wider shot of the room.');
-        return;
+
+      setQueue((previous) => [...previous, ...added]);
+      const extra = added.flatMap((item) => item.tags);
+      if (extra.length > 0) {
+        setTags((previous) => mergeTags(splitTags(previous), extra).join(', '));
       }
-      setSuggestion(result);
+      if (files.length > room) {
+        warnings.push(`Only ${room} more photo${room === 1 ? '' : 's'} fitted, so the rest were skipped.`);
+      }
+      if (warnings.length > 0) setError(warnings.join(' '));
     } catch (caught) {
       setError(
         caught instanceof ApiError
@@ -231,19 +238,23 @@ export default function ProjectEditor() {
           : 'That file could not be read as a photo.'
       );
     } finally {
-      setSuggesting(false);
+      setUploading(false);
     }
   }
 
-  function takeTag(tag: string) {
-    const current = tags
-      .split(',')
-      .map((entry) => entry.trim())
-      .filter(Boolean);
-    const known = current.some(
-      (entry) => entry.toLowerCase() === tag.toLowerCase()
-    );
-    if (!known) setTags([...current, tag].join(', '));
+  function removeImage(item: QueueItem) {
+    const keptByOthers = queue
+      .filter((other) => other.key !== item.key)
+      .flatMap((other) => other.tags.map((tag) => tag.toLowerCase()));
+
+    // A tag stays when another photo, or the designer, still wants it.
+    const kept = splitTags(tags).filter((tag) => {
+      const own = item.tags.some((entry) => entry.toLowerCase() === tag.toLowerCase());
+      return !own || keptByOthers.includes(tag.toLowerCase());
+    });
+
+    setQueue((previous) => previous.filter((other) => other.key !== item.key));
+    setTags(kept.join(', '));
   }
 
   if (loading) {
@@ -353,15 +364,42 @@ export default function ProjectEditor() {
 
           <div className="field">
             <label htmlFor="project-images">
-              Image URLs (maximum 8)
+              Project photos ({queue.length} of {MAX_IMAGES})
             </label>
-            <textarea
-              id="project-images"
-              rows={4}
-              value={imageUrls}
-              onChange={(e) => setImageUrls(e.target.value)}
-              placeholder="Enter one image URL per line"
-            />
+            <div className="image-queue">
+              {queue.map((item) => (
+                <figure key={item.key} className="queue-item">
+                  <img src={item.url} alt="A project photo" />
+                  <button
+                    type="button"
+                    className="queue-remove"
+                    aria-label="Remove this photo"
+                    title="Remove this photo"
+                    onClick={() => removeImage(item)}
+                  >
+                    ×
+                  </button>
+                </figure>
+              ))}
+              {queue.length < MAX_IMAGES && (
+                <label className="queue-add">
+                  <span>{uploading ? 'Reading…' : '+ Add photo'}</span>
+                  <input
+                    id="project-images"
+                    type="file"
+                    multiple
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={(event) => void handleAdd(event)}
+                    disabled={uploading}
+                    hidden
+                  />
+                </label>
+              )}
+            </div>
+            <p className="hint">
+              Up to {MAX_IMAGES} photos. Each photo adds its tags to the field
+              below. Remove a photo to remove the tags it added.
+            </p>
           </div>
 
           <div className="field">
@@ -375,48 +413,6 @@ export default function ProjectEditor() {
             <p className="hint">
               Separate tags with commas. Customers can search them.
             </p>
-            <div className="tag-suggest">
-              {preview !== null ? (
-                <figure className="photo-preview">
-                  <img src={preview} alt="The photo you uploaded" />
-                  <figcaption className="muted">The photo the tags come from</figcaption>
-                </figure>
-              ) : (
-                imageUrls.trim() !== '' && (
-                  <figure className="photo-preview">
-                    <img
-                      src={imageUrls.split('\n')[0].trim()}
-                      alt="The project photo"
-                    />
-                    <figcaption className="muted">The project photo</figcaption>
-                  </figure>
-                )
-              )}
-              <label className="button button-secondary file-button">
-                {suggesting ? 'Reading the photo…' : 'Upload a photo to read tags'}
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  onChange={(event) => void handleUpload(event)}
-                  disabled={suggesting}
-                  hidden
-                />
-              </label>
-              {suggestion !== null && (
-                <div className="tag-row">
-                  {suggestion.tags.map((tag) => (
-                    <button
-                      key={tag}
-                      type="button"
-                      className="tag-chip"
-                      onClick={() => takeTag(tag)}
-                    >
-                      + {tag}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
           </div>
 
           <div className="actions">

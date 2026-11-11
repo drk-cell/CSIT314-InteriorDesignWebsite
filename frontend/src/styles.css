@@ -282,6 +282,31 @@ a:hover { color: var(--accent-hover); }
 }
 .photo-preview figcaption { font-size: 0.8rem; }
 
+.image-queue {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start;
+}
+.queue-item {
+  position: relative; margin: 0; width: 132px; height: 96px;
+  border-radius: 10px; overflow: hidden; border: 1px solid var(--border);
+}
+.queue-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.queue-remove {
+  position: absolute; top: 4px; right: 4px;
+  width: 22px; height: 22px; padding: 0; line-height: 1;
+  display: grid; place-items: center;
+  border-radius: 50%; border: none; cursor: pointer;
+  background: rgba(17, 24, 39, 0.72); color: #fff; font-size: 15px;
+}
+.queue-remove:hover { background: #b91c1c; }
+.queue-add {
+  width: 132px; height: 96px;
+  display: grid; place-items: center; cursor: pointer;
+  border: 1px dashed var(--border); border-radius: 10px;
+  color: var(--muted-foreground); font-size: 0.85rem;
+  background: rgba(0, 0, 0, 0.02);
+}
+.queue-add:hover { border-color: var(--accent); color: var(--accent); }
+
 @media (max-width: 600px) {
   .hero h1 { font-size: 1.7rem; }
   .card { padding: 20px; }

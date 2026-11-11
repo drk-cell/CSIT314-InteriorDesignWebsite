@@ -19,6 +19,7 @@ import type {
   QuoteRequestState,
   ShortlistResponse,
   Status,
+  StoredImage,
   TagSuggestion,
   TokenResponse,
 } from './types';
@@ -251,6 +252,12 @@ export function suggestTagsFromUpload(file: File): Promise<TagSuggestion> {
   const form = new FormData();
   form.append('file', file);
   return request<TagSuggestion>('/images/tags', { method: 'POST', body: form });
+}
+
+export function uploadImage(file: File): Promise<StoredImage> {
+  const form = new FormData();
+  form.append('file', file);
+  return request<StoredImage>('/images', { method: 'POST', body: form });
 }
 
 export function recordView(projectId: string): Promise<void> {

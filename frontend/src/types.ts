@@ -134,6 +134,12 @@ export interface TagSuggestion {
   objects?: string[];
 }
 
+export interface StoredImage {
+  url: string;
+  width: number;
+  height: number;
+}
+
 export interface ShortlistResponse {
   project_ids: string[];
   items: ProjectPublic[];
