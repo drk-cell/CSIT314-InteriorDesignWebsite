@@ -53,7 +53,8 @@ this month: 125 accounts, 108 projects, 100 requests, 100 quotes
 ```
 
 `testing/fixtures/video-environment.json` is a read-only dump of that dataset:
-125 accounts, 23 companies, 108 projects, 10 categories and 100 quote requests.
+125 accounts, 23 companies, 108 projects, 10 categories, 100 quote requests and
+the customer's 3 saved projects.
 Each photo is analysed through `POST /api/images/tags` while seeding, so the
 projects carry the tags the photo search matches on. The dump is there to check
 a rebuild and to read the data without starting the app; nothing loads it back.

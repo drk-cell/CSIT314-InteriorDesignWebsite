@@ -67,6 +67,14 @@ def main() -> int:
             page += 1
         categories = client.get("/categories/all", headers=auth(admin)).json()
 
+        # The customer's saved list is part of the demonstration state.
+        saved: dict = {"customer": "casey@example.com", "project_ids": [], "items": []}
+        customer_token = login(client, "casey@example.com")
+        if customer_token is not None:
+            listing = client.get("/shortlist", headers=auth(customer_token))
+            if listing.status_code == 200:
+                saved = {"customer": "casey@example.com", **listing.json()}
+
         # Every request is visible to the designer it was sent to.
         requests: dict[str, dict] = {}
         designers = [row for row in accounts if row["role"] == "DESIGNER"]
@@ -92,12 +100,14 @@ def main() -> int:
                 "projects": len(projects),
                 "categories": len(categories),
                 "quote_requests": len(requests),
+                "shortlist": len(saved["project_ids"]),
             },
             "accounts": accounts,
             "companies": companies,
             "projects": projects,
             "categories": categories,
             "quote_requests": sorted(requests.values(), key=lambda row: row["id"]),
+            "shortlist": saved,
         }
 
     TARGET.parent.mkdir(parents=True, exist_ok=True)

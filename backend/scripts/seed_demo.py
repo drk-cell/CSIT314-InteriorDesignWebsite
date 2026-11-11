@@ -103,6 +103,15 @@ def main() -> None:
         register(client, "casey@example.com", PASSWORD, "Casey Tan", "CUSTOMER")
         print("seeded customer: casey@example.com")
 
+        # The customer starts with a shortlist, so the saved page has content.
+        customer_token = login(client, "casey@example.com", PASSWORD)
+        page = client.get(
+            "/projects/search", headers=auth(customer_token), params={"page_size": 20}
+        ).json()
+        for project in page["items"][:3]:
+            client.post(f"/shortlist/{project['id']}", headers=auth(customer_token))
+        print(f"saved {min(3, len(page['items']))} projects to the customer shortlist")
+
 
 def auth(token: str) -> dict[str, str]:
     return {"Authorization": f"Bearer {token}"}
