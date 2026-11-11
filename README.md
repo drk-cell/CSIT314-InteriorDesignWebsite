@@ -8,6 +8,11 @@ CSIT314 Software Development Methodologies.
 Testers start with **[TESTING.md](TESTING.md)**. It walks through installing and
 running the app with five double-click files and annotated screenshots.
 
+The **[user manual](testing/manual/CSIT314-User-Manual.pdf)** covers every use case for a
+customer, a designer and an administrator. It is built from the running app:
+`testing/manual/capture_shots.py` takes the screens, `testing/manual/build_manual.py`
+writes the document.
+
 | File | Purpose |
 |---|---|
 | `1-check-my-pc.bat` | check Git, Node.js and Python are present |
