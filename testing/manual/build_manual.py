@@ -692,7 +692,7 @@ def main() -> int:
             "Choose how many Buckets to show, for example 14 days or 30 days.",
             "Read the columns: accounts, projects, requests and quotes per bucket.",
         ],
-        "The newest bucket shows the current totals. The same numbers are served by GET /api/reports/{period} for a script.",
+        "The newest bucket shows the current totals. The same numbers are served by GET /api/reports?period=weekly&buckets=6 for a script.",
         "18-admin-reports.png",
         "Figure 20  A daily report. The last row carries the current totals.",
     )
