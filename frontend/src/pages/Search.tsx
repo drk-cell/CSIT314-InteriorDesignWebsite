@@ -119,8 +119,8 @@ export default function Search() {
         return;
       }
       setTags(suggestion.tags);
-      const objects = suggestion.objects ?? [];
-      if (objects.length === 0) {
+      const objects = suggestion.objects;
+      if (objects !== undefined && objects.length === 0) {
         setTags([]);
         setPhotoNote(
           'No furniture was recognised in that photo. Try a wider shot of the room.',

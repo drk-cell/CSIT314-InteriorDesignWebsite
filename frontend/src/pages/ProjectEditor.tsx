@@ -181,7 +181,7 @@ export default function ProjectEditor() {
         setError('That photo does not look like an interior. Choose a picture of a room.');
         return;
       }
-      if ((result.objects ?? []).length === 0) {
+      if ((result.objects ?? []).length === 0 && result.objects !== undefined) {
         setSuggestion(null);
         setError('No furniture was recognised in that photo. Try a wider shot of the room.');
         return;
@@ -211,7 +211,7 @@ export default function ProjectEditor() {
         setError('That photo does not look like an interior. Choose a picture of a room.');
         return;
       }
-      if ((result.objects ?? []).length === 0) {
+      if ((result.objects ?? []).length === 0 && result.objects !== undefined) {
         setSuggestion(null);
         setError('No furniture was recognised in that photo. Try a wider shot of the room.');
         return;
