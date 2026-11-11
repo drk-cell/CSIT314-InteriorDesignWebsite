@@ -1,0 +1,7700 @@
+{
+ "backend": [
+  {
+   "kind": "function",
+   "name": "_to_http",
+   "signature": "def _to_http(exc: Exception) -> HTTPException",
+   "doc": "Map a domain refusal to the matching response.",
+   "decorators": [],
+   "file": "backend/app/api/admin.py",
+   "line": 22,
+   "layer": "Control (boundary)",
+   "lines": [
+    22,
+    26
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_accounts",
+   "signature": "def list_accounts(actor: CurrentAccountDep, service: ServiceDep, account_status: Annotated[AccountStatus | None, Query(alias='status')] = None) -> list[AccountPublic]",
+   "doc": "Return every account, optionally filtered by status.",
+   "decorators": [
+    "@router.get('/accounts', response_model=list[AccountPublic], summary='List accounts for an administrator')"
+   ],
+   "file": "backend/app/api/admin.py",
+   "line": 34,
+   "layer": "Control (boundary)",
+   "lines": [
+    34,
+    44
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "approve_account",
+   "signature": "def approve_account(account_id: str, actor: CurrentAccountDep, service: ServiceDep) -> AccountPublic",
+   "doc": "Activate the account so it may sign in.",
+   "decorators": [
+    "@router.post('/accounts/{account_id}/approve', response_model=AccountPublic, summary='Approve an account')"
+   ],
+   "file": "backend/app/api/admin.py",
+   "line": 52,
+   "layer": "Control (boundary)",
+   "lines": [
+    52,
+    60
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "suspend_account",
+   "signature": "def suspend_account(account_id: str, actor: CurrentAccountDep, service: ServiceDep) -> AccountPublic",
+   "doc": "Suspend the account so it cannot sign in again.",
+   "decorators": [
+    "@router.post('/accounts/{account_id}/suspend', response_model=AccountPublic, summary='Suspend an account')"
+   ],
+   "file": "backend/app/api/admin.py",
+   "line": 68,
+   "layer": "Control (boundary)",
+   "lines": [
+    68,
+    76
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "register",
+   "signature": "def register(payload: RegisterRequest, service: ServiceDep) -> AccountPublic",
+   "doc": "Create a self service account.",
+   "decorators": [
+    "@router.post('/register', response_model=AccountPublic, status_code=status.HTTP_201_CREATED, summary='Register a customer or designer account')"
+   ],
+   "file": "backend/app/api/auth.py",
+   "line": 40,
+   "layer": "Control (boundary)",
+   "lines": [
+    40,
+    55
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "login",
+   "signature": "def login(payload: LoginRequest, service: ServiceDep) -> TokenResponse",
+   "doc": "Authenticate an account and issue an access token.",
+   "decorators": [
+    "@router.post('/login', response_model=TokenResponse, summary='Exchange credentials for a token')"
+   ],
+   "file": "backend/app/api/auth.py",
+   "line": 59,
+   "layer": "Control (boundary)",
+   "lines": [
+    59,
+    76
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "read_current_account",
+   "signature": "def read_current_account(account: CurrentAccountDep) -> AccountPublic",
+   "doc": "Return the account the bearer token belongs to.",
+   "decorators": [
+    "@router.get('/me', response_model=AccountPublic, summary='Return the authenticated account')"
+   ],
+   "file": "backend/app/api/auth.py",
+   "line": 80,
+   "layer": "Control (boundary)",
+   "lines": [
+    80,
+    82
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "BudgetRange",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "The slider bounds for the budget filter.",
+   "decorators": [],
+   "file": "backend/app/api/catalogue.py",
+   "line": 17,
+   "lines": [
+    17,
+    22
+   ],
+   "layer": "Control (boundary)",
+   "fields": [
+    {
+     "name": "min",
+     "type": "int",
+     "default": "Field(description='Lowest selectable amount')"
+    },
+    {
+     "name": "max",
+     "type": "int",
+     "default": "Field(description='Highest selectable amount')"
+    },
+    {
+     "name": "step",
+     "type": "int",
+     "default": "Field(description='Slider step in the same currency unit')"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CatalogueResponse",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Everything a filter screen needs to build its controls.",
+   "decorators": [],
+   "file": "backend/app/api/catalogue.py",
+   "line": 25,
+   "lines": [
+    25,
+    30
+   ],
+   "layer": "Control (boundary)",
+   "fields": [
+    {
+     "name": "categories",
+     "type": "list[str]",
+     "default": ""
+    },
+    {
+     "name": "styles",
+     "type": "list[str]",
+     "default": ""
+    },
+    {
+     "name": "budget",
+     "type": "BudgetRange",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "read_catalogue",
+   "signature": "def read_catalogue(categories: Annotated[CategoryRepository, Depends(get_category_repository)]) -> CatalogueResponse",
+   "doc": "Return the platform vocabulary. No sign in needed.",
+   "decorators": [
+    "@router.get('', response_model=CatalogueResponse, summary='Read the fixed category and style lists')"
+   ],
+   "file": "backend/app/api/catalogue.py",
+   "line": 38,
+   "layer": "Control (boundary)",
+   "lines": [
+    38,
+    50
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "CategoryPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "One category as the screens read it.",
+   "decorators": [],
+   "file": "backend/app/api/categories.py",
+   "line": 25,
+   "lines": [
+    25,
+    32
+   ],
+   "layer": "Control (boundary)",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "name",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "active",
+     "type": "bool",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "updated_at",
+     "type": "str",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CategoryInput",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload to create or rename a category.",
+   "decorators": [],
+   "file": "backend/app/api/categories.py",
+   "line": 35,
+   "lines": [
+    35,
+    38
+   ],
+   "layer": "Control (boundary)",
+   "fields": [
+    {
+     "name": "name",
+     "type": "str",
+     "default": "Field(min_length=1, max_length=60)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CategoryPatch",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload to rename, archive or restore.",
+   "decorators": [],
+   "file": "backend/app/api/categories.py",
+   "line": 41,
+   "lines": [
+    41,
+    45
+   ],
+   "layer": "Control (boundary)",
+   "fields": [
+    {
+     "name": "name",
+     "type": "str | None",
+     "default": "Field(default=None, min_length=1, max_length=60)"
+    },
+    {
+     "name": "active",
+     "type": "bool | None",
+     "default": "None"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "_to_public",
+   "signature": "def _to_public(category) -> CategoryPublic",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/api/categories.py",
+   "line": 48,
+   "layer": "Control (boundary)",
+   "lines": [
+    48,
+    55
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_fail",
+   "signature": "def _fail(exc: Exception) -> HTTPException",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/api/categories.py",
+   "line": 58,
+   "layer": "Control (boundary)",
+   "lines": [
+    58,
+    65
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_categories",
+   "signature": "def list_categories(service: ServiceDep) -> list[CategoryPublic]",
+   "doc": "Public list of active categories.",
+   "decorators": [
+    "@router.get('', response_model=list[CategoryPublic], summary='List the categories a dropdown should show')"
+   ],
+   "file": "backend/app/api/categories.py",
+   "line": 73,
+   "layer": "Control (boundary)",
+   "lines": [
+    73,
+    75
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_all_categories",
+   "signature": "def list_all_categories(actor: CurrentAccountDep, service: ServiceDep) -> list[CategoryPublic]",
+   "doc": "Staff only.",
+   "decorators": [
+    "@router.get('/all', response_model=list[CategoryPublic], summary='List every category, archived ones included')"
+   ],
+   "file": "backend/app/api/categories.py",
+   "line": 83,
+   "layer": "Control (boundary)",
+   "lines": [
+    83,
+    91
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "create_category",
+   "signature": "def create_category(payload: CategoryInput, actor: CurrentAccountDep, service: ServiceDep) -> CategoryPublic",
+   "doc": "Staff only.",
+   "decorators": [
+    "@router.post('', response_model=CategoryPublic, status_code=http_status.HTTP_201_CREATED, summary='Create a category')"
+   ],
+   "file": "backend/app/api/categories.py",
+   "line": 100,
+   "layer": "Control (boundary)",
+   "lines": [
+    100,
+    108
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "update_category",
+   "signature": "def update_category(category_id: str, payload: CategoryPatch, actor: CurrentAccountDep, service: ServiceDep) -> CategoryPublic",
+   "doc": "Staff only.",
+   "decorators": [
+    "@router.patch('/{category_id}', response_model=CategoryPublic, summary='Rename, archive or restore a category')"
+   ],
+   "file": "backend/app/api/categories.py",
+   "line": 116,
+   "layer": "Control (boundary)",
+   "lines": [
+    116,
+    132
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_to_http",
+   "signature": "def _to_http(exc: Exception) -> HTTPException",
+   "doc": "Map a domain refusal to the matching response.",
+   "decorators": [],
+   "file": "backend/app/api/companies.py",
+   "line": 21,
+   "layer": "Control (boundary)",
+   "lines": [
+    21,
+    31
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "create_company",
+   "signature": "def create_company(payload: CompanyCreate, actor: CurrentAccountDep, service: ServiceDep) -> CompanyPublic",
+   "doc": "Create the one profile this designer may hold.",
+   "decorators": [
+    "@router.post('', response_model=CompanyPublic, status_code=http_status.HTTP_201_CREATED, summary='Create the company profile of the signed in designer')"
+   ],
+   "file": "backend/app/api/companies.py",
+   "line": 40,
+   "layer": "Control (boundary)",
+   "lines": [
+    40,
+    48
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "read_my_company",
+   "signature": "def read_my_company(actor: CurrentAccountDep, service: ServiceDep) -> CompanyPublic",
+   "doc": "Return the caller's own profile.",
+   "decorators": [
+    "@router.get('/me', response_model=CompanyPublic, summary='Read the company profile of the signed in designer')"
+   ],
+   "file": "backend/app/api/companies.py",
+   "line": 56,
+   "layer": "Control (boundary)",
+   "lines": [
+    56,
+    62
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "update_my_company",
+   "signature": "def update_my_company(payload: CompanyUpdate, actor: CurrentAccountDep, service: ServiceDep) -> CompanyPublic",
+   "doc": "Write only the fields that were supplied.",
+   "decorators": [
+    "@router.patch('/me', response_model=CompanyPublic, summary=\"Change fields of the signed in designer's profile\")"
+   ],
+   "file": "backend/app/api/companies.py",
+   "line": 70,
+   "layer": "Control (boundary)",
+   "lines": [
+    70,
+    79
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_companies",
+   "signature": "def list_companies(actor: CurrentAccountDep, service: ServiceDep) -> list[CompanyPublic]",
+   "doc": "Return the published profiles so a customer can browse them.",
+   "decorators": [
+    "@router.get('', response_model=list[CompanyPublic], summary='List every company profile')"
+   ],
+   "file": "backend/app/api/companies.py",
+   "line": 87,
+   "layer": "Control (boundary)",
+   "lines": [
+    87,
+    89
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "read_company",
+   "signature": "def read_company(company_id: str, actor: CurrentAccountDep, service: ServiceDep) -> CompanyPublic",
+   "doc": "Return a profile. Any signed in account may read it.",
+   "decorators": [
+    "@router.get('/{company_id}', response_model=CompanyPublic, summary='Read any company profile by id')"
+   ],
+   "file": "backend/app/api/companies.py",
+   "line": 97,
+   "layer": "Control (boundary)",
+   "lines": [
+    97,
+    105
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_account_repository",
+   "signature": "def get_account_repository() -> AccountRepository",
+   "doc": "Return the process wide account store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 45,
+   "layer": "Control (boundary)",
+   "lines": [
+    45,
+    47
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_account_service",
+   "signature": "def get_account_service() -> AccountService",
+   "doc": "Return a service bound to the shared account store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 50,
+   "layer": "Control (boundary)",
+   "lines": [
+    50,
+    52
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_company_repository",
+   "signature": "def get_company_repository() -> CompanyRepository",
+   "doc": "Return the process wide company store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 55,
+   "layer": "Control (boundary)",
+   "lines": [
+    55,
+    57
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_company_service",
+   "signature": "def get_company_service() -> CompanyService",
+   "doc": "Return a service bound to the shared company store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 60,
+   "layer": "Control (boundary)",
+   "lines": [
+    60,
+    62
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_project_repository",
+   "signature": "def get_project_repository() -> ProjectRepository",
+   "doc": "Return the process wide project store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 65,
+   "layer": "Control (boundary)",
+   "lines": [
+    65,
+    67
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_project_service",
+   "signature": "def get_project_service() -> ProjectService",
+   "doc": "Return a service bound to the shared project and company stores.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 70,
+   "layer": "Control (boundary)",
+   "lines": [
+    70,
+    72
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_project_search_service",
+   "signature": "def get_project_search_service() -> ProjectSearchService",
+   "doc": "Return a search service bound to the shared project store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 75,
+   "layer": "Control (boundary)",
+   "lines": [
+    75,
+    77
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_shortlist_repository",
+   "signature": "def get_shortlist_repository() -> ShortlistRepository",
+   "doc": "Return the process wide shortlist store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 80,
+   "layer": "Control (boundary)",
+   "lines": [
+    80,
+    82
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_shortlist_service",
+   "signature": "def get_shortlist_service() -> ShortlistService",
+   "doc": "Return a service bound to the shared shortlist and project stores.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 85,
+   "layer": "Control (boundary)",
+   "lines": [
+    85,
+    87
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_quote_request_repository",
+   "signature": "def get_quote_request_repository() -> QuoteRequestRepository",
+   "doc": "Return the process wide quote request store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 90,
+   "layer": "Control (boundary)",
+   "lines": [
+    90,
+    92
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_quote_repository",
+   "signature": "def get_quote_repository() -> QuoteRepository",
+   "doc": "Return the process wide quote store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 95,
+   "layer": "Control (boundary)",
+   "lines": [
+    95,
+    97
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_quote_service",
+   "signature": "def get_quote_service() -> QuoteService",
+   "doc": "Return a service bound to the shared quote, company and project stores.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 100,
+   "layer": "Control (boundary)",
+   "lines": [
+    100,
+    107
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_category_repository",
+   "signature": "def get_category_repository() -> CategoryRepository",
+   "doc": "Return the process wide category store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 110,
+   "layer": "Control (boundary)",
+   "lines": [
+    110,
+    112
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_category_service",
+   "signature": "def get_category_service() -> CategoryService",
+   "doc": "Return a service bound to the shared category store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 115,
+   "layer": "Control (boundary)",
+   "lines": [
+    115,
+    117
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_report_service",
+   "signature": "def get_report_service() -> ReportService",
+   "doc": "Return a report service bound to the four stores that hold timestamps.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 120,
+   "layer": "Control (boundary)",
+   "lines": [
+    120,
+    127
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_current_account",
+   "signature": "def get_current_account(credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer_scheme)], service: Annotated[AccountService, Depends(get_account_service)]) -> Account",
+   "doc": "Return the account named by the bearer token.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 130,
+   "layer": "Control (boundary)",
+   "lines": [
+    130,
+    164
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "HealthResponse",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Liveness payload returned by the platform.",
+   "decorators": [],
+   "file": "backend/app/api/health.py",
+   "line": 16,
+   "lines": [
+    16,
+    21
+   ],
+   "layer": "Control (boundary)",
+   "fields": [
+    {
+     "name": "status",
+     "type": "Literal['ok']",
+     "default": ""
+    },
+    {
+     "name": "version",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "time",
+     "type": "datetime",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "read_health",
+   "signature": "def read_health() -> HealthResponse",
+   "doc": "Report that the API is running.",
+   "decorators": [
+    "@router.get('/health', response_model=HealthResponse, summary='Service liveness')"
+   ],
+   "file": "backend/app/api/health.py",
+   "line": 25,
+   "layer": "Control (boundary)",
+   "lines": [
+    25,
+    31
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_read_photo",
+   "signature": "async def _read_photo(file: UploadFile) -> bytes",
+   "doc": "Return the bytes of an allowed photo, or raise the refusal.",
+   "decorators": [],
+   "file": "backend/app/api/images.py",
+   "line": 58,
+   "layer": "Control (boundary)",
+   "lines": [
+    58,
+    78
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "store_upload",
+   "signature": "async def store_upload(actor: CurrentAccountDep, file: UploadFile = File(...)) -> StoredImagePublic",
+   "doc": "Keep a designer's photo so the project can show it later.",
+   "decorators": [
+    "@router.post('', response_model=StoredImagePublic, summary='Store an uploaded photo and return its address')"
+   ],
+   "file": "backend/app/api/images.py",
+   "line": 86,
+   "layer": "Control (boundary)",
+   "lines": [
+    86,
+    114
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "tags_for_upload",
+   "signature": "async def tags_for_upload(actor: CurrentAccountDep, file: UploadFile = File(...)) -> TagSuggestionPublic",
+   "doc": "Describe an uploaded photo. Any signed-in account may call this.",
+   "decorators": [
+    "@router.post('/tags', response_model=TagSuggestionPublic, summary='Read an uploaded photo and return catalogue tags')"
+   ],
+   "file": "backend/app/api/images.py",
+   "line": 122,
+   "layer": "Control (boundary)",
+   "lines": [
+    122,
+    169
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_to_http",
+   "signature": "def _to_http(exc: Exception) -> HTTPException",
+   "doc": "Map a domain refusal to the matching response.",
+   "decorators": [],
+   "file": "backend/app/api/projects.py",
+   "line": 43,
+   "layer": "Control (boundary)",
+   "lines": [
+    43,
+    51
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "create_project",
+   "signature": "def create_project(payload: ProjectCreate, actor: CurrentAccountDep, service: ServiceDep) -> ProjectPublic",
+   "doc": "Publish one portfolio project for the signed in designer.",
+   "decorators": [
+    "@router.post('', response_model=ProjectPublic, status_code=http_status.HTTP_201_CREATED, summary='Publish a project under the designer company')"
+   ],
+   "file": "backend/app/api/projects.py",
+   "line": 60,
+   "layer": "Control (boundary)",
+   "lines": [
+    60,
+    68
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_my_projects",
+   "signature": "def list_my_projects(actor: CurrentAccountDep, service: ServiceDep, status: ProjectStatus | None = None, name: str = '') -> list[ProjectPublic]",
+   "doc": "Return the owner's projects filtered by status and title.",
+   "decorators": [
+    "@router.get('/mine', response_model=list[ProjectPublic], summary=\"List the signed in designer's portfolio\")"
+   ],
+   "file": "backend/app/api/projects.py",
+   "line": 76,
+   "layer": "Control (boundary)",
+   "lines": [
+    76,
+    95
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_company_projects",
+   "signature": "def list_company_projects(company_id: str, actor: CurrentAccountDep, service: ServiceDep) -> list[ProjectPublic]",
+   "doc": "Return the portfolio a customer browsing a designer would see.",
+   "decorators": [
+    "@router.get('/company/{company_id}', response_model=list[ProjectPublic], summary='List the published projects of one company')"
+   ],
+   "file": "backend/app/api/projects.py",
+   "line": 102,
+   "layer": "Control (boundary)",
+   "lines": [
+    102,
+    107
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "search_projects",
+   "signature": "def search_projects(actor: CurrentAccountDep, service: SearchDep, keyword: str = '', category: str = '', style: str = '', budget_min: int | None = None, budget_max: int | None = None, tags: str = '', page: int = 1, page_size: int = 12) -> SearchResponse",
+   "doc": "Return one page of projects that match the filters.",
+   "decorators": [
+    "@router.get('/search', response_model=SearchResponse, summary='Search the project catalogue')"
+   ],
+   "file": "backend/app/api/projects.py",
+   "line": 115,
+   "layer": "Control (boundary)",
+   "lines": [
+    115,
+    153
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "read_project",
+   "signature": "def read_project(project_id: str, actor: CurrentAccountDep, service: ServiceDep) -> ProjectPublic",
+   "doc": "Return a project. Any signed in account may read it.",
+   "decorators": [
+    "@router.get('/{project_id}', response_model=ProjectPublic, summary='Read one project')"
+   ],
+   "file": "backend/app/api/projects.py",
+   "line": 161,
+   "layer": "Control (boundary)",
+   "lines": [
+    161,
+    169
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "update_project",
+   "signature": "def update_project(project_id: str, payload: ProjectUpdate, actor: CurrentAccountDep, service: ServiceDep) -> ProjectPublic",
+   "doc": "Write only the supplied fields.",
+   "decorators": [
+    "@router.patch('/{project_id}', response_model=ProjectPublic, summary='Change fields of your own project')"
+   ],
+   "file": "backend/app/api/projects.py",
+   "line": 177,
+   "layer": "Control (boundary)",
+   "lines": [
+    177,
+    189
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "delete_project",
+   "signature": "def delete_project(project_id: str, actor: CurrentAccountDep, service: ServiceDep) -> Response",
+   "doc": "Remove a project from the portfolio.",
+   "decorators": [
+    "@router.delete('/{project_id}', status_code=http_status.HTTP_204_NO_CONTENT, summary='Delete your own project')"
+   ],
+   "file": "backend/app/api/projects.py",
+   "line": 197,
+   "layer": "Control (boundary)",
+   "lines": [
+    197,
+    205
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "record_project_view",
+   "signature": "def record_project_view(project_id: str, actor: CurrentAccountDep, service: ServiceDep) -> Response",
+   "doc": "Raise the view counter. The read endpoint stays free of side effects.",
+   "decorators": [
+    "@router.post('/{project_id}/view', status_code=http_status.HTTP_204_NO_CONTENT, summary='Count one look at a project')"
+   ],
+   "file": "backend/app/api/projects.py",
+   "line": 213,
+   "layer": "Control (boundary)",
+   "lines": [
+    213,
+    222
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "suggest_project_tags",
+   "signature": "def suggest_project_tags(project_id: str, actor: CurrentAccountDep, service: ServiceDep, image_index: int = 0) -> TagSuggestionPublic",
+   "doc": "Read one photo of your project and offer palette and mood tags.",
+   "decorators": [
+    "@router.post('/{project_id}/suggest-tags', response_model=TagSuggestionPublic, summary='Suggest description tags for one of your project photos')"
+   ],
+   "file": "backend/app/api/projects.py",
+   "line": 230,
+   "layer": "Control (boundary)",
+   "lines": [
+    230,
+    281
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_fail",
+   "signature": "def _fail(exc: Exception) -> HTTPException",
+   "doc": "Map a domain refusal to the matching response.",
+   "decorators": [],
+   "file": "backend/app/api/quotes.py",
+   "line": 37,
+   "layer": "Control (boundary)",
+   "lines": [
+    37,
+    45
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_detail",
+   "signature": "def _detail(service: QuoteService, actor: Account, request_id: str) -> QuoteRequestDetail",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/api/quotes.py",
+   "line": 48,
+   "layer": "Control (boundary)",
+   "lines": [
+    48,
+    54
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "submit_request",
+   "signature": "def submit_request(payload: SubmitRequest, actor: CurrentAccountDep, service: ServiceDep) -> QuoteRequestPublic",
+   "doc": "A customer asks one company for a price.",
+   "decorators": [
+    "@router.post('/requests', response_model=QuoteRequestPublic, status_code=http_status.HTTP_201_CREATED, summary='Send a quote request to one company')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 63,
+   "layer": "Control (boundary)",
+   "lines": [
+    63,
+    71
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_requests",
+   "signature": "def list_requests(actor: CurrentAccountDep, service: ServiceDep, state: QuoteRequestState | None = None) -> list[QuoteRequestPublic]",
+   "doc": "Customers see what they sent; designers see what their company received.",
+   "decorators": [
+    "@router.get('/requests', response_model=list[QuoteRequestPublic], summary='List the requests you may see')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 79,
+   "layer": "Control (boundary)",
+   "lines": [
+    79,
+    92
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "read_request",
+   "signature": "def read_request(request_id: str, actor: CurrentAccountDep, service: ServiceDep) -> QuoteRequestDetail",
+   "doc": "Return one request to a customer, the company, or platform staff.",
+   "decorators": [
+    "@router.get('/requests/{request_id}', response_model=QuoteRequestDetail, summary='Read one request with every quote version')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 100,
+   "layer": "Control (boundary)",
+   "lines": [
+    100,
+    107
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "counter_request",
+   "signature": "def counter_request(request_id: str, payload: CounterRequest, actor: CurrentAccountDep, service: ServiceDep) -> QuoteRequestDetail",
+   "doc": "The customer records the price they want. It does not bind the designer.",
+   "decorators": [
+    "@router.post('/requests/{request_id}/counter', response_model=QuoteRequestDetail, summary='Name a target price')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 115,
+   "layer": "Control (boundary)",
+   "lines": [
+    115,
+    126
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "cancel_request",
+   "signature": "def cancel_request(request_id: str, payload: ReasonRequest, actor: CurrentAccountDep, service: ServiceDep) -> QuoteRequestPublic",
+   "doc": "Stop an open request.",
+   "decorators": [
+    "@router.post('/requests/{request_id}/cancel', response_model=QuoteRequestPublic, summary='Cancel your request')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 134,
+   "layer": "Control (boundary)",
+   "lines": [
+    134,
+    145
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "refuse_request",
+   "signature": "def refuse_request(request_id: str, payload: ReasonRequest, actor: CurrentAccountDep, service: ServiceDep) -> QuoteRequestPublic",
+   "doc": "The company declines the request.",
+   "decorators": [
+    "@router.post('/requests/{request_id}/refuse', response_model=QuoteRequestPublic, summary='Decline to quote')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 153,
+   "layer": "Control (boundary)",
+   "lines": [
+    153,
+    164
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "answer_request",
+   "signature": "def answer_request(request_id: str, payload: AnswerRequest, actor: CurrentAccountDep, service: ServiceDep) -> QuotePublic",
+   "doc": "The company sends version one of the quote.",
+   "decorators": [
+    "@router.post('/requests/{request_id}/quotes', response_model=QuotePublic, status_code=http_status.HTTP_201_CREATED, summary='Answer a request with a total')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 173,
+   "layer": "Control (boundary)",
+   "lines": [
+    173,
+    184
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_quotes",
+   "signature": "def list_quotes(request_id: str, actor: CurrentAccountDep, service: ServiceDep) -> list[QuotePublic]",
+   "doc": "Return the versions, oldest first.",
+   "decorators": [
+    "@router.get('/requests/{request_id}/quotes', response_model=list[QuotePublic], summary=\"List every version of a request's quote\")"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 192,
+   "layer": "Control (boundary)",
+   "lines": [
+    192,
+    200
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "revise_quote",
+   "signature": "def revise_quote(quote_id: str, payload: AnswerRequest, actor: CurrentAccountDep, service: ServiceDep) -> QuotePublic",
+   "doc": "Replace the offered total with a new version.",
+   "decorators": [
+    "@router.post('/{quote_id}/revise', response_model=QuotePublic, status_code=http_status.HTTP_201_CREATED, summary='Send the next version of a quote')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 209,
+   "layer": "Control (boundary)",
+   "lines": [
+    209,
+    220
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "accept_quote",
+   "signature": "def accept_quote(quote_id: str, actor: CurrentAccountDep, service: ServiceDep) -> QuotePublic",
+   "doc": "Accept one quote. Other open requests stay open.",
+   "decorators": [
+    "@router.post('/{quote_id}/accept', response_model=QuotePublic, summary='Accept a quote')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 228,
+   "layer": "Control (boundary)",
+   "lines": [
+    228,
+    236
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "decline_quote",
+   "signature": "def decline_quote(quote_id: str, payload: ReasonRequest, actor: CurrentAccountDep, service: ServiceDep) -> QuotePublic",
+   "doc": "Turn one quote down with an optional reason.",
+   "decorators": [
+    "@router.post('/{quote_id}/decline', response_model=QuotePublic, summary='Decline a quote')"
+   ],
+   "file": "backend/app/api/quotes.py",
+   "line": 244,
+   "layer": "Control (boundary)",
+   "lines": [
+    244,
+    255
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "BucketPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "One period of activity.",
+   "decorators": [],
+   "file": "backend/app/api/reports.py",
+   "line": 22,
+   "lines": [
+    22,
+    31
+   ],
+   "layer": "Control (boundary)",
+   "fields": [
+    {
+     "name": "label",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "start",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "end",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "accounts",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "projects",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "quote_requests",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "quotes",
+     "type": "int",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ReportPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "A report with its period and buckets.",
+   "decorators": [],
+   "file": "backend/app/api/reports.py",
+   "line": 34,
+   "lines": [
+    34,
+    38
+   ],
+   "layer": "Control (boundary)",
+   "fields": [
+    {
+     "name": "period",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "buckets",
+     "type": "list[BucketPublic]",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "read_report",
+   "signature": "def read_report(actor: CurrentAccountDep, service: ServiceDep, period: str = 'daily', buckets: int = DEFAULT_BUCKETS) -> ReportPublic",
+   "doc": "Staff only. Buckets run oldest first and end at now.",
+   "decorators": [
+    "@router.get('', response_model=ReportPublic, summary='Read the activity report')"
+   ],
+   "file": "backend/app/api/reports.py",
+   "line": 46,
+   "layer": "Control (boundary)",
+   "lines": [
+    46,
+    83
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_forbidden",
+   "signature": "def _forbidden(exc: NotPermitted) -> HTTPException",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/api/shortlist.py",
+   "line": 22,
+   "layer": "Control (boundary)",
+   "lines": [
+    22,
+    23
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "read_shortlist",
+   "signature": "def read_shortlist(actor: CurrentAccountDep, service: ServiceDep) -> ShortlistResponse",
+   "doc": "Return the caller's saved projects, oldest save first.",
+   "decorators": [
+    "@router.get('', response_model=ShortlistResponse, summary='Read the saved projects of the signed in customer')"
+   ],
+   "file": "backend/app/api/shortlist.py",
+   "line": 31,
+   "layer": "Control (boundary)",
+   "lines": [
+    31,
+    41
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "save_project",
+   "signature": "def save_project(project_id: str, actor: CurrentAccountDep, service: ServiceDep) -> ShortlistResponse",
+   "doc": "Save one project. Saving a saved project changes nothing.",
+   "decorators": [
+    "@router.post('/{project_id}', response_model=ShortlistResponse, status_code=http_status.HTTP_201_CREATED, summary='Save a project for the signed in customer')"
+   ],
+   "file": "backend/app/api/shortlist.py",
+   "line": 50,
+   "layer": "Control (boundary)",
+   "lines": [
+    50,
+    67
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "unsave_project",
+   "signature": "def unsave_project(project_id: str, actor: CurrentAccountDep, service: ServiceDep) -> Response",
+   "doc": "Drop one project. Dropping an absent project changes nothing.",
+   "decorators": [
+    "@router.delete('/{project_id}', status_code=http_status.HTTP_204_NO_CONTENT, summary=\"Drop a project from the signed in customer's shortlist\")"
+   ],
+   "file": "backend/app/api/shortlist.py",
+   "line": 75,
+   "layer": "Control (boundary)",
+   "lines": [
+    75,
+    83
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "app_environment",
+   "signature": "def app_environment() -> str",
+   "doc": "Return the deployment environment name, defaulting to development.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 19,
+   "layer": "Support",
+   "lines": [
+    19,
+    21
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "is_production",
+   "signature": "def is_production() -> bool",
+   "doc": "Return ``True`` when the process is not running in development.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 24,
+   "layer": "Support",
+   "lines": [
+    24,
+    26
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Settings",
+   "bases": [],
+   "doc": "Immutable snapshot of the runtime configuration.",
+   "decorators": [
+    "@dataclass(frozen=True)"
+   ],
+   "file": "backend/app/config.py",
+   "line": 30,
+   "lines": [
+    30,
+    38
+   ],
+   "layer": "Support",
+   "fields": [
+    {
+     "name": "secret_key",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "token_minutes",
+     "type": "int",
+     "default": ""
+    }
+   ],
+   "methods": [
+    {
+     "name": "is_default_secret",
+     "signature": "def is_default_secret() -> bool",
+     "doc": "Return ``True`` when the development secret is still in use.",
+     "decorators": [],
+     "lines": [
+      36,
+      38
+     ]
+    }
+   ],
+   "public_methods": [
+    "is_default_secret"
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "load_settings",
+   "signature": "def load_settings() -> Settings",
+   "doc": "Build settings from the environment, ignoring unusable values.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 41,
+   "layer": "Support",
+   "lines": [
+    41,
+    51
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_secret_key",
+   "signature": "def get_secret_key() -> str",
+   "doc": "Return the secret used to sign and verify tokens.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 54,
+   "layer": "Support",
+   "lines": [
+    54,
+    56
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_token_minutes",
+   "signature": "def get_token_minutes() -> int",
+   "doc": "Return the access token lifetime in minutes.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 59,
+   "layer": "Support",
+   "lines": [
+    59,
+    61
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "is_default_secret",
+   "signature": "def is_default_secret() -> bool",
+   "doc": "Return ``True`` when no real secret has been configured.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 64,
+   "layer": "Support",
+   "lines": [
+    64,
+    66
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_bootstrap_admin_email",
+   "signature": "def get_bootstrap_admin_email() -> str",
+   "doc": "Return the address of the first administrator, or an empty string.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 69,
+   "layer": "Support",
+   "lines": [
+    69,
+    71
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_bootstrap_admin_password",
+   "signature": "def get_bootstrap_admin_password() -> str",
+   "doc": "Return the starting password for the first administrator.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 74,
+   "layer": "Support",
+   "lines": [
+    74,
+    76
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_bootstrap_admins",
+   "signature": "def get_bootstrap_admins() -> list[tuple[str, str, str, str]]",
+   "doc": "Return the staff accounts to create at startup.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 82,
+   "layer": "Support",
+   "lines": [
+    82,
+    100
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_parse_admin_list",
+   "signature": "def _parse_admin_list(raw: str) -> list[tuple[str, str, str, str]]",
+   "doc": "Parse ``email:password:name:role`` entries separated by commas.",
+   "decorators": [],
+   "file": "backend/app/config.py",
+   "line": 103,
+   "layer": "Support",
+   "lines": [
+    103,
+    120
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Account",
+   "bases": [],
+   "doc": "A single platform account.",
+   "decorators": [
+    "@dataclass"
+   ],
+   "file": "backend/app/domain/account.py",
+   "line": 19,
+   "lines": [
+    19,
+    64
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "email",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "display_name",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "password_hash",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "role",
+     "type": "Role",
+     "default": ""
+    },
+    {
+     "name": "status",
+     "type": "AccountStatus",
+     "default": "AccountStatus.PENDING"
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": "field(default_factory=lambda: datetime.now(timezone.utc))"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "Normalise the values identity depends on.",
+     "decorators": [],
+     "lines": [
+      30,
+      33
+     ]
+    },
+    {
+     "name": "check_password",
+     "signature": "def check_password(raw: str) -> bool",
+     "doc": "Return ``True`` when ``raw`` is this account's password.",
+     "decorators": [],
+     "lines": [
+      35,
+      37
+     ]
+    },
+    {
+     "name": "activate",
+     "signature": "def activate() -> None",
+     "doc": "Move the account into the ACTIVE status.",
+     "decorators": [],
+     "lines": [
+      39,
+      41
+     ]
+    },
+    {
+     "name": "suspend",
+     "signature": "def suspend() -> None",
+     "doc": "Move the account into the SUSPENDED status.",
+     "decorators": [],
+     "lines": [
+      43,
+      45
+     ]
+    },
+    {
+     "name": "can_login",
+     "signature": "def can_login() -> bool",
+     "doc": "Return ``True`` only while the account is ACTIVE.",
+     "decorators": [],
+     "lines": [
+      47,
+      49
+     ]
+    },
+    {
+     "name": "change_display_name",
+     "signature": "def change_display_name(name: str) -> None",
+     "doc": "Replace the display name with ``name``.",
+     "decorators": [],
+     "lines": [
+      51,
+      60
+     ]
+    },
+    {
+     "name": "is_privileged",
+     "signature": "def is_privileged() -> bool",
+     "doc": "Return ``True`` for administrators and platform managers.",
+     "decorators": [],
+     "lines": [
+      62,
+      64
+     ]
+    }
+   ],
+   "public_methods": [
+    "check_password",
+    "activate",
+    "suspend",
+    "can_login",
+    "change_display_name",
+    "is_privileged"
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_now",
+   "signature": "def _now() -> datetime",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/domain/category.py",
+   "line": 17,
+   "layer": "Entity",
+   "lines": [
+    17,
+    18
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Category",
+   "bases": [],
+   "doc": "One room category, active or archived.",
+   "decorators": [
+    "@dataclass"
+   ],
+   "file": "backend/app/domain/category.py",
+   "line": 22,
+   "lines": [
+    22,
+    58
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "name",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "active",
+     "type": "bool",
+     "default": "True"
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": "field(default_factory=_now)"
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime | None",
+     "default": "None"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      31,
+      34
+     ]
+    },
+    {
+     "name": "rename",
+     "signature": "def rename(name: str) -> None",
+     "doc": "Replace the label.",
+     "decorators": [],
+     "lines": [
+      36,
+      39
+     ]
+    },
+    {
+     "name": "archive",
+     "signature": "def archive() -> None",
+     "doc": "Hide the category from the dropdowns.",
+     "decorators": [],
+     "lines": [
+      41,
+      44
+     ]
+    },
+    {
+     "name": "restore",
+     "signature": "def restore() -> None",
+     "doc": "Show the category again.",
+     "decorators": [],
+     "lines": [
+      46,
+      49
+     ]
+    },
+    {
+     "name": "_clean",
+     "signature": "def _clean(name: str) -> str",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      52,
+      58
+     ]
+    }
+   ],
+   "public_methods": [
+    "rename",
+    "archive",
+    "restore"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Company",
+   "bases": [],
+   "doc": "A designer's company profile.",
+   "decorators": [
+    "@dataclass"
+   ],
+   "file": "backend/app/domain/company.py",
+   "line": 18,
+   "lines": [
+    18,
+    88
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "owner_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "name",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "description",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "contact_email",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "contact_phone",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "location",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "logo_url",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": "field(default_factory=lambda: datetime.now(timezone.utc))"
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime | None",
+     "default": "None"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "Normalise the values customers will read.",
+     "decorators": [],
+     "lines": [
+      32,
+      41
+     ]
+    },
+    {
+     "name": "rename",
+     "signature": "def rename(name: str) -> None",
+     "doc": "Replace the company name.",
+     "decorators": [],
+     "lines": [
+      43,
+      53
+     ]
+    },
+    {
+     "name": "update_description",
+     "signature": "def update_description(text: str) -> None",
+     "doc": "Replace the description customers read.",
+     "decorators": [],
+     "lines": [
+      55,
+      58
+     ]
+    },
+    {
+     "name": "update_contact",
+     "signature": "def update_contact(email: str, phone: str) -> None",
+     "doc": "Replace the contact pair after checking the address has a domain.",
+     "decorators": [],
+     "lines": [
+      60,
+      68
+     ]
+    },
+    {
+     "name": "set_location",
+     "signature": "def set_location(location: str) -> None",
+     "doc": "Replace the service area.",
+     "decorators": [],
+     "lines": [
+      70,
+      73
+     ]
+    },
+    {
+     "name": "attach_logo",
+     "signature": "def attach_logo(url: str) -> None",
+     "doc": "Point the profile at a logo image.",
+     "decorators": [],
+     "lines": [
+      75,
+      81
+     ]
+    },
+    {
+     "name": "is_owned_by",
+     "signature": "def is_owned_by(account_id: str) -> bool",
+     "doc": "Return ``True`` when ``account_id`` is the designer behind this company.",
+     "decorators": [],
+     "lines": [
+      83,
+      85
+     ]
+    },
+    {
+     "name": "_touch",
+     "signature": "def _touch() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      87,
+      88
+     ]
+    }
+   ],
+   "public_methods": [
+    "rename",
+    "update_description",
+    "update_contact",
+    "set_location",
+    "attach_logo",
+    "is_owned_by"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Role",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "doc": "The kind of actor an account represents.",
+   "decorators": [],
+   "file": "backend/app/domain/enums.py",
+   "line": 8,
+   "lines": [
+    8,
+    24
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [
+    {
+     "name": "is_privileged",
+     "signature": "def is_privileged() -> bool",
+     "doc": "Return ``True`` for the platform oversight roles.",
+     "decorators": [
+      "@property"
+     ],
+     "lines": [
+      17,
+      19
+     ]
+    },
+    {
+     "name": "can_self_register",
+     "signature": "def can_self_register() -> bool",
+     "doc": "Return ``True`` when a visitor may pick this role at sign up.",
+     "decorators": [
+      "@property"
+     ],
+     "lines": [
+      22,
+      24
+     ]
+    }
+   ],
+   "public_methods": [
+    "is_privileged",
+    "can_self_register"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "AccountStatus",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "doc": "Where an account sits in its approval lifecycle.",
+   "decorators": [],
+   "file": "backend/app/domain/enums.py",
+   "line": 27,
+   "lines": [
+    27,
+    32
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ProjectStatus",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "doc": "Where a project sits in its life.",
+   "decorators": [],
+   "file": "backend/app/domain/enums.py",
+   "line": 35,
+   "lines": [
+    35,
+    39
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "QuoteRequestState",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "doc": "Where a customer's quote request sits.",
+   "decorators": [],
+   "file": "backend/app/domain/enums.py",
+   "line": 42,
+   "lines": [
+    42,
+    51
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "QuoteState",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "doc": "Where one priced answer sits.",
+   "decorators": [],
+   "file": "backend/app/domain/enums.py",
+   "line": 54,
+   "lines": [
+    54,
+    61
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "DomainError",
+   "bases": [
+    "Exception"
+   ],
+   "doc": "Base class for every recoverable business rule failure.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 12,
+   "lines": [
+    12,
+    19
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "default_message",
+     "type": "str",
+     "default": "'The request breaks a business rule.'"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(message: str | None = None) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      17,
+      19
+     ]
+    }
+   ],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "EmailAlreadyRegistered",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "An account with the same email address already exists.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 22,
+   "lines": [
+    22,
+    25
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "InvalidCredentials",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "The supplied email and password do not identify an account.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 28,
+   "lines": [
+    28,
+    31
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "AccountNotActive",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "The account exists but its status forbids signing in.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 34,
+   "lines": [
+    34,
+    41
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(status: AccountStatus) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      39,
+      41
+     ]
+    }
+   ],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "inactive_message",
+   "signature": "def inactive_message(status: AccountStatus) -> str",
+   "doc": "Return the message shown when an account may not hold a session.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 44,
+   "layer": "Entity",
+   "lines": [
+    44,
+    50
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "InvalidRoleForSelfRegistration",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "A visitor tried to register with a staff only role.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 53,
+   "lines": [
+    53,
+    56
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "WeakPassword",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "The chosen password does not meet the minimum length.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 59,
+   "lines": [
+    59,
+    62
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "NotPermitted",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "The caller may not perform this operation.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 65,
+   "lines": [
+    65,
+    68
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "AccountNotFound",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "No account matches the supplied identifier.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 71,
+   "lines": [
+    71,
+    74
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CompanyAlreadyExists",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "The designer already holds a company profile.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 77,
+   "lines": [
+    77,
+    80
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CompanyNotFound",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "No company profile matches the request.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 83,
+   "lines": [
+    83,
+    86
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ProjectNotFound",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "No project matches the request.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 89,
+   "lines": [
+    89,
+    92
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "QuoteRequestNotFound",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "No quote request matches the request.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 95,
+   "lines": [
+    95,
+    98
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "QuoteNotFound",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "No quote matches the request.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 101,
+   "lines": [
+    101,
+    104
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "InvalidState",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "The record is in a state that does not allow this action.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 107,
+   "lines": [
+    107,
+    110
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "gst_component",
+   "signature": "def gst_component(amount_cents: int, rate_bp: int = GST_RATE_BP, included: bool = False) -> int",
+   "doc": "Return the GST part of ``amount_cents``, rounded half up.",
+   "decorators": [],
+   "file": "backend/app/domain/money.py",
+   "line": 20,
+   "layer": "Entity",
+   "lines": [
+    20,
+    29
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "grand_total",
+   "signature": "def grand_total(amount_cents: int, rate_bp: int = GST_RATE_BP, included: bool = False) -> int",
+   "doc": "Return the amount a customer pays, GST added when it is not included.",
+   "decorators": [],
+   "file": "backend/app/domain/money.py",
+   "line": 32,
+   "layer": "Entity",
+   "lines": [
+    32,
+    36
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "format_cents",
+   "signature": "def format_cents(amount_cents: int) -> str",
+   "doc": "Return ``S$1,234.56`` for ``123456``.",
+   "decorators": [],
+   "file": "backend/app/domain/money.py",
+   "line": 39,
+   "layer": "Entity",
+   "lines": [
+    39,
+    43
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "hash_password",
+   "signature": "def hash_password(raw: str) -> str",
+   "doc": "Return a salted PBKDF2-SHA256 hash of ``raw`` in a self describing format.",
+   "decorators": [],
+   "file": "backend/app/domain/passwords.py",
+   "line": 19,
+   "layer": "Entity",
+   "lines": [
+    19,
+    23
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "verify_password",
+   "signature": "def verify_password(raw: str, stored: str) -> bool",
+   "doc": "Return ``True`` when ``raw`` matches ``stored``.",
+   "decorators": [],
+   "file": "backend/app/domain/passwords.py",
+   "line": 26,
+   "layer": "Entity",
+   "lines": [
+    26,
+    46
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "SearchCriteria",
+   "bases": [],
+   "doc": "The filter a customer submits to the catalogue.",
+   "decorators": [
+    "@dataclass(frozen=True)"
+   ],
+   "file": "backend/app/domain/project.py",
+   "line": 44,
+   "lines": [
+    44,
+    69
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "keyword",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "category",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "style",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "budget_min",
+     "type": "int | None",
+     "default": "None"
+    },
+    {
+     "name": "budget_max",
+     "type": "int | None",
+     "default": "None"
+    },
+    {
+     "name": "tags",
+     "type": "list[str]",
+     "default": "field(default_factory=list)"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "Refuse a budget range that cannot be answered.",
+     "decorators": [],
+     "lines": [
+      58,
+      69
+     ]
+    }
+   ],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "Project",
+   "bases": [],
+   "doc": "One entry in a designer's portfolio.",
+   "decorators": [
+    "@dataclass"
+   ],
+   "file": "backend/app/domain/project.py",
+   "line": 73,
+   "lines": [
+    73,
+    313
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "owner_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "company_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "title",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "description",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "style",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "category",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "budget_min",
+     "type": "int",
+     "default": "0"
+    },
+    {
+     "name": "budget_max",
+     "type": "int",
+     "default": "0"
+    },
+    {
+     "name": "status",
+     "type": "ProjectStatus",
+     "default": "ProjectStatus.CURRENT"
+    },
+    {
+     "name": "images",
+     "type": "list[str]",
+     "default": "field(default_factory=list)"
+    },
+    {
+     "name": "tags",
+     "type": "list[str]",
+     "default": "field(default_factory=list)"
+    },
+    {
+     "name": "view_count",
+     "type": "int",
+     "default": "0"
+    },
+    {
+     "name": "shortlist_count",
+     "type": "int",
+     "default": "0"
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": "field(default_factory=lambda: datetime.now(timezone.utc))"
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime | None",
+     "default": "None"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "Check the values a project cannot be created without.",
+     "decorators": [],
+     "lines": [
+      93,
+      107
+     ]
+    },
+    {
+     "name": "rename",
+     "signature": "def rename(title: str) -> None",
+     "doc": "Replace the project title.",
+     "decorators": [],
+     "lines": [
+      109,
+      117
+     ]
+    },
+    {
+     "name": "update_details",
+     "signature": "def update_details() -> None",
+     "doc": "Replace the searchable details after checking them.",
+     "decorators": [],
+     "lines": [
+      119,
+      141
+     ]
+    },
+    {
+     "name": "mark_past",
+     "signature": "def mark_past() -> None",
+     "doc": "Mark the job as finished.",
+     "decorators": [],
+     "lines": [
+      143,
+      146
+     ]
+    },
+    {
+     "name": "mark_current",
+     "signature": "def mark_current() -> None",
+     "doc": "Mark the job as still running.",
+     "decorators": [],
+     "lines": [
+      148,
+      151
+     ]
+    },
+    {
+     "name": "add_image",
+     "signature": "def add_image(url: str) -> None",
+     "doc": "Attach a photo address. A repeated address changes nothing.",
+     "decorators": [],
+     "lines": [
+      153,
+      163
+     ]
+    },
+    {
+     "name": "remove_image",
+     "signature": "def remove_image(url: str) -> None",
+     "doc": "Detach a photo address when it is present.",
+     "decorators": [],
+     "lines": [
+      165,
+      170
+     ]
+    },
+    {
+     "name": "replace_images",
+     "signature": "def replace_images(urls: list[str]) -> None",
+     "doc": "Replace the whole photo list, dropping blank and repeated entries.",
+     "decorators": [],
+     "lines": [
+      172,
+      178
+     ]
+    },
+    {
+     "name": "_clean_tags",
+     "signature": "def _clean_tags(tags: list[str]) -> list[str]",
+     "doc": "Strip, deduplicate and bound a tag list.",
+     "decorators": [],
+     "lines": [
+      180,
+      199
+     ]
+    },
+    {
+     "name": "replace_tags",
+     "signature": "def replace_tags(tags: list[str]) -> None",
+     "doc": "Replace the whole tag list after checking it.",
+     "decorators": [],
+     "lines": [
+      201,
+      204
+     ]
+    },
+    {
+     "name": "add_tag",
+     "signature": "def add_tag(tag: str) -> None",
+     "doc": "Attach one tag. A repeated tag changes nothing.",
+     "decorators": [],
+     "lines": [
+      206,
+      209
+     ]
+    },
+    {
+     "name": "remove_tag",
+     "signature": "def remove_tag(tag: str) -> None",
+     "doc": "Detach one tag when it is present.",
+     "decorators": [],
+     "lines": [
+      211,
+      217
+     ]
+    },
+    {
+     "name": "record_view",
+     "signature": "def record_view() -> None",
+     "doc": "Count one look at the detail page.",
+     "decorators": [],
+     "lines": [
+      219,
+      221
+     ]
+    },
+    {
+     "name": "record_shortlist",
+     "signature": "def record_shortlist() -> None",
+     "doc": "Count one customer saving this project.",
+     "decorators": [],
+     "lines": [
+      223,
+      225
+     ]
+    },
+    {
+     "name": "withdraw_shortlist",
+     "signature": "def withdraw_shortlist() -> None",
+     "doc": "Count one customer removing it. The count never falls below zero.",
+     "decorators": [],
+     "lines": [
+      227,
+      229
+     ]
+    },
+    {
+     "name": "is_owned_by",
+     "signature": "def is_owned_by(account_id: str) -> bool",
+     "doc": "Return ``True`` when ``account_id`` is the designer behind this project.",
+     "decorators": [],
+     "lines": [
+      231,
+      233
+     ]
+    },
+    {
+     "name": "matches",
+     "signature": "def matches(criteria: SearchCriteria) -> bool",
+     "doc": "Return ``True`` when this project answers ``criteria``.",
+     "decorators": [],
+     "lines": [
+      235,
+      269
+     ]
+    },
+    {
+     "name": "tag_overlap",
+     "signature": "def tag_overlap(wanted: list[str]) -> int",
+     "doc": "Return how many of ``wanted`` this project carries, ignoring case.",
+     "decorators": [],
+     "lines": [
+      271,
+      278
+     ]
+    },
+    {
+     "name": "specific_overlap",
+     "signature": "def specific_overlap(wanted: list[str]) -> int",
+     "doc": "Return how many of ``wanted`` are object tags this project carries.",
+     "decorators": [],
+     "lines": [
+      280,
+      292
+     ]
+    },
+    {
+     "name": "tag_score",
+     "signature": "def tag_score(wanted: list[str]) -> int",
+     "doc": "Return the ranking weight: objects count double, mood counts once.",
+     "decorators": [],
+     "lines": [
+      294,
+      303
+     ]
+    },
+    {
+     "name": "_require_valid_budget",
+     "signature": "def _require_valid_budget(minimum: int, maximum: int) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      306,
+      310
+     ]
+    },
+    {
+     "name": "_touch",
+     "signature": "def _touch() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      312,
+      313
+     ]
+    }
+   ],
+   "public_methods": [
+    "rename",
+    "update_details",
+    "mark_past",
+    "mark_current",
+    "add_image",
+    "remove_image",
+    "replace_images",
+    "replace_tags",
+    "add_tag",
+    "remove_tag",
+    "record_view",
+    "record_shortlist",
+    "withdraw_shortlist",
+    "is_owned_by",
+    "matches",
+    "tag_overlap",
+    "specific_overlap",
+    "tag_score"
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_now",
+   "signature": "def _now() -> datetime",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/domain/quote.py",
+   "line": 23,
+   "layer": "Entity",
+   "lines": [
+    23,
+    24
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_today",
+   "signature": "def _today() -> date",
+   "doc": "Return the business date on the local calendar.",
+   "decorators": [],
+   "file": "backend/app/domain/quote.py",
+   "line": 27,
+   "layer": "Entity",
+   "lines": [
+    27,
+    34
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Quote",
+   "bases": [],
+   "doc": "One total, one validity date, one state.",
+   "decorators": [
+    "@dataclass"
+   ],
+   "file": "backend/app/domain/quote.py",
+   "line": 38,
+   "lines": [
+    38,
+    131
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "request_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "total_cents",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "valid_until",
+     "type": "date",
+     "default": ""
+    },
+    {
+     "name": "gst_included",
+     "type": "bool",
+     "default": "False"
+    },
+    {
+     "name": "gst_rate_bp",
+     "type": "int",
+     "default": "GST_RATE_BP"
+    },
+    {
+     "name": "note",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "version",
+     "type": "int",
+     "default": "1"
+    },
+    {
+     "name": "state",
+     "type": "QuoteState",
+     "default": "QuoteState.OFFERED"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": "field(default_factory=_now)"
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime | None",
+     "default": "None"
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "Check the amount, the note and the validity window.",
+     "decorators": [],
+     "lines": [
+      53,
+      74
+     ]
+    },
+    {
+     "name": "gst_cents",
+     "signature": "def gst_cents() -> int",
+     "doc": "Return the tax inside or on top of the total.",
+     "decorators": [
+      "@property"
+     ],
+     "lines": [
+      77,
+      79
+     ]
+    },
+    {
+     "name": "grand_total_cents",
+     "signature": "def grand_total_cents() -> int",
+     "doc": "Return what the customer pays.",
+     "decorators": [
+      "@property"
+     ],
+     "lines": [
+      82,
+      84
+     ]
+    },
+    {
+     "name": "is_expired",
+     "signature": "def is_expired(today: date | None = None) -> bool",
+     "doc": "Return whether the validity date passed.",
+     "decorators": [],
+     "lines": [
+      86,
+      88
+     ]
+    },
+    {
+     "name": "supersede",
+     "signature": "def supersede() -> None",
+     "doc": "Retire this version because a newer one exists.",
+     "decorators": [],
+     "lines": [
+      90,
+      95
+     ]
+    },
+    {
+     "name": "accept",
+     "signature": "def accept() -> None",
+     "doc": "The customer takes this quote.",
+     "decorators": [],
+     "lines": [
+      97,
+      104
+     ]
+    },
+    {
+     "name": "decline",
+     "signature": "def decline(reason: str = '') -> None",
+     "doc": "The customer turns this quote down.",
+     "decorators": [],
+     "lines": [
+      106,
+      113
+     ]
+    },
+    {
+     "name": "expire",
+     "signature": "def expire() -> None",
+     "doc": "Close a quote whose validity date passed.",
+     "decorators": [],
+     "lines": [
+      115,
+      119
+     ]
+    },
+    {
+     "name": "validity_date",
+     "signature": "def validity_date(days: int, today: date | None = None) -> date",
+     "doc": "Return the date ``days`` from now, after checking the window.",
+     "decorators": [
+      "@classmethod"
+     ],
+     "lines": [
+      122,
+      128
+     ]
+    },
+    {
+     "name": "_touch",
+     "signature": "def _touch() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      130,
+      131
+     ]
+    }
+   ],
+   "public_methods": [
+    "gst_cents",
+    "grand_total_cents",
+    "is_expired",
+    "supersede",
+    "accept",
+    "decline",
+    "expire",
+    "validity_date"
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_now",
+   "signature": "def _now() -> datetime",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/domain/quote_request.py",
+   "line": 23,
+   "layer": "Entity",
+   "lines": [
+    23,
+    24
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Counter",
+   "bases": [],
+   "doc": "One target price the customer named, with a note.",
+   "decorators": [
+    "@dataclass(frozen=True)"
+   ],
+   "file": "backend/app/domain/quote_request.py",
+   "line": 28,
+   "lines": [
+    28,
+    40
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "target_cents",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "note",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": ""
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      36,
+      40
+     ]
+    }
+   ],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "QuoteRequest",
+   "bases": [],
+   "doc": "One customer's request to one company.",
+   "decorators": [
+    "@dataclass"
+   ],
+   "file": "backend/app/domain/quote_request.py",
+   "line": 44,
+   "lines": [
+    44,
+    163
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "customer_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "company_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "title",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "budget_min_cents",
+     "type": "int",
+     "default": "0"
+    },
+    {
+     "name": "budget_max_cents",
+     "type": "int",
+     "default": "0"
+    },
+    {
+     "name": "target_cents",
+     "type": "int | None",
+     "default": "None"
+    },
+    {
+     "name": "project_id",
+     "type": "str | None",
+     "default": "None"
+    },
+    {
+     "name": "state",
+     "type": "QuoteRequestState",
+     "default": "QuoteRequestState.PENDING"
+    },
+    {
+     "name": "counters",
+     "type": "list[Counter]",
+     "default": "field(default_factory=list)"
+    },
+    {
+     "name": "closed_reason",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "consent_at",
+     "type": "datetime | None",
+     "default": "None"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": "field(default_factory=_now)"
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime | None",
+     "default": "None"
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "Check what a request cannot be created without.",
+     "decorators": [],
+     "lines": [
+      63,
+      90
+     ]
+    },
+    {
+     "name": "is_open",
+     "signature": "def is_open() -> bool",
+     "doc": "Return whether the request still accepts an answer.",
+     "decorators": [
+      "@property"
+     ],
+     "lines": [
+      93,
+      95
+     ]
+    },
+    {
+     "name": "counter",
+     "signature": "def counter(target_cents: int, note: str) -> Counter",
+     "doc": "Record one target price from the customer.",
+     "decorators": [],
+     "lines": [
+      97,
+      108
+     ]
+    },
+    {
+     "name": "mark_answered",
+     "signature": "def mark_answered() -> None",
+     "doc": "Move to answered after the designer sends a quote.",
+     "decorators": [],
+     "lines": [
+      110,
+      115
+     ]
+    },
+    {
+     "name": "refuse",
+     "signature": "def refuse(reason: str) -> None",
+     "doc": "The designer declines to quote.",
+     "decorators": [],
+     "lines": [
+      117,
+      123
+     ]
+    },
+    {
+     "name": "cancel",
+     "signature": "def cancel(reason: str) -> None",
+     "doc": "The customer stops the request.",
+     "decorators": [],
+     "lines": [
+      125,
+      131
+     ]
+    },
+    {
+     "name": "accept",
+     "signature": "def accept() -> None",
+     "doc": "The customer accepts the answer.",
+     "decorators": [],
+     "lines": [
+      133,
+      138
+     ]
+    },
+    {
+     "name": "decline",
+     "signature": "def decline(reason: str) -> None",
+     "doc": "The customer turns the answer down.",
+     "decorators": [],
+     "lines": [
+      140,
+      146
+     ]
+    },
+    {
+     "name": "expire",
+     "signature": "def expire() -> None",
+     "doc": "Close a request that ran out of time.",
+     "decorators": [],
+     "lines": [
+      148,
+      153
+     ]
+    },
+    {
+     "name": "is_overdue",
+     "signature": "def is_overdue(now: datetime | None = None) -> bool",
+     "doc": "Return whether a pending request passed its open window.",
+     "decorators": [],
+     "lines": [
+      155,
+      160
+     ]
+    },
+    {
+     "name": "_touch",
+     "signature": "def _touch() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      162,
+      163
+     ]
+    }
+   ],
+   "public_methods": [
+    "is_open",
+    "counter",
+    "mark_answered",
+    "refuse",
+    "cancel",
+    "accept",
+    "decline",
+    "expire",
+    "is_overdue"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Shortlist",
+   "bases": [],
+   "doc": "The saved projects of one customer, oldest first.",
+   "decorators": [
+    "@dataclass"
+   ],
+   "file": "backend/app/domain/shortlist.py",
+   "line": 17,
+   "lines": [
+    17,
+    68
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "customer_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "project_ids",
+     "type": "list[str]",
+     "default": "field(default_factory=list)"
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": "field(default_factory=lambda: datetime.now(timezone.utc))"
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime | None",
+     "default": "None"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "Drop blank and repeated entries, and refuse an oversized list.",
+     "decorators": [],
+     "lines": [
+      26,
+      36
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(project_id: str) -> bool",
+     "doc": "Save a project. Returns ``False`` when it was already saved.",
+     "decorators": [],
+     "lines": [
+      38,
+      49
+     ]
+    },
+    {
+     "name": "remove",
+     "signature": "def remove(project_id: str) -> bool",
+     "doc": "Drop a project. Returns ``False`` when it was not saved.",
+     "decorators": [],
+     "lines": [
+      51,
+      58
+     ]
+    },
+    {
+     "name": "contains",
+     "signature": "def contains(project_id: str) -> bool",
+     "doc": "Return whether the project is saved.",
+     "decorators": [],
+     "lines": [
+      60,
+      62
+     ]
+    },
+    {
+     "name": "__len__",
+     "signature": "def __len__() -> int",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      64,
+      65
+     ]
+    },
+    {
+     "name": "_touch",
+     "signature": "def _touch() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      67,
+      68
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "remove",
+    "contains"
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_bootstrap_administrators",
+   "signature": "def _bootstrap_administrators() -> None",
+   "doc": "Create the staff accounts the environment supplies.",
+   "decorators": [],
+   "file": "backend/app/main.py",
+   "line": 43,
+   "layer": "Support",
+   "lines": [
+    43,
+    51
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "create_app",
+   "signature": "def create_app() -> FastAPI",
+   "doc": "Build the FastAPI application for the interior design platform.",
+   "decorators": [],
+   "file": "backend/app/main.py",
+   "line": 54,
+   "layer": "Support",
+   "lines": [
+    54,
+    91
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "AccountRepository",
+   "bases": [],
+   "doc": "Keeps every account in process memory.",
+   "decorators": [],
+   "file": "backend/app/repositories/account_repository.py",
+   "line": 10,
+   "lines": [
+    10,
+    59
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      18,
+      21
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(account: Account) -> bool",
+     "doc": "Store ``account`` unless its email is already taken.",
+     "decorators": [],
+     "lines": [
+      23,
+      35
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(account_id: str) -> Account | None",
+     "doc": "Return the account with ``account_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      37,
+      39
+     ]
+    },
+    {
+     "name": "get_by_email",
+     "signature": "def get_by_email(email: str) -> Account | None",
+     "doc": "Return the account registered under ``email``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      41,
+      46
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all() -> list[Account]",
+     "doc": "Return every stored account.",
+     "decorators": [],
+     "lines": [
+      48,
+      50
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many accounts are stored.",
+     "decorators": [],
+     "lines": [
+      52,
+      54
+     ]
+    },
+    {
+     "name": "clear",
+     "signature": "def clear() -> None",
+     "doc": "Remove every stored account.",
+     "decorators": [],
+     "lines": [
+      56,
+      59
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "get",
+    "get_by_email",
+    "list_all",
+    "count",
+    "clear"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "CategoryRepository",
+   "bases": [],
+   "doc": "Keeps every category, active or archived.",
+   "decorators": [],
+   "file": "backend/app/repositories/category_repository.py",
+   "line": 11,
+   "lines": [
+    11,
+    62
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      14,
+      17
+     ]
+    },
+    {
+     "name": "reset_defaults",
+     "signature": "def reset_defaults() -> None",
+     "doc": "Replace the store with the ten default categories.",
+     "decorators": [],
+     "lines": [
+      19,
+      25
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all() -> list[Category]",
+     "doc": "Return every category, sorted by name.",
+     "decorators": [],
+     "lines": [
+      27,
+      29
+     ]
+    },
+    {
+     "name": "list_active",
+     "signature": "def list_active() -> list[Category]",
+     "doc": "Return the categories a dropdown should show.",
+     "decorators": [],
+     "lines": [
+      31,
+      33
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(category_id: str) -> Category | None",
+     "doc": "Return the category with ``category_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      35,
+      37
+     ]
+    },
+    {
+     "name": "find_by_name",
+     "signature": "def find_by_name(name: str) -> Category | None",
+     "doc": "Return the category whose label matches, ignoring case.",
+     "decorators": [],
+     "lines": [
+      39,
+      45
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(category: Category) -> bool",
+     "doc": "Store a category unless its id or its name is already present.",
+     "decorators": [],
+     "lines": [
+      47,
+      58
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many categories exist.",
+     "decorators": [],
+     "lines": [
+      60,
+      62
+     ]
+    }
+   ],
+   "public_methods": [
+    "reset_defaults",
+    "list_all",
+    "list_active",
+    "get",
+    "find_by_name",
+    "add",
+    "count"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "CompanyRepository",
+   "bases": [],
+   "doc": "Keeps every company in process memory.",
+   "decorators": [],
+   "file": "backend/app/repositories/company_repository.py",
+   "line": 10,
+   "lines": [
+    10,
+    57
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      18,
+      21
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(company: Company) -> bool",
+     "doc": "Store ``company`` unless its designer already has one.",
+     "decorators": [],
+     "lines": [
+      23,
+      33
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(company_id: str) -> Company | None",
+     "doc": "Return the company with ``company_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      35,
+      37
+     ]
+    },
+    {
+     "name": "get_by_owner",
+     "signature": "def get_by_owner(owner_id: str) -> Company | None",
+     "doc": "Return the company owned by ``owner_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      39,
+      44
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all() -> list[Company]",
+     "doc": "Return every stored company.",
+     "decorators": [],
+     "lines": [
+      46,
+      48
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many companies are stored.",
+     "decorators": [],
+     "lines": [
+      50,
+      52
+     ]
+    },
+    {
+     "name": "clear",
+     "signature": "def clear() -> None",
+     "doc": "Remove every stored company.",
+     "decorators": [],
+     "lines": [
+      54,
+      57
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "get",
+    "get_by_owner",
+    "list_all",
+    "count",
+    "clear"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ProjectRepository",
+   "bases": [],
+   "doc": "Keeps every project in process memory, keyed by id.",
+   "decorators": [],
+   "file": "backend/app/repositories/project_repository.py",
+   "line": 10,
+   "lines": [
+    10,
+    57
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      16,
+      18
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(project: Project) -> bool",
+     "doc": "Store ``project`` unless its id is already present.",
+     "decorators": [],
+     "lines": [
+      20,
+      26
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(project_id: str) -> Project | None",
+     "doc": "Return the project with ``project_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      28,
+      30
+     ]
+    },
+    {
+     "name": "list_by_owner",
+     "signature": "def list_by_owner(owner_id: str) -> list[Project]",
+     "doc": "Return the projects owned by ``owner_id``.",
+     "decorators": [],
+     "lines": [
+      32,
+      34
+     ]
+    },
+    {
+     "name": "list_by_company",
+     "signature": "def list_by_company(company_id: str) -> list[Project]",
+     "doc": "Return the projects published under ``company_id``.",
+     "decorators": [],
+     "lines": [
+      36,
+      40
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all() -> list[Project]",
+     "doc": "Return every stored project.",
+     "decorators": [],
+     "lines": [
+      42,
+      44
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many projects are stored.",
+     "decorators": [],
+     "lines": [
+      46,
+      48
+     ]
+    },
+    {
+     "name": "remove",
+     "signature": "def remove(project_id: str) -> bool",
+     "doc": "Drop the project with ``project_id``. Returns whether it was present.",
+     "decorators": [],
+     "lines": [
+      50,
+      53
+     ]
+    },
+    {
+     "name": "clear",
+     "signature": "def clear() -> None",
+     "doc": "Remove every stored project.",
+     "decorators": [],
+     "lines": [
+      55,
+      57
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "get",
+    "list_by_owner",
+    "list_by_company",
+    "list_all",
+    "count",
+    "remove",
+    "clear"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "QuoteRequestRepository",
+   "bases": [],
+   "doc": "Keeps every request in process memory, keyed by id.",
+   "decorators": [],
+   "file": "backend/app/repositories/quote_repository.py",
+   "line": 11,
+   "lines": [
+    11,
+    48
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      14,
+      16
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(request: QuoteRequest) -> bool",
+     "doc": "Store ``request`` unless its id is already present.",
+     "decorators": [],
+     "lines": [
+      18,
+      24
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(request_id: str) -> QuoteRequest | None",
+     "doc": "Return the request with ``request_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      26,
+      28
+     ]
+    },
+    {
+     "name": "list_by_customer",
+     "signature": "def list_by_customer(customer_id: str) -> list[QuoteRequest]",
+     "doc": "Return the requests a customer sent.",
+     "decorators": [],
+     "lines": [
+      30,
+      32
+     ]
+    },
+    {
+     "name": "list_by_company",
+     "signature": "def list_by_company(company_id: str) -> list[QuoteRequest]",
+     "doc": "Return the requests a company received.",
+     "decorators": [],
+     "lines": [
+      34,
+      36
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all() -> list[QuoteRequest]",
+     "doc": "Return every stored request.",
+     "decorators": [],
+     "lines": [
+      38,
+      40
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many requests are stored.",
+     "decorators": [],
+     "lines": [
+      42,
+      44
+     ]
+    },
+    {
+     "name": "clear",
+     "signature": "def clear() -> None",
+     "doc": "Remove every stored request.",
+     "decorators": [],
+     "lines": [
+      46,
+      48
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "get",
+    "list_by_customer",
+    "list_by_company",
+    "list_all",
+    "count",
+    "clear"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "QuoteRepository",
+   "bases": [],
+   "doc": "Keeps every quote version, keyed by id.",
+   "decorators": [],
+   "file": "backend/app/repositories/quote_repository.py",
+   "line": 51,
+   "lines": [
+    51,
+    92
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      54,
+      56
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(quote: Quote) -> bool",
+     "doc": "Store ``quote`` unless its id is already present.",
+     "decorators": [],
+     "lines": [
+      58,
+      64
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(quote_id: str) -> Quote | None",
+     "doc": "Return the quote with ``quote_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      66,
+      68
+     ]
+    },
+    {
+     "name": "list_by_request",
+     "signature": "def list_by_request(request_id: str) -> list[Quote]",
+     "doc": "Return every version of a request's quote, oldest first.",
+     "decorators": [],
+     "lines": [
+      70,
+      75
+     ]
+    },
+    {
+     "name": "latest_for_request",
+     "signature": "def latest_for_request(request_id: str) -> Quote | None",
+     "doc": "Return the newest version of a request's quote.",
+     "decorators": [],
+     "lines": [
+      77,
+      80
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all() -> list[Quote]",
+     "doc": "Return every stored quote.",
+     "decorators": [],
+     "lines": [
+      82,
+      84
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many quotes are stored.",
+     "decorators": [],
+     "lines": [
+      86,
+      88
+     ]
+    },
+    {
+     "name": "clear",
+     "signature": "def clear() -> None",
+     "doc": "Remove every stored quote.",
+     "decorators": [],
+     "lines": [
+      90,
+      92
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "get",
+    "list_by_request",
+    "latest_for_request",
+    "list_all",
+    "count",
+    "clear"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ShortlistRepository",
+   "bases": [],
+   "doc": "Keeps one shortlist per customer id.",
+   "decorators": [],
+   "file": "backend/app/repositories/shortlist_repository.py",
+   "line": 10,
+   "lines": [
+    10,
+    35
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      13,
+      15
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(shortlist: Shortlist) -> bool",
+     "doc": "Store ``shortlist`` unless that customer already has one.",
+     "decorators": [],
+     "lines": [
+      17,
+      23
+     ]
+    },
+    {
+     "name": "get_by_customer",
+     "signature": "def get_by_customer(customer_id: str) -> Shortlist | None",
+     "doc": "Return the shortlist of ``customer_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      25,
+      27
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many shortlists exist.",
+     "decorators": [],
+     "lines": [
+      29,
+      31
+     ]
+    },
+    {
+     "name": "clear",
+     "signature": "def clear() -> None",
+     "doc": "Remove every shortlist.",
+     "decorators": [],
+     "lines": [
+      33,
+      35
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "get_by_customer",
+    "count",
+    "clear"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "AccountPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "The account fields that may leave the API.",
+   "decorators": [],
+   "file": "backend/app/schemas/account.py",
+   "line": 12,
+   "lines": [
+    12,
+    22
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "email",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "display_name",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "role",
+     "type": "Role",
+     "default": ""
+    },
+    {
+     "name": "status",
+     "type": "AccountStatus",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "RegisterRequest",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload accepted by the registration endpoint.",
+   "decorators": [],
+   "file": "backend/app/schemas/account.py",
+   "line": 25,
+   "lines": [
+    25,
+    48
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "email",
+     "type": "str",
+     "default": "Field(min_length=3, max_length=254)"
+    },
+    {
+     "name": "password",
+     "type": "str",
+     "default": "Field(max_length=128)"
+    },
+    {
+     "name": "display_name",
+     "type": "str",
+     "default": "Field(min_length=1, max_length=80)"
+    },
+    {
+     "name": "role",
+     "type": "Role",
+     "default": "Role.CUSTOMER"
+    }
+   ],
+   "methods": [
+    {
+     "name": "validate_email",
+     "signature": "def validate_email(value: str) -> str",
+     "doc": "",
+     "decorators": [
+      "@field_validator('email')",
+      "@classmethod"
+     ],
+     "lines": [
+      35,
+      40
+     ]
+    },
+    {
+     "name": "validate_display_name",
+     "signature": "def validate_display_name(value: str) -> str",
+     "doc": "",
+     "decorators": [
+      "@field_validator('display_name')",
+      "@classmethod"
+     ],
+     "lines": [
+      44,
+      48
+     ]
+    }
+   ],
+   "public_methods": [
+    "validate_email",
+    "validate_display_name"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "LoginRequest",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload accepted by the login endpoint.",
+   "decorators": [],
+   "file": "backend/app/schemas/account.py",
+   "line": 51,
+   "lines": [
+    51,
+    55
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "email",
+     "type": "str",
+     "default": "Field(min_length=3, max_length=254)"
+    },
+    {
+     "name": "password",
+     "type": "str",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "TokenResponse",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "The result of a successful login.",
+   "decorators": [],
+   "file": "backend/app/schemas/account.py",
+   "line": 58,
+   "lines": [
+    58,
+    64
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "access_token",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "token_type",
+     "type": "str",
+     "default": "'bearer'"
+    },
+    {
+     "name": "expires_in",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "account",
+     "type": "AccountPublic",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CompanyPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "The company fields a customer may read.",
+   "decorators": [],
+   "file": "backend/app/schemas/company.py",
+   "line": 10,
+   "lines": [
+    10,
+    24
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "owner_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "name",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "description",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "contact_email",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "contact_phone",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "location",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "logo_url",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": ""
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CompanyCreate",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload accepted when a designer creates the profile.",
+   "decorators": [],
+   "file": "backend/app/schemas/company.py",
+   "line": 27,
+   "lines": [
+    27,
+    35
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "name",
+     "type": "str",
+     "default": "Field(min_length=1, max_length=120)"
+    },
+    {
+     "name": "description",
+     "type": "str",
+     "default": "Field(default='', max_length=2000)"
+    },
+    {
+     "name": "contact_email",
+     "type": "str",
+     "default": "Field(min_length=3, max_length=254)"
+    },
+    {
+     "name": "contact_phone",
+     "type": "str",
+     "default": "Field(default='', max_length=40)"
+    },
+    {
+     "name": "location",
+     "type": "str",
+     "default": "Field(default='', max_length=120)"
+    },
+    {
+     "name": "logo_url",
+     "type": "str",
+     "default": "Field(default='', max_length=500)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CompanyUpdate",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload accepted when the owner changes the profile.",
+   "decorators": [],
+   "file": "backend/app/schemas/company.py",
+   "line": 38,
+   "lines": [
+    38,
+    50
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "name",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=120)"
+    },
+    {
+     "name": "description",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=2000)"
+    },
+    {
+     "name": "contact_email",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=254)"
+    },
+    {
+     "name": "contact_phone",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=40)"
+    },
+    {
+     "name": "location",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=120)"
+    },
+    {
+     "name": "logo_url",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=500)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ProjectPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "The project fields a customer may read.",
+   "decorators": [],
+   "file": "backend/app/schemas/project.py",
+   "line": 12,
+   "lines": [
+    12,
+    32
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "owner_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "company_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "title",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "description",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "style",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "category",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "budget_min",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "budget_max",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "status",
+     "type": "ProjectStatus",
+     "default": ""
+    },
+    {
+     "name": "images",
+     "type": "list[str]",
+     "default": ""
+    },
+    {
+     "name": "tags",
+     "type": "list[str]",
+     "default": ""
+    },
+    {
+     "name": "view_count",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "shortlist_count",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": ""
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ProjectCreate",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload accepted when a designer publishes a project.",
+   "decorators": [],
+   "file": "backend/app/schemas/project.py",
+   "line": 35,
+   "lines": [
+    35,
+    45
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "title",
+     "type": "str",
+     "default": "Field(min_length=1, max_length=120)"
+    },
+    {
+     "name": "description",
+     "type": "str",
+     "default": "Field(default='', max_length=2000)"
+    },
+    {
+     "name": "style",
+     "type": "str",
+     "default": "Field(min_length=1, max_length=60)"
+    },
+    {
+     "name": "category",
+     "type": "str",
+     "default": "Field(min_length=1, max_length=60)"
+    },
+    {
+     "name": "budget_min",
+     "type": "int",
+     "default": "Field(default=0, ge=0)"
+    },
+    {
+     "name": "budget_max",
+     "type": "int",
+     "default": "Field(default=0, ge=0)"
+    },
+    {
+     "name": "images",
+     "type": "list[str]",
+     "default": "Field(default_factory=list, max_length=8)"
+    },
+    {
+     "name": "tags",
+     "type": "list[str]",
+     "default": "Field(default_factory=list, max_length=12)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ProjectUpdate",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload accepted when the owner changes a project.",
+   "decorators": [],
+   "file": "backend/app/schemas/project.py",
+   "line": 48,
+   "lines": [
+    48,
+    62
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "title",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=120)"
+    },
+    {
+     "name": "description",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=2000)"
+    },
+    {
+     "name": "style",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=60)"
+    },
+    {
+     "name": "category",
+     "type": "str | None",
+     "default": "Field(default=None, max_length=60)"
+    },
+    {
+     "name": "budget_min",
+     "type": "int | None",
+     "default": "Field(default=None, ge=0)"
+    },
+    {
+     "name": "budget_max",
+     "type": "int | None",
+     "default": "Field(default=None, ge=0)"
+    },
+    {
+     "name": "status",
+     "type": "ProjectStatus | None",
+     "default": "None"
+    },
+    {
+     "name": "images",
+     "type": "list[str] | None",
+     "default": "Field(default=None, max_length=8)"
+    },
+    {
+     "name": "tags",
+     "type": "list[str] | None",
+     "default": "Field(default=None, max_length=12)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "SearchResponse",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "One page of search results plus the counts the screen shows.",
+   "decorators": [],
+   "file": "backend/app/schemas/project.py",
+   "line": 65,
+   "lines": [
+    65,
+    72
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "items",
+     "type": "list[ProjectPublic]",
+     "default": ""
+    },
+    {
+     "name": "total",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "page",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "page_size",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "pages",
+     "type": "int",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "PaletteEntryPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "One colour of a photo and how much of it the photo holds.",
+   "decorators": [],
+   "file": "backend/app/schemas/project.py",
+   "line": 75,
+   "lines": [
+    75,
+    79
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "hex",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "percent",
+     "type": "float",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "TagSuggestionPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "What the analyser offers the designer. Nothing is applied automatically.",
+   "decorators": [],
+   "file": "backend/app/schemas/project.py",
+   "line": 82,
+   "lines": [
+    82,
+    91
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "palette",
+     "type": "list[PaletteEntryPublic]",
+     "default": ""
+    },
+    {
+     "name": "tags",
+     "type": "list[str]",
+     "default": ""
+    },
+    {
+     "name": "width",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "height",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "engine",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "subject",
+     "type": "str",
+     "default": "'room'"
+    },
+    {
+     "name": "objects",
+     "type": "list[str]",
+     "default": "Field(default_factory=list)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "StoredImagePublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "A kept photo, addressed by the path the browser will ask for.",
+   "decorators": [],
+   "file": "backend/app/schemas/project.py",
+   "line": 94,
+   "lines": [
+    94,
+    99
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "url",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "width",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "height",
+     "type": "int",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CounterPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "One target price the customer named.",
+   "decorators": [],
+   "file": "backend/app/schemas/quote.py",
+   "line": 12,
+   "lines": [
+    12,
+    20
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "target_cents",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "note",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "QuotePublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "One priced answer.",
+   "decorators": [],
+   "file": "backend/app/schemas/quote.py",
+   "line": 23,
+   "lines": [
+    23,
+    39
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "request_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "version",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "total_cents",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "gst_included",
+     "type": "bool",
+     "default": ""
+    },
+    {
+     "name": "gst_rate_bp",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "gst_cents",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "grand_total_cents",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "valid_until",
+     "type": "date",
+     "default": ""
+    },
+    {
+     "name": "note",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "state",
+     "type": "QuoteState",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "QuoteRequestPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "The request fields both parties read.",
+   "decorators": [],
+   "file": "backend/app/schemas/quote.py",
+   "line": 42,
+   "lines": [
+    42,
+    60
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "customer_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "company_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "project_id",
+     "type": "str | None",
+     "default": ""
+    },
+    {
+     "name": "title",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "budget_min_cents",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "budget_max_cents",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "target_cents",
+     "type": "int | None",
+     "default": ""
+    },
+    {
+     "name": "state",
+     "type": "QuoteRequestState",
+     "default": ""
+    },
+    {
+     "name": "counters",
+     "type": "list[CounterPublic]",
+     "default": ""
+    },
+    {
+     "name": "closed_reason",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": ""
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "QuoteRequestDetail",
+   "bases": [
+    "QuoteRequestPublic"
+   ],
+   "doc": "A request with every quote version attached.",
+   "decorators": [],
+   "file": "backend/app/schemas/quote.py",
+   "line": 63,
+   "lines": [
+    63,
+    66
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "quotes",
+     "type": "list[QuotePublic]",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "SubmitRequest",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload a customer sends to start a request.",
+   "decorators": [],
+   "file": "backend/app/schemas/quote.py",
+   "line": 69,
+   "lines": [
+    69,
+    78
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "company_id",
+     "type": "str",
+     "default": "Field(min_length=1)"
+    },
+    {
+     "name": "title",
+     "type": "str",
+     "default": "Field(min_length=1, max_length=120)"
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "default": "Field(min_length=1, max_length=2000)"
+    },
+    {
+     "name": "budget_min_cents",
+     "type": "int",
+     "default": "Field(default=0, ge=0)"
+    },
+    {
+     "name": "budget_max_cents",
+     "type": "int",
+     "default": "Field(default=0, ge=0)"
+    },
+    {
+     "name": "target_cents",
+     "type": "int | None",
+     "default": "Field(default=None, gt=0)"
+    },
+    {
+     "name": "project_id",
+     "type": "str | None",
+     "default": "None"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CounterRequest",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload for a target price.",
+   "decorators": [],
+   "file": "backend/app/schemas/quote.py",
+   "line": 81,
+   "lines": [
+    81,
+    85
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "target_cents",
+     "type": "int",
+     "default": "Field(gt=0)"
+    },
+    {
+     "name": "note",
+     "type": "str",
+     "default": "Field(default='', max_length=500)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "AnswerRequest",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload a designer sends as a quote or a revision.",
+   "decorators": [],
+   "file": "backend/app/schemas/quote.py",
+   "line": 88,
+   "lines": [
+    88,
+    94
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "total_cents",
+     "type": "int",
+     "default": "Field(gt=0)"
+    },
+    {
+     "name": "valid_days",
+     "type": "int",
+     "default": "Field(default=14, ge=1, le=90)"
+    },
+    {
+     "name": "gst_included",
+     "type": "bool",
+     "default": "False"
+    },
+    {
+     "name": "note",
+     "type": "str",
+     "default": "Field(default='', max_length=500)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ReasonRequest",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload for a refusal, a cancellation or a decline.",
+   "decorators": [],
+   "file": "backend/app/schemas/quote.py",
+   "line": 97,
+   "lines": [
+    97,
+    100
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "reason",
+     "type": "str",
+     "default": "Field(default='', max_length=500)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ShortlistResponse",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "The saved ids, plus the projects they still resolve to.",
+   "decorators": [],
+   "file": "backend/app/schemas/shortlist.py",
+   "line": 10,
+   "lines": [
+    10,
+    14
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "project_ids",
+     "type": "list[str]",
+     "default": ""
+    },
+    {
+     "name": "items",
+     "type": "list[ProjectPublic]",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "create_access_token",
+   "signature": "def create_access_token(account_id: str, role: str, expires_minutes: int) -> str",
+   "doc": "Return a signed HS256 token for ``account_id`` holding ``role``.",
+   "decorators": [],
+   "file": "backend/app/security.py",
+   "line": 19,
+   "layer": "Support",
+   "lines": [
+    19,
+    28
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "decode_access_token",
+   "signature": "def decode_access_token(token: str) -> dict[str, Any]",
+   "doc": "Return the claims of ``token``.",
+   "decorators": [],
+   "file": "backend/app/security.py",
+   "line": 31,
+   "layer": "Support",
+   "lines": [
+    31,
+    44
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "AccountService",
+   "bases": [],
+   "doc": "Applies account business rules on top of the repository.",
+   "decorators": [],
+   "file": "backend/app/services/account_service.py",
+   "line": 31,
+   "lines": [
+    31,
+    141
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(repository: AccountRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      34,
+      35
+     ]
+    },
+    {
+     "name": "register",
+     "signature": "def register(email: str, password: str, display_name: str, role: Role) -> Account",
+     "doc": "Create an account and store it.",
+     "decorators": [],
+     "lines": [
+      37,
+      54
+     ]
+    },
+    {
+     "name": "authenticate",
+     "signature": "def authenticate(email: str, password: str) -> Account",
+     "doc": "Return the account matching ``email`` and ``password``.",
+     "decorators": [],
+     "lines": [
+      56,
+      70
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(account_id: str) -> Account | None",
+     "doc": "Return the account with ``account_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      72,
+      74
+     ]
+    },
+    {
+     "name": "list_accounts",
+     "signature": "def list_accounts(actor: Account, status: AccountStatus | None = None) -> list[Account]",
+     "doc": "Return accounts for an administrator, newest first.",
+     "decorators": [],
+     "lines": [
+      76,
+      84
+     ]
+    },
+    {
+     "name": "approve",
+     "signature": "def approve(actor: Account, account_id: str) -> Account",
+     "doc": "Activate an account so it may sign in.",
+     "decorators": [],
+     "lines": [
+      86,
+      90
+     ]
+    },
+    {
+     "name": "suspend",
+     "signature": "def suspend(actor: Account, account_id: str) -> Account",
+     "doc": "Suspend an account so it cannot sign in again.",
+     "decorators": [],
+     "lines": [
+      92,
+      96
+     ]
+    },
+    {
+     "name": "ensure_staff_account",
+     "signature": "def ensure_staff_account(email: str, password: str, display_name: str, role: Role) -> Account | None",
+     "doc": "Create a staff account when the address is free.",
+     "decorators": [],
+     "lines": [
+      98,
+      117
+     ]
+    },
+    {
+     "name": "_require_admin",
+     "signature": "def _require_admin(actor: Account) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      120,
+      122
+     ]
+    },
+    {
+     "name": "_require_target",
+     "signature": "def _require_target(actor: Account, account_id: str) -> Account",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      124,
+      131
+     ]
+    },
+    {
+     "name": "_require_self_registration_role",
+     "signature": "def _require_self_registration_role(role: Role) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      134,
+      136
+     ]
+    },
+    {
+     "name": "_require_strong_password",
+     "signature": "def _require_strong_password(password: str) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      139,
+      141
+     ]
+    }
+   ],
+   "public_methods": [
+    "register",
+    "authenticate",
+    "get",
+    "list_accounts",
+    "approve",
+    "suspend",
+    "ensure_staff_account"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "CategoryNotFound",
+   "bases": [
+    "Exception"
+   ],
+   "doc": "No category matches the supplied id.",
+   "decorators": [],
+   "file": "backend/app/services/category_service.py",
+   "line": 12,
+   "lines": [
+    12,
+    16
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      15,
+      16
+     ]
+    }
+   ],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CategoryExists",
+   "bases": [
+    "Exception"
+   ],
+   "doc": "A category with that label already exists.",
+   "decorators": [],
+   "file": "backend/app/services/category_service.py",
+   "line": 19,
+   "lines": [
+    19,
+    23
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      22,
+      23
+     ]
+    }
+   ],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "CategoryService",
+   "bases": [],
+   "doc": "Applies the staff rules on top of the category store.",
+   "decorators": [],
+   "file": "backend/app/services/category_service.py",
+   "line": 26,
+   "lines": [
+    26,
+    87
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(categories: CategoryRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      29,
+      30
+     ]
+    },
+    {
+     "name": "list_active",
+     "signature": "def list_active() -> list[Category]",
+     "doc": "Return the labels a dropdown should show.",
+     "decorators": [],
+     "lines": [
+      32,
+      34
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all(actor: Account) -> list[Category]",
+     "doc": "Return every category, archived ones included.",
+     "decorators": [],
+     "lines": [
+      36,
+      39
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(actor: Account, name: str) -> Category",
+     "doc": "Create a category.",
+     "decorators": [],
+     "lines": [
+      41,
+      50
+     ]
+    },
+    {
+     "name": "rename",
+     "signature": "def rename(actor: Account, category_id: str, name: str) -> Category",
+     "doc": "Change a category label.",
+     "decorators": [],
+     "lines": [
+      52,
+      62
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(actor: Account, category_id: str) -> Category",
+     "doc": "Return one category for staff.",
+     "decorators": [],
+     "lines": [
+      64,
+      70
+     ]
+    },
+    {
+     "name": "set_active",
+     "signature": "def set_active(actor: Account, category_id: str, active: bool) -> Category",
+     "doc": "Archive or restore a category.",
+     "decorators": [],
+     "lines": [
+      72,
+      82
+     ]
+    },
+    {
+     "name": "_require_staff",
+     "signature": "def _require_staff(actor: Account) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      85,
+      87
+     ]
+    }
+   ],
+   "public_methods": [
+    "list_active",
+    "list_all",
+    "add",
+    "rename",
+    "get",
+    "set_active"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "CompanyService",
+   "bases": [],
+   "doc": "Applies the company profile rules on top of the repository.",
+   "decorators": [],
+   "file": "backend/app/services/company_service.py",
+   "line": 12,
+   "lines": [
+    12,
+    100
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(companies: CompanyRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      15,
+      16
+     ]
+    },
+    {
+     "name": "create",
+     "signature": "def create(actor: Account, name: str, description: str, contact_email: str, contact_phone: str, location: str, logo_url: str = '') -> Company",
+     "doc": "Create the company profile for ``actor``.",
+     "decorators": [],
+     "lines": [
+      18,
+      44
+     ]
+    },
+    {
+     "name": "get_for_owner",
+     "signature": "def get_for_owner(actor: Account) -> Company",
+     "doc": "Return the profile owned by ``actor``.",
+     "decorators": [],
+     "lines": [
+      46,
+      52
+     ]
+    },
+    {
+     "name": "update",
+     "signature": "def update(actor: Account) -> Company",
+     "doc": "Change only the fields that were supplied.",
+     "decorators": [],
+     "lines": [
+      54,
+      84
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(company_id: str) -> Company",
+     "doc": "Return a company by id. Any signed in account may read it.",
+     "decorators": [],
+     "lines": [
+      86,
+      91
+     ]
+    },
+    {
+     "name": "list_companies",
+     "signature": "def list_companies() -> list[Company]",
+     "doc": "Return every company, sorted by name for a stable listing.",
+     "decorators": [],
+     "lines": [
+      93,
+      95
+     ]
+    },
+    {
+     "name": "_require_designer",
+     "signature": "def _require_designer(actor: Account) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      98,
+      100
+     ]
+    }
+   ],
+   "public_methods": [
+    "create",
+    "get_for_owner",
+    "update",
+    "get",
+    "list_companies"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ImageUnavailable",
+   "bases": [
+    "Exception"
+   ],
+   "doc": "The photo cannot be read, or it must not be read.",
+   "decorators": [],
+   "file": "backend/app/services/image_source.py",
+   "line": 28,
+   "lines": [
+    28,
+    29
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "load_image_bytes",
+   "signature": "def load_image_bytes(reference: str, public_dir: Path) -> bytes",
+   "doc": "Return the bytes of the photo that ``reference`` points at.",
+   "decorators": [],
+   "file": "backend/app/services/image_source.py",
+   "line": 32,
+   "layer": "Control",
+   "lines": [
+    32,
+    39
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_read_local",
+   "signature": "def _read_local(reference: str, public_dir: Path) -> bytes",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/services/image_source.py",
+   "line": 42,
+   "layer": "Control",
+   "lines": [
+    42,
+    51
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_read_remote",
+   "signature": "def _read_remote(reference: str) -> bytes",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/services/image_source.py",
+   "line": 54,
+   "layer": "Control",
+   "lines": [
+    54,
+    82
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_resolve",
+   "signature": "def _resolve(host: str) -> list[str]",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/services/image_source.py",
+   "line": 85,
+   "layer": "Control",
+   "lines": [
+    85,
+    90
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_is_public",
+   "signature": "def _is_public(address: str) -> bool",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/services/image_source.py",
+   "line": 93,
+   "layer": "Control",
+   "lines": [
+    93,
+    105
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "is_animal",
+   "signature": "def is_animal(label: str) -> bool",
+   "doc": "Return True when the label names an animal.",
+   "decorators": [],
+   "file": "backend/app/services/object_labels.py",
+   "line": 122,
+   "layer": "Control",
+   "lines": [
+    122,
+    129
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_session",
+   "signature": "def _session()",
+   "doc": "Load the model once. Return None when the model or runtime is absent.",
+   "decorators": [
+    "@lru_cache(maxsize=1)"
+   ],
+   "file": "backend/app/services/object_labels.py",
+   "line": 133,
+   "layer": "Control",
+   "lines": [
+    133,
+    153
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "available",
+   "signature": "def available() -> bool",
+   "doc": "Return True when a model can answer.",
+   "decorators": [],
+   "file": "backend/app/services/object_labels.py",
+   "line": 156,
+   "layer": "Control",
+   "lines": [
+    156,
+    158
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Reading",
+   "bases": [],
+   "doc": "What one inference pass saw. The diagnostics drive the interior gate.",
+   "decorators": [
+    "@dataclass(frozen=True)"
+   ],
+   "file": "backend/app/services/object_labels.py",
+   "line": 162,
+   "lines": [
+    162,
+    169
+   ],
+   "layer": "Control",
+   "fields": [
+    {
+     "name": "tags",
+     "type": "list[str]",
+     "default": ""
+    },
+    {
+     "name": "top_label",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "top_probability",
+     "type": "float",
+     "default": ""
+    },
+    {
+     "name": "interior_probability",
+     "type": "float",
+     "default": ""
+    },
+    {
+     "name": "subject",
+     "type": "str",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "read",
+   "signature": "def read(data: bytes) -> Reading | None",
+   "doc": "Run one inference pass and return the tags plus the diagnostics.",
+   "decorators": [],
+   "file": "backend/app/services/object_labels.py",
+   "line": 172,
+   "layer": "Control",
+   "lines": [
+    172,
+    231
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "object_tags",
+   "signature": "def object_tags(data: bytes) -> list[str]",
+   "doc": "Return up to ``LIMIT`` catalogue tags for ``data``, most confident first.",
+   "decorators": [],
+   "file": "backend/app/services/object_labels.py",
+   "line": 234,
+   "layer": "Control",
+   "lines": [
+    234,
+    241
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "engine_name",
+   "signature": "def engine_name() -> str",
+   "doc": "Name the analyser for the response, so the screen can be honest.",
+   "decorators": [],
+   "file": "backend/app/services/object_labels.py",
+   "line": 244,
+   "layer": "Control",
+   "lines": [
+    244,
+    246
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "SearchResult",
+   "bases": [],
+   "doc": "One page of matches plus the numbers the screen needs.",
+   "decorators": [
+    "@dataclass(frozen=True)"
+   ],
+   "file": "backend/app/services/project_search_service.py",
+   "line": 20,
+   "lines": [
+    20,
+    33
+   ],
+   "layer": "Control",
+   "fields": [
+    {
+     "name": "items",
+     "type": "list[Project]",
+     "default": ""
+    },
+    {
+     "name": "total",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "page",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "page_size",
+     "type": "int",
+     "default": ""
+    }
+   ],
+   "methods": [
+    {
+     "name": "pages",
+     "signature": "def pages() -> int",
+     "doc": "Return how many pages the total fills, at least one.",
+     "decorators": [
+      "@property"
+     ],
+     "lines": [
+      29,
+      33
+     ]
+    }
+   ],
+   "public_methods": [
+    "pages"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ProjectSearchService",
+   "bases": [],
+   "doc": "Filters the catalogue. Holds no state of its own.",
+   "decorators": [],
+   "file": "backend/app/services/project_search_service.py",
+   "line": 36,
+   "lines": [
+    36,
+    92
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(projects: ProjectRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      39,
+      40
+     ]
+    },
+    {
+     "name": "search",
+     "signature": "def search() -> SearchResult",
+     "doc": "Return the matches for one page of results.",
+     "decorators": [],
+     "lines": [
+      42,
+      92
+     ]
+    }
+   ],
+   "public_methods": [
+    "search"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ProjectService",
+   "bases": [],
+   "doc": "Applies the portfolio rules on top of the two stores.",
+   "decorators": [],
+   "file": "backend/app/services/project_service.py",
+   "line": 13,
+   "lines": [
+    13,
+    178
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(projects: ProjectRepository, companies: CompanyRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      16,
+      22
+     ]
+    },
+    {
+     "name": "create",
+     "signature": "def create(actor: Account) -> Project",
+     "doc": "Publish a project under the caller's company.",
+     "decorators": [],
+     "lines": [
+      24,
+      61
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(project_id: str) -> Project",
+     "doc": "Return a project by id. Any signed in account may read it.",
+     "decorators": [],
+     "lines": [
+      63,
+      68
+     ]
+    },
+    {
+     "name": "update",
+     "signature": "def update(actor: Account, project_id: str) -> Project",
+     "doc": "Change only the fields that were supplied. Owner only.",
+     "decorators": [],
+     "lines": [
+      70,
+      108
+     ]
+    },
+    {
+     "name": "require_owned",
+     "signature": "def require_owned(actor: Account, project_id: str) -> Project",
+     "doc": "Return the project only when the caller owns it.",
+     "decorators": [],
+     "lines": [
+      110,
+      112
+     ]
+    },
+    {
+     "name": "delete",
+     "signature": "def delete(actor: Account, project_id: str) -> None",
+     "doc": "Remove a project. Owner only.",
+     "decorators": [],
+     "lines": [
+      114,
+      117
+     ]
+    },
+    {
+     "name": "list_for_owner",
+     "signature": "def list_for_owner(actor: Account, status: ProjectStatus | None = None, name: str = '') -> list[Project]",
+     "doc": "List the owner's projects, optionally filtered by status and title.",
+     "decorators": [],
+     "lines": [
+      119,
+      156
+     ]
+    },
+    {
+     "name": "list_for_company",
+     "signature": "def list_for_company(company_id: str) -> list[Project]",
+     "doc": "Return the projects published under one company, newest first.",
+     "decorators": [],
+     "lines": [
+      158,
+      164
+     ]
+    },
+    {
+     "name": "_require_designer",
+     "signature": "def _require_designer(actor: Account) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      167,
+      169
+     ]
+    },
+    {
+     "name": "_require_owned",
+     "signature": "def _require_owned(actor: Account, project_id: str) -> Project",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      171,
+      178
+     ]
+    }
+   ],
+   "public_methods": [
+    "create",
+    "get",
+    "update",
+    "require_owned",
+    "delete",
+    "list_for_owner",
+    "list_for_company"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "QuoteService",
+   "bases": [],
+   "doc": "Applies the quoting rules on top of the four stores.",
+   "decorators": [],
+   "file": "backend/app/services/quote_service.py",
+   "line": 32,
+   "lines": [
+    32,
+    312
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(requests: QuoteRequestRepository, quotes: QuoteRepository, companies: CompanyRepository, projects: ProjectRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      35,
+      45
+     ]
+    },
+    {
+     "name": "submit",
+     "signature": "def submit(actor: Account) -> QuoteRequest",
+     "doc": "Send one request to one company.",
+     "decorators": [],
+     "lines": [
+      49,
+      88
+     ]
+    },
+    {
+     "name": "counter",
+     "signature": "def counter(actor: Account, request_id: str, target_cents: int, note: str) -> QuoteRequest",
+     "doc": "Record the price the customer wants and why.",
+     "decorators": [],
+     "lines": [
+      90,
+      99
+     ]
+    },
+    {
+     "name": "cancel",
+     "signature": "def cancel(actor: Account, request_id: str, reason: str = '') -> QuoteRequest",
+     "doc": "Stop an open request.",
+     "decorators": [],
+     "lines": [
+      101,
+      110
+     ]
+    },
+    {
+     "name": "accept",
+     "signature": "def accept(actor: Account, quote_id: str) -> Quote",
+     "doc": "Accept one quote. Other requests of this customer stay open.",
+     "decorators": [],
+     "lines": [
+      112,
+      124
+     ]
+    },
+    {
+     "name": "decline",
+     "signature": "def decline(actor: Account, quote_id: str, reason: str = '') -> Quote",
+     "doc": "Turn one quote down.",
+     "decorators": [],
+     "lines": [
+      126,
+      134
+     ]
+    },
+    {
+     "name": "answer",
+     "signature": "def answer(actor: Account, request_id: str) -> Quote",
+     "doc": "Send version one of the quote.",
+     "decorators": [],
+     "lines": [
+      138,
+      165
+     ]
+    },
+    {
+     "name": "revise",
+     "signature": "def revise(actor: Account, quote_id: str) -> Quote",
+     "doc": "Send the next version of the quote.",
+     "decorators": [],
+     "lines": [
+      167,
+      202
+     ]
+    },
+    {
+     "name": "refuse",
+     "signature": "def refuse(actor: Account, request_id: str, reason: str = '') -> QuoteRequest",
+     "doc": "Decline to quote.",
+     "decorators": [],
+     "lines": [
+      204,
+      211
+     ]
+    },
+    {
+     "name": "list_for_customer",
+     "signature": "def list_for_customer(actor: Account, state: QuoteRequestState | None = None) -> list[QuoteRequest]",
+     "doc": "Return the caller's requests, newest first.",
+     "decorators": [],
+     "lines": [
+      215,
+      220
+     ]
+    },
+    {
+     "name": "list_for_designer",
+     "signature": "def list_for_designer(actor: Account, state: QuoteRequestState | None = None) -> list[QuoteRequest]",
+     "doc": "Return the requests sent to the caller's company, newest first.",
+     "decorators": [],
+     "lines": [
+      222,
+      227
+     ]
+    },
+    {
+     "name": "get_request",
+     "signature": "def get_request(actor: Account, request_id: str) -> QuoteRequest",
+     "doc": "Return one request to a party that may see it.",
+     "decorators": [],
+     "lines": [
+      229,
+      237
+     ]
+    },
+    {
+     "name": "quotes_for",
+     "signature": "def quotes_for(actor: Account, request_id: str) -> list[Quote]",
+     "doc": "Return every version of a request's quote.",
+     "decorators": [],
+     "lines": [
+      239,
+      242
+     ]
+    },
+    {
+     "name": "_sorted",
+     "signature": "def _sorted(requests: list[QuoteRequest], state: QuoteRequestState | None) -> list[QuoteRequest]",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      246,
+      253
+     ]
+    },
+    {
+     "name": "_refresh",
+     "signature": "def _refresh(request: QuoteRequest) -> None",
+     "doc": "Close what time has closed. Called on every read.",
+     "decorators": [],
+     "lines": [
+      255,
+      264
+     ]
+    },
+    {
+     "name": "_may_read",
+     "signature": "def _may_read(actor: Account, request: QuoteRequest) -> bool",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      266,
+      272
+     ]
+    },
+    {
+     "name": "_owned_request",
+     "signature": "def _owned_request(actor: Account, request_id: str) -> QuoteRequest",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      274,
+      281
+     ]
+    },
+    {
+     "name": "_owned_quote",
+     "signature": "def _owned_quote(actor: Account, quote_id: str) -> tuple[Quote, QuoteRequest]",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      283,
+      288
+     ]
+    },
+    {
+     "name": "_request_for_designer",
+     "signature": "def _request_for_designer(actor: Account, request_id: str) -> QuoteRequest",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      290,
+      299
+     ]
+    },
+    {
+     "name": "_company_of",
+     "signature": "def _company_of(actor: Account)",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      301,
+      307
+     ]
+    },
+    {
+     "name": "_require_customer",
+     "signature": "def _require_customer(actor: Account) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      310,
+      312
+     ]
+    }
+   ],
+   "public_methods": [
+    "submit",
+    "counter",
+    "cancel",
+    "accept",
+    "decline",
+    "answer",
+    "revise",
+    "refuse",
+    "list_for_customer",
+    "list_for_designer",
+    "get_request",
+    "quotes_for"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "Bucket",
+   "bases": [],
+   "doc": "One period of activity.",
+   "decorators": [
+    "@dataclass(frozen=True)"
+   ],
+   "file": "backend/app/services/report_service.py",
+   "line": 22,
+   "lines": [
+    22,
+    31
+   ],
+   "layer": "Control",
+   "fields": [
+    {
+     "name": "label",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "start",
+     "type": "datetime",
+     "default": ""
+    },
+    {
+     "name": "end",
+     "type": "datetime",
+     "default": ""
+    },
+    {
+     "name": "accounts",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "projects",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "quote_requests",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "quotes",
+     "type": "int",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "Report",
+   "bases": [],
+   "doc": "A period choice and the buckets it produced.",
+   "decorators": [
+    "@dataclass(frozen=True)"
+   ],
+   "file": "backend/app/services/report_service.py",
+   "line": 35,
+   "lines": [
+    35,
+    39
+   ],
+   "layer": "Control",
+   "fields": [
+    {
+     "name": "period",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "buckets",
+     "type": "list[Bucket]",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ReportService",
+   "bases": [],
+   "doc": "Builds reports from the four stores that hold timestamps.",
+   "decorators": [],
+   "file": "backend/app/services/report_service.py",
+   "line": 42,
+   "lines": [
+    42,
+    133
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(accounts: AccountRepository, projects: ProjectRepository, requests: QuoteRequestRepository, quotes: QuoteRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      45,
+      55
+     ]
+    },
+    {
+     "name": "build",
+     "signature": "def build(period: str = 'daily', buckets: int = DEFAULT_BUCKETS, now: datetime | None = None) -> Report",
+     "doc": "Return the last ``buckets`` periods, oldest first.",
+     "decorators": [],
+     "lines": [
+      57,
+      85
+     ]
+    },
+    {
+     "name": "_count",
+     "signature": "def _count(records: list, start: datetime, end: datetime) -> int",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      88,
+      89
+     ]
+    },
+    {
+     "name": "_windows",
+     "signature": "def _windows(period: str, buckets: int, now: datetime) -> list[tuple[datetime, datetime]]",
+     "doc": "Return ``buckets`` windows, oldest first, ending at ``now``.",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      92,
+      102
+     ]
+    },
+    {
+     "name": "_floor",
+     "signature": "def _floor(period: str, moment: datetime) -> datetime",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      105,
+      113
+     ]
+    },
+    {
+     "name": "_shift",
+     "signature": "def _shift(period: str, moment: datetime, count: int) -> datetime",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      116,
+      124
+     ]
+    },
+    {
+     "name": "_label",
+     "signature": "def _label(period: str, start: datetime) -> str",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      127,
+      133
+     ]
+    }
+   ],
+   "public_methods": [
+    "build"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ShortlistService",
+   "bases": [],
+   "doc": "Keeps the saved list and the project counters in step.",
+   "decorators": [],
+   "file": "backend/app/services/shortlist_service.py",
+   "line": 14,
+   "lines": [
+    14,
+    72
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(shortlists: ShortlistRepository, projects: ProjectRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      17,
+      23
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(actor: Account, project_id: str) -> Project",
+     "doc": "Save a project for the caller. Saving twice changes nothing.",
+     "decorators": [],
+     "lines": [
+      25,
+      34
+     ]
+    },
+    {
+     "name": "remove",
+     "signature": "def remove(actor: Account, project_id: str) -> None",
+     "doc": "Drop a project from the caller's list.",
+     "decorators": [],
+     "lines": [
+      36,
+      45
+     ]
+    },
+    {
+     "name": "list_for",
+     "signature": "def list_for(actor: Account) -> list[Project]",
+     "doc": "Return the saved projects, oldest save first, skipping deleted ones.",
+     "decorators": [],
+     "lines": [
+      47,
+      54
+     ]
+    },
+    {
+     "name": "ids_for",
+     "signature": "def ids_for(actor: Account) -> list[str]",
+     "doc": "Return the saved project ids.",
+     "decorators": [],
+     "lines": [
+      56,
+      60
+     ]
+    },
+    {
+     "name": "_own_list",
+     "signature": "def _own_list(actor: Account) -> Shortlist",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      62,
+      67
+     ]
+    },
+    {
+     "name": "_require_customer",
+     "signature": "def _require_customer(actor: Account) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      70,
+      72
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "remove",
+    "list_for",
+    "ids_for"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "PaletteEntry",
+   "bases": [],
+   "doc": "One colour of the photo and how much of it the photo holds.",
+   "decorators": [
+    "@dataclass(frozen=True)"
+   ],
+   "file": "backend/app/services/tag_suggestion_service.py",
+   "line": 36,
+   "lines": [
+    36,
+    40
+   ],
+   "layer": "Control",
+   "fields": [
+    {
+     "name": "hex",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "percent",
+     "type": "float",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "TagSuggestion",
+   "bases": [],
+   "doc": "What the analyser found. The designer accepts or ignores it.",
+   "decorators": [
+    "@dataclass(frozen=True)"
+   ],
+   "file": "backend/app/services/tag_suggestion_service.py",
+   "line": 44,
+   "lines": [
+    44,
+    52
+   ],
+   "layer": "Control",
+   "fields": [
+    {
+     "name": "palette",
+     "type": "list[PaletteEntry]",
+     "default": ""
+    },
+    {
+     "name": "tags",
+     "type": "list[str]",
+     "default": ""
+    },
+    {
+     "name": "width",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "height",
+     "type": "int",
+     "default": ""
+    },
+    {
+     "name": "subject",
+     "type": "str",
+     "default": "'room'"
+    },
+    {
+     "name": "objects",
+     "type": "list[str]",
+     "default": "field(default_factory=list)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "function",
+   "name": "suggest_tags",
+   "signature": "def suggest_tags(data: bytes) -> TagSuggestion",
+   "doc": "Read ``data`` as an image and describe it.",
+   "decorators": [],
+   "file": "backend/app/services/tag_suggestion_service.py",
+   "line": 55,
+   "layer": "Control",
+   "lines": [
+    55,
+    82
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_merge",
+   "signature": "def _merge(objects: list[str], moods: list[str]) -> list[str]",
+   "doc": "Object tags first, then mood tags, without repeats, capped.",
+   "decorators": [],
+   "file": "backend/app/services/tag_suggestion_service.py",
+   "line": 85,
+   "layer": "Control",
+   "lines": [
+    85,
+    91
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_palette",
+   "signature": "def _palette(image: Image.Image) -> list[PaletteEntry]",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/services/tag_suggestion_service.py",
+   "line": 94,
+   "layer": "Control",
+   "lines": [
+    94,
+    109
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_stats",
+   "signature": "def _stats(image: Image.Image) -> dict[str, float]",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/services/tag_suggestion_service.py",
+   "line": 112,
+   "layer": "Control",
+   "lines": [
+    112,
+    124
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_tags",
+   "signature": "def _tags(stats: dict[str, float]) -> list[str]",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/services/tag_suggestion_service.py",
+   "line": 127,
+   "layer": "Control",
+   "lines": [
+    127,
+    150
+   ]
+  }
+ ],
+ "frontend": [
+  {
+   "kind": "function",
+   "name": "getToken",
+   "signature": "function getToken()",
+   "file": "frontend/src/api.ts",
+   "line": 42,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "setToken",
+   "signature": "function setToken(token: string)",
+   "file": "frontend/src/api.ts",
+   "line": 46,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "clearToken",
+   "signature": "function clearToken()",
+   "file": "frontend/src/api.ts",
+   "line": 50,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "health",
+   "signature": "function health()",
+   "file": "frontend/src/api.ts",
+   "line": 113,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "register",
+   "signature": "function register(body: RegisterRequest)",
+   "file": "frontend/src/api.ts",
+   "line": 117,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "login",
+   "signature": "function login(body: LoginRequest)",
+   "file": "frontend/src/api.ts",
+   "line": 124,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "me",
+   "signature": "function me()",
+   "file": "frontend/src/api.ts",
+   "line": 131,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "adminListAccounts",
+   "signature": "function adminListAccounts(status?: Status)",
+   "file": "frontend/src/api.ts",
+   "line": 135,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "adminApprove",
+   "signature": "function adminApprove(accountId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 140,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "adminSuspend",
+   "signature": "function adminSuspend(accountId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 144,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "myCompany",
+   "signature": "function myCompany()",
+   "file": "frontend/src/api.ts",
+   "line": 148,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "createCompany",
+   "signature": "function createCompany(body: CompanyInput)",
+   "file": "frontend/src/api.ts",
+   "line": 152,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "updateMyCompany",
+   "signature": "function updateMyCompany(body: CompanyInput)",
+   "file": "frontend/src/api.ts",
+   "line": 159,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "companyById",
+   "signature": "function companyById(companyId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 166,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "listCompanies",
+   "signature": "function listCompanies()",
+   "file": "frontend/src/api.ts",
+   "line": 170,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "searchProjects",
+   "signature": "function searchProjects(params: SearchParams)",
+   "file": "frontend/src/api.ts",
+   "line": 174,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "getCatalogue",
+   "signature": "function getCatalogue()",
+   "file": "frontend/src/api.ts",
+   "line": 184,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "createProject",
+   "signature": "function createProject(body: ProjectInput)",
+   "file": "frontend/src/api.ts",
+   "line": 188,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "getProject",
+   "signature": "function getProject(projectId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 197,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "updateProject",
+   "signature": "function updateProject(projectId: string,\n  body: Partial<ProjectInput> & { status?: ProjectStatus })",
+   "file": "frontend/src/api.ts",
+   "line": 205,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "myProjects",
+   "signature": "function myProjects(filters: {\n    status?: ProjectStatus;\n    name?: string;\n  } = {})",
+   "file": "frontend/src/api.ts",
+   "line": 218,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "suggestTags",
+   "signature": "function suggestTags(projectId: string,\n  imageIndex = 0)",
+   "file": "frontend/src/api.ts",
+   "line": 241,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "suggestTagsFromUpload",
+   "signature": "function suggestTagsFromUpload(file: File)",
+   "file": "frontend/src/api.ts",
+   "line": 251,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "uploadImage",
+   "signature": "function uploadImage(file: File)",
+   "file": "frontend/src/api.ts",
+   "line": 257,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "recordView",
+   "signature": "function recordView(projectId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 263,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "getShortlist",
+   "signature": "function getShortlist()",
+   "file": "frontend/src/api.ts",
+   "line": 269,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "saveProject",
+   "signature": "function saveProject(projectId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 273,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "unsaveProject",
+   "signature": "function unsaveProject(projectId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 280,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "submitQuoteRequest",
+   "signature": "function submitQuoteRequest(body: {\n  company_id: string;\n  title: string;\n  scope: string;\n  budget_min_cents: number;\n  budget_max_cents: number;\n  target_cents?: number;\n  project_id?: string;\n})",
+   "file": "frontend/src/api.ts",
+   "line": 286,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "listQuoteRequests",
+   "signature": "function listQuoteRequests(state?: QuoteRequestState)",
+   "file": "frontend/src/api.ts",
+   "line": 301,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "getQuoteRequest",
+   "signature": "function getQuoteRequest(requestId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 306,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "counterQuoteRequest",
+   "signature": "function counterQuoteRequest(requestId: string,\n  targetCents: number,\n  note: string)",
+   "file": "frontend/src/api.ts",
+   "line": 312,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "cancelQuoteRequest",
+   "signature": "function cancelQuoteRequest(requestId: string,\n  reason: string)",
+   "file": "frontend/src/api.ts",
+   "line": 323,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "answerQuoteRequest",
+   "signature": "function answerQuoteRequest(requestId: string,\n  body: { total_cents: number; valid_days: number; gst_included: boolean; note: string })",
+   "file": "frontend/src/api.ts",
+   "line": 333,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "reviseQuote",
+   "signature": "function reviseQuote(quoteId: string,\n  body: { total_cents: number; valid_days: number; gst_included: boolean; note: string })",
+   "file": "frontend/src/api.ts",
+   "line": 343,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "refuseQuoteRequest",
+   "signature": "function refuseQuoteRequest(requestId: string,\n  reason: string)",
+   "file": "frontend/src/api.ts",
+   "line": 353,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "acceptQuote",
+   "signature": "function acceptQuote(quoteId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 363,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "declineQuote",
+   "signature": "function declineQuote(quoteId: string, reason: string)",
+   "file": "frontend/src/api.ts",
+   "line": 369,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "listAllCategories",
+   "signature": "function listAllCategories()",
+   "file": "frontend/src/api.ts",
+   "line": 376,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "createCategory",
+   "signature": "function createCategory(name: string)",
+   "file": "frontend/src/api.ts",
+   "line": 380,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "patchCategory",
+   "signature": "function patchCategory(categoryId: string,\n  body: { name?: string; active?: boolean })",
+   "file": "frontend/src/api.ts",
+   "line": 387,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "getReport",
+   "signature": "function getReport(period: string, buckets: number)",
+   "file": "frontend/src/api.ts",
+   "line": 397,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "deleteProject",
+   "signature": "function deleteProject(projectId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 401,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "component",
+   "name": "App",
+   "file": "frontend/src/App.tsx",
+   "line": 22,
+   "api": [],
+   "hooks": [],
+   "doc": "",
+   "layer": "Boundary (routing)",
+   "imports_api": false
+  },
+  {
+   "kind": "component",
+   "name": "AuthProvider",
+   "file": "frontend/src/auth.tsx",
+   "line": 25,
+   "api": [
+    "ApiError",
+    "clearToken",
+    "getToken",
+    "login",
+    "me",
+    "register",
+    "setToken"
+   ],
+   "hooks": [
+    "Context",
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Control (session)",
+   "imports_api": true
+  },
+  {
+   "kind": "function",
+   "name": "useAuth",
+   "signature": "function useAuth()",
+   "file": "frontend/src/auth.tsx",
+   "line": 89,
+   "doc": "",
+   "layer": "Control (session)"
+  },
+  {
+   "kind": "component",
+   "name": "BudgetSlider",
+   "file": "frontend/src/components/BudgetSlider.tsx",
+   "line": 13,
+   "api": [],
+   "hooks": [],
+   "doc": "",
+   "layer": "Boundary (component)",
+   "imports_api": false
+  },
+  {
+   "kind": "component",
+   "name": "ProtectedRoute",
+   "file": "frontend/src/components/ProtectedRoute.tsx",
+   "line": 11,
+   "api": [],
+   "hooks": [],
+   "doc": "",
+   "layer": "Boundary (component)",
+   "imports_api": false
+  },
+  {
+   "kind": "component",
+   "name": "Admin",
+   "file": "frontend/src/pages/Admin.tsx",
+   "line": 21,
+   "api": [
+    "ApiError",
+    "adminApprove",
+    "adminListAccounts",
+    "adminSuspend"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Dashboard",
+   "file": "frontend/src/pages/Dashboard.tsx",
+   "line": 24,
+   "api": [],
+   "hooks": [
+    "Navigate"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": false
+  },
+  {
+   "kind": "component",
+   "name": "DesignerDetail",
+   "file": "frontend/src/pages/DesignerDetail.tsx",
+   "line": 7,
+   "api": [
+    "ApiError",
+    "companyById"
+   ],
+   "hooks": [
+    "Effect",
+    "Params",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Designers",
+   "file": "frontend/src/pages/Designers.tsx",
+   "line": 6,
+   "api": [
+    "ApiError",
+    "listCompanies"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Home",
+   "file": "frontend/src/pages/Home.tsx",
+   "line": 19,
+   "api": [
+    "ApiError",
+    "health"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Login",
+   "file": "frontend/src/pages/Login.tsx",
+   "line": 7,
+   "api": [
+    "ApiError"
+   ],
+   "hooks": [
+    "Navigate",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "MyProjects",
+   "file": "frontend/src/pages/MyProjects.tsx",
+   "line": 12,
+   "api": [
+    "ApiError",
+    "deleteProject",
+    "myProjects",
+    "updateProject"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Platform",
+   "file": "frontend/src/pages/Platform.tsx",
+   "line": 14,
+   "api": [
+    "ApiError",
+    "createCategory",
+    "getReport",
+    "listAllCategories",
+    "patchCategory"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Profile",
+   "file": "frontend/src/pages/Profile.tsx",
+   "line": 27,
+   "api": [
+    "ApiError",
+    "createCompany",
+    "myCompany",
+    "updateMyCompany"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "ProjectDetail",
+   "file": "frontend/src/pages/ProjectDetail.tsx",
+   "line": 19,
+   "api": [
+    "ApiError",
+    "getProject",
+    "getShortlist",
+    "listCompanies",
+    "recordView",
+    "saveProject",
+    "unsaveProject"
+   ],
+   "hooks": [
+    "Effect",
+    "Params",
+    "Ref",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "ProjectEditor",
+   "file": "frontend/src/pages/ProjectEditor.tsx",
+   "line": 44,
+   "api": [
+    "ApiError",
+    "createProject",
+    "getCatalogue",
+    "getProject",
+    "suggestTagsFromUpload",
+    "updateProject",
+    "uploadImage"
+   ],
+   "hooks": [
+    "Effect",
+    "Navigate",
+    "Params",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "QuoteDetail",
+   "file": "frontend/src/pages/QuoteDetail.tsx",
+   "line": 19,
+   "api": [
+    "ApiError",
+    "acceptQuote",
+    "answerQuoteRequest",
+    "cancelQuoteRequest",
+    "counterQuoteRequest",
+    "declineQuote",
+    "getQuoteRequest",
+    "refuseQuoteRequest",
+    "reviseQuote"
+   ],
+   "hooks": [
+    "Effect",
+    "Params",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Quotes",
+   "file": "frontend/src/pages/Quotes.tsx",
+   "line": 8,
+   "api": [
+    "ApiError",
+    "listQuoteRequests"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Register",
+   "file": "frontend/src/pages/Register.tsx",
+   "line": 8,
+   "api": [
+    "ApiError"
+   ],
+   "hooks": [
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "RequestQuote",
+   "file": "frontend/src/pages/RequestQuote.tsx",
+   "line": 7,
+   "api": [
+    "ApiError",
+    "listCompanies",
+    "submitQuoteRequest"
+   ],
+   "hooks": [
+    "Effect",
+    "Navigate",
+    "Params",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Saved",
+   "file": "frontend/src/pages/Saved.tsx",
+   "line": 10,
+   "api": [
+    "ApiError",
+    "getShortlist",
+    "unsaveProject"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Search",
+   "file": "frontend/src/pages/Search.tsx",
+   "line": 18,
+   "api": [
+    "ApiError",
+    "getCatalogue",
+    "listCompanies",
+    "searchProjects",
+    "suggestTagsFromUpload"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  }
+ ],
+ "routes": [
+  {
+   "path": "/",
+   "component": "Home"
+  },
+  {
+   "path": "/login",
+   "component": "Login"
+  },
+  {
+   "path": "/register",
+   "component": "Register"
+  },
+  {
+   "path": "*",
+   "component": "Navigate"
+  }
+ ],
+ "counts": {
+  "backend": {
+   "classes": 84,
+   "functions": 108,
+   "components": 0,
+   "items": 192
+  },
+  "frontend": {
+   "classes": 0,
+   "functions": 44,
+   "components": 21,
+   "items": 65
+  }
+ }
+}

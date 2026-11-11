@@ -13,6 +13,11 @@ customer, a designer and an administrator. It is built from the running app:
 `testing/manual/capture_shots.py` takes the screens, `testing/manual/build_manual.py`
 writes the document.
 
+The **[code documentation](docs/codebook/CSIT314-Code-Documentation.pdf)** lists every class
+and every function with its file and line range, grouped by BCE role, for the class diagram
+and the sequence diagrams. It is rebuilt by `docs/codebook/parse_code.py` and
+`docs/codebook/build_codebook.py`.
+
 | File | Purpose |
 |---|---|
 | `1-check-my-pc.bat` | check Git, Node.js and Python are present |
