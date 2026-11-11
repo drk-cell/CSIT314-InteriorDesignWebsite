@@ -1,0 +1,5846 @@
+{
+ "generated_at": "2026-11-11T16:50:53.263946+00:00",
+ "backend": "http://127.0.0.1:8010/api",
+ "password": "passw0rd123",
+ "counts": {
+  "accounts": 125,
+  "companies": 23,
+  "projects": 108,
+  "categories": 10,
+  "quote_requests": 100
+ },
+ "accounts": [
+  {
+   "id": "6ee39453-0312-40f2-a4a4-1a3b9d44798f",
+   "email": "customer099@example.com",
+   "display_name": "Customer 099",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:07.522634Z"
+  },
+  {
+   "id": "6ea2d029-1ba0-4638-8328-535407ff9943",
+   "email": "customer098@example.com",
+   "display_name": "Customer 098",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:07.435175Z"
+  },
+  {
+   "id": "071d82e4-3015-44e5-9a93-c2f7aa1674b8",
+   "email": "customer097@example.com",
+   "display_name": "Customer 097",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:07.351027Z"
+  },
+  {
+   "id": "423207e3-f8dd-4ab3-8308-467aa431cf39",
+   "email": "customer096@example.com",
+   "display_name": "Customer 096",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:07.278483Z"
+  },
+  {
+   "id": "75d7a6b7-71d0-4c1a-9c6d-05739e34bbb2",
+   "email": "customer095@example.com",
+   "display_name": "Customer 095",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:07.207499Z"
+  },
+  {
+   "id": "9b4e4124-4f28-41ca-8302-8a8ffe8ee788",
+   "email": "customer094@example.com",
+   "display_name": "Customer 094",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:07.135466Z"
+  },
+  {
+   "id": "d309a012-8da7-43ff-b70e-95a601c4ba28",
+   "email": "customer093@example.com",
+   "display_name": "Customer 093",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:07.050783Z"
+  },
+  {
+   "id": "345d33b2-8709-4330-9426-77b6d1f528b2",
+   "email": "customer092@example.com",
+   "display_name": "Customer 092",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.969302Z"
+  },
+  {
+   "id": "398c8400-2478-43cf-b6f8-b56c1b231f14",
+   "email": "customer091@example.com",
+   "display_name": "Customer 091",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.886629Z"
+  },
+  {
+   "id": "cc04f011-0ab7-4d13-afd2-cf5125affbfd",
+   "email": "customer090@example.com",
+   "display_name": "Customer 090",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.814827Z"
+  },
+  {
+   "id": "4d8bca71-5e31-4735-b30e-eed810cc5775",
+   "email": "customer089@example.com",
+   "display_name": "Customer 089",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.740282Z"
+  },
+  {
+   "id": "09eb2612-058f-4c0e-a688-944d646dea66",
+   "email": "customer088@example.com",
+   "display_name": "Customer 088",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.655783Z"
+  },
+  {
+   "id": "aa8a8cad-f295-47fb-993a-7a068869d86c",
+   "email": "customer087@example.com",
+   "display_name": "Customer 087",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.581768Z"
+  },
+  {
+   "id": "fa777dbc-05ec-4b40-9094-d9aca31c457d",
+   "email": "customer086@example.com",
+   "display_name": "Customer 086",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.509661Z"
+  },
+  {
+   "id": "17901a83-b8db-4707-992d-8d9cae6ddb01",
+   "email": "customer085@example.com",
+   "display_name": "Customer 085",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.439348Z"
+  },
+  {
+   "id": "cceef796-00d8-47c8-b468-763dd8b5923f",
+   "email": "customer084@example.com",
+   "display_name": "Customer 084",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.366535Z"
+  },
+  {
+   "id": "7be0edc3-6859-42ce-991b-2895bf7849fd",
+   "email": "customer083@example.com",
+   "display_name": "Customer 083",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.293748Z"
+  },
+  {
+   "id": "2f15cc02-9f56-46d2-b869-0c73bb8f60ce",
+   "email": "customer082@example.com",
+   "display_name": "Customer 082",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.222586Z"
+  },
+  {
+   "id": "a50c5149-0fa9-421f-b010-4019a6527292",
+   "email": "customer081@example.com",
+   "display_name": "Customer 081",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.148828Z"
+  },
+  {
+   "id": "f4c462ad-6dfc-4920-852a-baa35936a441",
+   "email": "customer080@example.com",
+   "display_name": "Customer 080",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.076595Z"
+  },
+  {
+   "id": "855f7969-ae67-48e2-b940-cc44b15088ee",
+   "email": "customer079@example.com",
+   "display_name": "Customer 079",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:06.005646Z"
+  },
+  {
+   "id": "bef78ae4-f0f6-4dad-b56d-0917c22b63b6",
+   "email": "customer078@example.com",
+   "display_name": "Customer 078",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.933455Z"
+  },
+  {
+   "id": "a0298ea3-c856-4fea-bc66-18881cfb3bfe",
+   "email": "customer077@example.com",
+   "display_name": "Customer 077",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.863661Z"
+  },
+  {
+   "id": "40d56371-bb4b-4fba-a376-98f2e7d2965c",
+   "email": "customer076@example.com",
+   "display_name": "Customer 076",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.793185Z"
+  },
+  {
+   "id": "1f9b91e7-4b18-45b1-895f-5ea63faa8997",
+   "email": "customer075@example.com",
+   "display_name": "Customer 075",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.716080Z"
+  },
+  {
+   "id": "3e1253ef-f984-4c7e-b2fb-fe9f5597928c",
+   "email": "customer074@example.com",
+   "display_name": "Customer 074",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.643408Z"
+  },
+  {
+   "id": "4d046af0-717f-4d87-8272-b56b114e20ea",
+   "email": "customer073@example.com",
+   "display_name": "Customer 073",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.561920Z"
+  },
+  {
+   "id": "c5ae3850-4cd6-4c8b-9aa1-22a932f29ac1",
+   "email": "customer072@example.com",
+   "display_name": "Customer 072",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.483546Z"
+  },
+  {
+   "id": "b363061e-2a51-4445-802b-dc2feb4eb1d5",
+   "email": "customer071@example.com",
+   "display_name": "Customer 071",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.405974Z"
+  },
+  {
+   "id": "dab6f4cb-2581-4223-9d7e-70ee1979d0a0",
+   "email": "customer070@example.com",
+   "display_name": "Customer 070",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.330760Z"
+  },
+  {
+   "id": "542e2adc-0043-4c9b-af78-ebf8dc8299f9",
+   "email": "customer069@example.com",
+   "display_name": "Customer 069",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.254230Z"
+  },
+  {
+   "id": "79e9913b-c8fe-4b6e-9180-d9e8e3ff5cf4",
+   "email": "customer068@example.com",
+   "display_name": "Customer 068",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.182469Z"
+  },
+  {
+   "id": "1ed0bb80-90b2-4a0d-b4c6-325f7cd7f9f2",
+   "email": "customer067@example.com",
+   "display_name": "Customer 067",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.104678Z"
+  },
+  {
+   "id": "f9a66be3-0dd8-4508-8815-4cef6c324966",
+   "email": "customer066@example.com",
+   "display_name": "Customer 066",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:05.027981Z"
+  },
+  {
+   "id": "f321aab2-c94a-4810-b9e2-42dbdcae4e87",
+   "email": "customer065@example.com",
+   "display_name": "Customer 065",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.953775Z"
+  },
+  {
+   "id": "95543f7f-9f30-4a15-bc48-8bbeb52ebd92",
+   "email": "customer064@example.com",
+   "display_name": "Customer 064",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.880659Z"
+  },
+  {
+   "id": "ae1a8ee6-cc74-4ab9-bafa-6a3f7bb5ce09",
+   "email": "customer063@example.com",
+   "display_name": "Customer 063",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.809784Z"
+  },
+  {
+   "id": "627adcec-f6cf-44dd-b6d4-9e887738b705",
+   "email": "customer062@example.com",
+   "display_name": "Customer 062",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.737111Z"
+  },
+  {
+   "id": "7ab22d67-872a-4603-92af-2a57598b7826",
+   "email": "customer061@example.com",
+   "display_name": "Customer 061",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.667336Z"
+  },
+  {
+   "id": "568c8b3b-05e4-4917-b948-9a5374840d91",
+   "email": "customer060@example.com",
+   "display_name": "Customer 060",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.595519Z"
+  },
+  {
+   "id": "30436703-2006-4187-a10b-d28b694bae4a",
+   "email": "customer059@example.com",
+   "display_name": "Customer 059",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.521733Z"
+  },
+  {
+   "id": "acc2747a-dcac-49ba-8bf2-c2d1c4896695",
+   "email": "customer058@example.com",
+   "display_name": "Customer 058",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.440670Z"
+  },
+  {
+   "id": "c00add71-403b-44cb-b202-68fbd59222b2",
+   "email": "customer057@example.com",
+   "display_name": "Customer 057",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.346944Z"
+  },
+  {
+   "id": "b3f594e4-0982-4ebe-b941-601e5e576d80",
+   "email": "customer056@example.com",
+   "display_name": "Customer 056",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.261117Z"
+  },
+  {
+   "id": "fe94ac52-3a7f-4e73-b6d9-85f53a19f914",
+   "email": "customer055@example.com",
+   "display_name": "Customer 055",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.189862Z"
+  },
+  {
+   "id": "a4fffd0d-14fd-483f-845d-46be95658ea0",
+   "email": "customer054@example.com",
+   "display_name": "Customer 054",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.117603Z"
+  },
+  {
+   "id": "34f9a8b3-4152-480b-82b7-f05786e3862e",
+   "email": "customer053@example.com",
+   "display_name": "Customer 053",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:04.043590Z"
+  },
+  {
+   "id": "6f56364a-4f0a-4e26-a36b-4d40d93823e9",
+   "email": "customer052@example.com",
+   "display_name": "Customer 052",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.965467Z"
+  },
+  {
+   "id": "4abc9c79-54c6-4aa9-b688-169934ad0eef",
+   "email": "customer051@example.com",
+   "display_name": "Customer 051",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.878749Z"
+  },
+  {
+   "id": "a182020d-0c09-4ccb-b2a5-9c3ade225ece",
+   "email": "customer050@example.com",
+   "display_name": "Customer 050",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.792376Z"
+  },
+  {
+   "id": "dc5a5ddc-5def-4694-a3f8-aff730570347",
+   "email": "customer049@example.com",
+   "display_name": "Customer 049",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.715093Z"
+  },
+  {
+   "id": "ccf749cd-b00c-4c0e-8e3d-faf3af14f95d",
+   "email": "customer048@example.com",
+   "display_name": "Customer 048",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.638046Z"
+  },
+  {
+   "id": "1e6d6f92-01f8-42fc-8522-296a838f8980",
+   "email": "customer047@example.com",
+   "display_name": "Customer 047",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.560881Z"
+  },
+  {
+   "id": "a25459f0-ae0a-4036-9a18-002cc8c8361c",
+   "email": "customer046@example.com",
+   "display_name": "Customer 046",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.477908Z"
+  },
+  {
+   "id": "2a9cfb42-8061-4de5-b6e3-78015da4a7e3",
+   "email": "customer045@example.com",
+   "display_name": "Customer 045",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.395675Z"
+  },
+  {
+   "id": "4a7ed0ea-f5b9-428a-8eff-f6eff2737419",
+   "email": "customer044@example.com",
+   "display_name": "Customer 044",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.296194Z"
+  },
+  {
+   "id": "83702992-3714-4b38-ab19-de4a6678dc43",
+   "email": "customer043@example.com",
+   "display_name": "Customer 043",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.205345Z"
+  },
+  {
+   "id": "bae53535-d944-4a9c-8f47-70163b7262b4",
+   "email": "customer042@example.com",
+   "display_name": "Customer 042",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.125795Z"
+  },
+  {
+   "id": "b2acc5cf-96b3-46f7-893c-c3c480c6b563",
+   "email": "customer041@example.com",
+   "display_name": "Customer 041",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:03.047370Z"
+  },
+  {
+   "id": "42b949f6-8a99-4314-8cb9-c5997999a16d",
+   "email": "customer040@example.com",
+   "display_name": "Customer 040",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.966675Z"
+  },
+  {
+   "id": "48b98da8-b08b-4d57-b28e-543c4f02f543",
+   "email": "customer039@example.com",
+   "display_name": "Customer 039",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.880005Z"
+  },
+  {
+   "id": "36ec42b5-6d05-4f51-b42f-08b3a4c2fde8",
+   "email": "customer038@example.com",
+   "display_name": "Customer 038",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.796232Z"
+  },
+  {
+   "id": "1494ed5c-2e8f-40ca-962c-2e997e442101",
+   "email": "customer037@example.com",
+   "display_name": "Customer 037",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.716411Z"
+  },
+  {
+   "id": "84039b10-3317-44be-aaa3-479bc316b5e1",
+   "email": "customer036@example.com",
+   "display_name": "Customer 036",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.631708Z"
+  },
+  {
+   "id": "d544f641-74ee-4dca-a267-cd68fffc6460",
+   "email": "customer035@example.com",
+   "display_name": "Customer 035",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.544550Z"
+  },
+  {
+   "id": "3a3c9d62-7a15-4300-aa14-edddf2d51488",
+   "email": "customer034@example.com",
+   "display_name": "Customer 034",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.462637Z"
+  },
+  {
+   "id": "64cb0ae8-11e3-4a69-9ea3-16902108d4de",
+   "email": "customer033@example.com",
+   "display_name": "Customer 033",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.374970Z"
+  },
+  {
+   "id": "982b8960-d0b6-4da0-82c5-d8e8d47441af",
+   "email": "customer032@example.com",
+   "display_name": "Customer 032",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.292016Z"
+  },
+  {
+   "id": "5dc84aac-56f8-47af-b915-fa95d527670f",
+   "email": "customer031@example.com",
+   "display_name": "Customer 031",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.208596Z"
+  },
+  {
+   "id": "1eeaa2a1-cb7c-4e44-b65f-177d3abf57ac",
+   "email": "customer030@example.com",
+   "display_name": "Customer 030",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.123535Z"
+  },
+  {
+   "id": "7d3763fd-6a6d-4722-800e-3ad5a7ab5827",
+   "email": "customer029@example.com",
+   "display_name": "Customer 029",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:02.040463Z"
+  },
+  {
+   "id": "2c7d30ef-ce72-4133-9ef5-b94beeb306dd",
+   "email": "customer028@example.com",
+   "display_name": "Customer 028",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.958208Z"
+  },
+  {
+   "id": "8f834df9-d57e-400a-8544-059ba54cf691",
+   "email": "customer027@example.com",
+   "display_name": "Customer 027",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.878632Z"
+  },
+  {
+   "id": "7a2876e0-fa87-4305-a5df-6806b64a1e9b",
+   "email": "customer026@example.com",
+   "display_name": "Customer 026",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.794425Z"
+  },
+  {
+   "id": "82ea86d3-ea91-4bc7-842b-e205b54ae3ff",
+   "email": "customer025@example.com",
+   "display_name": "Customer 025",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.710046Z"
+  },
+  {
+   "id": "f9826a93-06dd-4ce0-969b-70af97eefb14",
+   "email": "customer024@example.com",
+   "display_name": "Customer 024",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.627725Z"
+  },
+  {
+   "id": "66e6c2c7-6002-4123-ad17-772904050642",
+   "email": "customer023@example.com",
+   "display_name": "Customer 023",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.549130Z"
+  },
+  {
+   "id": "70ebe836-382c-43b0-ad5c-4bb2c9b3a33f",
+   "email": "customer022@example.com",
+   "display_name": "Customer 022",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.473629Z"
+  },
+  {
+   "id": "7b055f97-61f6-41a4-b673-2aae833f8a5a",
+   "email": "customer021@example.com",
+   "display_name": "Customer 021",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.396366Z"
+  },
+  {
+   "id": "e35f6d30-f550-4bf3-b46d-c139b2b7b5cb",
+   "email": "customer020@example.com",
+   "display_name": "Customer 020",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.308267Z"
+  },
+  {
+   "id": "eae76c54-32ff-4e9e-843b-5efa8d284a65",
+   "email": "customer019@example.com",
+   "display_name": "Customer 019",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.227261Z"
+  },
+  {
+   "id": "b6569700-fe20-4de8-952b-48ab083b089e",
+   "email": "customer018@example.com",
+   "display_name": "Customer 018",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.150598Z"
+  },
+  {
+   "id": "c45f30f5-da73-4552-816d-287b114e61ef",
+   "email": "customer017@example.com",
+   "display_name": "Customer 017",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:01.072477Z"
+  },
+  {
+   "id": "31081735-ca79-4ce0-b6c1-556971523b0d",
+   "email": "customer016@example.com",
+   "display_name": "Customer 016",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.986061Z"
+  },
+  {
+   "id": "1d5810b8-e4b8-4e9f-bc3c-d440d970c2bd",
+   "email": "customer015@example.com",
+   "display_name": "Customer 015",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.902700Z"
+  },
+  {
+   "id": "c7890283-f69d-40dc-b7e3-b172a9c91549",
+   "email": "customer014@example.com",
+   "display_name": "Customer 014",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.826319Z"
+  },
+  {
+   "id": "0c48419d-3369-4561-a7be-5c5b1b4b2588",
+   "email": "customer013@example.com",
+   "display_name": "Customer 013",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.748490Z"
+  },
+  {
+   "id": "29f86f13-546f-47b0-b7ce-b57dd88beb09",
+   "email": "customer012@example.com",
+   "display_name": "Customer 012",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.671784Z"
+  },
+  {
+   "id": "cae9b1d8-3eaf-4d2c-bea9-0dd1f768902c",
+   "email": "customer011@example.com",
+   "display_name": "Customer 011",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.590090Z"
+  },
+  {
+   "id": "39924841-5d78-4b28-b1bd-4d903d58f8a3",
+   "email": "customer010@example.com",
+   "display_name": "Customer 010",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.513324Z"
+  },
+  {
+   "id": "be1d1da2-ee33-410d-a8cb-124f49817cd3",
+   "email": "customer009@example.com",
+   "display_name": "Customer 009",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.431018Z"
+  },
+  {
+   "id": "5ca74c88-7022-4375-be6a-614cfce513ec",
+   "email": "customer008@example.com",
+   "display_name": "Customer 008",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.346397Z"
+  },
+  {
+   "id": "35b7827f-e54a-4bee-8cde-414ddfc7c61a",
+   "email": "customer007@example.com",
+   "display_name": "Customer 007",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.263302Z"
+  },
+  {
+   "id": "1b0554e5-4b13-4866-a3ff-335b06843096",
+   "email": "customer006@example.com",
+   "display_name": "Customer 006",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.182366Z"
+  },
+  {
+   "id": "dbd8fcde-9f4e-48e7-8a9a-0295872d3cb7",
+   "email": "customer005@example.com",
+   "display_name": "Customer 005",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.102481Z"
+  },
+  {
+   "id": "f711c3fb-7857-4c7b-b040-6bc1fc21e2b8",
+   "email": "customer004@example.com",
+   "display_name": "Customer 004",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:40:00.023171Z"
+  },
+  {
+   "id": "7551183a-571b-4399-8052-e8d5da9b34ae",
+   "email": "customer003@example.com",
+   "display_name": "Customer 003",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.943578Z"
+  },
+  {
+   "id": "14aa8cdf-6922-42cd-bdfc-32b244693286",
+   "email": "customer002@example.com",
+   "display_name": "Customer 002",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.854417Z"
+  },
+  {
+   "id": "cce24353-60ab-4629-9a4a-b0443c39ae27",
+   "email": "customer001@example.com",
+   "display_name": "Customer 001",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.762715Z"
+  },
+  {
+   "id": "408d8bf5-52e6-467b-a4a5-07ca7879966a",
+   "email": "customer000@example.com",
+   "display_name": "Customer 000",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.682463Z"
+  },
+  {
+   "id": "6b6c7641-2005-4da0-900f-16267129e7f3",
+   "email": "designer019@example.com",
+   "display_name": "Studio 019",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.598756Z"
+  },
+  {
+   "id": "7666dc2b-9a50-4181-8a69-e8e950af6fe6",
+   "email": "designer018@example.com",
+   "display_name": "Studio 018",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.510376Z"
+  },
+  {
+   "id": "1fe2b4c8-582a-4133-8917-633c845298bf",
+   "email": "designer017@example.com",
+   "display_name": "Studio 017",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.429202Z"
+  },
+  {
+   "id": "633ddfab-f4b3-4774-98ec-8638a2d0903f",
+   "email": "designer016@example.com",
+   "display_name": "Studio 016",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.341062Z"
+  },
+  {
+   "id": "71a7e834-13bc-41c8-ad78-5f4e2206279f",
+   "email": "designer015@example.com",
+   "display_name": "Studio 015",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.256911Z"
+  },
+  {
+   "id": "eca36004-23d4-4f0a-a3db-9a61b5b5b911",
+   "email": "designer014@example.com",
+   "display_name": "Studio 014",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.172397Z"
+  },
+  {
+   "id": "09bc2b31-c3a7-48a3-85b6-7e9de0c916d9",
+   "email": "designer013@example.com",
+   "display_name": "Studio 013",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.087598Z"
+  },
+  {
+   "id": "464d8846-c321-412e-bc49-8a152e0a58fc",
+   "email": "designer012@example.com",
+   "display_name": "Studio 012",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:59.007108Z"
+  },
+  {
+   "id": "f18e6ade-d13e-44da-93e8-697e48a001db",
+   "email": "designer011@example.com",
+   "display_name": "Studio 011",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.920845Z"
+  },
+  {
+   "id": "060a5cdb-815c-4d73-b3fc-f56ebea550f0",
+   "email": "designer010@example.com",
+   "display_name": "Studio 010",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.843352Z"
+  },
+  {
+   "id": "531a3a16-2d9e-4c8f-adf4-e99f4bc0e3bb",
+   "email": "designer009@example.com",
+   "display_name": "Studio 009",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.759945Z"
+  },
+  {
+   "id": "d1082b2c-5179-4dce-afee-289c80c0c0e6",
+   "email": "designer008@example.com",
+   "display_name": "Studio 008",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.673730Z"
+  },
+  {
+   "id": "f6f543d3-4516-4b72-86ef-a81e4c58f05a",
+   "email": "designer007@example.com",
+   "display_name": "Studio 007",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.596592Z"
+  },
+  {
+   "id": "cdaa2774-5bf2-41ba-aba6-da2d80086f72",
+   "email": "designer006@example.com",
+   "display_name": "Studio 006",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.512940Z"
+  },
+  {
+   "id": "4e050509-810c-4251-aa11-c3ecde2c09d0",
+   "email": "designer005@example.com",
+   "display_name": "Studio 005",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.428577Z"
+  },
+  {
+   "id": "b7e81e96-ec11-4cc1-b324-4d30ee9d64b8",
+   "email": "designer004@example.com",
+   "display_name": "Studio 004",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.346488Z"
+  },
+  {
+   "id": "bb2fea3a-07c0-4e32-9bdb-c321b756fad2",
+   "email": "designer003@example.com",
+   "display_name": "Studio 003",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.264625Z"
+  },
+  {
+   "id": "287cc95c-b884-4d07-a432-47e52b869afc",
+   "email": "designer002@example.com",
+   "display_name": "Studio 002",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.184783Z"
+  },
+  {
+   "id": "afa42e12-86da-4d27-b45f-051a1b2db6b0",
+   "email": "designer001@example.com",
+   "display_name": "Studio 001",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.101656Z"
+  },
+  {
+   "id": "1f32b733-fe28-440c-9ff9-6cba85bce4e3",
+   "email": "designer000@example.com",
+   "display_name": "Studio 000",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:58.013313Z"
+  },
+  {
+   "id": "5b3a16d5-5b41-41c5-a5e9-cf698f723527",
+   "email": "casey@example.com",
+   "display_name": "Casey Tan",
+   "role": "CUSTOMER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:57.570243Z"
+  },
+  {
+   "id": "bc83705b-b27c-4017-96a8-fafbe8b564b6",
+   "email": "atelier@example.com",
+   "display_name": "Atelier One",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:57.419724Z"
+  },
+  {
+   "id": "4f8d39ec-6adc-432a-8e1e-4abc3d3573b8",
+   "email": "nordic@example.com",
+   "display_name": "Nordic Haus",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:57.218849Z"
+  },
+  {
+   "id": "5cfec28e-1971-4533-97ed-cf4dbe37160d",
+   "email": "verde@example.com",
+   "display_name": "Studio Verde",
+   "role": "DESIGNER",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:56.625845Z"
+  },
+  {
+   "id": "60a9a57c-73c8-4322-b2a8-4668dcdd3e7a",
+   "email": "admin@example.com",
+   "display_name": "Administrator",
+   "role": "ADMIN",
+   "status": "ACTIVE",
+   "created_at": "2026-11-11T16:39:48.012799Z"
+  }
+ ],
+ "companies": [
+  {
+   "id": "88401673-e4af-4b9a-a804-5b0cf5215ef2",
+   "owner_id": "bc83705b-b27c-4017-96a8-fafbe8b564b6",
+   "name": "Atelier One",
+   "description": "Residential interiors with a calm, warm feel.",
+   "contact_email": "hello@atelierone.sg",
+   "contact_phone": "+65 6000 3000",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:57.460955Z",
+   "updated_at": "2026-11-11T16:39:57.460955Z"
+  },
+  {
+   "id": "e285aa84-bfea-48f1-ae86-4ae968d3d0cb",
+   "owner_id": "4f8d39ec-6adc-432a-8e1e-4abc3d3573b8",
+   "name": "Nordic Haus",
+   "description": "Residential interiors with a calm, warm feel.",
+   "contact_email": "hello@nordichaus.my",
+   "contact_phone": "+60 3 6000 2000",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:57.259871Z",
+   "updated_at": "2026-11-11T16:39:57.259871Z"
+  },
+  {
+   "id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "owner_id": "1f32b733-fe28-440c-9ff9-6cba85bce4e3",
+   "name": "Studio 000",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello000@studio000.sg",
+   "contact_phone": "+65 6000 0000",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.060447Z",
+   "updated_at": "2026-11-11T16:39:58.060447Z"
+  },
+  {
+   "id": "b437987e-2761-4084-b361-166f7e46d251",
+   "owner_id": "afa42e12-86da-4d27-b45f-051a1b2db6b0",
+   "name": "Studio 001",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello001@studio001.sg",
+   "contact_phone": "+65 6000 0001",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.146665Z",
+   "updated_at": "2026-11-11T16:39:58.146665Z"
+  },
+  {
+   "id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "owner_id": "287cc95c-b884-4d07-a432-47e52b869afc",
+   "name": "Studio 002",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello002@studio002.sg",
+   "contact_phone": "+65 6000 0002",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.227488Z",
+   "updated_at": "2026-11-11T16:39:58.227488Z"
+  },
+  {
+   "id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "owner_id": "bb2fea3a-07c0-4e32-9bdb-c321b756fad2",
+   "name": "Studio 003",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello003@studio003.sg",
+   "contact_phone": "+65 6000 0003",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.310811Z",
+   "updated_at": "2026-11-11T16:39:58.310811Z"
+  },
+  {
+   "id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "owner_id": "b7e81e96-ec11-4cc1-b324-4d30ee9d64b8",
+   "name": "Studio 004",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello004@studio004.sg",
+   "contact_phone": "+65 6000 0004",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.390094Z",
+   "updated_at": "2026-11-11T16:39:58.390094Z"
+  },
+  {
+   "id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "owner_id": "4e050509-810c-4251-aa11-c3ecde2c09d0",
+   "name": "Studio 005",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello005@studio005.sg",
+   "contact_phone": "+65 6000 0005",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.473249Z",
+   "updated_at": "2026-11-11T16:39:58.473249Z"
+  },
+  {
+   "id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "owner_id": "cdaa2774-5bf2-41ba-aba6-da2d80086f72",
+   "name": "Studio 006",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello006@studio006.sg",
+   "contact_phone": "+65 6000 0006",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.558179Z",
+   "updated_at": "2026-11-11T16:39:58.558179Z"
+  },
+  {
+   "id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "owner_id": "f6f543d3-4516-4b72-86ef-a81e4c58f05a",
+   "name": "Studio 007",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello007@studio007.sg",
+   "contact_phone": "+65 6000 0007",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.637964Z",
+   "updated_at": "2026-11-11T16:39:58.637964Z"
+  },
+  {
+   "id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "owner_id": "d1082b2c-5179-4dce-afee-289c80c0c0e6",
+   "name": "Studio 008",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello008@studio008.sg",
+   "contact_phone": "+65 6000 0008",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.718411Z",
+   "updated_at": "2026-11-11T16:39:58.718411Z"
+  },
+  {
+   "id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "owner_id": "531a3a16-2d9e-4c8f-adf4-e99f4bc0e3bb",
+   "name": "Studio 009",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello009@studio009.sg",
+   "contact_phone": "+65 6000 0009",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.806047Z",
+   "updated_at": "2026-11-11T16:39:58.806047Z"
+  },
+  {
+   "id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "owner_id": "060a5cdb-815c-4d73-b3fc-f56ebea550f0",
+   "name": "Studio 010",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello010@studio010.sg",
+   "contact_phone": "+65 6000 0010",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.881956Z",
+   "updated_at": "2026-11-11T16:39:58.881956Z"
+  },
+  {
+   "id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "owner_id": "f18e6ade-d13e-44da-93e8-697e48a001db",
+   "name": "Studio 011",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello011@studio011.sg",
+   "contact_phone": "+65 6000 0011",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:58.966389Z",
+   "updated_at": "2026-11-11T16:39:58.966389Z"
+  },
+  {
+   "id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "owner_id": "464d8846-c321-412e-bc49-8a152e0a58fc",
+   "name": "Studio 012",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello012@studio012.sg",
+   "contact_phone": "+65 6000 0012",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:59.049503Z",
+   "updated_at": "2026-11-11T16:39:59.049503Z"
+  },
+  {
+   "id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "owner_id": "09bc2b31-c3a7-48a3-85b6-7e9de0c916d9",
+   "name": "Studio 013",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello013@studio013.sg",
+   "contact_phone": "+65 6000 0013",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:59.130732Z",
+   "updated_at": "2026-11-11T16:39:59.130732Z"
+  },
+  {
+   "id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "owner_id": "eca36004-23d4-4f0a-a3db-9a61b5b5b911",
+   "name": "Studio 014",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello014@studio014.sg",
+   "contact_phone": "+65 6000 0014",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:59.218570Z",
+   "updated_at": "2026-11-11T16:39:59.218570Z"
+  },
+  {
+   "id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "owner_id": "71a7e834-13bc-41c8-ad78-5f4e2206279f",
+   "name": "Studio 015",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello015@studio015.sg",
+   "contact_phone": "+65 6000 0015",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:59.300296Z",
+   "updated_at": "2026-11-11T16:39:59.300296Z"
+  },
+  {
+   "id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "owner_id": "633ddfab-f4b3-4774-98ec-8638a2d0903f",
+   "name": "Studio 016",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello016@studio016.sg",
+   "contact_phone": "+65 6000 0016",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:59.386435Z",
+   "updated_at": "2026-11-11T16:39:59.386435Z"
+  },
+  {
+   "id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "owner_id": "1fe2b4c8-582a-4133-8917-633c845298bf",
+   "name": "Studio 017",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello017@studio017.sg",
+   "contact_phone": "+65 6000 0017",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:59.472522Z",
+   "updated_at": "2026-11-11T16:39:59.472522Z"
+  },
+  {
+   "id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "owner_id": "7666dc2b-9a50-4181-8a69-e8e950af6fe6",
+   "name": "Studio 018",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello018@studio018.sg",
+   "contact_phone": "+65 6000 0018",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:59.557444Z",
+   "updated_at": "2026-11-11T16:39:59.557444Z"
+  },
+  {
+   "id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "owner_id": "6b6c7641-2005-4da0-900f-16267129e7f3",
+   "name": "Studio 019",
+   "description": "Residential interiors, measured drawings and build.",
+   "contact_email": "hello019@studio019.sg",
+   "contact_phone": "+65 6000 0019",
+   "location": "Kuala Lumpur",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:59.642734Z",
+   "updated_at": "2026-11-11T16:39:59.642734Z"
+  },
+  {
+   "id": "7c06c77a-b79b-46e9-92a8-88c08c0ab117",
+   "owner_id": "5cfec28e-1971-4533-97ed-cf4dbe37160d",
+   "name": "Studio Verde",
+   "description": "Residential interiors with a calm, warm feel.",
+   "contact_email": "hello@studioverde.sg",
+   "contact_phone": "+65 6000 1000",
+   "location": "Singapore",
+   "logo_url": "",
+   "created_at": "2026-11-11T16:39:56.677430Z",
+   "updated_at": "2026-11-11T16:39:56.677430Z"
+  }
+ ],
+ "projects": [
+  {
+   "id": "28ac8d8e-c1ee-44af-8260-abbc2519ae1f",
+   "owner_id": "6b6c7641-2005-4da0-900f-16267129e7f3",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "title": "Project 099 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Whole Home",
+   "budget_min": 64500,
+   "budget_max": 134100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-04.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "bed",
+    "moody",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.332617Z",
+   "updated_at": "2026-11-11T16:40:08.332617Z"
+  },
+  {
+   "id": "f773d2fe-5965-4598-9202-10a37523fef6",
+   "owner_id": "7666dc2b-9a50-4181-8a69-e8e950af6fe6",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "title": "Project 098 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Studio",
+   "budget_min": 64000,
+   "budget_max": 133200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-03.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "desk",
+    "dining table",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.330589Z",
+   "updated_at": "2026-11-11T16:40:08.330589Z"
+  },
+  {
+   "id": "fea94a03-f46e-413a-a803-defe17dfe0a2",
+   "owner_id": "1fe2b4c8-582a-4133-8917-633c845298bf",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "title": "Project 097 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Living Room",
+   "budget_min": 63500,
+   "budget_max": 132300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-02.jpg"
+   ],
+   "tags": [
+    "moody",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.329588Z",
+   "updated_at": "2026-11-11T16:40:08.329588Z"
+  },
+  {
+   "id": "c0da461d-4c49-404c-be96-df707e7dd5e9",
+   "owner_id": "633ddfab-f4b3-4774-98ec-8638a2d0903f",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "title": "Project 096 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Kitchen",
+   "budget_min": 63000,
+   "budget_max": 131400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-01.jpg"
+   ],
+   "tags": [
+    "desk",
+    "bookshelf",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.327588Z",
+   "updated_at": "2026-11-11T16:40:08.327588Z"
+  },
+  {
+   "id": "2727d7c7-16a3-4b71-9d77-7df750db6a51",
+   "owner_id": "71a7e834-13bc-41c8-ad78-5f4e2206279f",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "title": "Project 095 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Home Office",
+   "budget_min": 62500,
+   "budget_max": 130500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-16.jpg"
+   ],
+   "tags": [
+    "clock",
+    "wall clock",
+    "lamp",
+    "moody",
+    "warm palette",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.325588Z",
+   "updated_at": "2026-11-11T16:40:08.325588Z"
+  },
+  {
+   "id": "5e199191-af60-4347-9e05-c7a9b1487bdf",
+   "owner_id": "eca36004-23d4-4f0a-a3db-9a61b5b5b911",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "title": "Project 094 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Dining Room",
+   "budget_min": 62000,
+   "budget_max": 129600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-15.jpg"
+   ],
+   "tags": [
+    "wardrobe",
+    "bright",
+    "neutral palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.323588Z",
+   "updated_at": "2026-11-11T16:40:08.323588Z"
+  },
+  {
+   "id": "9cf69bea-a407-40ed-90c2-1a022dbaba26",
+   "owner_id": "09bc2b31-c3a7-48a3-85b6-7e9de0c916d9",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "title": "Project 093 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Children's Room",
+   "budget_min": 61500,
+   "budget_max": 128700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-14.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "bedding",
+    "sliding door",
+    "balanced light",
+    "neutral palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.322064Z",
+   "updated_at": "2026-11-11T16:40:08.322064Z"
+  },
+  {
+   "id": "438c89a6-3839-43ba-aad3-6bcf6f8e7f51",
+   "owner_id": "464d8846-c321-412e-bc49-8a152e0a58fc",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "title": "Project 092 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Bedroom",
+   "budget_min": 61000,
+   "budget_max": 127800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-13.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "desk",
+    "filing cabinet",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.319559Z",
+   "updated_at": "2026-11-11T16:40:08.319559Z"
+  },
+  {
+   "id": "4c4e4b80-753d-4fc0-a340-7a477497208a",
+   "owner_id": "f18e6ade-d13e-44da-93e8-697e48a001db",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "title": "Project 091 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Bathroom",
+   "budget_min": 60500,
+   "budget_max": 126900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-12.jpg"
+   ],
+   "tags": [
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.318558Z",
+   "updated_at": "2026-11-11T16:40:08.318558Z"
+  },
+  {
+   "id": "b55b2395-2046-4277-a34a-0a548c449c25",
+   "owner_id": "060a5cdb-815c-4d73-b3fc-f56ebea550f0",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "title": "Project 090 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Balcony",
+   "budget_min": 60000,
+   "budget_max": 126000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-11.jpg"
+   ],
+   "tags": [
+    "display cabinet",
+    "dining table",
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.316559Z",
+   "updated_at": "2026-11-11T16:40:08.316559Z"
+  },
+  {
+   "id": "d684d21a-602c-41c9-b935-3ac2814d2ae6",
+   "owner_id": "531a3a16-2d9e-4c8f-adf4-e99f4bc0e3bb",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "title": "Project 089 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Whole Home",
+   "budget_min": 59500,
+   "budget_max": 125100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-10.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "balanced light",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.314561Z",
+   "updated_at": "2026-11-11T16:40:08.314561Z"
+  },
+  {
+   "id": "37485e45-3d3e-4481-aada-22135cae6c42",
+   "owner_id": "d1082b2c-5179-4dce-afee-289c80c0c0e6",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "title": "Project 088 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Studio",
+   "budget_min": 59000,
+   "budget_max": 124200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-09.jpg"
+   ],
+   "tags": [
+    "dishwasher",
+    "desk",
+    "microwave",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.312554Z",
+   "updated_at": "2026-11-11T16:40:08.312554Z"
+  },
+  {
+   "id": "6ccd4313-dc24-42cc-920e-fffa545f9c75",
+   "owner_id": "f6f543d3-4516-4b72-86ef-a81e4c58f05a",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "title": "Project 087 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Living Room",
+   "budget_min": 58500,
+   "budget_max": 123300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-08.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "dining table",
+    "bright",
+    "neutral palette",
+    "soft contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.310524Z",
+   "updated_at": "2026-11-11T16:40:08.310524Z"
+  },
+  {
+   "id": "3124b9c5-ad6c-458d-a0a3-2553ceaf6900",
+   "owner_id": "cdaa2774-5bf2-41ba-aba6-da2d80086f72",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "title": "Project 086 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Kitchen",
+   "budget_min": 58000,
+   "budget_max": 122400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-07.jpg"
+   ],
+   "tags": [
+    "window shade",
+    "open shelving",
+    "paper screen",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.309525Z",
+   "updated_at": "2026-11-11T16:40:08.309525Z"
+  },
+  {
+   "id": "f159c8b4-30d9-4bee-8390-cbbaba11eeb2",
+   "owner_id": "4e050509-810c-4251-aa11-c3ecde2c09d0",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "title": "Project 085 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Home Office",
+   "budget_min": 57500,
+   "budget_max": 121500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-06.jpg"
+   ],
+   "tags": [
+    "bed",
+    "fireplace",
+    "bright",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.307525Z",
+   "updated_at": "2026-11-11T16:40:08.307525Z"
+  },
+  {
+   "id": "8b017b87-8394-4981-a5c0-279530b9f114",
+   "owner_id": "b7e81e96-ec11-4cc1-b324-4d30ee9d64b8",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "title": "Project 084 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Dining Room",
+   "budget_min": 57000,
+   "budget_max": 120600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-05.jpg"
+   ],
+   "tags": [
+    "sliding door",
+    "window shade",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.306525Z",
+   "updated_at": "2026-11-11T16:40:08.306525Z"
+  },
+  {
+   "id": "1235d29b-604b-4906-be05-785e2711a443",
+   "owner_id": "bb2fea3a-07c0-4e32-9bdb-c321b756fad2",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "title": "Project 083 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Children's Room",
+   "budget_min": 56500,
+   "budget_max": 119700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-04.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "bed",
+    "moody",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.304526Z",
+   "updated_at": "2026-11-11T16:40:08.304526Z"
+  },
+  {
+   "id": "56d3785a-cd42-4960-a229-c172a9ceace6",
+   "owner_id": "287cc95c-b884-4d07-a432-47e52b869afc",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "title": "Project 082 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Bedroom",
+   "budget_min": 56000,
+   "budget_max": 118800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-03.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "desk",
+    "dining table",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.302520Z",
+   "updated_at": "2026-11-11T16:40:08.302520Z"
+  },
+  {
+   "id": "3f56194d-ddc1-4436-bbbf-ebd2904e2fb4",
+   "owner_id": "afa42e12-86da-4d27-b45f-051a1b2db6b0",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "title": "Project 081 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Bathroom",
+   "budget_min": 55500,
+   "budget_max": 117900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-02.jpg"
+   ],
+   "tags": [
+    "moody",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.300482Z",
+   "updated_at": "2026-11-11T16:40:08.300482Z"
+  },
+  {
+   "id": "444c4328-5ea9-4841-b627-90179c3d3776",
+   "owner_id": "1f32b733-fe28-440c-9ff9-6cba85bce4e3",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "title": "Project 080 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Balcony",
+   "budget_min": 55000,
+   "budget_max": 117000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-01.jpg"
+   ],
+   "tags": [
+    "desk",
+    "bookshelf",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.298483Z",
+   "updated_at": "2026-11-11T16:40:08.298483Z"
+  },
+  {
+   "id": "2b8f3604-ffeb-4ee6-bfdd-79f394a4d916",
+   "owner_id": "6b6c7641-2005-4da0-900f-16267129e7f3",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "title": "Project 079 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Whole Home",
+   "budget_min": 54500,
+   "budget_max": 116100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-16.jpg"
+   ],
+   "tags": [
+    "clock",
+    "wall clock",
+    "lamp",
+    "moody",
+    "warm palette",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.297482Z",
+   "updated_at": "2026-11-11T16:40:08.297482Z"
+  },
+  {
+   "id": "2e5479af-da71-406d-ad35-7071b6afea0a",
+   "owner_id": "7666dc2b-9a50-4181-8a69-e8e950af6fe6",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "title": "Project 078 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Studio",
+   "budget_min": 54000,
+   "budget_max": 115200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-15.jpg"
+   ],
+   "tags": [
+    "wardrobe",
+    "bright",
+    "neutral palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.295482Z",
+   "updated_at": "2026-11-11T16:40:08.295482Z"
+  },
+  {
+   "id": "a84faf4a-32aa-4787-9d6c-5d1203f3c7df",
+   "owner_id": "1fe2b4c8-582a-4133-8917-633c845298bf",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "title": "Project 077 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Living Room",
+   "budget_min": 53500,
+   "budget_max": 114300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-14.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "bedding",
+    "sliding door",
+    "balanced light",
+    "neutral palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.293482Z",
+   "updated_at": "2026-11-11T16:40:08.293482Z"
+  },
+  {
+   "id": "17f8f5d7-f8a9-4b27-8551-2e3e930ed69f",
+   "owner_id": "633ddfab-f4b3-4774-98ec-8638a2d0903f",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "title": "Project 076 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Kitchen",
+   "budget_min": 53000,
+   "budget_max": 113400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-13.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "desk",
+    "filing cabinet",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.290459Z",
+   "updated_at": "2026-11-11T16:40:08.290459Z"
+  },
+  {
+   "id": "cfb4a7b5-e992-419e-874a-52f6a12e354a",
+   "owner_id": "71a7e834-13bc-41c8-ad78-5f4e2206279f",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "title": "Project 075 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Home Office",
+   "budget_min": 52500,
+   "budget_max": 112500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-12.jpg"
+   ],
+   "tags": [
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.289457Z",
+   "updated_at": "2026-11-11T16:40:08.289457Z"
+  },
+  {
+   "id": "da39f1a3-be65-48f5-87f1-36622a6d72fd",
+   "owner_id": "eca36004-23d4-4f0a-a3db-9a61b5b5b911",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "title": "Project 074 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Dining Room",
+   "budget_min": 52000,
+   "budget_max": 111600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-11.jpg"
+   ],
+   "tags": [
+    "display cabinet",
+    "dining table",
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.288457Z",
+   "updated_at": "2026-11-11T16:40:08.288457Z"
+  },
+  {
+   "id": "737166df-759b-44ef-8d64-3950bf7176c6",
+   "owner_id": "09bc2b31-c3a7-48a3-85b6-7e9de0c916d9",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "title": "Project 073 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Children's Room",
+   "budget_min": 51500,
+   "budget_max": 110700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-10.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "balanced light",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.286458Z",
+   "updated_at": "2026-11-11T16:40:08.286458Z"
+  },
+  {
+   "id": "b1288663-d080-4326-a1c8-1223b035449a",
+   "owner_id": "464d8846-c321-412e-bc49-8a152e0a58fc",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "title": "Project 072 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Bedroom",
+   "budget_min": 51000,
+   "budget_max": 109800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-09.jpg"
+   ],
+   "tags": [
+    "dishwasher",
+    "desk",
+    "microwave",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.284457Z",
+   "updated_at": "2026-11-11T16:40:08.284457Z"
+  },
+  {
+   "id": "37b2c713-9233-4373-a30d-8cbde00068e2",
+   "owner_id": "f18e6ade-d13e-44da-93e8-697e48a001db",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "title": "Project 071 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Bathroom",
+   "budget_min": 50500,
+   "budget_max": 108900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-08.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "dining table",
+    "bright",
+    "neutral palette",
+    "soft contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.282453Z",
+   "updated_at": "2026-11-11T16:40:08.282453Z"
+  },
+  {
+   "id": "a77403ec-04f4-432c-bd55-d8229e73017e",
+   "owner_id": "060a5cdb-815c-4d73-b3fc-f56ebea550f0",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "title": "Project 070 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Balcony",
+   "budget_min": 50000,
+   "budget_max": 108000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-07.jpg"
+   ],
+   "tags": [
+    "window shade",
+    "open shelving",
+    "paper screen",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.280421Z",
+   "updated_at": "2026-11-11T16:40:08.280421Z"
+  },
+  {
+   "id": "6b6f624b-d919-4f5b-973a-25f934c6dba9",
+   "owner_id": "531a3a16-2d9e-4c8f-adf4-e99f4bc0e3bb",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "title": "Project 069 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Whole Home",
+   "budget_min": 49500,
+   "budget_max": 107100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-06.jpg"
+   ],
+   "tags": [
+    "bed",
+    "fireplace",
+    "bright",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.279420Z",
+   "updated_at": "2026-11-11T16:40:08.279420Z"
+  },
+  {
+   "id": "cb6701f5-53d8-4ba2-92e6-93ab9ff5e6d3",
+   "owner_id": "d1082b2c-5179-4dce-afee-289c80c0c0e6",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "title": "Project 068 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Studio",
+   "budget_min": 49000,
+   "budget_max": 106200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-05.jpg"
+   ],
+   "tags": [
+    "sliding door",
+    "window shade",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.277421Z",
+   "updated_at": "2026-11-11T16:40:08.277421Z"
+  },
+  {
+   "id": "704d0f85-5e5b-4bf6-9526-7334f5bab200",
+   "owner_id": "f6f543d3-4516-4b72-86ef-a81e4c58f05a",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "title": "Project 067 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Living Room",
+   "budget_min": 48500,
+   "budget_max": 105300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-04.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "bed",
+    "moody",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.275421Z",
+   "updated_at": "2026-11-11T16:40:08.275421Z"
+  },
+  {
+   "id": "cbcb6b0e-b394-4434-a291-b0ed1c27a7c2",
+   "owner_id": "cdaa2774-5bf2-41ba-aba6-da2d80086f72",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "title": "Project 066 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Kitchen",
+   "budget_min": 48000,
+   "budget_max": 104400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-03.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "desk",
+    "dining table",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.272499Z",
+   "updated_at": "2026-11-11T16:40:08.272499Z"
+  },
+  {
+   "id": "d1a1a555-a0d6-4a35-ac87-c8cc5ded10a5",
+   "owner_id": "4e050509-810c-4251-aa11-c3ecde2c09d0",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "title": "Project 065 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Home Office",
+   "budget_min": 47500,
+   "budget_max": 103500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-02.jpg"
+   ],
+   "tags": [
+    "moody",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.270404Z",
+   "updated_at": "2026-11-11T16:40:08.270404Z"
+  },
+  {
+   "id": "995661f5-29f2-4f7d-aa06-79b23ef48d77",
+   "owner_id": "b7e81e96-ec11-4cc1-b324-4d30ee9d64b8",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "title": "Project 064 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Dining Room",
+   "budget_min": 47000,
+   "budget_max": 102600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-01.jpg"
+   ],
+   "tags": [
+    "desk",
+    "bookshelf",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.269405Z",
+   "updated_at": "2026-11-11T16:40:08.269405Z"
+  },
+  {
+   "id": "30e642b0-0405-46f9-8277-65f377d1d363",
+   "owner_id": "bb2fea3a-07c0-4e32-9bdb-c321b756fad2",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "title": "Project 063 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Children's Room",
+   "budget_min": 46500,
+   "budget_max": 101700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-16.jpg"
+   ],
+   "tags": [
+    "clock",
+    "wall clock",
+    "lamp",
+    "moody",
+    "warm palette",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.267408Z",
+   "updated_at": "2026-11-11T16:40:08.267408Z"
+  },
+  {
+   "id": "0543aad8-224b-400b-a144-ec5dfe27e845",
+   "owner_id": "287cc95c-b884-4d07-a432-47e52b869afc",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "title": "Project 062 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Bedroom",
+   "budget_min": 46000,
+   "budget_max": 100800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-15.jpg"
+   ],
+   "tags": [
+    "wardrobe",
+    "bright",
+    "neutral palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.266406Z",
+   "updated_at": "2026-11-11T16:40:08.266406Z"
+  },
+  {
+   "id": "569a6405-5a7e-44e3-9958-9cfa913c0244",
+   "owner_id": "afa42e12-86da-4d27-b45f-051a1b2db6b0",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "title": "Project 061 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Bathroom",
+   "budget_min": 45500,
+   "budget_max": 99900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-14.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "bedding",
+    "sliding door",
+    "balanced light",
+    "neutral palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.264407Z",
+   "updated_at": "2026-11-11T16:40:08.264407Z"
+  },
+  {
+   "id": "55e06336-35e3-4fe4-885c-bfcdeca44d4d",
+   "owner_id": "1f32b733-fe28-440c-9ff9-6cba85bce4e3",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "title": "Project 060 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Balcony",
+   "budget_min": 45000,
+   "budget_max": 99000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-13.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "desk",
+    "filing cabinet",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.262401Z",
+   "updated_at": "2026-11-11T16:40:08.262401Z"
+  },
+  {
+   "id": "1fd439c2-4c9e-4328-9db7-f39d376c3090",
+   "owner_id": "6b6c7641-2005-4da0-900f-16267129e7f3",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "title": "Project 059 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Whole Home",
+   "budget_min": 44500,
+   "budget_max": 98100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-12.jpg"
+   ],
+   "tags": [
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.260375Z",
+   "updated_at": "2026-11-11T16:40:08.260375Z"
+  },
+  {
+   "id": "1daa57d2-f93e-4762-9277-bbf5924ab30b",
+   "owner_id": "7666dc2b-9a50-4181-8a69-e8e950af6fe6",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "title": "Project 058 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Studio",
+   "budget_min": 44000,
+   "budget_max": 97200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-11.jpg"
+   ],
+   "tags": [
+    "display cabinet",
+    "dining table",
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.259374Z",
+   "updated_at": "2026-11-11T16:40:08.259374Z"
+  },
+  {
+   "id": "d222421c-4478-4499-8aeb-c0e0d0cdd5af",
+   "owner_id": "1fe2b4c8-582a-4133-8917-633c845298bf",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "title": "Project 057 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Living Room",
+   "budget_min": 43500,
+   "budget_max": 96300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-10.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "balanced light",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.256868Z",
+   "updated_at": "2026-11-11T16:40:08.256868Z"
+  },
+  {
+   "id": "d42ab874-0398-4075-a269-1bfabc05a420",
+   "owner_id": "633ddfab-f4b3-4774-98ec-8638a2d0903f",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "title": "Project 056 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Kitchen",
+   "budget_min": 43000,
+   "budget_max": 95400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-09.jpg"
+   ],
+   "tags": [
+    "dishwasher",
+    "desk",
+    "microwave",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.254356Z",
+   "updated_at": "2026-11-11T16:40:08.254356Z"
+  },
+  {
+   "id": "778487fe-841b-4e53-b67d-57fe409257b2",
+   "owner_id": "71a7e834-13bc-41c8-ad78-5f4e2206279f",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "title": "Project 055 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Home Office",
+   "budget_min": 42500,
+   "budget_max": 94500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-08.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "dining table",
+    "bright",
+    "neutral palette",
+    "soft contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.253352Z",
+   "updated_at": "2026-11-11T16:40:08.253352Z"
+  },
+  {
+   "id": "d1484c3c-c0e5-4ba7-9c02-2c75bd00d3f6",
+   "owner_id": "eca36004-23d4-4f0a-a3db-9a61b5b5b911",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "title": "Project 054 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Dining Room",
+   "budget_min": 42000,
+   "budget_max": 93600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-07.jpg"
+   ],
+   "tags": [
+    "window shade",
+    "open shelving",
+    "paper screen",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.251841Z",
+   "updated_at": "2026-11-11T16:40:08.251841Z"
+  },
+  {
+   "id": "9a45bffd-328f-4ed4-8e1b-1a41d1baae8c",
+   "owner_id": "09bc2b31-c3a7-48a3-85b6-7e9de0c916d9",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "title": "Project 053 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Children's Room",
+   "budget_min": 41500,
+   "budget_max": 92700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-06.jpg"
+   ],
+   "tags": [
+    "bed",
+    "fireplace",
+    "bright",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.249841Z",
+   "updated_at": "2026-11-11T16:40:08.249841Z"
+  },
+  {
+   "id": "53b7d1ac-7b2e-4e80-8157-a1bbdf842473",
+   "owner_id": "464d8846-c321-412e-bc49-8a152e0a58fc",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "title": "Project 052 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Bedroom",
+   "budget_min": 41000,
+   "budget_max": 91800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-05.jpg"
+   ],
+   "tags": [
+    "sliding door",
+    "window shade",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.247842Z",
+   "updated_at": "2026-11-11T16:40:08.247842Z"
+  },
+  {
+   "id": "810f52ce-613a-4189-98b0-a218c801c42c",
+   "owner_id": "f18e6ade-d13e-44da-93e8-697e48a001db",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "title": "Project 051 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Bathroom",
+   "budget_min": 40500,
+   "budget_max": 90900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-04.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "bed",
+    "moody",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.245836Z",
+   "updated_at": "2026-11-11T16:40:08.245836Z"
+  },
+  {
+   "id": "36685904-68b1-4e87-86e3-703b416b3985",
+   "owner_id": "060a5cdb-815c-4d73-b3fc-f56ebea550f0",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "title": "Project 050 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Balcony",
+   "budget_min": 40000,
+   "budget_max": 90000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-03.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "desk",
+    "dining table",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.244837Z",
+   "updated_at": "2026-11-11T16:40:08.244837Z"
+  },
+  {
+   "id": "6bc09250-7ec0-4efd-9c27-f0eb51267c3f",
+   "owner_id": "531a3a16-2d9e-4c8f-adf4-e99f4bc0e3bb",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "title": "Project 049 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Whole Home",
+   "budget_min": 39500,
+   "budget_max": 89100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-02.jpg"
+   ],
+   "tags": [
+    "moody",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.242311Z",
+   "updated_at": "2026-11-11T16:40:08.242311Z"
+  },
+  {
+   "id": "1ded8ac5-e633-4b27-8501-2808243d7eb9",
+   "owner_id": "d1082b2c-5179-4dce-afee-289c80c0c0e6",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "title": "Project 048 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Studio",
+   "budget_min": 39000,
+   "budget_max": 88200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-01.jpg"
+   ],
+   "tags": [
+    "desk",
+    "bookshelf",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.240807Z",
+   "updated_at": "2026-11-11T16:40:08.240807Z"
+  },
+  {
+   "id": "ff57ed01-b410-4c93-81ab-167dc1f5e699",
+   "owner_id": "f6f543d3-4516-4b72-86ef-a81e4c58f05a",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "title": "Project 047 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Living Room",
+   "budget_min": 38500,
+   "budget_max": 87300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-16.jpg"
+   ],
+   "tags": [
+    "clock",
+    "wall clock",
+    "lamp",
+    "moody",
+    "warm palette",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.238808Z",
+   "updated_at": "2026-11-11T16:40:08.238808Z"
+  },
+  {
+   "id": "02701ca5-73b0-4875-bcf6-6f64108c0b86",
+   "owner_id": "cdaa2774-5bf2-41ba-aba6-da2d80086f72",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "title": "Project 046 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Kitchen",
+   "budget_min": 38000,
+   "budget_max": 86400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-15.jpg"
+   ],
+   "tags": [
+    "wardrobe",
+    "bright",
+    "neutral palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.237808Z",
+   "updated_at": "2026-11-11T16:40:08.237808Z"
+  },
+  {
+   "id": "78d04219-31d4-4efa-aa02-6e9a136f6055",
+   "owner_id": "4e050509-810c-4251-aa11-c3ecde2c09d0",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "title": "Project 045 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Home Office",
+   "budget_min": 37500,
+   "budget_max": 85500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-14.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "bedding",
+    "sliding door",
+    "balanced light",
+    "neutral palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.235809Z",
+   "updated_at": "2026-11-11T16:40:08.235809Z"
+  },
+  {
+   "id": "a1beb5e6-1307-4084-a1eb-8ce467664463",
+   "owner_id": "b7e81e96-ec11-4cc1-b324-4d30ee9d64b8",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "title": "Project 044 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Dining Room",
+   "budget_min": 37000,
+   "budget_max": 84600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-13.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "desk",
+    "filing cabinet",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.233803Z",
+   "updated_at": "2026-11-11T16:40:08.233803Z"
+  },
+  {
+   "id": "5f8f782b-7e37-48a4-8b47-0e8574ddffd8",
+   "owner_id": "bb2fea3a-07c0-4e32-9bdb-c321b756fad2",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "title": "Project 043 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Children's Room",
+   "budget_min": 36500,
+   "budget_max": 83700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-12.jpg"
+   ],
+   "tags": [
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.232284Z",
+   "updated_at": "2026-11-11T16:40:08.232284Z"
+  },
+  {
+   "id": "8cfc6ffb-5041-4f4e-ae2a-b6c81d5976f9",
+   "owner_id": "287cc95c-b884-4d07-a432-47e52b869afc",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "title": "Project 042 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Bedroom",
+   "budget_min": 36000,
+   "budget_max": 82800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-11.jpg"
+   ],
+   "tags": [
+    "display cabinet",
+    "dining table",
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.230779Z",
+   "updated_at": "2026-11-11T16:40:08.230779Z"
+  },
+  {
+   "id": "5bf8c357-5212-4f15-aab5-84816dfa79bf",
+   "owner_id": "afa42e12-86da-4d27-b45f-051a1b2db6b0",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "title": "Project 041 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Bathroom",
+   "budget_min": 35500,
+   "budget_max": 81900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-10.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "balanced light",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.228778Z",
+   "updated_at": "2026-11-11T16:40:08.228778Z"
+  },
+  {
+   "id": "7fd78c87-1699-4027-9015-f69aecaa79b4",
+   "owner_id": "1f32b733-fe28-440c-9ff9-6cba85bce4e3",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "title": "Project 040 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Balcony",
+   "budget_min": 35000,
+   "budget_max": 81000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-09.jpg"
+   ],
+   "tags": [
+    "dishwasher",
+    "desk",
+    "microwave",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.226775Z",
+   "updated_at": "2026-11-11T16:40:08.226775Z"
+  },
+  {
+   "id": "b4ef4cd5-e91f-4e5c-93a3-09bf0e2b6eb7",
+   "owner_id": "6b6c7641-2005-4da0-900f-16267129e7f3",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "title": "Project 039 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Whole Home",
+   "budget_min": 34500,
+   "budget_max": 80100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-08.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "dining table",
+    "bright",
+    "neutral palette",
+    "soft contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.225774Z",
+   "updated_at": "2026-11-11T16:40:08.225774Z"
+  },
+  {
+   "id": "292278cb-96a2-4473-887a-180d23361ada",
+   "owner_id": "7666dc2b-9a50-4181-8a69-e8e950af6fe6",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "title": "Project 038 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Studio",
+   "budget_min": 34000,
+   "budget_max": 79200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-07.jpg"
+   ],
+   "tags": [
+    "window shade",
+    "open shelving",
+    "paper screen",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.223764Z",
+   "updated_at": "2026-11-11T16:40:08.223764Z"
+  },
+  {
+   "id": "af9b10b2-1a7c-47bd-8780-35c82c1fe318",
+   "owner_id": "1fe2b4c8-582a-4133-8917-633c845298bf",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "title": "Project 037 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Living Room",
+   "budget_min": 33500,
+   "budget_max": 78300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-06.jpg"
+   ],
+   "tags": [
+    "bed",
+    "fireplace",
+    "bright",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.222246Z",
+   "updated_at": "2026-11-11T16:40:08.222246Z"
+  },
+  {
+   "id": "59669985-4e9a-4bd5-8f2c-c15b665c07d9",
+   "owner_id": "633ddfab-f4b3-4774-98ec-8638a2d0903f",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "title": "Project 036 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Kitchen",
+   "budget_min": 33000,
+   "budget_max": 77400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-05.jpg"
+   ],
+   "tags": [
+    "sliding door",
+    "window shade",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.220742Z",
+   "updated_at": "2026-11-11T16:40:08.220742Z"
+  },
+  {
+   "id": "cf6b90c4-ebeb-4d43-91bd-450c0984009c",
+   "owner_id": "71a7e834-13bc-41c8-ad78-5f4e2206279f",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "title": "Project 035 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Home Office",
+   "budget_min": 32500,
+   "budget_max": 76500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-04.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "bed",
+    "moody",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.218742Z",
+   "updated_at": "2026-11-11T16:40:08.218742Z"
+  },
+  {
+   "id": "7b390d58-8159-42c4-abe4-cd4f53b74b14",
+   "owner_id": "eca36004-23d4-4f0a-a3db-9a61b5b5b911",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "title": "Project 034 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Dining Room",
+   "budget_min": 32000,
+   "budget_max": 75600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-03.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "desk",
+    "dining table",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.216681Z",
+   "updated_at": "2026-11-11T16:40:08.216681Z"
+  },
+  {
+   "id": "b958c7f1-a727-431e-a4cd-4b3e2b799135",
+   "owner_id": "09bc2b31-c3a7-48a3-85b6-7e9de0c916d9",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "title": "Project 033 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Children's Room",
+   "budget_min": 31500,
+   "budget_max": 74700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-02.jpg"
+   ],
+   "tags": [
+    "moody",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.214683Z",
+   "updated_at": "2026-11-11T16:40:08.214683Z"
+  },
+  {
+   "id": "17a2ee44-a704-49d6-afbd-1783eb171e51",
+   "owner_id": "464d8846-c321-412e-bc49-8a152e0a58fc",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "title": "Project 032 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Bedroom",
+   "budget_min": 31000,
+   "budget_max": 73800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-01.jpg"
+   ],
+   "tags": [
+    "desk",
+    "bookshelf",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.212676Z",
+   "updated_at": "2026-11-11T16:40:08.212676Z"
+  },
+  {
+   "id": "f79c2e6c-eaa8-4e14-a852-cb89602b3c8d",
+   "owner_id": "f18e6ade-d13e-44da-93e8-697e48a001db",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "title": "Project 031 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Bathroom",
+   "budget_min": 30500,
+   "budget_max": 72900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-16.jpg"
+   ],
+   "tags": [
+    "clock",
+    "wall clock",
+    "lamp",
+    "moody",
+    "warm palette",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.211639Z",
+   "updated_at": "2026-11-11T16:40:08.211639Z"
+  },
+  {
+   "id": "004933d3-ee3d-4102-87d4-8a5ab07b4986",
+   "owner_id": "060a5cdb-815c-4d73-b3fc-f56ebea550f0",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "title": "Project 030 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Balcony",
+   "budget_min": 30000,
+   "budget_max": 72000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-15.jpg"
+   ],
+   "tags": [
+    "wardrobe",
+    "bright",
+    "neutral palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.209134Z",
+   "updated_at": "2026-11-11T16:40:08.209134Z"
+  },
+  {
+   "id": "661b002d-3b39-4bbd-b6ae-9a596e70f29f",
+   "owner_id": "531a3a16-2d9e-4c8f-adf4-e99f4bc0e3bb",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "title": "Project 029 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Whole Home",
+   "budget_min": 29500,
+   "budget_max": 71100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-14.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "bedding",
+    "sliding door",
+    "balanced light",
+    "neutral palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.208134Z",
+   "updated_at": "2026-11-11T16:40:08.208134Z"
+  },
+  {
+   "id": "42e9b362-abb3-4482-ad42-e2e833811f91",
+   "owner_id": "d1082b2c-5179-4dce-afee-289c80c0c0e6",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "title": "Project 028 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Studio",
+   "budget_min": 29000,
+   "budget_max": 70200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-13.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "desk",
+    "filing cabinet",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.206130Z",
+   "updated_at": "2026-11-11T16:40:08.206130Z"
+  },
+  {
+   "id": "265d1406-aa02-432e-a3d4-494cfb3e4c2d",
+   "owner_id": "f6f543d3-4516-4b72-86ef-a81e4c58f05a",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "title": "Project 027 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Living Room",
+   "budget_min": 28500,
+   "budget_max": 69300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-12.jpg"
+   ],
+   "tags": [
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.204627Z",
+   "updated_at": "2026-11-11T16:40:08.204627Z"
+  },
+  {
+   "id": "42a6f437-79fd-456e-b7d8-ee3bda3e7d56",
+   "owner_id": "cdaa2774-5bf2-41ba-aba6-da2d80086f72",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "title": "Project 026 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Kitchen",
+   "budget_min": 28000,
+   "budget_max": 68400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-11.jpg"
+   ],
+   "tags": [
+    "display cabinet",
+    "dining table",
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.202622Z",
+   "updated_at": "2026-11-11T16:40:08.202622Z"
+  },
+  {
+   "id": "d730517c-4a4d-4443-b6e1-995a46f9684c",
+   "owner_id": "4e050509-810c-4251-aa11-c3ecde2c09d0",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "title": "Project 025 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Home Office",
+   "budget_min": 27500,
+   "budget_max": 67500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-10.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "balanced light",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.200592Z",
+   "updated_at": "2026-11-11T16:40:08.200592Z"
+  },
+  {
+   "id": "aec0d3a9-0f74-4cad-aa17-cc2f21dd8b22",
+   "owner_id": "b7e81e96-ec11-4cc1-b324-4d30ee9d64b8",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "title": "Project 024 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Dining Room",
+   "budget_min": 27000,
+   "budget_max": 66600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-09.jpg"
+   ],
+   "tags": [
+    "dishwasher",
+    "desk",
+    "microwave",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.199592Z",
+   "updated_at": "2026-11-11T16:40:08.199592Z"
+  },
+  {
+   "id": "2ae8cc87-c235-4775-8919-10ef69024820",
+   "owner_id": "bb2fea3a-07c0-4e32-9bdb-c321b756fad2",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "title": "Project 023 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Children's Room",
+   "budget_min": 26500,
+   "budget_max": 65700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-08.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "dining table",
+    "bright",
+    "neutral palette",
+    "soft contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.197592Z",
+   "updated_at": "2026-11-11T16:40:08.197592Z"
+  },
+  {
+   "id": "ebde2403-8418-4403-9f12-debc76a121cd",
+   "owner_id": "287cc95c-b884-4d07-a432-47e52b869afc",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "title": "Project 022 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Bedroom",
+   "budget_min": 26000,
+   "budget_max": 64800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-07.jpg"
+   ],
+   "tags": [
+    "window shade",
+    "open shelving",
+    "paper screen",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.195552Z",
+   "updated_at": "2026-11-11T16:40:08.195552Z"
+  },
+  {
+   "id": "8332f5c2-6d15-4386-a956-c446a357f833",
+   "owner_id": "afa42e12-86da-4d27-b45f-051a1b2db6b0",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "title": "Project 021 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Bathroom",
+   "budget_min": 25500,
+   "budget_max": 63900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-06.jpg"
+   ],
+   "tags": [
+    "bed",
+    "fireplace",
+    "bright",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.194552Z",
+   "updated_at": "2026-11-11T16:40:08.194552Z"
+  },
+  {
+   "id": "a5d96bda-2313-455f-b8f2-77e427b7916a",
+   "owner_id": "1f32b733-fe28-440c-9ff9-6cba85bce4e3",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "title": "Project 020 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Balcony",
+   "budget_min": 25000,
+   "budget_max": 63000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-05.jpg"
+   ],
+   "tags": [
+    "sliding door",
+    "window shade",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.192548Z",
+   "updated_at": "2026-11-11T16:40:08.192548Z"
+  },
+  {
+   "id": "1be7e32e-382d-45af-b7f2-e3043b015cfd",
+   "owner_id": "6b6c7641-2005-4da0-900f-16267129e7f3",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "title": "Project 019 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Whole Home",
+   "budget_min": 24500,
+   "budget_max": 62100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-04.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "bed",
+    "moody",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.191048Z",
+   "updated_at": "2026-11-11T16:40:08.191048Z"
+  },
+  {
+   "id": "8dae3c00-560a-45b3-a4b0-03efcbbb80ec",
+   "owner_id": "7666dc2b-9a50-4181-8a69-e8e950af6fe6",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "title": "Project 018 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Studio",
+   "budget_min": 24000,
+   "budget_max": 61200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-03.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "desk",
+    "dining table",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.190048Z",
+   "updated_at": "2026-11-11T16:40:08.190048Z"
+  },
+  {
+   "id": "bd152652-812b-41aa-b308-82e106d35351",
+   "owner_id": "1fe2b4c8-582a-4133-8917-633c845298bf",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "title": "Project 017 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Living Room",
+   "budget_min": 23500,
+   "budget_max": 60300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-02.jpg"
+   ],
+   "tags": [
+    "moody",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.188046Z",
+   "updated_at": "2026-11-11T16:40:08.188046Z"
+  },
+  {
+   "id": "483cfda7-4f5f-4289-a027-342d33339c9e",
+   "owner_id": "633ddfab-f4b3-4774-98ec-8638a2d0903f",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "title": "Project 016 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Kitchen",
+   "budget_min": 23000,
+   "budget_max": 59400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-01.jpg"
+   ],
+   "tags": [
+    "desk",
+    "bookshelf",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.186045Z",
+   "updated_at": "2026-11-11T16:40:08.186045Z"
+  },
+  {
+   "id": "169b036b-eb1f-416a-a420-eed670adaa58",
+   "owner_id": "71a7e834-13bc-41c8-ad78-5f4e2206279f",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "title": "Project 015 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Home Office",
+   "budget_min": 22500,
+   "budget_max": 58500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-16.jpg"
+   ],
+   "tags": [
+    "clock",
+    "wall clock",
+    "lamp",
+    "moody",
+    "warm palette",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.185042Z",
+   "updated_at": "2026-11-11T16:40:08.185042Z"
+  },
+  {
+   "id": "983dc56d-d283-4520-816d-de13fe539c77",
+   "owner_id": "eca36004-23d4-4f0a-a3db-9a61b5b5b911",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "title": "Project 014 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Dining Room",
+   "budget_min": 22000,
+   "budget_max": 57600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-15.jpg"
+   ],
+   "tags": [
+    "wardrobe",
+    "bright",
+    "neutral palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.183540Z",
+   "updated_at": "2026-11-11T16:40:08.183540Z"
+  },
+  {
+   "id": "7cca2620-640f-4666-80e9-bf7d320cfd56",
+   "owner_id": "09bc2b31-c3a7-48a3-85b6-7e9de0c916d9",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "title": "Project 013 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Children's Room",
+   "budget_min": 21500,
+   "budget_max": 56700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-14.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "bedding",
+    "sliding door",
+    "balanced light",
+    "neutral palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.182033Z",
+   "updated_at": "2026-11-11T16:40:08.182033Z"
+  },
+  {
+   "id": "0ca63e4f-5a9f-49f1-85af-41e34a712435",
+   "owner_id": "464d8846-c321-412e-bc49-8a152e0a58fc",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "title": "Project 012 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Bedroom",
+   "budget_min": 21000,
+   "budget_max": 55800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-13.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "desk",
+    "filing cabinet",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.180032Z",
+   "updated_at": "2026-11-11T16:40:08.180032Z"
+  },
+  {
+   "id": "23bbf9cf-62b8-40d0-99c6-194d7494b1bd",
+   "owner_id": "f18e6ade-d13e-44da-93e8-697e48a001db",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "title": "Project 011 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Bathroom",
+   "budget_min": 20500,
+   "budget_max": 54900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-12.jpg"
+   ],
+   "tags": [
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.178031Z",
+   "updated_at": "2026-11-11T16:40:08.178031Z"
+  },
+  {
+   "id": "c079c94d-7f1d-481c-885a-d0295c9d8784",
+   "owner_id": "060a5cdb-815c-4d73-b3fc-f56ebea550f0",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "title": "Project 010 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Balcony",
+   "budget_min": 20000,
+   "budget_max": 54000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-11.jpg"
+   ],
+   "tags": [
+    "display cabinet",
+    "dining table",
+    "moody",
+    "warm palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.177033Z",
+   "updated_at": "2026-11-11T16:40:08.177033Z"
+  },
+  {
+   "id": "98bdbeca-8544-4ce9-aa19-575fdbe57912",
+   "owner_id": "531a3a16-2d9e-4c8f-adf4-e99f4bc0e3bb",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "title": "Project 009 Whole Home",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Whole Home",
+   "budget_min": 19500,
+   "budget_max": 53100,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-10.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "balanced light",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.175031Z",
+   "updated_at": "2026-11-11T16:40:08.175031Z"
+  },
+  {
+   "id": "f1cb2cf6-337a-4668-9ddd-03438054c08c",
+   "owner_id": "d1082b2c-5179-4dce-afee-289c80c0c0e6",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "title": "Project 008 Studio",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Studio",
+   "budget_min": 19000,
+   "budget_max": 52200,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-09.jpg"
+   ],
+   "tags": [
+    "dishwasher",
+    "desk",
+    "microwave",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.174028Z",
+   "updated_at": "2026-11-11T16:40:08.174028Z"
+  },
+  {
+   "id": "b249d7e7-60a5-4edd-920e-0c06a95ee802",
+   "owner_id": "f6f543d3-4516-4b72-86ef-a81e4c58f05a",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "title": "Project 007 Living Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Living Room",
+   "budget_min": 18500,
+   "budget_max": 51300,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-08.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "dining table",
+    "bright",
+    "neutral palette",
+    "soft contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.172524Z",
+   "updated_at": "2026-11-11T16:40:08.172524Z"
+  },
+  {
+   "id": "f4647840-cbf7-4fce-a3ae-a82a8f1d90c5",
+   "owner_id": "cdaa2774-5bf2-41ba-aba6-da2d80086f72",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "title": "Project 006 Kitchen",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Eclectic",
+   "category": "Kitchen",
+   "budget_min": 18000,
+   "budget_max": 50400,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-07.jpg"
+   ],
+   "tags": [
+    "window shade",
+    "open shelving",
+    "paper screen",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.170024Z",
+   "updated_at": "2026-11-11T16:40:08.170024Z"
+  },
+  {
+   "id": "43d9e423-c03d-4283-9c10-96dc1c85053c",
+   "owner_id": "4e050509-810c-4251-aa11-c3ecde2c09d0",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "title": "Project 005 Home Office",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Industrial",
+   "category": "Home Office",
+   "budget_min": 17500,
+   "budget_max": 49500,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-06.jpg"
+   ],
+   "tags": [
+    "bed",
+    "fireplace",
+    "bright",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.169024Z",
+   "updated_at": "2026-11-11T16:40:08.169024Z"
+  },
+  {
+   "id": "75c32401-9322-4448-ae86-0ca3c9e717d6",
+   "owner_id": "b7e81e96-ec11-4cc1-b324-4d30ee9d64b8",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "title": "Project 004 Dining Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Japandi",
+   "category": "Dining Room",
+   "budget_min": 17000,
+   "budget_max": 48600,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-05.jpg"
+   ],
+   "tags": [
+    "sliding door",
+    "window shade",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.167020Z",
+   "updated_at": "2026-11-11T16:40:08.167020Z"
+  },
+  {
+   "id": "520c6dce-3afb-4ce2-82a6-85a78f8eddb3",
+   "owner_id": "bb2fea3a-07c0-4e32-9bdb-c321b756fad2",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "title": "Project 003 Children's Room",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Traditional",
+   "category": "Children's Room",
+   "budget_min": 16500,
+   "budget_max": 47700,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-04.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "bed",
+    "moody",
+    "neutral palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.165022Z",
+   "updated_at": "2026-11-11T16:40:08.165022Z"
+  },
+  {
+   "id": "a5d2ebc9-aa87-44a8-aa80-d978dba446a7",
+   "owner_id": "287cc95c-b884-4d07-a432-47e52b869afc",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "title": "Project 002 Bedroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Contemporary",
+   "category": "Bedroom",
+   "budget_min": 16000,
+   "budget_max": 46800,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-03.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "desk",
+    "dining table",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.164021Z",
+   "updated_at": "2026-11-11T16:40:08.164021Z"
+  },
+  {
+   "id": "4e213779-7ee4-4469-b04a-76f88c0924f6",
+   "owner_id": "afa42e12-86da-4d27-b45f-051a1b2db6b0",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "title": "Project 001 Bathroom",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Scandinavian",
+   "category": "Bathroom",
+   "budget_min": 15500,
+   "budget_max": 45900,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-02.jpg"
+   ],
+   "tags": [
+    "moody",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.161905Z",
+   "updated_at": "2026-11-11T16:40:08.161905Z"
+  },
+  {
+   "id": "fbf9701c-7e88-4c0a-9212-b099d0c5b5f9",
+   "owner_id": "1f32b733-fe28-440c-9ff9-6cba85bce4e3",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "title": "Project 000 Balcony",
+   "description": "Layout, joinery and lighting reworked for daily use.",
+   "style": "Minimal",
+   "category": "Balcony",
+   "budget_min": 15000,
+   "budget_max": 45000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-01.jpg"
+   ],
+   "tags": [
+    "desk",
+    "bookshelf",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:40:08.159404Z",
+   "updated_at": "2026-11-11T16:40:08.159404Z"
+  },
+  {
+   "id": "75713c09-1c9d-45e4-9698-00ae373676df",
+   "owner_id": "bc83705b-b27c-4017-96a8-fafbe8b564b6",
+   "company_id": "88401673-e4af-4b9a-a804-5b0cf5215ef2",
+   "title": "Curated Living Room",
+   "description": "A home that breathes: layout, light and texture tuned for daily life.",
+   "style": "Japandi",
+   "category": "Living Room",
+   "budget_min": 30000,
+   "budget_max": 60000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-03.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "desk",
+    "dining table",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:39:57.528662Z",
+   "updated_at": "2026-11-11T16:39:57.528662Z"
+  },
+  {
+   "id": "168ee4d1-a59e-48e8-be2b-3e7933503ca9",
+   "owner_id": "bc83705b-b27c-4017-96a8-fafbe8b564b6",
+   "company_id": "88401673-e4af-4b9a-a804-5b0cf5215ef2",
+   "title": "Bold Kitchen",
+   "description": "A home that breathes: layout, light and texture tuned for daily life.",
+   "style": "Contemporary",
+   "category": "Kitchen",
+   "budget_min": 40000,
+   "budget_max": 80000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-08.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "sliding door",
+    "dining table",
+    "bright",
+    "neutral palette",
+    "soft contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:39:57.493846Z",
+   "updated_at": "2026-11-11T16:39:57.493846Z"
+  },
+  {
+   "id": "6062d748-2b17-4abe-a6d9-d26c0bc2834e",
+   "owner_id": "4f8d39ec-6adc-432a-8e1e-4abc3d3573b8",
+   "company_id": "e285aa84-bfea-48f1-ae86-4ae968d3d0cb",
+   "title": "Panel Dining Room",
+   "description": "A home that breathes: layout, light and texture tuned for daily life.",
+   "style": "Traditional",
+   "category": "Dining Room",
+   "budget_min": 35000,
+   "budget_max": 70000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-10.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "balanced light",
+    "saturated palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:39:57.378044Z",
+   "updated_at": "2026-11-11T16:39:57.378044Z"
+  },
+  {
+   "id": "268e9aa0-98c9-45ef-b017-f1373cd2d7cc",
+   "owner_id": "4f8d39ec-6adc-432a-8e1e-4abc3d3573b8",
+   "company_id": "e285aa84-bfea-48f1-ae86-4ae968d3d0cb",
+   "title": "Linen Bedroom",
+   "description": "A home that breathes: layout, light and texture tuned for daily life.",
+   "style": "Minimal",
+   "category": "Bedroom",
+   "budget_min": 22000,
+   "budget_max": 48000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-14.jpg"
+   ],
+   "tags": [
+    "sofa",
+    "bedding",
+    "sliding door",
+    "balanced light",
+    "neutral palette",
+    "soft contrast",
+    "calm detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:39:57.323753Z",
+   "updated_at": "2026-11-11T16:39:57.323753Z"
+  },
+  {
+   "id": "3615e404-49f3-4a54-8007-88c4802d3ff7",
+   "owner_id": "4f8d39ec-6adc-432a-8e1e-4abc3d3573b8",
+   "company_id": "e285aa84-bfea-48f1-ae86-4ae968d3d0cb",
+   "title": "Cool Grey Study",
+   "description": "A home that breathes: layout, light and texture tuned for daily life.",
+   "style": "Contemporary",
+   "category": "Home Office",
+   "budget_min": 15000,
+   "budget_max": 35000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-13.jpg"
+   ],
+   "tags": [
+    "dining table",
+    "desk",
+    "filing cabinet",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:39:57.293997Z",
+   "updated_at": "2026-11-11T16:39:57.293997Z"
+  },
+  {
+   "id": "4485bbee-f3b2-4065-938a-7d60531c9aa0",
+   "owner_id": "5cfec28e-1971-4533-97ed-cf4dbe37160d",
+   "company_id": "7c06c77a-b79b-46e9-92a8-88c08c0ab117",
+   "title": "Open Birch Kitchen",
+   "description": "A home that breathes: layout, light and texture tuned for daily life.",
+   "style": "Scandinavian",
+   "category": "Kitchen",
+   "budget_min": 30000,
+   "budget_max": 65000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-07.jpg"
+   ],
+   "tags": [
+    "window shade",
+    "open shelving",
+    "paper screen",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:39:57.179130Z",
+   "updated_at": "2026-11-11T16:39:57.179130Z"
+  },
+  {
+   "id": "7de1c8b7-dafa-4838-89b4-9ac914fe76fc",
+   "owner_id": "5cfec28e-1971-4533-97ed-cf4dbe37160d",
+   "company_id": "7c06c77a-b79b-46e9-92a8-88c08c0ab117",
+   "title": "Soft Neutral Bedroom",
+   "description": "A home that breathes: layout, light and texture tuned for daily life.",
+   "style": "Scandinavian",
+   "category": "Bedroom",
+   "budget_min": 25000,
+   "budget_max": 50000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-05.jpg"
+   ],
+   "tags": [
+    "sliding door",
+    "window shade",
+    "balanced light",
+    "warm palette",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:39:57.132563Z",
+   "updated_at": "2026-11-11T16:39:57.132563Z"
+  },
+  {
+   "id": "bd3f17aa-6c17-46c2-a66e-be9bd606b719",
+   "owner_id": "5cfec28e-1971-4533-97ed-cf4dbe37160d",
+   "company_id": "7c06c77a-b79b-46e9-92a8-88c08c0ab117",
+   "title": "Warm Minimal Living Room",
+   "description": "A home that breathes: layout, light and texture tuned for daily life.",
+   "style": "Minimal",
+   "category": "Living Room",
+   "budget_min": 20000,
+   "budget_max": 40000,
+   "status": "CURRENT",
+   "images": [
+    "/portfolio/photos/photo-01.jpg"
+   ],
+   "tags": [
+    "desk",
+    "bookshelf",
+    "balanced light",
+    "warm palette",
+    "high contrast",
+    "busy detail"
+   ],
+   "view_count": 0,
+   "shortlist_count": 0,
+   "created_at": "2026-11-11T16:39:57.093992Z",
+   "updated_at": "2026-11-11T16:39:57.093992Z"
+  }
+ ],
+ "categories": [
+  {
+   "id": "fbcf86a1-2d3e-407f-a5d5-2d5fb60cfee4",
+   "name": "Balcony",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  },
+  {
+   "id": "ba9d890c-ecfe-477f-a64d-8495d597f5dc",
+   "name": "Bathroom",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  },
+  {
+   "id": "7a894a9c-6f6e-4c31-9ea0-6f8ea4bbb45e",
+   "name": "Bedroom",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  },
+  {
+   "id": "f90c5048-3784-4eaf-bbb7-c32376a22889",
+   "name": "Children's Room",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  },
+  {
+   "id": "73a58f69-426d-40dd-980f-a8be2b5b32dc",
+   "name": "Dining Room",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  },
+  {
+   "id": "4c78a4ef-d797-46da-921a-961193ac3acc",
+   "name": "Home Office",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  },
+  {
+   "id": "44fb7197-86d2-43ea-a8bd-0e5e14495b9f",
+   "name": "Kitchen",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  },
+  {
+   "id": "eeea8c70-b111-424d-9dcc-0233de18b5f3",
+   "name": "Living Room",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  },
+  {
+   "id": "1a381389-57f2-4317-a323-f354be946b7e",
+   "name": "Studio",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  },
+  {
+   "id": "282daad7-3f8e-41e3-81bc-837a46150352",
+   "name": "Whole Home",
+   "active": true,
+   "created_at": "2026-11-11T16:39:47.814274+00:00",
+   "updated_at": "2026-11-11T16:39:47.814274+00:00"
+  }
+ ],
+ "quote_requests": [
+  {
+   "id": "05122759-5fc2-404a-8a11-4749d89f832b",
+   "customer_id": "8f834df9-d57e-400a-8544-059ba54cf691",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "project_id": null,
+   "title": "Quotation 027",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2270000,
+   "budget_max_cents": 4905000,
+   "target_cents": 3324000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.392582Z",
+   "updated_at": "2026-11-11T16:40:08.572588Z"
+  },
+  {
+   "id": "075b61b5-84b4-4cbf-8655-8126ba54a35d",
+   "customer_id": "4a7ed0ea-f5b9-428a-8eff-f6eff2737419",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "project_id": null,
+   "title": "Quotation 044",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2440000,
+   "budget_max_cents": 5160000,
+   "target_cents": 3528000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.422737Z",
+   "updated_at": "2026-11-11T16:40:08.603914Z"
+  },
+  {
+   "id": "09efbeca-4b20-4152-a005-916230a16b09",
+   "customer_id": "7551183a-571b-4399-8052-e8d5da9b34ae",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "project_id": null,
+   "title": "Quotation 003",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2030000,
+   "budget_max_cents": 4545000,
+   "target_cents": 3036000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.350651Z",
+   "updated_at": "2026-11-11T16:40:08.527956Z"
+  },
+  {
+   "id": "0fc758a5-9fa6-43fb-8540-d2e73df50247",
+   "customer_id": "1e6d6f92-01f8-42fc-8522-296a838f8980",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "project_id": null,
+   "title": "Quotation 047",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2470000,
+   "budget_max_cents": 5205000,
+   "target_cents": 3564000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.428270Z",
+   "updated_at": "2026-11-11T16:40:08.609427Z"
+  },
+  {
+   "id": "1032915d-1452-4070-bf85-be157382fd92",
+   "customer_id": "aa8a8cad-f295-47fb-993a-7a068869d86c",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "project_id": null,
+   "title": "Quotation 087",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2870000,
+   "budget_max_cents": 5805000,
+   "target_cents": 4044000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.499153Z",
+   "updated_at": "2026-11-11T16:40:08.679830Z"
+  },
+  {
+   "id": "14930320-3452-4bef-944d-6d65e330c3b9",
+   "customer_id": "dc5a5ddc-5def-4694-a3f8-aff730570347",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "project_id": null,
+   "title": "Quotation 049",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2490000,
+   "budget_max_cents": 5235000,
+   "target_cents": 3588000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.432282Z",
+   "updated_at": "2026-11-11T16:40:08.612456Z"
+  },
+  {
+   "id": "166d29dc-d9a1-4817-83c9-ba71d61391c3",
+   "customer_id": "70ebe836-382c-43b0-ad5c-4bb2c9b3a33f",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "project_id": null,
+   "title": "Quotation 022",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2220000,
+   "budget_max_cents": 4830000,
+   "target_cents": 3264000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.383568Z",
+   "updated_at": "2026-11-11T16:40:08.563577Z"
+  },
+  {
+   "id": "170d084a-9d95-4e88-aa5c-25888613f4ed",
+   "customer_id": "82ea86d3-ea91-4bc7-842b-e205b54ae3ff",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "project_id": null,
+   "title": "Quotation 025",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2250000,
+   "budget_max_cents": 4875000,
+   "target_cents": 3300000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.389077Z",
+   "updated_at": "2026-11-11T16:40:08.569083Z"
+  },
+  {
+   "id": "172ce8a6-16f3-484a-a440-80ed36b53192",
+   "customer_id": "423207e3-f8dd-4ab3-8308-467aa431cf39",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "project_id": null,
+   "title": "Quotation 096",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2960000,
+   "budget_max_cents": 5940000,
+   "target_cents": 4152000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.513908Z",
+   "updated_at": "2026-11-11T16:40:08.697185Z"
+  },
+  {
+   "id": "1c4a7c99-ff49-4299-8d19-48bbc89936a9",
+   "customer_id": "2a9cfb42-8061-4de5-b6e3-78015da4a7e3",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "project_id": null,
+   "title": "Quotation 045",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2450000,
+   "budget_max_cents": 5175000,
+   "target_cents": 3540000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.423759Z",
+   "updated_at": "2026-11-11T16:40:08.606425Z"
+  },
+  {
+   "id": "1e99b2fc-1065-413a-b76c-4b7ff2662f24",
+   "customer_id": "dbd8fcde-9f4e-48e7-8a9a-0295872d3cb7",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "project_id": null,
+   "title": "Quotation 005",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2050000,
+   "budget_max_cents": 4575000,
+   "target_cents": 3060000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.354242Z",
+   "updated_at": "2026-11-11T16:40:08.531958Z"
+  },
+  {
+   "id": "1f7cff69-1945-4de9-8c08-6f6c5f7809f3",
+   "customer_id": "a0298ea3-c856-4fea-bc66-18881cfb3bfe",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "project_id": null,
+   "title": "Quotation 077",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2770000,
+   "budget_max_cents": 5655000,
+   "target_cents": 3924000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.482616Z",
+   "updated_at": "2026-11-11T16:40:08.662735Z"
+  },
+  {
+   "id": "20ae1c76-80f3-4d95-88b8-a33eaf1478f8",
+   "customer_id": "071d82e4-3015-44e5-9a93-c2f7aa1674b8",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "project_id": null,
+   "title": "Quotation 097",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2970000,
+   "budget_max_cents": 5955000,
+   "target_cents": 4164000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.516417Z",
+   "updated_at": "2026-11-11T16:40:08.699533Z"
+  },
+  {
+   "id": "2b4774fe-618f-4244-be8e-17cfd7e90966",
+   "customer_id": "40d56371-bb4b-4fba-a376-98f2e7d2965c",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "project_id": null,
+   "title": "Quotation 076",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2760000,
+   "budget_max_cents": 5640000,
+   "target_cents": 3912000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.480590Z",
+   "updated_at": "2026-11-11T16:40:08.660695Z"
+  },
+  {
+   "id": "2c2b2d1d-d800-48f4-be1c-e187a68a180a",
+   "customer_id": "eae76c54-32ff-4e9e-843b-5efa8d284a65",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "project_id": null,
+   "title": "Quotation 019",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2190000,
+   "budget_max_cents": 4785000,
+   "target_cents": 3228000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.379057Z",
+   "updated_at": "2026-11-11T16:40:08.558025Z"
+  },
+  {
+   "id": "3105a4c1-cda0-43af-a700-76b05b378caf",
+   "customer_id": "d544f641-74ee-4dca-a267-cd68fffc6460",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "project_id": null,
+   "title": "Quotation 035",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2350000,
+   "budget_max_cents": 5025000,
+   "target_cents": 3420000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.406113Z",
+   "updated_at": "2026-11-11T16:40:08.587300Z"
+  },
+  {
+   "id": "3169687d-0fa3-485b-a10e-76f7cf40e4ac",
+   "customer_id": "4d046af0-717f-4d87-8272-b56b114e20ea",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "project_id": null,
+   "title": "Quotation 073",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2730000,
+   "budget_max_cents": 5595000,
+   "target_cents": 3876000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.475583Z",
+   "updated_at": "2026-11-11T16:40:08.655155Z"
+  },
+  {
+   "id": "3323236c-b089-40ef-99fd-16c589b6b95a",
+   "customer_id": "5dc84aac-56f8-47af-b915-fa95d527670f",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "project_id": null,
+   "title": "Quotation 031",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2310000,
+   "budget_max_cents": 4965000,
+   "target_cents": 3372000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.400098Z",
+   "updated_at": "2026-11-11T16:40:08.580246Z"
+  },
+  {
+   "id": "37d4cad3-49b9-4fdc-b18a-8786e8afa27a",
+   "customer_id": "a4fffd0d-14fd-483f-845d-46be95658ea0",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "project_id": null,
+   "title": "Quotation 054",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2540000,
+   "budget_max_cents": 5310000,
+   "target_cents": 3648000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.440318Z",
+   "updated_at": "2026-11-11T16:40:08.621562Z"
+  },
+  {
+   "id": "390c5b71-6b9b-4cfd-90a4-bc2f48f57c46",
+   "customer_id": "c00add71-403b-44cb-b202-68fbd59222b2",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "project_id": null,
+   "title": "Quotation 057",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2570000,
+   "budget_max_cents": 5355000,
+   "target_cents": 3684000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.446414Z",
+   "updated_at": "2026-11-11T16:40:08.627107Z"
+  },
+  {
+   "id": "3fdeabb7-c7d6-41de-a826-720dd62422e4",
+   "customer_id": "84039b10-3317-44be-aaa3-479bc316b5e1",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "project_id": null,
+   "title": "Quotation 036",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2360000,
+   "budget_max_cents": 5040000,
+   "target_cents": 3432000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.408113Z",
+   "updated_at": "2026-11-11T16:40:08.589300Z"
+  },
+  {
+   "id": "417c81ac-0f62-4d16-ade8-ed2ccc108f7c",
+   "customer_id": "542e2adc-0043-4c9b-af78-ebf8dc8299f9",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "project_id": null,
+   "title": "Quotation 069",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2690000,
+   "budget_max_cents": 5535000,
+   "target_cents": 3828000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.468060Z",
+   "updated_at": "2026-11-11T16:40:08.648139Z"
+  },
+  {
+   "id": "449af945-deb2-4ae2-9009-65a916229559",
+   "customer_id": "7b055f97-61f6-41a4-b673-2aae833f8a5a",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "project_id": null,
+   "title": "Quotation 021",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2210000,
+   "budget_max_cents": 4815000,
+   "target_cents": 3252000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.382057Z",
+   "updated_at": "2026-11-11T16:40:08.562066Z"
+  },
+  {
+   "id": "493240ef-1566-4d5b-a027-db6e81d440c9",
+   "customer_id": "f9a66be3-0dd8-4508-8815-4cef6c324966",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "project_id": null,
+   "title": "Quotation 066",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2660000,
+   "budget_max_cents": 5490000,
+   "target_cents": 3792000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.462543Z",
+   "updated_at": "2026-11-11T16:40:08.643630Z"
+  },
+  {
+   "id": "4c21a641-e864-4b03-9a70-204e1eb2b143",
+   "customer_id": "79e9913b-c8fe-4b6e-9180-d9e8e3ff5cf4",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "project_id": null,
+   "title": "Quotation 068",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2680000,
+   "budget_max_cents": 5520000,
+   "target_cents": 3816000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.466054Z",
+   "updated_at": "2026-11-11T16:40:08.646144Z"
+  },
+  {
+   "id": "55b06a32-77b4-4678-bfc4-1ef6382f0e15",
+   "customer_id": "cae9b1d8-3eaf-4d2c-bea9-0dd1f768902c",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "project_id": null,
+   "title": "Quotation 011",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2110000,
+   "budget_max_cents": 4665000,
+   "target_cents": 3132000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.364526Z",
+   "updated_at": "2026-11-11T16:40:08.542476Z"
+  },
+  {
+   "id": "55c9e2f8-84c0-4238-9051-6ba99cff3606",
+   "customer_id": "95543f7f-9f30-4a15-bc48-8bbeb52ebd92",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "project_id": null,
+   "title": "Quotation 064",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2640000,
+   "budget_max_cents": 5460000,
+   "target_cents": 3768000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.458925Z",
+   "updated_at": "2026-11-11T16:40:08.640125Z"
+  },
+  {
+   "id": "568974a4-7fb0-4fee-8c9e-5212f7ba986c",
+   "customer_id": "1eeaa2a1-cb7c-4e44-b65f-177d3abf57ac",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "project_id": null,
+   "title": "Quotation 030",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2300000,
+   "budget_max_cents": 4950000,
+   "target_cents": 3360000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.398097Z",
+   "updated_at": "2026-11-11T16:40:08.578246Z"
+  },
+  {
+   "id": "57f53778-d058-4936-a968-2e6a04c194c7",
+   "customer_id": "398c8400-2478-43cf-b6f8-b56c1b231f14",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "project_id": null,
+   "title": "Quotation 091",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2910000,
+   "budget_max_cents": 5865000,
+   "target_cents": 4092000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.505167Z",
+   "updated_at": "2026-11-11T16:40:08.688653Z"
+  },
+  {
+   "id": "58677f1d-837b-46e1-a995-3f59a600dd37",
+   "customer_id": "ae1a8ee6-cc74-4ab9-bafa-6a3f7bb5ce09",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "project_id": null,
+   "title": "Quotation 063",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2630000,
+   "budget_max_cents": 5445000,
+   "target_cents": 3756000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.456364Z",
+   "updated_at": "2026-11-11T16:40:08.638122Z"
+  },
+  {
+   "id": "59990c7f-fa04-4a29-b684-40b395775204",
+   "customer_id": "2f15cc02-9f56-46d2-b869-0c73bb8f60ce",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "project_id": null,
+   "title": "Quotation 082",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2820000,
+   "budget_max_cents": 5730000,
+   "target_cents": 3984000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.491134Z",
+   "updated_at": "2026-11-11T16:40:08.670251Z"
+  },
+  {
+   "id": "5a3fd308-8f50-47bb-9294-639358e2efaa",
+   "customer_id": "48b98da8-b08b-4d57-b28e-543c4f02f543",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "project_id": null,
+   "title": "Quotation 039",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2390000,
+   "budget_max_cents": 5085000,
+   "target_cents": 3468000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.413720Z",
+   "updated_at": "2026-11-11T16:40:08.595361Z"
+  },
+  {
+   "id": "5fb1866d-aee3-44a9-b67d-8422f91df048",
+   "customer_id": "b6569700-fe20-4de8-952b-48ab083b089e",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "project_id": null,
+   "title": "Quotation 018",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2180000,
+   "budget_max_cents": 4770000,
+   "target_cents": 3216000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.377053Z",
+   "updated_at": "2026-11-11T16:40:08.555514Z"
+  },
+  {
+   "id": "60418ecd-7e96-4cd1-8b18-6b92fad7b45c",
+   "customer_id": "75d7a6b7-71d0-4c1a-9c6d-05739e34bbb2",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "project_id": null,
+   "title": "Quotation 095",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2950000,
+   "budget_max_cents": 5925000,
+   "target_cents": 4140000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.512396Z",
+   "updated_at": "2026-11-11T16:40:08.695186Z"
+  },
+  {
+   "id": "684b7803-34dc-4d37-bac1-ab0b576b6dae",
+   "customer_id": "3a3c9d62-7a15-4300-aa14-edddf2d51488",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "project_id": null,
+   "title": "Quotation 034",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2340000,
+   "budget_max_cents": 5010000,
+   "target_cents": 3408000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.405109Z",
+   "updated_at": "2026-11-11T16:40:08.585294Z"
+  },
+  {
+   "id": "68819b78-34f4-4aad-8953-bd830453d6e9",
+   "customer_id": "2c7d30ef-ce72-4133-9ef5-b94beeb306dd",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "project_id": null,
+   "title": "Quotation 028",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2280000,
+   "budget_max_cents": 4920000,
+   "target_cents": 3336000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.395092Z",
+   "updated_at": "2026-11-11T16:40:08.573592Z"
+  },
+  {
+   "id": "69e3016f-75ad-4453-a53b-04edbd3c972a",
+   "customer_id": "a50c5149-0fa9-421f-b010-4019a6527292",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "project_id": null,
+   "title": "Quotation 081",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2810000,
+   "budget_max_cents": 5715000,
+   "target_cents": 3972000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.489135Z",
+   "updated_at": "2026-11-11T16:40:08.669251Z"
+  },
+  {
+   "id": "6a80471c-decf-4096-b2db-77db58784d92",
+   "customer_id": "35b7827f-e54a-4bee-8cde-414ddfc7c61a",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "project_id": null,
+   "title": "Quotation 007",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2070000,
+   "budget_max_cents": 4605000,
+   "target_cents": 3084000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.356754Z",
+   "updated_at": "2026-11-11T16:40:08.535469Z"
+  },
+  {
+   "id": "6af6110a-ee4f-439c-bc0e-741537e695fa",
+   "customer_id": "36ec42b5-6d05-4f51-b42f-08b3a4c2fde8",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "project_id": null,
+   "title": "Quotation 038",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2380000,
+   "budget_max_cents": 5070000,
+   "target_cents": 3456000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.412194Z",
+   "updated_at": "2026-11-11T16:40:08.592813Z"
+  },
+  {
+   "id": "6b18d90c-7005-484f-9668-9c779e958a36",
+   "customer_id": "1f9b91e7-4b18-45b1-895f-5ea63faa8997",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "project_id": null,
+   "title": "Quotation 075",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2750000,
+   "budget_max_cents": 5625000,
+   "target_cents": 3900000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.478590Z",
+   "updated_at": "2026-11-11T16:40:08.658664Z"
+  },
+  {
+   "id": "6c131658-05f2-478f-840e-e33a53466930",
+   "customer_id": "408d8bf5-52e6-467b-a4a5-07ca7879966a",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "project_id": null,
+   "title": "Quotation 000",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2000000,
+   "budget_max_cents": 4500000,
+   "target_cents": 3000000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.344653Z",
+   "updated_at": "2026-11-11T16:40:08.522442Z"
+  },
+  {
+   "id": "6ec2aa67-7486-4a1c-9012-189eeb13972f",
+   "customer_id": "64cb0ae8-11e3-4a69-9ea3-16902108d4de",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "project_id": null,
+   "title": "Quotation 033",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2330000,
+   "budget_max_cents": 4995000,
+   "target_cents": 3396000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.403605Z",
+   "updated_at": "2026-11-11T16:40:08.582753Z"
+  },
+  {
+   "id": "7128aea9-c10d-44c9-af61-4caefb45d8a1",
+   "customer_id": "568c8b3b-05e4-4917-b948-9a5374840d91",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "project_id": null,
+   "title": "Quotation 060",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2600000,
+   "budget_max_cents": 5400000,
+   "target_cents": 3720000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.450415Z",
+   "updated_at": "2026-11-11T16:40:08.632610Z"
+  },
+  {
+   "id": "713bc62b-77b4-4489-9ad5-cce1149d8dd4",
+   "customer_id": "e35f6d30-f550-4bf3-b46d-c139b2b7b5cb",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "project_id": null,
+   "title": "Quotation 020",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2200000,
+   "budget_max_cents": 4800000,
+   "target_cents": 3240000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.380057Z",
+   "updated_at": "2026-11-11T16:40:08.560062Z"
+  },
+  {
+   "id": "7538954d-74e3-41fc-9175-151fed20d531",
+   "customer_id": "627adcec-f6cf-44dd-b6d4-9e887738b705",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "project_id": null,
+   "title": "Quotation 062",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2620000,
+   "budget_max_cents": 5430000,
+   "target_cents": 3744000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.454840Z",
+   "updated_at": "2026-11-11T16:40:08.637121Z"
+  },
+  {
+   "id": "779e213f-391c-44c2-a779-7d2905440c5d",
+   "customer_id": "5ca74c88-7022-4375-be6a-614cfce513ec",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "project_id": null,
+   "title": "Quotation 008",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2080000,
+   "budget_max_cents": 4620000,
+   "target_cents": 3096000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.360018Z",
+   "updated_at": "2026-11-11T16:40:08.536975Z"
+  },
+  {
+   "id": "77c2d728-a857-465e-8846-b01613d2de08",
+   "customer_id": "c45f30f5-da73-4552-816d-287b114e61ef",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "project_id": null,
+   "title": "Quotation 017",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2170000,
+   "budget_max_cents": 4755000,
+   "target_cents": 3204000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.375048Z",
+   "updated_at": "2026-11-11T16:40:08.553496Z"
+  },
+  {
+   "id": "78b70ca3-ffdd-4d64-8b9e-c8363157cf02",
+   "customer_id": "982b8960-d0b6-4da0-82c5-d8e8d47441af",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "project_id": null,
+   "title": "Quotation 032",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2320000,
+   "budget_max_cents": 4980000,
+   "target_cents": 3384000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.402097Z",
+   "updated_at": "2026-11-11T16:40:08.581749Z"
+  },
+  {
+   "id": "78e6ab6f-5017-49e4-86e9-1aec238c11e4",
+   "customer_id": "dab6f4cb-2581-4223-9d7e-70ee1979d0a0",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "project_id": null,
+   "title": "Quotation 070",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2700000,
+   "budget_max_cents": 5550000,
+   "target_cents": 3840000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.470060Z",
+   "updated_at": "2026-11-11T16:40:08.650137Z"
+  },
+  {
+   "id": "7aa5277a-24d9-4a1a-8acf-b0526b016d14",
+   "customer_id": "4abc9c79-54c6-4aa9-b688-169934ad0eef",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "project_id": null,
+   "title": "Quotation 051",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2510000,
+   "budget_max_cents": 5265000,
+   "target_cents": 3612000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.435310Z",
+   "updated_at": "2026-11-11T16:40:08.616494Z"
+  },
+  {
+   "id": "8020faa2-d9ba-407c-8360-92bc3e77c15f",
+   "customer_id": "be1d1da2-ee33-410d-a8cb-124f49817cd3",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "project_id": null,
+   "title": "Quotation 009",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2090000,
+   "budget_max_cents": 4635000,
+   "target_cents": 3108000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.361018Z",
+   "updated_at": "2026-11-11T16:40:08.538976Z"
+  },
+  {
+   "id": "808fa4f0-440c-49e2-bb29-3f0d3ecf17f1",
+   "customer_id": "f4c462ad-6dfc-4920-852a-baa35936a441",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "project_id": null,
+   "title": "Quotation 080",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2800000,
+   "budget_max_cents": 5700000,
+   "target_cents": 3960000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.487133Z",
+   "updated_at": "2026-11-11T16:40:08.667250Z"
+  },
+  {
+   "id": "824bacc1-6a90-4fb6-8b60-23178e8676a6",
+   "customer_id": "7be0edc3-6859-42ce-991b-2895bf7849fd",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "project_id": null,
+   "title": "Quotation 083",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2830000,
+   "budget_max_cents": 5745000,
+   "target_cents": 3996000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.492636Z",
+   "updated_at": "2026-11-11T16:40:08.672759Z"
+  },
+  {
+   "id": "83be0bbf-1de1-4114-a89e-bf09bc6b1ea8",
+   "customer_id": "f321aab2-c94a-4810-b9e2-42dbdcae4e87",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "project_id": null,
+   "title": "Quotation 065",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2650000,
+   "budget_max_cents": 5475000,
+   "target_cents": 3780000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.460450Z",
+   "updated_at": "2026-11-11T16:40:08.642121Z"
+  },
+  {
+   "id": "882f8410-24ea-400c-bcc2-b889c8339e8b",
+   "customer_id": "7a2876e0-fa87-4305-a5df-6806b64a1e9b",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "project_id": null,
+   "title": "Quotation 026",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2260000,
+   "budget_max_cents": 4890000,
+   "target_cents": 3312000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.391077Z",
+   "updated_at": "2026-11-11T16:40:08.571083Z"
+  },
+  {
+   "id": "8c1f2ea8-9033-4c2c-86e6-ed915cd46589",
+   "customer_id": "6ea2d029-1ba0-4638-8328-535407ff9943",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "project_id": null,
+   "title": "Quotation 098",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2980000,
+   "budget_max_cents": 5970000,
+   "target_cents": 4176000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.518415Z",
+   "updated_at": "2026-11-11T16:40:08.701532Z"
+  },
+  {
+   "id": "8d54bd0e-1870-4bf5-992c-e995e6620122",
+   "customer_id": "cc04f011-0ab7-4d13-afd2-cf5125affbfd",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "project_id": null,
+   "title": "Quotation 090",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2900000,
+   "budget_max_cents": 5850000,
+   "target_cents": 4080000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.503664Z",
+   "updated_at": "2026-11-11T16:40:08.686655Z"
+  },
+  {
+   "id": "8d62e5bd-3555-4ca0-b5f6-ae1338858cae",
+   "customer_id": "6ee39453-0312-40f2-a4a4-1a3b9d44798f",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "project_id": null,
+   "title": "Quotation 099",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2990000,
+   "budget_max_cents": 5985000,
+   "target_cents": 4188000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.519415Z",
+   "updated_at": "2026-11-11T16:40:08.703561Z"
+  },
+  {
+   "id": "8ee33a94-8d75-41fc-968f-e4115f8d4a0f",
+   "customer_id": "17901a83-b8db-4707-992d-8d9cae6ddb01",
+   "company_id": "58cac23a-4b50-44b8-891f-13669d4c2155",
+   "project_id": null,
+   "title": "Quotation 085",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2850000,
+   "budget_max_cents": 5775000,
+   "target_cents": 4020000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.496150Z",
+   "updated_at": "2026-11-11T16:40:08.676825Z"
+  },
+  {
+   "id": "9269c056-5f3f-4a4c-97bf-c3a808644f19",
+   "customer_id": "1494ed5c-2e8f-40ca-962c-2e997e442101",
+   "company_id": "a41422c7-63f6-4fd7-b74e-663187bed1f9",
+   "project_id": null,
+   "title": "Quotation 037",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2370000,
+   "budget_max_cents": 5055000,
+   "target_cents": 3444000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.410112Z",
+   "updated_at": "2026-11-11T16:40:08.590301Z"
+  },
+  {
+   "id": "934e5b86-c109-4cc5-a3d1-46069a1b4355",
+   "customer_id": "b2acc5cf-96b3-46f7-893c-c3c480c6b563",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "project_id": null,
+   "title": "Quotation 041",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2410000,
+   "budget_max_cents": 5115000,
+   "target_cents": 3492000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.417229Z",
+   "updated_at": "2026-11-11T16:40:08.598366Z"
+  },
+  {
+   "id": "9477c005-2cc7-4118-89c6-2eadde31592c",
+   "customer_id": "1ed0bb80-90b2-4a0d-b4c6-325f7cd7f9f2",
+   "company_id": "1a4a0a88-6f97-4bfa-b8f2-b14abb986c7f",
+   "project_id": null,
+   "title": "Quotation 067",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2670000,
+   "budget_max_cents": 5505000,
+   "target_cents": 3804000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.464554Z",
+   "updated_at": "2026-11-11T16:40:08.645133Z"
+  },
+  {
+   "id": "99767d7d-c270-46aa-a7a9-ac883bd707a6",
+   "customer_id": "7d3763fd-6a6d-4722-800e-3ad5a7ab5827",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "project_id": null,
+   "title": "Quotation 029",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2290000,
+   "budget_max_cents": 4935000,
+   "target_cents": 3348000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.396098Z",
+   "updated_at": "2026-11-11T16:40:08.576101Z"
+  },
+  {
+   "id": "9e908c34-c179-4399-9e01-a9a20ea71edc",
+   "customer_id": "66e6c2c7-6002-4123-ad17-772904050642",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "project_id": null,
+   "title": "Quotation 023",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2230000,
+   "budget_max_cents": 4845000,
+   "target_cents": 3276000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.386078Z",
+   "updated_at": "2026-11-11T16:40:08.566083Z"
+  },
+  {
+   "id": "9f524339-9e41-4054-8118-e1ac971d61ef",
+   "customer_id": "1d5810b8-e4b8-4e9f-bc3c-d440d970c2bd",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "project_id": null,
+   "title": "Quotation 015",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2150000,
+   "budget_max_cents": 4725000,
+   "target_cents": 3180000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.371035Z",
+   "updated_at": "2026-11-11T16:40:08.549991Z"
+  },
+  {
+   "id": "a0755b9f-8cd9-4087-9620-da48181263fe",
+   "customer_id": "0c48419d-3369-4561-a7be-5c5b1b4b2588",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "project_id": null,
+   "title": "Quotation 013",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2130000,
+   "budget_max_cents": 4695000,
+   "target_cents": 3156000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.368035Z",
+   "updated_at": "2026-11-11T16:40:08.545988Z"
+  },
+  {
+   "id": "a1aadb3c-ad86-4886-825a-230ea41193b5",
+   "customer_id": "a182020d-0c09-4ccb-b2a5-9c3ade225ece",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "project_id": null,
+   "title": "Quotation 050",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2500000,
+   "budget_max_cents": 5250000,
+   "target_cents": 3600000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.433806Z",
+   "updated_at": "2026-11-11T16:40:08.613972Z"
+  },
+  {
+   "id": "a403ca24-81f8-4fe8-8eae-8c862ae1700e",
+   "customer_id": "6f56364a-4f0a-4e26-a36b-4d40d93823e9",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "project_id": null,
+   "title": "Quotation 052",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2520000,
+   "budget_max_cents": 5280000,
+   "target_cents": 3624000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.437315Z",
+   "updated_at": "2026-11-11T16:40:08.617494Z"
+  },
+  {
+   "id": "a4ac9a48-1b88-4af2-a7ca-76b867f6391d",
+   "customer_id": "cceef796-00d8-47c8-b468-763dd8b5923f",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "project_id": null,
+   "title": "Quotation 084",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2840000,
+   "budget_max_cents": 5760000,
+   "target_cents": 4008000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.493641Z",
+   "updated_at": "2026-11-11T16:40:08.673801Z"
+  },
+  {
+   "id": "a767bcc9-e7dd-4b72-9c9e-9987b6987a11",
+   "customer_id": "bae53535-d944-4a9c-8f47-70163b7262b4",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "project_id": null,
+   "title": "Quotation 042",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2420000,
+   "budget_max_cents": 5130000,
+   "target_cents": 3504000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.419229Z",
+   "updated_at": "2026-11-11T16:40:08.600367Z"
+  },
+  {
+   "id": "a972ae4f-aae7-42a5-b0bc-51b70e4dcfe3",
+   "customer_id": "f711c3fb-7857-4c7b-b040-6bc1fc21e2b8",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "project_id": null,
+   "title": "Quotation 004",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2040000,
+   "budget_max_cents": 4560000,
+   "target_cents": 3048000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.352155Z",
+   "updated_at": "2026-11-11T16:40:08.529959Z"
+  },
+  {
+   "id": "a9ea8f26-85f9-446b-b596-03c29e9496b5",
+   "customer_id": "29f86f13-546f-47b0-b7ce-b57dd88beb09",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "project_id": null,
+   "title": "Quotation 012",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2120000,
+   "budget_max_cents": 4680000,
+   "target_cents": 3144000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.366031Z",
+   "updated_at": "2026-11-11T16:40:08.544985Z"
+  },
+  {
+   "id": "aabd20e9-9d6c-4fbe-bcd4-2131873e87ce",
+   "customer_id": "7ab22d67-872a-4603-92af-2a57598b7826",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "project_id": null,
+   "title": "Quotation 061",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2610000,
+   "budget_max_cents": 5415000,
+   "target_cents": 3732000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.452440Z",
+   "updated_at": "2026-11-11T16:40:08.635117Z"
+  },
+  {
+   "id": "ad57b293-57fa-437b-a9b8-fb0425a5e8a4",
+   "customer_id": "cce24353-60ab-4629-9a4a-b0443c39ae27",
+   "company_id": "b437987e-2761-4084-b361-166f7e46d251",
+   "project_id": null,
+   "title": "Quotation 001",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2010000,
+   "budget_max_cents": 4515000,
+   "target_cents": 3012000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.346651Z",
+   "updated_at": "2026-11-11T16:40:08.524449Z"
+  },
+  {
+   "id": "b17d19d6-04e5-431b-a78e-8df2bdbabe48",
+   "customer_id": "bef78ae4-f0f6-4dad-b56d-0917c22b63b6",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "project_id": null,
+   "title": "Quotation 078",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2780000,
+   "budget_max_cents": 5670000,
+   "target_cents": 3936000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.483621Z",
+   "updated_at": "2026-11-11T16:40:08.663742Z"
+  },
+  {
+   "id": "b18653e5-49c5-4fd0-83bb-130a9f6118cb",
+   "customer_id": "b3f594e4-0982-4ebe-b941-601e5e576d80",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "project_id": null,
+   "title": "Quotation 056",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2560000,
+   "budget_max_cents": 5340000,
+   "target_cents": 3672000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.443904Z",
+   "updated_at": "2026-11-11T16:40:08.625099Z"
+  },
+  {
+   "id": "b797ee71-f004-47c2-9022-13423e3f79e7",
+   "customer_id": "a25459f0-ae0a-4036-9a18-002cc8c8361c",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "project_id": null,
+   "title": "Quotation 046",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2460000,
+   "budget_max_cents": 5190000,
+   "target_cents": 3552000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.426269Z",
+   "updated_at": "2026-11-11T16:40:08.608425Z"
+  },
+  {
+   "id": "ba253467-dd0f-4edc-a1fe-183ebca7931a",
+   "customer_id": "39924841-5d78-4b28-b1bd-4d903d58f8a3",
+   "company_id": "b09c1a5c-5997-4140-9b7b-06991a96c0fa",
+   "project_id": null,
+   "title": "Quotation 010",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2100000,
+   "budget_max_cents": 4650000,
+   "target_cents": 3120000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.362522Z",
+   "updated_at": "2026-11-11T16:40:08.540976Z"
+  },
+  {
+   "id": "bc8ce676-b2d2-4ee7-b6e0-02d78b31683f",
+   "customer_id": "ccf749cd-b00c-4c0e-8e3d-faf3af14f95d",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "project_id": null,
+   "title": "Quotation 048",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2480000,
+   "budget_max_cents": 5220000,
+   "target_cents": 3576000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.429778Z",
+   "updated_at": "2026-11-11T16:40:08.610424Z"
+  },
+  {
+   "id": "c12119c5-4f70-4b2f-8a52-3943e6a5a4fc",
+   "customer_id": "c7890283-f69d-40dc-b7e3-b172a9c91549",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "project_id": null,
+   "title": "Quotation 014",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2140000,
+   "budget_max_cents": 4710000,
+   "target_cents": 3168000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.370035Z",
+   "updated_at": "2026-11-11T16:40:08.547990Z"
+  },
+  {
+   "id": "c18ef81a-2799-4d7e-a851-95b60b1947cb",
+   "customer_id": "3e1253ef-f984-4c7e-b2fb-fe9f5597928c",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "project_id": null,
+   "title": "Quotation 074",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2740000,
+   "budget_max_cents": 5610000,
+   "target_cents": 3888000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.477587Z",
+   "updated_at": "2026-11-11T16:40:08.657161Z"
+  },
+  {
+   "id": "c389694b-25ea-4e90-82c5-e6d0fd381381",
+   "customer_id": "14aa8cdf-6922-42cd-bdfc-32b244693286",
+   "company_id": "76f6e297-21a1-48ec-8412-36a3d6a9fc40",
+   "project_id": null,
+   "title": "Quotation 002",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2020000,
+   "budget_max_cents": 4530000,
+   "target_cents": 3024000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.348652Z",
+   "updated_at": "2026-11-11T16:40:08.525952Z"
+  },
+  {
+   "id": "c57ed7be-f128-4b60-9c02-9290bbcc43eb",
+   "customer_id": "345d33b2-8709-4330-9426-77b6d1f528b2",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "project_id": null,
+   "title": "Quotation 092",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2920000,
+   "budget_max_cents": 5880000,
+   "target_cents": 4104000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.507170Z",
+   "updated_at": "2026-11-11T16:40:08.690157Z"
+  },
+  {
+   "id": "c6e89456-27c9-4149-809a-9c34b1ebe4bd",
+   "customer_id": "b363061e-2a51-4445-802b-dc2feb4eb1d5",
+   "company_id": "ad36f22a-65bc-471a-99bf-68b4b5116528",
+   "project_id": null,
+   "title": "Quotation 071",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2710000,
+   "budget_max_cents": 5565000,
+   "target_cents": 3852000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.472563Z",
+   "updated_at": "2026-11-11T16:40:08.652140Z"
+  },
+  {
+   "id": "c80e7631-dda3-4ead-943b-441e3ba03358",
+   "customer_id": "d309a012-8da7-43ff-b70e-95a601c4ba28",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "project_id": null,
+   "title": "Quotation 093",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2930000,
+   "budget_max_cents": 5895000,
+   "target_cents": 4116000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.509885Z",
+   "updated_at": "2026-11-11T16:40:08.692162Z"
+  },
+  {
+   "id": "d18245eb-f8f8-4180-a7c3-3bf114f9cad3",
+   "customer_id": "09eb2612-058f-4c0e-a688-944d646dea66",
+   "company_id": "e9d1c887-cb8d-487f-8a25-26228ebbe58b",
+   "project_id": null,
+   "title": "Quotation 088",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2880000,
+   "budget_max_cents": 5820000,
+   "target_cents": 4056000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.501154Z",
+   "updated_at": "2026-11-11T16:40:08.682335Z"
+  },
+  {
+   "id": "d54eba8d-7294-4a0b-9d32-4e0e700d8585",
+   "customer_id": "9b4e4124-4f28-41ca-8302-8a8ffe8ee788",
+   "company_id": "4c203a85-c7f8-4140-8a08-de3d2cbdfb3d",
+   "project_id": null,
+   "title": "Quotation 094",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2940000,
+   "budget_max_cents": 5910000,
+   "target_cents": 4128000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.510890Z",
+   "updated_at": "2026-11-11T16:40:08.694185Z"
+  },
+  {
+   "id": "d6e92f71-f3f7-4d49-9613-765c8a490a8b",
+   "customer_id": "1b0554e5-4b13-4866-a3ff-335b06843096",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "project_id": null,
+   "title": "Quotation 006",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2060000,
+   "budget_max_cents": 4590000,
+   "target_cents": 3072000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.355748Z",
+   "updated_at": "2026-11-11T16:40:08.533467Z"
+  },
+  {
+   "id": "d70e3f2c-a8ba-4dd5-9bff-ded079a5d237",
+   "customer_id": "30436703-2006-4187-a10b-d28b694bae4a",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "project_id": null,
+   "title": "Quotation 059",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2590000,
+   "budget_max_cents": 5385000,
+   "target_cents": 3708000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.449414Z",
+   "updated_at": "2026-11-11T16:40:08.631105Z"
+  },
+  {
+   "id": "dcdfe18a-e5a8-4ffc-ac21-3de4accd12e2",
+   "customer_id": "c5ae3850-4cd6-4c8b-9aa1-22a932f29ac1",
+   "company_id": "889ac2c6-b3b1-437e-836c-4ef5921d0ae2",
+   "project_id": null,
+   "title": "Quotation 072",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2720000,
+   "budget_max_cents": 5580000,
+   "target_cents": 3864000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.473568Z",
+   "updated_at": "2026-11-11T16:40:08.653650Z"
+  },
+  {
+   "id": "df7f05f7-7dc5-41e3-b285-148d61385bf9",
+   "customer_id": "31081735-ca79-4ce0-b6c1-556971523b0d",
+   "company_id": "cf6891d2-97e4-4d75-8991-ae63c701de97",
+   "project_id": null,
+   "title": "Quotation 016",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2160000,
+   "budget_max_cents": 4740000,
+   "target_cents": 3192000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.373543Z",
+   "updated_at": "2026-11-11T16:40:08.552494Z"
+  },
+  {
+   "id": "e6b1ee93-d357-4c07-8968-b852bc70137b",
+   "customer_id": "f9826a93-06dd-4ce0-969b-70af97eefb14",
+   "company_id": "2c47c2d5-f94a-4d3d-8b06-996d4affbe6e",
+   "project_id": null,
+   "title": "Quotation 024",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2240000,
+   "budget_max_cents": 4860000,
+   "target_cents": 3288000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.387078Z",
+   "updated_at": "2026-11-11T16:40:08.568083Z"
+  },
+  {
+   "id": "e7bd1e3a-2f54-4b2e-96ff-05c2beb0b072",
+   "customer_id": "42b949f6-8a99-4314-8cb9-c5997999a16d",
+   "company_id": "3ef6739f-4818-415f-822d-a5f52e1b06d8",
+   "project_id": null,
+   "title": "Quotation 040",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2400000,
+   "budget_max_cents": 5100000,
+   "target_cents": 3480000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.416229Z",
+   "updated_at": "2026-11-11T16:40:08.596366Z"
+  },
+  {
+   "id": "edd2fb21-ca39-4bc0-b1cd-f704af4389f4",
+   "customer_id": "fa777dbc-05ec-4b40-9094-d9aca31c457d",
+   "company_id": "4b6e9897-16db-4912-8638-6fe2fca1b630",
+   "project_id": null,
+   "title": "Quotation 086",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2860000,
+   "budget_max_cents": 5790000,
+   "target_cents": 4032000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.497150Z",
+   "updated_at": "2026-11-11T16:40:08.678829Z"
+  },
+  {
+   "id": "f192a13f-1837-4157-b479-87307252e6c3",
+   "customer_id": "34f9a8b3-4152-480b-82b7-f05786e3862e",
+   "company_id": "5f2948a8-ac86-41c7-8094-e092d1e8e9d4",
+   "project_id": null,
+   "title": "Quotation 053",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2530000,
+   "budget_max_cents": 5295000,
+   "target_cents": 3636000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.439316Z",
+   "updated_at": "2026-11-11T16:40:08.619497Z"
+  },
+  {
+   "id": "f26e5179-45e3-461f-9d6b-101da261aec9",
+   "customer_id": "4d8bca71-5e31-4735-b30e-eed810cc5775",
+   "company_id": "213f6b0a-74da-402b-96bf-416d1e59218d",
+   "project_id": null,
+   "title": "Quotation 089",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2890000,
+   "budget_max_cents": 5835000,
+   "target_cents": 4068000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.502659Z",
+   "updated_at": "2026-11-11T16:40:08.685346Z"
+  },
+  {
+   "id": "f5b3b22d-d3f6-43da-a2db-8aafccd93fbb",
+   "customer_id": "fe94ac52-3a7f-4e73-b6d9-85f53a19f914",
+   "company_id": "c0adbd84-9aef-459c-93c9-9bc9deef42a6",
+   "project_id": null,
+   "title": "Quotation 055",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2550000,
+   "budget_max_cents": 5325000,
+   "target_cents": 3660000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.442348Z",
+   "updated_at": "2026-11-11T16:40:08.623594Z"
+  },
+  {
+   "id": "f78f6665-afdf-458b-b0df-4675887f0e38",
+   "customer_id": "855f7969-ae67-48e2-b940-cc44b15088ee",
+   "company_id": "a24f73a3-252c-4714-84df-8fb8cbf784f4",
+   "project_id": null,
+   "title": "Quotation 079",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2790000,
+   "budget_max_cents": 5685000,
+   "target_cents": 3948000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.485625Z",
+   "updated_at": "2026-11-11T16:40:08.666251Z"
+  },
+  {
+   "id": "ff698672-46c5-4dea-8205-68cb9be6b039",
+   "customer_id": "83702992-3714-4b38-ab19-de4a6678dc43",
+   "company_id": "046f9170-a6cf-4f6b-91b6-5353fd50f479",
+   "project_id": null,
+   "title": "Quotation 043",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2430000,
+   "budget_max_cents": 5145000,
+   "target_cents": 3516000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.420228Z",
+   "updated_at": "2026-11-11T16:40:08.602877Z"
+  },
+  {
+   "id": "ff8a6ea2-0f3a-4f90-b9d4-e4cdd8490187",
+   "customer_id": "acc2747a-dcac-49ba-8bf2-c2d1c4896695",
+   "company_id": "3d9354a2-4e2d-46fb-bc68-bb0b04d06f42",
+   "project_id": null,
+   "title": "Quotation 058",
+   "scope": "Whole flat, four rooms, move-in by next quarter.",
+   "budget_min_cents": 2580000,
+   "budget_max_cents": 5370000,
+   "target_cents": 3696000,
+   "state": "ANSWERED",
+   "counters": [],
+   "closed_reason": "",
+   "created_at": "2026-11-11T16:40:08.448413Z",
+   "updated_at": "2026-11-11T16:40:08.629104Z"
+  }
+ ]
+}

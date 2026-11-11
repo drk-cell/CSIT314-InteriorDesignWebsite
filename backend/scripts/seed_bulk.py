@@ -17,6 +17,7 @@ second run does not duplicate the data.
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import httpx
 
@@ -24,6 +25,7 @@ BASE = os.environ.get("DEMO_BASE", "http://127.0.0.1:8000/api")
 ADMIN_EMAIL = os.environ.get("APP_ADMIN_EMAIL", "admin@example.com")
 ADMIN_PASSWORD = os.environ.get("APP_ADMIN_PASSWORD", "change-me")
 PASSWORD = "passw0rd123"
+PUBLIC = Path(__file__).resolve().parents[2] / "frontend" / "public"
 
 DESIGNERS = 20
 CUSTOMERS = 100
@@ -99,8 +101,28 @@ def main() -> None:
             customers.append(login(client, email))
         print(f"customers: {len(customers)}")
 
+        # Analyse each photo once, then reuse the answer for every project that
+        # shows it. The tag search only works when the catalogue speaks the
+        # analyser's vocabulary.
+        analysed: dict[str, list[str]] = {}
+        for photo in PHOTOS:
+            path = PUBLIC / photo.lstrip("/")
+            if not path.is_file():
+                continue
+            response = client.post(
+                "/images/tags",
+                headers=auth(designers[0][0]),
+                files={"file": (path.name, path.read_bytes(), "image/jpeg")},
+                timeout=30.0,
+            )
+            if response.status_code == 200:
+                analysed[photo] = response.json().get("tags", [])
+        print(f"photos analysed: {len(analysed)}")
+
         for index in range(PROJECTS):
             token, _ = designers[index % DESIGNERS]
+            photo = PHOTOS[index % len(PHOTOS)]
+            tags = analysed.get(photo, ["warm palette"])
             response = client.post(
                 "/projects",
                 headers=auth(token),
@@ -111,8 +133,8 @@ def main() -> None:
                     "style": styles[index % len(styles)],
                     "budget_min": 15_000 + index * 500,
                     "budget_max": 45_000 + index * 900,
-                    "images": [PHOTOS[index % len(PHOTOS)]],
-                    "tags": ["warm palette", styles[index % len(styles)].lower()],
+                    "images": [photo],
+                    "tags": tags[:12],
                 },
             )
             response.raise_for_status()
