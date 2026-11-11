@@ -6,6 +6,7 @@ import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.api import (
     admin,
@@ -21,6 +22,7 @@ from app.api import (
     shortlist,
 )
 from app.api.deps import get_account_service
+from app.api.images import UPLOAD_ROOT
 from app.config import (
     APP_VERSION,
     get_bootstrap_admins,
@@ -76,6 +78,15 @@ def create_app() -> FastAPI:
     application.include_router(quotes.router, prefix=API_PREFIX)
     application.include_router(categories.router, prefix=API_PREFIX)
     application.include_router(reports.router, prefix=API_PREFIX)
+
+    # Project photos are kept on disk and served from the same origin as the API.
+    UPLOAD_ROOT.mkdir(parents=True, exist_ok=True)
+    application.mount(
+        "/uploads",
+        StaticFiles(directory=str(UPLOAD_ROOT)),
+        name="uploads",
+    )
+
     _bootstrap_administrators()
     return application
 

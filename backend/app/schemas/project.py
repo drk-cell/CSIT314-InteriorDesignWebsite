@@ -89,3 +89,11 @@ class TagSuggestionPublic(BaseModel):
     engine: str = ""
     subject: str = "room"
     objects: list[str] = Field(default_factory=list)
+
+
+class StoredImagePublic(BaseModel):
+    """A kept photo, addressed by the path the browser will ask for."""
+
+    url: str
+    width: int
+    height: int
