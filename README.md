@@ -52,6 +52,11 @@ It runs `seed_demo.py` and then `seed_bulk.py`, and ends with:
 this month: 125 accounts, 108 projects, 100 requests, 100 quotes
 ```
 
+`testing/acceptance/check_fresh_clone.py` then walks the seeded app end to end:
+it compares the live counts with the dump, signs in as all three roles, sends a
+request, answers it, accepts the quote, saves a project, approves a new designer
+and uploads a photo. Exit code 0 means every check passed.
+
 `testing/fixtures/video-environment.json` is a read-only dump of that dataset:
 125 accounts, 23 companies, 108 projects, 10 categories, 100 quote requests and
 the customer's 3 saved projects.
