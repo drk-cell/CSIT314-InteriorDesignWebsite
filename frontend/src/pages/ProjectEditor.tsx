@@ -223,10 +223,6 @@ export default function ProjectEditor() {
       }
 
       setQueue((previous) => [...previous, ...added]);
-      const extra = added.flatMap((item) => item.tags);
-      if (extra.length > 0) {
-        setTags((previous) => mergeTags(splitTags(previous), extra).join(', '));
-      }
       if (files.length > room) {
         warnings.push(`Only ${room} more photo${room === 1 ? '' : 's'} fitted, so the rest were skipped.`);
       }
@@ -243,18 +239,29 @@ export default function ProjectEditor() {
   }
 
   function removeImage(item: QueueItem) {
-    const keptByOthers = queue
-      .filter((other) => other.key !== item.key)
-      .flatMap((other) => other.tags.map((tag) => tag.toLowerCase()));
-
-    // A tag stays when another photo, or the designer, still wants it.
-    const kept = splitTags(tags).filter((tag) => {
-      const own = item.tags.some((entry) => entry.toLowerCase() === tag.toLowerCase());
-      return !own || keptByOthers.includes(tag.toLowerCase());
-    });
-
+    // The photo and its suggestions go. A tag the designer already clicked
+    // stays, because that was a decision, not a guess.
     setQueue((previous) => previous.filter((other) => other.key !== item.key));
-    setTags(kept.join(', '));
+  }
+
+  function takeTag(tag: string) {
+    setTags((previous) => mergeTags(splitTags(previous), [tag]).join(', '));
+  }
+
+  // Offered tags are the union of what the photos gave, minus what is already
+  // in the field. Nothing here is applied without a click.
+  const offered: string[] = [];
+  {
+    const chosen = new Set(splitTags(tags).map((tag) => tag.toLowerCase()));
+    const seen = new Set<string>();
+    for (const item of queue) {
+      for (const tag of item.tags) {
+        const key = tag.toLowerCase();
+        if (chosen.has(key) || seen.has(key)) continue;
+        seen.add(key);
+        offered.push(tag);
+      }
+    }
   }
 
   if (loading) {
@@ -397,10 +404,29 @@ export default function ProjectEditor() {
               )}
             </div>
             <p className="hint">
-              Up to {MAX_IMAGES} photos. Each photo adds its tags to the field
-              below. Remove a photo to remove the tags it added.
+              Up to {MAX_IMAGES} photos. Each photo suggests tags below. You
+              choose which ones to keep.
             </p>
           </div>
+
+          {offered.length > 0 && (
+            <div className="field">
+              <label>Suggested from your photos</label>
+              <div className="tag-row">
+                {offered.map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    className="tag-chip"
+                    onClick={() => takeTag(tag)}
+                  >
+                    + {tag}
+                  </button>
+                ))}
+              </div>
+              <p className="hint">Click a tag to add it. Nothing is added for you.</p>
+            </div>
+          )}
 
           <div className="field">
             <label htmlFor="project-tags">Description tags</label>
