@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import sys
 from datetime import date
 from pathlib import Path
 
@@ -26,6 +27,10 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 DATA = json.loads((HERE / "codebook.json").read_text(encoding="utf-8"))
 OUT = HERE / "CSIT314-Code-Documentation.docx"
+SHOTS = HERE / "shots"
+
+sys.path.insert(0, str(HERE))
+from codebook_model import class_excerpt, function_excerpt, snippet_key  # noqa: E402
 
 INK = RGBColor(0x11, 0x18, 0x27)
 MUTED = RGBColor(0x6B, 0x72, 0x80)
@@ -66,8 +71,39 @@ def shade(paragraph, hex_fill: str) -> None:
     paragraph._p.get_or_add_pPr().append(shd)
 
 
-def code(doc, lines: list[str], caption: str) -> None:
-    """A code block: one paragraph per line, monospace, thin grey background."""
+MAX_PICTURE_W_MM = 174.0
+MAX_PICTURE_H_MM = 205.0
+
+
+def picture_width(path: Path) -> Mm:
+    """Fit the page width, but never taller than one page."""
+    from PIL import Image
+
+    with Image.open(path) as image:
+        width_px, height_px = image.size
+    width_mm = min(MAX_PICTURE_W_MM, MAX_PICTURE_H_MM * width_px / height_px)
+    return Mm(width_mm)
+
+
+def code(doc, lines: list[str], caption: str, key: str | None = None) -> None:
+    """A picture of the snippet when one exists, otherwise the text."""
+    if key:
+        single = SHOTS / f"{key}.png"
+        if single.exists():
+            pictures = [single]
+        else:
+            pictures = sorted(
+                SHOTS.glob(f"{key}-p*.png"),
+                key=lambda path: int(re.findall(r"-p(\d+)\.png$", path.name)[0]),
+            )
+        if pictures:
+            for path in pictures:
+                doc.add_picture(str(path), width=picture_width(path))
+                doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            spacer = doc.add_paragraph()
+            spacer.paragraph_format.space_after = Pt(6)
+            return
+
     label = doc.add_paragraph()
     label.paragraph_format.space_before = Pt(4)
     label.paragraph_format.space_after = Pt(1)
@@ -134,48 +170,6 @@ def line_label(item: dict) -> str:
 def short_label(item: dict) -> str:
     start, end = item.get("lines", [item.get("line", 0), item.get("line", 0)])
     return f"lines {start}–{end}"
-
-
-# ------------------------------------------------------------------- code excerpts
-def class_excerpt(item: dict, limit: int = 46) -> list[str]:
-    lines = source_of(item["file"])
-    start, end = item["lines"]
-    block = lines[start - 1 : end]
-    if len(block) <= limit:
-        return block
-
-    out: list[str] = [f"# {item['file']} — lines {start}–{end}, signatures only"]
-    out.extend(f"@{name.lstrip('@')}" for name in item.get("decorators", []))
-    bases = f"({', '.join(item['bases'])})" if item["bases"] else ""
-    out.append(f"class {item['name']}{bases}:")
-    if item["doc"]:
-        out.append(f'    """{item["doc"]}"""')
-    for field in item.get("fields", []):
-        text = f"    {field['name']}: {field['type']}"
-        if field["default"]:
-            text += f" = {field['default'][:40]}"
-        out.append(text)
-    if item.get("fields"):
-        out.append("")
-    for method in item.get("methods", []):
-        for name in method.get("decorators", []):
-            out.append(f"    {name}")
-        out.append(f"    {method['signature']}")
-        if method.get("doc"):
-            out.append(f'        """{method["doc"]}"""')
-    return out
-
-
-def function_excerpt(item: dict, limit: int = 26) -> list[str]:
-    lines = source_of(item["file"])
-    start, end = item["lines"]
-    block = lines[start - 1 : end]
-    if len(block) <= limit:
-        return block
-    out = [f"# {item['file']} — lines {start}–{end}, first 20 lines of {len(block)}"]
-    out.extend(block[:20])
-    out.append("    ...")
-    return out
 
 
 # ------------------------------------------------------------------- typed helpers
@@ -367,7 +361,7 @@ def entity_section(doc) -> None:
                 start, end = method.get("lines", [0, 0])
                 rows.append([method["signature"], method.get("doc", ""), f"{start}–{end}"])
             table(doc, ["Method", "Purpose", "Lines"], rows, [88, 56, 20], size=7.5)
-        code(doc, class_excerpt(item), short_label(item))
+        code(doc, class_excerpt(item), short_label(item), key=snippet_key("entity", item))
 
 
 def layer_section(doc, number: str, title: str, folder: str, intro: str, excerpt_limit: int) -> None:
@@ -391,9 +385,14 @@ def layer_section(doc, number: str, title: str, folder: str, intro: str, excerpt
                     start, end = method.get("lines", [0, 0])
                     rows.append([method["signature"], method.get("doc", ""), f"{start}–{end}"])
                 table(doc, ["Method", "Purpose", "Lines"], rows, [88, 56, 20], size=7.5)
-            code(doc, class_excerpt(item), short_label(item))
+            code(doc, class_excerpt(item), short_label(item), key=snippet_key(folder, item))
         else:
-            code(doc, function_excerpt(item, limit=excerpt_limit), short_label(item))
+            code(
+                doc,
+                function_excerpt(item, limit=excerpt_limit),
+                short_label(item),
+                key=snippet_key(folder, item),
+            )
 
 
 def schema_section(doc) -> None:
@@ -419,16 +418,13 @@ def schema_section(doc) -> None:
         "shapes and add the enum values the browser needs.",
         9.5,
     )
-    code(
-        doc,
-        [f"// frontend/src/types.ts · lines 1–{len(source_of('frontend/src/types.ts'))}",
-         "export type Role = 'CUSTOMER' | 'DESIGNER' | 'ADMIN';"]
-        + [
-            f"export interface {name} {{ ... }}"
-            for name in re.findall(r"export interface (\w+)", "\n".join(source_of("frontend/src/types.ts")))
-        ],
-        "frontend/src/types.ts — the interfaces the API answers with",
-    )
+    type_lines = source_of("frontend/src/types.ts")
+    rows = []
+    for number, text in enumerate(type_lines, start=1):
+        match = re.match(r"export (interface|type) (\w+)", text)
+        if match:
+            rows.append([match.group(1), match.group(2), f"frontend/src/types.ts:{number}"])
+    table(doc, ["Kind", "Name", "Where"], rows, [26, 70, 70], size=8)
 
 
 def boundary_section(doc) -> None:
@@ -445,9 +441,9 @@ def boundary_section(doc) -> None:
     if routes:
         table(
             doc,
-            ["Route", "Component"],
-            [[row["path"], row["component"]] for row in routes],
-            [80, 60],
+            ["Route", "Component", "Who may open it"],
+            [[row["path"], row["component"], row.get("roles", "any")] for row in routes],
+            [54, 60, 56],
         )
 
     pages = [row for row in DATA["frontend"] if row["kind"] == "component"]
@@ -477,17 +473,32 @@ def boundary_section(doc) -> None:
     pages.sort(key=lambda row: order.index(row["name"]) if row["name"] in order else 99)
     for index, page in enumerate(pages, start=1):
         heading(doc, f"7.{index}  {page['name']}", 2)
+        doc.paragraphs[-1].paragraph_format.keep_with_next = True
         label = f"{page['file']}  ·  line {page['line']}"
         body(doc, label, 8.5)
+        doc.paragraphs[-1].paragraph_format.keep_with_next = True
+
+        lines = source_of(page["file"])
+        start = page["line"]
+        code(
+            doc,
+            lines[start - 1 : start + min(28, len(lines) - start + 1)],
+            f"from line {start} · first 28 lines",
+            key=snippet_key("page", page),
+        )
+
         if page.get("api"):
-            body(doc, "Calls: " + ", ".join(page["api"]) + ".", 9)
+            calls = [name for name in page["api"] if name[:1].islower()]
+            if calls:
+                body(doc, "Calls: " + ", ".join(calls) + ".", 9)
+            else:
+                body(doc, "Calls: no endpoint directly; it composes other components.", 9)
         else:
             body(doc, "Calls: no endpoint directly; it composes other components.", 9)
         hooks = page.get("hooks") or []
         if hooks:
             body(doc, "React hooks: " + ", ".join("use" + hook for hook in hooks) + ".", 9)
 
-        lines = source_of(page["file"])
         # handlers declared inside the page: async functions and handle* names
         handlers = [
             (number, text.strip())
@@ -502,12 +513,6 @@ def boundary_section(doc) -> None:
                 [120, 20],
                 size=7.5,
             )
-        start = page["line"]
-        code(
-            doc,
-            lines[start - 1 : start + min(28, len(lines) - start + 1)],
-            f"from line {start} · first 28 lines",
-        )
 
     heading(doc, "7.99  The API client", 2)
     body(doc, "frontend/src/api.ts · one function per endpoint, all of them typed.", 8.5)

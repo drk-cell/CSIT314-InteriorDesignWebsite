@@ -15,8 +15,16 @@ writes the document.
 
 The **[code documentation](docs/codebook/CSIT314-Code-Documentation.pdf)** lists every class
 and every function with its file and line range, grouped by BCE role, for the class diagram
-and the sequence diagrams. It is rebuilt by `docs/codebook/parse_code.py` and
-`docs/codebook/build_codebook.py`.
+and the sequence diagrams. Each entry shows a screenshot of the code from a VS Code window
+with the `dark-plus` theme. Rebuild it in this order:
+
+```bash
+python docs/codebook/parse_code.py          # ast walk -> codebook.json
+python docs/codebook/export_snippets.py     # -> render/snippets.json
+cd docs/codebook/render && npm i && node render_snippets.mjs snippets.json snippets.html
+cd .. && python shoot_snippets.py           # -> shots/*.png
+python build_codebook.py                    # -> DOCX, then Word exports the PDF
+```
 
 | File | Purpose |
 |---|---|

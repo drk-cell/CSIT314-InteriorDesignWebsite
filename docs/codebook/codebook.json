@@ -7668,19 +7668,98 @@
  "routes": [
   {
    "path": "/",
-   "component": "Home"
+   "component": "Home",
+   "roles": "any"
   },
   {
    "path": "/login",
-   "component": "Login"
+   "component": "Login",
+   "roles": "any"
   },
   {
    "path": "/register",
-   "component": "Register"
+   "component": "Register",
+   "roles": "any"
+  },
+  {
+   "path": "/dashboard",
+   "component": "Dashboard",
+   "roles": "signed in"
+  },
+  {
+   "path": "/search",
+   "component": "Search",
+   "roles": "signed in"
+  },
+  {
+   "path": "/designers",
+   "component": "Designers",
+   "roles": "signed in"
+  },
+  {
+   "path": "/designers/:companyId",
+   "component": "DesignerDetail",
+   "roles": "signed in"
+  },
+  {
+   "path": "/profile",
+   "component": "Profile",
+   "roles": "DESIGNER"
+  },
+  {
+   "path": "/admin",
+   "component": "Admin",
+   "roles": "ADMIN"
+  },
+  {
+   "path": "/projects/new",
+   "component": "ProjectEditor",
+   "roles": "DESIGNER"
+  },
+  {
+   "path": "/projects/:projectId/edit",
+   "component": "ProjectEditor",
+   "roles": "DESIGNER"
+  },
+  {
+   "path": "/projects/:projectId",
+   "component": "ProjectDetail",
+   "roles": "signed in"
+  },
+  {
+   "path": "/saved",
+   "component": "Saved",
+   "roles": "CUSTOMER"
+  },
+  {
+   "path": "/projects",
+   "component": "MyProjects",
+   "roles": "DESIGNER"
+  },
+  {
+   "path": "/quotes/new/:companyId",
+   "component": "RequestQuote",
+   "roles": "CUSTOMER"
+  },
+  {
+   "path": "/quotes/:requestId",
+   "component": "QuoteDetail",
+   "roles": "signed in"
+  },
+  {
+   "path": "/quotes",
+   "component": "Quotes",
+   "roles": "signed in"
+  },
+  {
+   "path": "/platform",
+   "component": "Platform",
+   "roles": "ADMIN, PLATFORM_MANAGER"
   },
   {
    "path": "*",
-   "component": "Navigate"
+   "component": "redirect",
+   "roles": "any"
   }
  ],
  "counts": {

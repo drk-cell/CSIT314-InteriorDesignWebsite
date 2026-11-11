@@ -147,6 +147,52 @@ COMPONENT_RE = re.compile(r"export\s+(?:default\s+)?function\s+([A-Z]\w*)\s*\(")
 ROUTE_RE = re.compile(r'<Route\s+path="([^"]+)"\s+element=\{<(\w+)')
 
 
+def parse_routes(text: str) -> list[dict]:
+    """Routes are written over several lines, with a ProtectedRoute in between."""
+    lines = text.splitlines()
+    routes: list[dict] = []
+    for index, line in enumerate(lines):
+        if not re.search(r"<Route(\s|>|$)", line):
+            continue
+        window = [line]
+        if not line.strip().endswith("/>"):
+            for row in lines[index + 1 : index + 12]:
+                if re.search(r"<Route(\s|>|$)", row):
+                    break
+                window.append(row)
+                if "</Route>" in row or row.strip().endswith("/>"):
+                    break
+        path = component = roles = None
+        for row in window:
+            if path is None:
+                match = re.search(r'path="([^"]+)"', row)
+                if match:
+                    path = match.group(1)
+            if roles is None:
+                match = re.search(r"roles=\{\[([^\]]*)\]\}", row)
+                if match:
+                    roles = ", ".join(
+                        part.strip().strip("'\"") for part in match.group(1).split(",") if part.strip()
+                    )
+            for match in re.finditer(r"<([A-Z]\w+)\s*/>", row):
+                name = match.group(1)
+                if name not in {"ProtectedRoute", "Navigate"}:
+                    component = name
+                    break
+            if path and component:
+                break
+        if path:
+            guarded = any("ProtectedRoute" in row for row in window)
+            routes.append(
+                {
+                    "path": path,
+                    "component": component or "redirect",
+                    "roles": roles or ("signed in" if guarded else "any"),
+                }
+            )
+    return routes
+
+
 def layer_for(relative: str) -> str:
     name = relative.rsplit("/", 1)[-1]
     if name == "api.ts":
@@ -219,10 +265,7 @@ def parse_frontend() -> list[dict]:
 
 def main() -> int:
     app_tsx = (FRONTEND / "App.tsx").read_text(encoding="utf-8")
-    routes = [
-        {"path": path, "component": component}
-        for path, component in ROUTE_RE.findall(app_tsx)
-    ]
+    routes = parse_routes(app_tsx)
 
     data = {
         "backend": parse_backend(),
