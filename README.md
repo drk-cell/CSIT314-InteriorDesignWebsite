@@ -241,9 +241,9 @@ numbered plan above.
 
 E3 follows the reference class diagram: `ConsultationBookingPage` is
 `frontend/src/pages/BookConsultation.tsx`, `ConsultationService` is
-`backend/app/services/appointment_service.py`, `ConsultationAppointment` is
+`backend/app/services/consultation_service.py`, `ConsultationAppointment` is
 `backend/app/domain/appointment.py`, and `ConsultationAppointmentRepository` is
-`backend/app/repositories/appointment_repository.py`. A day holds nine hours
+`backend/app/repositories/consultation_appointment_repository.py`.
 (09:00 to 17:00), the diary looks 14 days ahead, and one company holds a slot
 once. A booking is either in person at the company's meeting address or an
 online call on its call link; the place is copied into the appointment, so a

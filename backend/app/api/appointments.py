@@ -7,7 +7,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status as http_status
 
-from app.api.deps import get_appointment_service, get_current_account
+from app.api.deps import get_consultation_service, get_current_account
 from app.domain.account import Account
 from app.domain.enums import AppointmentState, ConsultationMode, Role
 from app.domain.errors import (
@@ -17,11 +17,11 @@ from app.domain.errors import (
     NotPermitted,
 )
 from app.schemas.appointment import AppointmentPublic, BookRequest, SlotsPublic
-from app.services.appointment_service import AppointmentService
+from app.services.consultation_service import ConsultationService
 
 router = APIRouter(prefix="/appointments", tags=["appointments"])
 
-ServiceDep = Annotated[AppointmentService, Depends(get_appointment_service)]
+ServiceDep = Annotated[ConsultationService, Depends(get_consultation_service)]
 CurrentAccountDep = Annotated[Account, Depends(get_current_account)]
 
 
@@ -43,7 +43,7 @@ def _fail(exc: Exception) -> HTTPException:
 
 
 def _public(
-    service: AppointmentService, appointment, actor: Account
+    service: ConsultationService, appointment, actor: Account
 ) -> AppointmentPublic:
     """Return one appointment with the customer's name and the visible place.
 

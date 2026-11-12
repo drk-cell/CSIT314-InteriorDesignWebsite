@@ -33,16 +33,16 @@ from app.domain.errors import (
     NotPermitted,
 )
 from app.repositories.account_repository import AccountRepository
-from app.repositories.appointment_repository import AppointmentRepository
+from app.repositories.consultation_appointment_repository import ConsultationAppointmentRepository
 from app.repositories.company_repository import CompanyRepository
 
 
-class AppointmentService:
+class ConsultationService:
     """Applies the booking rules on top of the three stores."""
 
     def __init__(
         self,
-        appointments: AppointmentRepository,
+        appointments: ConsultationAppointmentRepository,
         companies: CompanyRepository,
         accounts: AccountRepository,
     ) -> None:

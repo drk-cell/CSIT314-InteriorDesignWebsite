@@ -7,25 +7,25 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status as http_status
 
 from app.api.deps import (
-    get_appointment_service,
+    get_consultation_service,
     get_company_service,
     get_current_account,
 )
 from app.domain.account import Account
 from app.domain.errors import CompanyAlreadyExists, CompanyNotFound, NotPermitted
 from app.schemas.company import CompanyCreate, CompanyPublic, CompanyUpdate
-from app.services.appointment_service import AppointmentService
+from app.services.consultation_service import ConsultationService
 from app.services.company_service import CompanyService
 
 router = APIRouter(prefix="/companies", tags=["companies"])
 
 ServiceDep = Annotated[CompanyService, Depends(get_company_service)]
-AppointmentsDep = Annotated[AppointmentService, Depends(get_appointment_service)]
+AppointmentsDep = Annotated[ConsultationService, Depends(get_consultation_service)]
 CurrentAccountDep = Annotated[Account, Depends(get_current_account)]
 
 
 def _public(
-    company, actor: Account, appointments: AppointmentService
+    company, actor: Account, appointments: ConsultationService
 ) -> CompanyPublic:
     """Return the public view, holding back the call link until it is earned."""
     public = CompanyPublic.model_validate(company)

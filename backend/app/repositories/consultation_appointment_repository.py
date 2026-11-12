@@ -9,7 +9,7 @@ from app.domain.appointment import ConsultationAppointment
 from app.domain.enums import AppointmentState
 
 
-class AppointmentRepository:
+class ConsultationAppointmentRepository:
     """Keeps every appointment in process memory, keyed by id."""
 
     def __init__(self) -> None:

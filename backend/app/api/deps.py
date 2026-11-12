@@ -17,7 +17,7 @@ from app.domain.enums import AccountStatus
 from app.domain.errors import inactive_message
 from app.repositories.category_repository import CategoryRepository
 from app.repositories.account_repository import AccountRepository
-from app.repositories.appointment_repository import AppointmentRepository
+from app.repositories.consultation_appointment_repository import ConsultationAppointmentRepository
 from app.repositories.company_repository import CompanyRepository
 from app.repositories.project_repository import ProjectRepository
 from app.repositories.quote_repository import QuoteRepository, QuoteRequestRepository
@@ -25,7 +25,7 @@ from app.repositories.report_repository import ReportRepository
 from app.repositories.shortlist_repository import ShortlistRepository
 from app.security import decode_access_token
 from app.services.account_service import AccountService
-from app.services.appointment_service import AppointmentService
+from app.services.consultation_service import ConsultationService
 from app.services.category_service import CategoryService
 from app.services.company_service import CompanyService
 from app.services.project_report_service import ProjectReportService
@@ -43,7 +43,7 @@ _project_repository = ProjectRepository()
 _shortlist_repository = ShortlistRepository()
 _quote_request_repository = QuoteRequestRepository()
 _quote_repository = QuoteRepository()
-_appointment_repository = AppointmentRepository()
+_consultation_appointment_repository = ConsultationAppointmentRepository()
 _report_repository = ReportRepository()
 _bearer_scheme = HTTPBearer(auto_error=False)
 
@@ -113,15 +113,15 @@ def get_quote_service() -> QuoteService:
     )
 
 
-def get_appointment_repository() -> AppointmentRepository:
+def get_consultation_appointment_repository() -> ConsultationAppointmentRepository:
     """Return the process wide appointment store."""
-    return _appointment_repository
+    return _consultation_appointment_repository
 
 
-def get_appointment_service() -> AppointmentService:
+def get_consultation_service() -> ConsultationService:
     """Return a service bound to the appointment, company and account stores."""
-    return AppointmentService(
-        get_appointment_repository(),
+    return ConsultationService(
+        get_consultation_appointment_repository(),
         get_company_repository(),
         get_account_repository(),
     )
