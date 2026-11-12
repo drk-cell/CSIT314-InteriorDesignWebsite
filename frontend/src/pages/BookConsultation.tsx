@@ -57,7 +57,7 @@ export default function BookConsultation() {
   }, [companyId]);
 
   const hasAddress = company !== null && company.meeting_address !== '';
-  const hasLink = company !== null && company.call_link !== '';
+  const hasLink = company !== null && company.offers_online;
 
   useEffect(() => {
     if (company === null) return;
@@ -131,8 +131,11 @@ export default function BookConsultation() {
             .
           </p>
           <p className="muted">
-            {booked.mode === 'ONLINE' ? 'Video call' : 'In person'} at{' '}
-            {booked.location}.
+            {booked.mode === 'ONLINE'
+              ? booked.location === ''
+                ? 'Video call. The link appears in Appointments once the designer accepts.'
+                : `Video call at ${booked.location}.`
+              : `In person at ${booked.location}.`}
           </p>
           <p className="muted">
             The designer sees your booking and confirms it. You can cancel it from
@@ -201,7 +204,7 @@ export default function BookConsultation() {
                 ? `Meet at ${company?.meeting_address}.`
                 : 'This designer has not set a meeting address yet.'
               : hasLink
-                ? `The call link is ${company?.call_link}.`
+                ? 'The call link is shared when the designer accepts your booking.'
                 : 'This designer has not set a call link yet.'}
           </p>
         </div>

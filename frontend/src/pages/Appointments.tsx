@@ -137,7 +137,9 @@ export default function Appointments() {
                       {entry.mode === 'ONLINE' ? 'Video call' : 'In person'}
                     </span>
                     <br />
-                    {entry.location.startsWith('http') ? (
+                    {entry.location === '' ? (
+                      <span className="muted">Shared after the designer accepts</span>
+                    ) : entry.location.startsWith('http') ? (
                       <a href={entry.location} target="_blank" rel="noreferrer">
                         {entry.location}
                       </a>

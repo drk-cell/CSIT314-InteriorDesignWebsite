@@ -20,7 +20,12 @@ from app.domain.appointment import (
     ConsultationAppointment,
     is_bookable_date,
 )
-from app.domain.enums import AppointmentState, ConsultationMode, Role
+from app.domain.enums import (
+    PRIVILEGED_ROLES,
+    AppointmentState,
+    ConsultationMode,
+    Role,
+)
 from app.domain.errors import (
     AppointmentNotFound,
     CompanyNotFound,
@@ -135,6 +140,26 @@ class AppointmentService:
         return appointment
 
     # --- reading ----------------------------------------------------------
+
+    def may_read_call_link(self, actor: Account, company_id: str) -> bool:
+        """Return ``True`` when the caller may see the video room address.
+
+        The owner and platform staff always may. A customer may once the
+        company has accepted one of their bookings: before that the room is
+        not theirs to join.
+        """
+        if actor.role in PRIVILEGED_ROLES:
+            return True
+        if actor.role is Role.DESIGNER:
+            company = self._companies.get_by_owner(actor.id)
+            return company is not None and company.id == company_id
+        if actor.role is Role.CUSTOMER:
+            return any(
+                entry.company_id == company_id
+                and entry.state is AppointmentState.ACCEPTED
+                for entry in self._appointments.list_by_customer(actor.id)
+            )
+        return False
 
     def customer_name(self, appointment: ConsultationAppointment) -> str:
         """Return the customer's display name for the designer's list."""

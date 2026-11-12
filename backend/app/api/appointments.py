@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status as http_sta
 
 from app.api.deps import get_appointment_service, get_current_account
 from app.domain.account import Account
+from app.domain.enums import AppointmentState, ConsultationMode, Role
 from app.domain.errors import (
     AppointmentNotFound,
     CompanyNotFound,
@@ -42,11 +43,21 @@ def _fail(exc: Exception) -> HTTPException:
 
 
 def _public(
-    service: AppointmentService, appointment
+    service: AppointmentService, appointment, actor: Account
 ) -> AppointmentPublic:
-    """Return one appointment with the customer's name filled in."""
+    """Return one appointment with the customer's name and the visible place.
+
+    A customer does not see the room address of an online booking until the
+    designer accepts it. The designer always sees it.
+    """
     public = AppointmentPublic.model_validate(appointment)
     public.customer_name = service.customer_name(appointment)
+    if (
+        actor.role is Role.CUSTOMER
+        and appointment.mode is ConsultationMode.ONLINE
+        and appointment.state is not AppointmentState.ACCEPTED
+    ):
+        public.location = ""
     return public
 
 
@@ -92,7 +103,7 @@ def book(
         )
     except (NotPermitted, CompanyNotFound, InvalidState, ValueError) as exc:
         raise _fail(exc) from exc
-    return _public(service, appointment)
+    return _public(service, appointment, actor)
 
 
 @router.get(
@@ -111,7 +122,7 @@ def list_appointments(
             appointments = service.list_for_designer(actor)
     except (NotPermitted, CompanyNotFound) as exc:
         raise _fail(exc) from exc
-    return [_public(service, entry) for entry in appointments]
+    return [_public(service, entry, actor) for entry in appointments]
 
 
 @router.post(
@@ -127,7 +138,7 @@ def accept_appointment(
         appointment = service.accept(actor, appointment_id)
     except (AppointmentNotFound, NotPermitted, CompanyNotFound, InvalidState) as exc:
         raise _fail(exc) from exc
-    return _public(service, appointment)
+    return _public(service, appointment, actor)
 
 
 @router.post(
@@ -143,4 +154,4 @@ def cancel_appointment(
         appointment = service.cancel(actor, appointment_id)
     except (AppointmentNotFound, NotPermitted, InvalidState) as exc:
         raise _fail(exc) from exc
-    return _public(service, appointment)
+    return _public(service, appointment, actor)

@@ -359,14 +359,54 @@ def test_a_customer_reads_only_their_own_bookings(client: TestClient) -> None:
 # --- in person or on a call ------------------------------------------------
 
 
-def test_an_online_booking_keeps_the_call_link(client: TestClient) -> None:
+def test_an_online_booking_hides_the_link_until_accepted(
+    client: TestClient,
+) -> None:
     owner = designer(client)
     casey = customer(client)
     response = book(client, casey, owner["company_id"], mode="ONLINE")
     assert response.status_code == 201, response.text
     body = response.json()
     assert body["mode"] == "ONLINE"
-    assert body["location"] == "https://meet.example.com/studio"
+    assert body["location"] == ""
+    seen_by_designer = client.get("/api/appointments", headers=owner).json()
+    assert seen_by_designer[0]["location"] == "https://meet.example.com/studio"
+
+
+def test_accepting_an_online_booking_reveals_the_link(client: TestClient) -> None:
+    owner = designer(client)
+    casey = customer(client)
+    created = book(client, casey, owner["company_id"], mode="ONLINE").json()
+    client.post(f"/api/appointments/{created['id']}/accept", headers=owner)
+    rows = client.get("/api/appointments", headers=casey).json()
+    assert rows[0]["location"] == "https://meet.example.com/studio"
+
+
+def test_a_customer_reads_no_call_link_on_the_profile(client: TestClient) -> None:
+    owner = designer(client)
+    casey = customer(client)
+    listing = client.get("/api/companies", headers=casey).json()
+    studio = next(row for row in listing if row["id"] == owner["company_id"])
+    assert studio["call_link"] == ""
+    assert studio["offers_online"] is True
+    assert studio["meeting_address"] == "12 Orchard Road, Singapore"
+    single = client.get(f"/api/companies/{owner['company_id']}", headers=casey).json()
+    assert single["call_link"] == ""
+
+
+def test_the_owner_reads_the_call_link(client: TestClient) -> None:
+    owner = designer(client)
+    body = client.get("/api/companies/me", headers=owner).json()
+    assert body["call_link"] == "https://meet.example.com/studio"
+
+
+def test_an_accepted_booking_reveals_the_call_link(client: TestClient) -> None:
+    owner = designer(client)
+    casey = customer(client)
+    created = book(client, casey, owner["company_id"], mode="ONLINE").json()
+    client.post(f"/api/appointments/{created['id']}/accept", headers=owner)
+    single = client.get(f"/api/companies/{owner['company_id']}", headers=casey).json()
+    assert single["call_link"] == "https://meet.example.com/studio"
 
 
 def test_in_person_needs_a_meeting_place(client: TestClient) -> None:

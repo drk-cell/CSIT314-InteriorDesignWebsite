@@ -246,10 +246,12 @@ E3 follows the reference class diagram: `ConsultationBookingPage` is
 (09:00 to 17:00), the diary looks 14 days ahead, and one company holds a slot
 once. A booking is either in person at the company's meeting address or an
 online call on its call link; the place is copied into the appointment, so a
-later profile change does not move an existing booking. The designer accepts a
-pending booking, or either party cancels it. The inbox is the notification:
-there is no mail server, so the appointment carries `notified_at` instead of a
-fake email.
+later profile change does not move an existing booking. The call link is not
+public: a customer reads it only after the designer accepts an online booking,
+and a pending booking shows "shared after the designer accepts" instead. The
+designer accepts a pending booking, or either party cancels it. The inbox is the
+notification: there is no mail server, so the appointment carries `notified_at`
+instead of a fake email.
 
 The tag analyser is measured, not assumed. `backend/scripts/evaluate_tags.py`
 runs it over COCO val 2017 and checks every tag against the annotation. On 500

@@ -105,6 +105,14 @@ export default function DesignerDetail() {
               </dd>
             </div>
           )}
+          {company.offers_online && company.call_link === '' && (
+            <div>
+              <dt>Video call</dt>
+              <dd className="muted">
+                The link is shared after your booking is confirmed.
+              </dd>
+            </div>
+          )}
           <div>
             <dt>Profile updated</dt>
             <dd>{new Date(company.updated_at).toLocaleDateString()}</dd>

@@ -21,6 +21,7 @@ class CompanyPublic(BaseModel):
     location: str
     meeting_address: str
     call_link: str
+    offers_online: bool
     logo_url: str
     created_at: datetime
     updated_at: datetime

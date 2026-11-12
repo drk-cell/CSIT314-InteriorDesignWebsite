@@ -30,6 +30,7 @@ export interface CompanyPublic {
   location: string;
   meeting_address: string;
   call_link: string;
+  offers_online: boolean;
   logo_url: string;
   created_at: string;
   updated_at: string;

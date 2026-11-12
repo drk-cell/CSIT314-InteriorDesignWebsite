@@ -112,6 +112,15 @@ class Company:
         """Return the address a consultation uses, or the call link."""
         return self.call_link if online else self.meeting_address
 
+    @property
+    def offers_online(self) -> bool:
+        """Return ``True`` when this company can take video calls.
+
+        The flag is public even when the link itself is not, so a booking page
+        can offer the choice without showing the room address.
+        """
+        return self.call_link != ""
+
     def is_owned_by(self, account_id: str) -> bool:
         """Return ``True`` when ``account_id`` is the designer behind this company."""
         return self.owner_id == account_id
