@@ -192,6 +192,18 @@
   "offset": 53
  },
  {
+  "key": "entity-AppointmentState-64",
+  "name": "AppointmentState",
+  "file": "backend/app/domain/enums.py",
+  "start": 64,
+  "end": 69,
+  "lang": "python",
+  "code": "class AppointmentState(str, Enum):\n    \"\"\"Where one consultation booking sits.\"\"\"\n\n    PENDING = \"PENDING\"\n    ACCEPTED = \"ACCEPTED\"\n    CANCELLED = \"CANCELLED\"",
+  "part": 1,
+  "parts": 1,
+  "offset": 63
+ },
+ {
   "key": "entity-DomainError-12",
   "name": "DomainError",
   "file": "backend/app/domain/errors.py",
@@ -348,16 +360,40 @@
   "offset": 100
  },
  {
-  "key": "entity-InvalidState-107",
-  "name": "InvalidState",
+  "key": "entity-AppointmentNotFound-107",
+  "name": "AppointmentNotFound",
   "file": "backend/app/domain/errors.py",
   "start": 107,
   "end": 110,
   "lang": "python",
-  "code": "class InvalidState(DomainError):\n    \"\"\"The record is in a state that does not allow this action.\"\"\"\n\n    default_message = \"The record is not in a state that allows this action\"",
+  "code": "class AppointmentNotFound(DomainError):\n    \"\"\"No consultation appointment matches the request.\"\"\"\n\n    default_message = \"Appointment not found\"",
   "part": 1,
   "parts": 1,
   "offset": 106
+ },
+ {
+  "key": "entity-InvalidState-113",
+  "name": "InvalidState",
+  "file": "backend/app/domain/errors.py",
+  "start": 113,
+  "end": 116,
+  "lang": "python",
+  "code": "class InvalidState(DomainError):\n    \"\"\"The record is in a state that does not allow this action.\"\"\"\n\n    default_message = \"The record is not in a state that allows this action\"",
+  "part": 1,
+  "parts": 1,
+  "offset": 112
+ },
+ {
+  "key": "entity-ConsultationAppointment-55",
+  "name": "ConsultationAppointment",
+  "file": "backend/app/domain/appointment.py",
+  "start": 55,
+  "end": 117,
+  "lang": "python",
+  "code": "# backend/app/domain/appointment.py — lines 55–117, signatures only\n@dataclass\nclass ConsultationAppointment:\n    \"\"\"One slot a customer asked a designer to keep.\"\"\"\n    customer_id: str\n    company_id: str\n    appointment_date: date\n    appointment_time: str\n    requirements: str = ''\n    state: AppointmentState = AppointmentState.PENDING\n    notified_at: datetime | None = None\n    created_at: datetime = field(default_factory=_now)\n    updated_at: datetime | None = None\n    id: str = field(default_factory=lambda: str(uuid4()))\n\n    def __post_init__() -> None\n        \"\"\"Check the identifiers, the slot and the day.\"\"\"\n    @property\n    def is_open() -> bool\n        \"\"\"Return ``True`` while the slot still blocks the diary.\"\"\"\n    def is_pending() -> bool\n        \"\"\"Return ``True`` until the designer answers.\"\"\"\n    def accept() -> None\n        \"\"\"The designer confirms the slot.\"\"\"\n    def cancel() -> None\n        \"\"\"Either party gives the slot back.\"\"\"\n    def mark_notified() -> None\n        \"\"\"Record that the designer was told about the new booking.\"\"\"\n    def _touch() -> None",
+  "part": 1,
+  "parts": 1,
+  "offset": 0
  },
  {
   "key": "repositories-AccountRepository-10",
@@ -367,6 +403,18 @@
   "end": 59,
   "lang": "python",
   "code": "# backend/app/repositories/account_repository.py — lines 10–59, signatures only\nclass AccountRepository:\n    \"\"\"Keeps every account in process memory.\"\"\"\n    def __init__() -> None\n    def add(account: Account) -> bool\n        \"\"\"Store ``account`` unless its email is already taken.\"\"\"\n    def get(account_id: str) -> Account | None\n        \"\"\"Return the account with ``account_id``, or ``None``.\"\"\"\n    def get_by_email(email: str) -> Account | None\n        \"\"\"Return the account registered under ``email``, or ``None``.\"\"\"\n    def list_all() -> list[Account]\n        \"\"\"Return every stored account.\"\"\"\n    def count() -> int\n        \"\"\"Return how many accounts are stored.\"\"\"\n    def clear() -> None\n        \"\"\"Remove every stored account.\"\"\"",
+  "part": 1,
+  "parts": 1,
+  "offset": 0
+ },
+ {
+  "key": "repositories-AppointmentRepository-12",
+  "name": "AppointmentRepository",
+  "file": "backend/app/repositories/appointment_repository.py",
+  "start": 12,
+  "end": 86,
+  "lang": "python",
+  "code": "# backend/app/repositories/appointment_repository.py — lines 12–86, signatures only\nclass AppointmentRepository:\n    \"\"\"Keeps every appointment in process memory, keyed by id.\"\"\"\n    def __init__() -> None\n    def add(appointment: ConsultationAppointment) -> bool\n        \"\"\"Store ``appointment`` unless its id is already present.\"\"\"\n    def add_if_free(appointment: ConsultationAppointment) -> bool\n        \"\"\"Store ``appointment`` only when the slot is still free.\"\"\"\n    def get(appointment_id: str) -> ConsultationAppointment | None\n        \"\"\"Return the appointment with ``appointment_id``, or ``None``.\"\"\"\n    def list_by_customer(customer_id: str) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments one customer booked.\"\"\"\n    def list_by_company(company_id: str) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments one company received.\"\"\"\n    def taken_times(company_id: str, day: date) -> set[str]\n        \"\"\"Return the times already held on one company's day.\"\"\"\n    def list_all() -> list[ConsultationAppointment]\n        \"\"\"Return every stored appointment.\"\"\"\n    def count() -> int\n        \"\"\"Return how many appointments are stored.\"\"\"\n    def clear() -> None\n        \"\"\"Remove every stored appointment.\"\"\"",
   "part": 1,
   "parts": 1,
   "offset": 0
@@ -451,6 +499,18 @@
   "end": 141,
   "lang": "python",
   "code": "# backend/app/services/account_service.py — lines 31–141, signatures only\nclass AccountService:\n    \"\"\"Applies account business rules on top of the repository.\"\"\"\n    def __init__(repository: AccountRepository) -> None\n    def register(email: str, password: str, display_name: str, role: Role) -> Account\n        \"\"\"Create an account and store it.\"\"\"\n    def authenticate(email: str, password: str) -> Account\n        \"\"\"Return the account matching ``email`` and ``password``.\"\"\"\n    def get(account_id: str) -> Account | None\n        \"\"\"Return the account with ``account_id``, or ``None``.\"\"\"\n    def list_accounts(actor: Account, status: AccountStatus | None = None) -> list[Account]\n        \"\"\"Return accounts for an administrator, newest first.\"\"\"\n    def approve(actor: Account, account_id: str) -> Account\n        \"\"\"Activate an account so it may sign in.\"\"\"\n    def suspend(actor: Account, account_id: str) -> Account\n        \"\"\"Suspend an account so it cannot sign in again.\"\"\"\n    def ensure_staff_account(email: str, password: str, display_name: str, role: Role) -> Account | None\n        \"\"\"Create a staff account when the address is free.\"\"\"\n    @staticmethod\n    def _require_admin(actor: Account) -> None\n    def _require_target(actor: Account, account_id: str) -> Account\n    @staticmethod\n    def _require_self_registration_role(role: Role) -> None\n    @staticmethod\n    def _require_strong_password(password: str) -> None",
+  "part": 1,
+  "parts": 1,
+  "offset": 0
+ },
+ {
+  "key": "services-AppointmentService-35",
+  "name": "AppointmentService",
+  "file": "backend/app/services/appointment_service.py",
+  "start": 35,
+  "end": 187,
+  "lang": "python",
+  "code": "# backend/app/services/appointment_service.py — lines 35–187, signatures only\nclass AppointmentService:\n    \"\"\"Applies the booking rules on top of the three stores.\"\"\"\n    def __init__(appointments: AppointmentRepository, companies: CompanyRepository, accounts: AccountRepository) -> None\n    def available_slots(actor: Account, company_id: str, day: date) -> list[str]\n        \"\"\"Return the hours still free on one company's day.\"\"\"\n    def book(actor: Account, company_id: str, day: date, time: str, requirements: str = '') -> ConsultationAppointment\n        \"\"\"Keep one slot for one customer.\"\"\"\n    def list_for_customer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the caller's appointments, soonest first.\"\"\"\n    def cancel(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Return a slot to the diary. Either party may cancel.\"\"\"\n    def list_for_designer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments sent to the caller's company, soonest first.\"\"\"\n    def accept(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Confirm a pending appointment.\"\"\"\n    def customer_name(appointment: ConsultationAppointment) -> str\n        \"\"\"Return the customer's display name for the designer's list.\"\"\"\n    @staticmethod\n    def _cutoff(day: date) -> str\n        \"\"\"Return the clock time before which today's slots are gone.\"\"\"\n    @staticmethod\n    def _sorted(appointments: list[ConsultationAppointment]) -> list[ConsultationAppointment]\n    def _get(appointment_id: str) -> ConsultationAppointment\n    def _may_cancel(actor: Account, appointment: ConsultationAppointment) -> bool\n    def _company_of(actor: Account)\n    def _notify_designer(appointment: ConsultationAppointment) -> None\n        \"\"\"Tell the designer.\"\"\"\n    @staticmethod\n    def _require_customer(actor: Account) -> None",
   "part": 1,
   "parts": 1,
   "offset": 0
@@ -888,6 +948,90 @@
   "offset": 67
  },
  {
+  "key": "api-_fail-27",
+  "name": "_fail",
+  "file": "backend/app/api/appointments.py",
+  "start": 27,
+  "end": 41,
+  "lang": "python",
+  "code": "def _fail(exc: Exception) -> HTTPException:\n    \"\"\"Map a domain refusal to the matching response.\"\"\"\n    if isinstance(exc, (AppointmentNotFound, CompanyNotFound)):\n        return HTTPException(\n            status_code=http_status.HTTP_404_NOT_FOUND, detail=exc.message\n        )\n    if isinstance(exc, NotPermitted):\n        return HTTPException(\n            status_code=http_status.HTTP_403_FORBIDDEN, detail=exc.message\n        )\n    if isinstance(exc, InvalidState):\n        return HTTPException(\n            status_code=http_status.HTTP_409_CONFLICT, detail=exc.message\n        )\n    return HTTPException(status_code=http_status.HTTP_400_BAD_REQUEST, detail=str(exc))",
+  "part": 1,
+  "parts": 1,
+  "offset": 26
+ },
+ {
+  "key": "api-_public-44",
+  "name": "_public",
+  "file": "backend/app/api/appointments.py",
+  "start": 44,
+  "end": 50,
+  "lang": "python",
+  "code": "def _public(\n    service: AppointmentService, appointment\n) -> AppointmentPublic:\n    \"\"\"Return one appointment with the customer's name filled in.\"\"\"\n    public = AppointmentPublic.model_validate(appointment)\n    public.customer_name = service.customer_name(appointment)\n    return public",
+  "part": 1,
+  "parts": 1,
+  "offset": 43
+ },
+ {
+  "key": "api-read_slots-58",
+  "name": "read_slots",
+  "file": "backend/app/api/appointments.py",
+  "start": 58,
+  "end": 69,
+  "lang": "python",
+  "code": "def read_slots(\n    actor: CurrentAccountDep,\n    service: ServiceDep,\n    company_id: str,\n    day: date = Query(..., alias=\"date\"),\n) -> SlotsPublic:\n    \"\"\"Return the hours a customer may still pick.\"\"\"\n    try:\n        slots = service.available_slots(actor, company_id, day)\n    except (CompanyNotFound, ValueError) as exc:\n        raise _fail(exc) from exc\n    return SlotsPublic(date=day, slots=slots)",
+  "part": 1,
+  "parts": 1,
+  "offset": 57
+ },
+ {
+  "key": "api-book-78",
+  "name": "book",
+  "file": "backend/app/api/appointments.py",
+  "start": 78,
+  "end": 94,
+  "lang": "python",
+  "code": "def book(\n    payload: BookRequest,\n    actor: CurrentAccountDep,\n    service: ServiceDep,\n) -> AppointmentPublic:\n    \"\"\"A customer keeps one hour in a designer's diary.\"\"\"\n    try:\n        appointment = service.book(\n            actor,\n            payload.company_id,\n            payload.date,\n            payload.time,\n            payload.requirements,\n        )\n    except (NotPermitted, CompanyNotFound, InvalidState, ValueError) as exc:\n        raise _fail(exc) from exc\n    return _public(service, appointment)",
+  "part": 1,
+  "parts": 1,
+  "offset": 77
+ },
+ {
+  "key": "api-list_appointments-102",
+  "name": "list_appointments",
+  "file": "backend/app/api/appointments.py",
+  "start": 102,
+  "end": 113,
+  "lang": "python",
+  "code": "def list_appointments(\n    actor: CurrentAccountDep, service: ServiceDep\n) -> list[AppointmentPublic]:\n    \"\"\"Customers see their bookings; designers see their company diary.\"\"\"\n    try:\n        if actor.role.value == \"CUSTOMER\":\n            appointments = service.list_for_customer(actor)\n        else:\n            appointments = service.list_for_designer(actor)\n    except (NotPermitted, CompanyNotFound) as exc:\n        raise _fail(exc) from exc\n    return [_public(service, entry) for entry in appointments]",
+  "part": 1,
+  "parts": 1,
+  "offset": 101
+ },
+ {
+  "key": "api-accept_appointment-121",
+  "name": "accept_appointment",
+  "file": "backend/app/api/appointments.py",
+  "start": 121,
+  "end": 129,
+  "lang": "python",
+  "code": "def accept_appointment(\n    appointment_id: str, actor: CurrentAccountDep, service: ServiceDep\n) -> AppointmentPublic:\n    \"\"\"The designer confirms the hour.\"\"\"\n    try:\n        appointment = service.accept(actor, appointment_id)\n    except (AppointmentNotFound, NotPermitted, CompanyNotFound, InvalidState) as exc:\n        raise _fail(exc) from exc\n    return _public(service, appointment)",
+  "part": 1,
+  "parts": 1,
+  "offset": 120
+ },
+ {
+  "key": "api-cancel_appointment-137",
+  "name": "cancel_appointment",
+  "file": "backend/app/api/appointments.py",
+  "start": 137,
+  "end": 145,
+  "lang": "python",
+  "code": "def cancel_appointment(\n    appointment_id: str, actor: CurrentAccountDep, service: ServiceDep\n) -> AppointmentPublic:\n    \"\"\"Either party gives the hour back.\"\"\"\n    try:\n        appointment = service.cancel(actor, appointment_id)\n    except (AppointmentNotFound, NotPermitted, InvalidState) as exc:\n        raise _fail(exc) from exc\n    return _public(service, appointment)",
+  "part": 1,
+  "parts": 1,
+  "offset": 136
+ },
+ {
   "key": "api-register-40",
   "name": "register",
   "file": "backend/app/api/auth.py",
@@ -1140,193 +1284,217 @@
   "offset": 96
  },
  {
-  "key": "api-get_account_repository-45",
+  "key": "api-get_account_repository-48",
   "name": "get_account_repository",
   "file": "backend/app/api/deps.py",
-  "start": 45,
-  "end": 47,
+  "start": 48,
+  "end": 50,
   "lang": "python",
   "code": "def get_account_repository() -> AccountRepository:\n    \"\"\"Return the process wide account store.\"\"\"\n    return _account_repository",
   "part": 1,
   "parts": 1,
-  "offset": 44
+  "offset": 47
  },
  {
-  "key": "api-get_account_service-50",
+  "key": "api-get_account_service-53",
   "name": "get_account_service",
   "file": "backend/app/api/deps.py",
-  "start": 50,
-  "end": 52,
+  "start": 53,
+  "end": 55,
   "lang": "python",
   "code": "def get_account_service() -> AccountService:\n    \"\"\"Return a service bound to the shared account store.\"\"\"\n    return AccountService(get_account_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 49
+  "offset": 52
  },
  {
-  "key": "api-get_company_repository-55",
+  "key": "api-get_company_repository-58",
   "name": "get_company_repository",
   "file": "backend/app/api/deps.py",
-  "start": 55,
-  "end": 57,
+  "start": 58,
+  "end": 60,
   "lang": "python",
   "code": "def get_company_repository() -> CompanyRepository:\n    \"\"\"Return the process wide company store.\"\"\"\n    return _company_repository",
   "part": 1,
   "parts": 1,
-  "offset": 54
+  "offset": 57
  },
  {
-  "key": "api-get_company_service-60",
+  "key": "api-get_company_service-63",
   "name": "get_company_service",
   "file": "backend/app/api/deps.py",
-  "start": 60,
-  "end": 62,
+  "start": 63,
+  "end": 65,
   "lang": "python",
   "code": "def get_company_service() -> CompanyService:\n    \"\"\"Return a service bound to the shared company store.\"\"\"\n    return CompanyService(get_company_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 59
+  "offset": 62
  },
  {
-  "key": "api-get_project_repository-65",
+  "key": "api-get_project_repository-68",
   "name": "get_project_repository",
   "file": "backend/app/api/deps.py",
-  "start": 65,
-  "end": 67,
+  "start": 68,
+  "end": 70,
   "lang": "python",
   "code": "def get_project_repository() -> ProjectRepository:\n    \"\"\"Return the process wide project store.\"\"\"\n    return _project_repository",
   "part": 1,
   "parts": 1,
-  "offset": 64
+  "offset": 67
  },
  {
-  "key": "api-get_project_service-70",
+  "key": "api-get_project_service-73",
   "name": "get_project_service",
   "file": "backend/app/api/deps.py",
-  "start": 70,
-  "end": 72,
+  "start": 73,
+  "end": 75,
   "lang": "python",
   "code": "def get_project_service() -> ProjectService:\n    \"\"\"Return a service bound to the shared project and company stores.\"\"\"\n    return ProjectService(get_project_repository(), get_company_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 69
+  "offset": 72
  },
  {
-  "key": "api-get_project_search_service-75",
+  "key": "api-get_project_search_service-78",
   "name": "get_project_search_service",
   "file": "backend/app/api/deps.py",
-  "start": 75,
-  "end": 77,
+  "start": 78,
+  "end": 80,
   "lang": "python",
   "code": "def get_project_search_service() -> ProjectSearchService:\n    \"\"\"Return a search service bound to the shared project store.\"\"\"\n    return ProjectSearchService(get_project_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 74
+  "offset": 77
  },
  {
-  "key": "api-get_shortlist_repository-80",
+  "key": "api-get_shortlist_repository-83",
   "name": "get_shortlist_repository",
   "file": "backend/app/api/deps.py",
-  "start": 80,
-  "end": 82,
+  "start": 83,
+  "end": 85,
   "lang": "python",
   "code": "def get_shortlist_repository() -> ShortlistRepository:\n    \"\"\"Return the process wide shortlist store.\"\"\"\n    return _shortlist_repository",
   "part": 1,
   "parts": 1,
-  "offset": 79
+  "offset": 82
  },
  {
-  "key": "api-get_shortlist_service-85",
+  "key": "api-get_shortlist_service-88",
   "name": "get_shortlist_service",
   "file": "backend/app/api/deps.py",
-  "start": 85,
-  "end": 87,
+  "start": 88,
+  "end": 90,
   "lang": "python",
   "code": "def get_shortlist_service() -> ShortlistService:\n    \"\"\"Return a service bound to the shared shortlist and project stores.\"\"\"\n    return ShortlistService(get_shortlist_repository(), get_project_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 84
+  "offset": 87
  },
  {
-  "key": "api-get_quote_request_repository-90",
+  "key": "api-get_quote_request_repository-93",
   "name": "get_quote_request_repository",
   "file": "backend/app/api/deps.py",
-  "start": 90,
-  "end": 92,
+  "start": 93,
+  "end": 95,
   "lang": "python",
   "code": "def get_quote_request_repository() -> QuoteRequestRepository:\n    \"\"\"Return the process wide quote request store.\"\"\"\n    return _quote_request_repository",
   "part": 1,
   "parts": 1,
-  "offset": 89
+  "offset": 92
  },
  {
-  "key": "api-get_quote_repository-95",
+  "key": "api-get_quote_repository-98",
   "name": "get_quote_repository",
   "file": "backend/app/api/deps.py",
-  "start": 95,
-  "end": 97,
+  "start": 98,
+  "end": 100,
   "lang": "python",
   "code": "def get_quote_repository() -> QuoteRepository:\n    \"\"\"Return the process wide quote store.\"\"\"\n    return _quote_repository",
   "part": 1,
   "parts": 1,
-  "offset": 94
+  "offset": 97
  },
  {
-  "key": "api-get_quote_service-100",
+  "key": "api-get_quote_service-103",
   "name": "get_quote_service",
   "file": "backend/app/api/deps.py",
-  "start": 100,
-  "end": 107,
+  "start": 103,
+  "end": 110,
   "lang": "python",
   "code": "def get_quote_service() -> QuoteService:\n    \"\"\"Return a service bound to the shared quote, company and project stores.\"\"\"\n    return QuoteService(\n        get_quote_request_repository(),\n        get_quote_repository(),\n        get_company_repository(),\n        get_project_repository(),\n    )",
   "part": 1,
   "parts": 1,
-  "offset": 99
+  "offset": 102
  },
  {
-  "key": "api-get_category_repository-110",
+  "key": "api-get_appointment_repository-113",
+  "name": "get_appointment_repository",
+  "file": "backend/app/api/deps.py",
+  "start": 113,
+  "end": 115,
+  "lang": "python",
+  "code": "def get_appointment_repository() -> AppointmentRepository:\n    \"\"\"Return the process wide appointment store.\"\"\"\n    return _appointment_repository",
+  "part": 1,
+  "parts": 1,
+  "offset": 112
+ },
+ {
+  "key": "api-get_appointment_service-118",
+  "name": "get_appointment_service",
+  "file": "backend/app/api/deps.py",
+  "start": 118,
+  "end": 124,
+  "lang": "python",
+  "code": "def get_appointment_service() -> AppointmentService:\n    \"\"\"Return a service bound to the appointment, company and account stores.\"\"\"\n    return AppointmentService(\n        get_appointment_repository(),\n        get_company_repository(),\n        get_account_repository(),\n    )",
+  "part": 1,
+  "parts": 1,
+  "offset": 117
+ },
+ {
+  "key": "api-get_category_repository-127",
   "name": "get_category_repository",
   "file": "backend/app/api/deps.py",
-  "start": 110,
-  "end": 112,
+  "start": 127,
+  "end": 129,
   "lang": "python",
   "code": "def get_category_repository() -> CategoryRepository:\n    \"\"\"Return the process wide category store.\"\"\"\n    return _category_repository",
   "part": 1,
   "parts": 1,
-  "offset": 109
+  "offset": 126
  },
  {
-  "key": "api-get_category_service-115",
+  "key": "api-get_category_service-132",
   "name": "get_category_service",
   "file": "backend/app/api/deps.py",
-  "start": 115,
-  "end": 117,
+  "start": 132,
+  "end": 134,
   "lang": "python",
   "code": "def get_category_service() -> CategoryService:\n    \"\"\"Return a service bound to the shared category store.\"\"\"\n    return CategoryService(get_category_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 114
+  "offset": 131
  },
  {
-  "key": "api-get_report_service-120",
+  "key": "api-get_report_service-137",
   "name": "get_report_service",
   "file": "backend/app/api/deps.py",
-  "start": 120,
-  "end": 127,
+  "start": 137,
+  "end": 144,
   "lang": "python",
   "code": "def get_report_service() -> ReportService:\n    \"\"\"Return a report service bound to the four stores that hold timestamps.\"\"\"\n    return ReportService(\n        get_account_repository(),\n        get_project_repository(),\n        get_quote_request_repository(),\n        get_quote_repository(),\n    )",
   "part": 1,
   "parts": 1,
-  "offset": 119
+  "offset": 136
  },
  {
-  "key": "api-get_current_account-130",
+  "key": "api-get_current_account-147",
   "name": "get_current_account",
   "file": "backend/app/api/deps.py",
-  "start": 130,
-  "end": 164,
+  "start": 147,
+  "end": 181,
   "lang": "python",
-  "code": "# backend/app/api/deps.py — lines 130–164, first 20 lines of 35\ndef get_current_account(\n    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer_scheme)],\n    service: Annotated[AccountService, Depends(get_account_service)],\n) -> Account:\n    \"\"\"Return the account named by the bearer token.\n\n    Raises 401 for a missing, malformed, expired or orphaned token.\n    \"\"\"\n    if credentials is None:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Not authenticated\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    try:\n        claims = decode_access_token(credentials.credentials)\n    except ValueError as exc:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=str(exc),\n    ...",
+  "code": "# backend/app/api/deps.py — lines 147–181, first 20 lines of 35\ndef get_current_account(\n    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer_scheme)],\n    service: Annotated[AccountService, Depends(get_account_service)],\n) -> Account:\n    \"\"\"Return the account named by the bearer token.\n\n    Raises 401 for a missing, malformed, expired or orphaned token.\n    \"\"\"\n    if credentials is None:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Not authenticated\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    try:\n        claims = decode_access_token(credentials.credentials)\n    except ValueError as exc:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=str(exc),\n    ...",
   "part": 1,
   "parts": 1,
   "offset": 0
@@ -1752,16 +1920,16 @@
   "offset": 74
  },
  {
-  "key": "page-App-22",
+  "key": "page-App-24",
   "name": "App",
   "file": "frontend/src/App.tsx",
-  "start": 22,
-  "end": 22,
+  "start": 24,
+  "end": 24,
   "lang": "tsx",
-  "code": "export default function App() {\n  const { account, loading, logout } = useAuth();\n\n  return (\n    <div className=\"shell\">\n      <header className=\"site-header\">\n        <div className=\"container header-inner\">\n          <Link className=\"brand\" to=\"/\">\n            Interior Design Platform\n          </Link>\n          <nav className=\"nav\" aria-label=\"Main\">\n            <NavLink to=\"/\" end>\n              Home\n            </NavLink>\n            {account !== null && (\n              <>\n                <NavLink to=\"/dashboard\">Dashboard</NavLink>\n                <NavLink to=\"/search\">Find a project</NavLink>\n                <NavLink to=\"/designers\">Designers</NavLink>\n                {account.role === 'CUSTOMER' && <NavLink to=\"/saved\">Saved</NavLink>}\n                {(account.role === 'CUSTOMER' || account.role === 'DESIGNER') && (\n                  <NavLink to=\"/quotes\">\n                    {account.role === 'DESIGNER' ? 'Quote inbox' : 'Requests'}\n                  </NavLink>\n                )}\n                {account.role === 'DESIGNER' && (\n                  <>\n                  <NavLink to=\"/profile\">Company profile</NavLink>\n                  <NavLink to=\"/projects/new\">Create Project</NavLink>",
+  "code": "export default function App() {\n  const { account, loading, logout } = useAuth();\n\n  return (\n    <div className=\"shell\">\n      <header className=\"site-header\">\n        <div className=\"container header-inner\">\n          <Link className=\"brand\" to=\"/\">\n            Interior Design Platform\n          </Link>\n          <nav className=\"nav\" aria-label=\"Main\">\n            <NavLink to=\"/\" end>\n              Home\n            </NavLink>\n            {account !== null && (\n              <>\n                <NavLink to=\"/dashboard\">Dashboard</NavLink>\n                <NavLink to=\"/search\">Find a project</NavLink>\n                <NavLink to=\"/designers\">Designers</NavLink>\n                {account.role === 'CUSTOMER' && <NavLink to=\"/saved\">Saved</NavLink>}\n                {(account.role === 'CUSTOMER' || account.role === 'DESIGNER') && (\n                  <NavLink to=\"/quotes\">\n                    {account.role === 'DESIGNER' ? 'Quote inbox' : 'Requests'}\n                  </NavLink>\n                )}\n                {(account.role === 'CUSTOMER' || account.role === 'DESIGNER') && (\n                  <NavLink to=\"/appointments\">\n                    {account.role === 'DESIGNER' ? 'Consultations' : 'Appointments'}\n                  </NavLink>",
   "part": 1,
   "parts": 1,
-  "offset": 21
+  "offset": 23
  },
  {
   "key": "page-AuthProvider-25",
@@ -2002,5 +2170,29 @@
   "part": 1,
   "parts": 1,
   "offset": 12
+ },
+ {
+  "key": "page-Appointments-21",
+  "name": "Appointments",
+  "file": "frontend/src/pages/Appointments.tsx",
+  "start": 21,
+  "end": 21,
+  "lang": "tsx",
+  "code": "export default function Appointments() {\n  const { account } = useAuth();\n  const isDesigner = account?.role === 'DESIGNER';\n  const [rows, setRows] = useState<AppointmentPublic[]>([]);\n  const [companies, setCompanies] = useState<CompanyPublic[]>([]);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState<string | null>(null);\n  const [busy, setBusy] = useState<string | null>(null);\n\n  useEffect(() => {\n    let live = true;\n    Promise.all([listAppointments(), listCompanies()])\n      .then(([appointments, found]) => {\n        if (!live) return;\n        setRows(appointments);\n        setCompanies(found);\n      })\n      .catch((caught: unknown) => {\n        if (live) {\n          setError(caught instanceof ApiError ? caught.detail : 'Unable to load appointments.');\n        }\n      })\n      .finally(() => {\n        if (live) setLoading(false);\n      });\n    return () => {\n      live = false;\n    };\n  }, []);",
+  "part": 1,
+  "parts": 1,
+  "offset": 20
+ },
+ {
+  "key": "page-BookConsultation-36",
+  "name": "BookConsultation",
+  "file": "frontend/src/pages/BookConsultation.tsx",
+  "start": 36,
+  "end": 36,
+  "lang": "tsx",
+  "code": "export default function BookConsultation() {\n  const { companyId } = useParams<{ companyId: string }>();\n  const days = useMemo(bookingDays, []);\n  const [company, setCompany] = useState<CompanyPublic | null>(null);\n  const [day, setDay] = useState<string>(isoDay(days[0]));\n  const [slots, setSlots] = useState<string[]>([]);\n  const [time, setTime] = useState<string>('');\n  const [requirements, setRequirements] = useState<string>('');\n  const [loadingSlots, setLoadingSlots] = useState<boolean>(true);\n  const [saving, setSaving] = useState<boolean>(false);\n  const [error, setError] = useState<string | null>(null);\n  const [booked, setBooked] = useState<AppointmentPublic | null>(null);\n\n  useEffect(() => {\n    if (companyId === undefined) return;\n    companyById(companyId)\n      .then(setCompany)\n      .catch((caught: unknown) => {\n        setError(caught instanceof ApiError ? caught.detail : 'Unable to load the designer.');\n      });\n  }, [companyId]);\n\n  useEffect(() => {\n    if (companyId === undefined) return;\n    let live = true;\n    setLoadingSlots(true);\n    setTime('');\n    listSlots(companyId, day)\n      .then((result) => {",
+  "part": 1,
+  "parts": 1,
+  "offset": 35
  }
 ]

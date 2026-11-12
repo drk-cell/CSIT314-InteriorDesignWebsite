@@ -64,6 +64,114 @@
   },
   {
    "kind": "function",
+   "name": "_fail",
+   "signature": "def _fail(exc: Exception) -> HTTPException",
+   "doc": "Map a domain refusal to the matching response.",
+   "decorators": [],
+   "file": "backend/app/api/appointments.py",
+   "line": 27,
+   "layer": "Control (boundary)",
+   "lines": [
+    27,
+    41
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_public",
+   "signature": "def _public(service: AppointmentService, appointment) -> AppointmentPublic",
+   "doc": "Return one appointment with the customer's name filled in.",
+   "decorators": [],
+   "file": "backend/app/api/appointments.py",
+   "line": 44,
+   "layer": "Control (boundary)",
+   "lines": [
+    44,
+    50
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "read_slots",
+   "signature": "def read_slots(actor: CurrentAccountDep, service: ServiceDep, company_id: str, day: date = Query(..., alias='date')) -> SlotsPublic",
+   "doc": "Return the hours a customer may still pick.",
+   "decorators": [
+    "@router.get('/slots', response_model=SlotsPublic, summary=\"Show the free hours on one company's day\")"
+   ],
+   "file": "backend/app/api/appointments.py",
+   "line": 58,
+   "layer": "Control (boundary)",
+   "lines": [
+    58,
+    69
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "book",
+   "signature": "def book(payload: BookRequest, actor: CurrentAccountDep, service: ServiceDep) -> AppointmentPublic",
+   "doc": "A customer keeps one hour in a designer's diary.",
+   "decorators": [
+    "@router.post('', response_model=AppointmentPublic, status_code=http_status.HTTP_201_CREATED, summary='Book a consultation')"
+   ],
+   "file": "backend/app/api/appointments.py",
+   "line": 78,
+   "layer": "Control (boundary)",
+   "lines": [
+    78,
+    94
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_appointments",
+   "signature": "def list_appointments(actor: CurrentAccountDep, service: ServiceDep) -> list[AppointmentPublic]",
+   "doc": "Customers see their bookings; designers see their company diary.",
+   "decorators": [
+    "@router.get('', response_model=list[AppointmentPublic], summary='List the appointments you may see')"
+   ],
+   "file": "backend/app/api/appointments.py",
+   "line": 102,
+   "layer": "Control (boundary)",
+   "lines": [
+    102,
+    113
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "accept_appointment",
+   "signature": "def accept_appointment(appointment_id: str, actor: CurrentAccountDep, service: ServiceDep) -> AppointmentPublic",
+   "doc": "The designer confirms the hour.",
+   "decorators": [
+    "@router.post('/{appointment_id}/accept', response_model=AppointmentPublic, summary='Accept a consultation')"
+   ],
+   "file": "backend/app/api/appointments.py",
+   "line": 121,
+   "layer": "Control (boundary)",
+   "lines": [
+    121,
+    129
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "cancel_appointment",
+   "signature": "def cancel_appointment(appointment_id: str, actor: CurrentAccountDep, service: ServiceDep) -> AppointmentPublic",
+   "doc": "Either party gives the hour back.",
+   "decorators": [
+    "@router.post('/{appointment_id}/cancel', response_model=AppointmentPublic, summary='Cancel a consultation')"
+   ],
+   "file": "backend/app/api/appointments.py",
+   "line": 137,
+   "layer": "Control (boundary)",
+   "lines": [
+    137,
+    145
+   ]
+  },
+  {
+   "kind": "function",
    "name": "register",
    "signature": "def register(payload: RegisterRequest, service: ServiceDep) -> AccountPublic",
    "doc": "Create a self service account.",
@@ -489,11 +597,11 @@
    "doc": "Return the process wide account store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 45,
+   "line": 48,
    "layer": "Control (boundary)",
    "lines": [
-    45,
-    47
+    48,
+    50
    ]
   },
   {
@@ -503,11 +611,11 @@
    "doc": "Return a service bound to the shared account store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 50,
+   "line": 53,
    "layer": "Control (boundary)",
    "lines": [
-    50,
-    52
+    53,
+    55
    ]
   },
   {
@@ -517,11 +625,11 @@
    "doc": "Return the process wide company store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 55,
+   "line": 58,
    "layer": "Control (boundary)",
    "lines": [
-    55,
-    57
+    58,
+    60
    ]
   },
   {
@@ -531,11 +639,11 @@
    "doc": "Return a service bound to the shared company store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 60,
+   "line": 63,
    "layer": "Control (boundary)",
    "lines": [
-    60,
-    62
+    63,
+    65
    ]
   },
   {
@@ -545,11 +653,11 @@
    "doc": "Return the process wide project store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 65,
+   "line": 68,
    "layer": "Control (boundary)",
    "lines": [
-    65,
-    67
+    68,
+    70
    ]
   },
   {
@@ -559,11 +667,11 @@
    "doc": "Return a service bound to the shared project and company stores.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 70,
+   "line": 73,
    "layer": "Control (boundary)",
    "lines": [
-    70,
-    72
+    73,
+    75
    ]
   },
   {
@@ -573,11 +681,11 @@
    "doc": "Return a search service bound to the shared project store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 75,
+   "line": 78,
    "layer": "Control (boundary)",
    "lines": [
-    75,
-    77
+    78,
+    80
    ]
   },
   {
@@ -587,11 +695,11 @@
    "doc": "Return the process wide shortlist store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 80,
+   "line": 83,
    "layer": "Control (boundary)",
    "lines": [
-    80,
-    82
+    83,
+    85
    ]
   },
   {
@@ -601,11 +709,11 @@
    "doc": "Return a service bound to the shared shortlist and project stores.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 85,
+   "line": 88,
    "layer": "Control (boundary)",
    "lines": [
-    85,
-    87
+    88,
+    90
    ]
   },
   {
@@ -615,11 +723,11 @@
    "doc": "Return the process wide quote request store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 90,
+   "line": 93,
    "layer": "Control (boundary)",
    "lines": [
-    90,
-    92
+    93,
+    95
    ]
   },
   {
@@ -629,11 +737,11 @@
    "doc": "Return the process wide quote store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 95,
+   "line": 98,
    "layer": "Control (boundary)",
    "lines": [
-    95,
-    97
+    98,
+    100
    ]
   },
   {
@@ -643,11 +751,39 @@
    "doc": "Return a service bound to the shared quote, company and project stores.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 100,
+   "line": 103,
    "layer": "Control (boundary)",
    "lines": [
-    100,
-    107
+    103,
+    110
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_appointment_repository",
+   "signature": "def get_appointment_repository() -> AppointmentRepository",
+   "doc": "Return the process wide appointment store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 113,
+   "layer": "Control (boundary)",
+   "lines": [
+    113,
+    115
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_appointment_service",
+   "signature": "def get_appointment_service() -> AppointmentService",
+   "doc": "Return a service bound to the appointment, company and account stores.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 118,
+   "layer": "Control (boundary)",
+   "lines": [
+    118,
+    124
    ]
   },
   {
@@ -657,11 +793,11 @@
    "doc": "Return the process wide category store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 110,
+   "line": 127,
    "layer": "Control (boundary)",
    "lines": [
-    110,
-    112
+    127,
+    129
    ]
   },
   {
@@ -671,11 +807,11 @@
    "doc": "Return a service bound to the shared category store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 115,
+   "line": 132,
    "layer": "Control (boundary)",
    "lines": [
-    115,
-    117
+    132,
+    134
    ]
   },
   {
@@ -685,11 +821,11 @@
    "doc": "Return a report service bound to the four stores that hold timestamps.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 120,
+   "line": 137,
    "layer": "Control (boundary)",
    "lines": [
-    120,
-    127
+    137,
+    144
    ]
   },
   {
@@ -699,11 +835,11 @@
    "doc": "Return the account named by the bearer token.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 130,
+   "line": 147,
    "layer": "Control (boundary)",
    "lines": [
-    130,
-    164
+    147,
+    181
    ]
   },
   {
@@ -1650,6 +1786,197 @@
    "signature": "def _now() -> datetime",
    "doc": "",
    "decorators": [],
+   "file": "backend/app/domain/appointment.py",
+   "line": 35,
+   "layer": "Entity",
+   "lines": [
+    35,
+    36
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "local_today",
+   "signature": "def local_today() -> date",
+   "doc": "Return today on the local calendar.",
+   "decorators": [],
+   "file": "backend/app/domain/appointment.py",
+   "line": 39,
+   "layer": "Entity",
+   "lines": [
+    39,
+    45
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "is_bookable_date",
+   "signature": "def is_bookable_date(day: date, today: date | None = None) -> bool",
+   "doc": "Return ``True`` when ``day`` sits inside the booking window.",
+   "decorators": [],
+   "file": "backend/app/domain/appointment.py",
+   "line": 48,
+   "layer": "Entity",
+   "lines": [
+    48,
+    51
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ConsultationAppointment",
+   "bases": [],
+   "doc": "One slot a customer asked a designer to keep.",
+   "decorators": [
+    "@dataclass"
+   ],
+   "file": "backend/app/domain/appointment.py",
+   "line": 55,
+   "lines": [
+    55,
+    117
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "customer_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "company_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "appointment_date",
+     "type": "date",
+     "default": ""
+    },
+    {
+     "name": "appointment_time",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "requirements",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "state",
+     "type": "AppointmentState",
+     "default": "AppointmentState.PENDING"
+    },
+    {
+     "name": "notified_at",
+     "type": "datetime | None",
+     "default": "None"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": "field(default_factory=_now)"
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime | None",
+     "default": "None"
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "Check the identifiers, the slot and the day.",
+     "decorators": [],
+     "lines": [
+      69,
+      87
+     ]
+    },
+    {
+     "name": "is_open",
+     "signature": "def is_open() -> bool",
+     "doc": "Return ``True`` while the slot still blocks the diary.",
+     "decorators": [
+      "@property"
+     ],
+     "lines": [
+      90,
+      92
+     ]
+    },
+    {
+     "name": "is_pending",
+     "signature": "def is_pending() -> bool",
+     "doc": "Return ``True`` until the designer answers.",
+     "decorators": [],
+     "lines": [
+      94,
+      96
+     ]
+    },
+    {
+     "name": "accept",
+     "signature": "def accept() -> None",
+     "doc": "The designer confirms the slot.",
+     "decorators": [],
+     "lines": [
+      98,
+      103
+     ]
+    },
+    {
+     "name": "cancel",
+     "signature": "def cancel() -> None",
+     "doc": "Either party gives the slot back.",
+     "decorators": [],
+     "lines": [
+      105,
+      110
+     ]
+    },
+    {
+     "name": "mark_notified",
+     "signature": "def mark_notified() -> None",
+     "doc": "Record that the designer was told about the new booking.",
+     "decorators": [],
+     "lines": [
+      112,
+      114
+     ]
+    },
+    {
+     "name": "_touch",
+     "signature": "def _touch() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      116,
+      117
+     ]
+    }
+   ],
+   "public_methods": [
+    "is_open",
+    "is_pending",
+    "accept",
+    "cancel",
+    "mark_notified"
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_now",
+   "signature": "def _now() -> datetime",
+   "doc": "",
+   "decorators": [],
    "file": "backend/app/domain/category.py",
    "line": 17,
    "layer": "Entity",
@@ -2048,6 +2375,26 @@
   },
   {
    "kind": "class",
+   "name": "AppointmentState",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "doc": "Where one consultation booking sits.",
+   "decorators": [],
+   "file": "backend/app/domain/enums.py",
+   "line": 64,
+   "lines": [
+    64,
+    69
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
    "name": "DomainError",
    "bases": [
     "Exception"
@@ -2337,6 +2684,25 @@
   },
   {
    "kind": "class",
+   "name": "AppointmentNotFound",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "No consultation appointment matches the request.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 107,
+   "lines": [
+    107,
+    110
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
    "name": "InvalidState",
    "bases": [
     "DomainError"
@@ -2344,10 +2710,10 @@
    "doc": "The record is in a state that does not allow this action.",
    "decorators": [],
    "file": "backend/app/domain/errors.py",
-   "line": 107,
+   "line": 113,
    "lines": [
-    107,
-    110
+    113,
+    116
    ],
    "layer": "Entity",
    "fields": [],
@@ -3446,11 +3812,11 @@
    "doc": "Create the staff accounts the environment supplies.",
    "decorators": [],
    "file": "backend/app/main.py",
-   "line": 43,
+   "line": 44,
    "layer": "Support",
    "lines": [
-    43,
-    51
+    44,
+    52
    ]
   },
   {
@@ -3460,11 +3826,11 @@
    "doc": "Build the FastAPI application for the interior design platform.",
    "decorators": [],
    "file": "backend/app/main.py",
-   "line": 54,
+   "line": 55,
    "layer": "Support",
    "lines": [
-    54,
-    91
+    55,
+    93
    ]
   },
   {
@@ -3557,6 +3923,134 @@
     "add",
     "get",
     "get_by_email",
+    "list_all",
+    "count",
+    "clear"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "AppointmentRepository",
+   "bases": [],
+   "doc": "Keeps every appointment in process memory, keyed by id.",
+   "decorators": [],
+   "file": "backend/app/repositories/appointment_repository.py",
+   "line": 12,
+   "lines": [
+    12,
+    86
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      15,
+      17
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(appointment: ConsultationAppointment) -> bool",
+     "doc": "Store ``appointment`` unless its id is already present.",
+     "decorators": [],
+     "lines": [
+      19,
+      25
+     ]
+    },
+    {
+     "name": "add_if_free",
+     "signature": "def add_if_free(appointment: ConsultationAppointment) -> bool",
+     "doc": "Store ``appointment`` only when the slot is still free.",
+     "decorators": [],
+     "lines": [
+      27,
+      45
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(appointment_id: str) -> ConsultationAppointment | None",
+     "doc": "Return the appointment with ``appointment_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      47,
+      49
+     ]
+    },
+    {
+     "name": "list_by_customer",
+     "signature": "def list_by_customer(customer_id: str) -> list[ConsultationAppointment]",
+     "doc": "Return the appointments one customer booked.",
+     "decorators": [],
+     "lines": [
+      51,
+      57
+     ]
+    },
+    {
+     "name": "list_by_company",
+     "signature": "def list_by_company(company_id: str) -> list[ConsultationAppointment]",
+     "doc": "Return the appointments one company received.",
+     "decorators": [],
+     "lines": [
+      59,
+      63
+     ]
+    },
+    {
+     "name": "taken_times",
+     "signature": "def taken_times(company_id: str, day: date) -> set[str]",
+     "doc": "Return the times already held on one company's day.",
+     "decorators": [],
+     "lines": [
+      65,
+      74
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all() -> list[ConsultationAppointment]",
+     "doc": "Return every stored appointment.",
+     "decorators": [],
+     "lines": [
+      76,
+      78
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many appointments are stored.",
+     "decorators": [],
+     "lines": [
+      80,
+      82
+     ]
+    },
+    {
+     "name": "clear",
+     "signature": "def clear() -> None",
+     "doc": "Remove every stored appointment.",
+     "decorators": [],
+     "lines": [
+      84,
+      86
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "add_if_free",
+    "get",
+    "list_by_customer",
+    "list_by_company",
+    "taken_times",
     "list_all",
     "count",
     "clear"
@@ -4350,6 +4844,151 @@
      "name": "account",
      "type": "AccountPublic",
      "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "AppointmentPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "One booking, as both parties read it.",
+   "decorators": [],
+   "file": "backend/app/schemas/appointment.py",
+   "line": 12,
+   "lines": [
+    12,
+    27
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "customer_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "company_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "appointment_date",
+     "type": "date",
+     "default": ""
+    },
+    {
+     "name": "appointment_time",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "requirements",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "state",
+     "type": "AppointmentState",
+     "default": ""
+    },
+    {
+     "name": "notified_at",
+     "type": "datetime | None",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": ""
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime",
+     "default": ""
+    },
+    {
+     "name": "customer_name",
+     "type": "str",
+     "default": "''"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "SlotsPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "The free hours on one company's day.",
+   "decorators": [],
+   "file": "backend/app/schemas/appointment.py",
+   "line": 30,
+   "lines": [
+    30,
+    34
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "date",
+     "type": "date",
+     "default": ""
+    },
+    {
+     "name": "slots",
+     "type": "list[str]",
+     "default": ""
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "BookRequest",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload a customer sends to keep one slot.",
+   "decorators": [],
+   "file": "backend/app/schemas/appointment.py",
+   "line": 37,
+   "lines": [
+    37,
+    43
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "company_id",
+     "type": "str",
+     "default": "Field(min_length=1)"
+    },
+    {
+     "name": "date",
+     "type": "date",
+     "default": ""
+    },
+    {
+     "name": "time",
+     "type": "str",
+     "default": "Field(pattern='^([01][0-9]|2[0-3]):[0-5][0-9]$')"
+    },
+    {
+     "name": "requirements",
+     "type": "str",
+     "default": "Field(default='', max_length=1000)"
     }
    ],
    "methods": [],
@@ -5508,6 +6147,188 @@
     "approve",
     "suspend",
     "ensure_staff_account"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "AppointmentService",
+   "bases": [],
+   "doc": "Applies the booking rules on top of the three stores.",
+   "decorators": [],
+   "file": "backend/app/services/appointment_service.py",
+   "line": 35,
+   "lines": [
+    35,
+    187
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(appointments: AppointmentRepository, companies: CompanyRepository, accounts: AccountRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      38,
+      46
+     ]
+    },
+    {
+     "name": "available_slots",
+     "signature": "def available_slots(actor: Account, company_id: str, day: date) -> list[str]",
+     "doc": "Return the hours still free on one company's day.",
+     "decorators": [],
+     "lines": [
+      50,
+      59
+     ]
+    },
+    {
+     "name": "book",
+     "signature": "def book(actor: Account, company_id: str, day: date, time: str, requirements: str = '') -> ConsultationAppointment",
+     "doc": "Keep one slot for one customer.",
+     "decorators": [],
+     "lines": [
+      61,
+      91
+     ]
+    },
+    {
+     "name": "list_for_customer",
+     "signature": "def list_for_customer(actor: Account) -> list[ConsultationAppointment]",
+     "doc": "Return the caller's appointments, soonest first.",
+     "decorators": [],
+     "lines": [
+      93,
+      97
+     ]
+    },
+    {
+     "name": "cancel",
+     "signature": "def cancel(actor: Account, appointment_id: str) -> ConsultationAppointment",
+     "doc": "Return a slot to the diary. Either party may cancel.",
+     "decorators": [],
+     "lines": [
+      99,
+      108
+     ]
+    },
+    {
+     "name": "list_for_designer",
+     "signature": "def list_for_designer(actor: Account) -> list[ConsultationAppointment]",
+     "doc": "Return the appointments sent to the caller's company, soonest first.",
+     "decorators": [],
+     "lines": [
+      112,
+      115
+     ]
+    },
+    {
+     "name": "accept",
+     "signature": "def accept(actor: Account, appointment_id: str) -> ConsultationAppointment",
+     "doc": "Confirm a pending appointment.",
+     "decorators": [],
+     "lines": [
+      117,
+      127
+     ]
+    },
+    {
+     "name": "customer_name",
+     "signature": "def customer_name(appointment: ConsultationAppointment) -> str",
+     "doc": "Return the customer's display name for the designer's list.",
+     "decorators": [],
+     "lines": [
+      131,
+      134
+     ]
+    },
+    {
+     "name": "_cutoff",
+     "signature": "def _cutoff(day: date) -> str",
+     "doc": "Return the clock time before which today's slots are gone.",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      139,
+      142
+     ]
+    },
+    {
+     "name": "_sorted",
+     "signature": "def _sorted(appointments: list[ConsultationAppointment]) -> list[ConsultationAppointment]",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      145,
+      151
+     ]
+    },
+    {
+     "name": "_get",
+     "signature": "def _get(appointment_id: str) -> ConsultationAppointment",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      153,
+      157
+     ]
+    },
+    {
+     "name": "_may_cancel",
+     "signature": "def _may_cancel(actor: Account, appointment: ConsultationAppointment) -> bool",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      159,
+      165
+     ]
+    },
+    {
+     "name": "_company_of",
+     "signature": "def _company_of(actor: Account)",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      167,
+      173
+     ]
+    },
+    {
+     "name": "_notify_designer",
+     "signature": "def _notify_designer(appointment: ConsultationAppointment) -> None",
+     "doc": "Tell the designer.",
+     "decorators": [],
+     "lines": [
+      175,
+      182
+     ]
+    },
+    {
+     "name": "_require_customer",
+     "signature": "def _require_customer(actor: Account) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      185,
+      187
+     ]
+    }
+   ],
+   "public_methods": [
+    "available_slots",
+    "book",
+    "list_for_customer",
+    "cancel",
+    "list_for_designer",
+    "accept",
+    "customer_name"
    ]
   },
   {
@@ -6896,7 +7717,7 @@
    "name": "getToken",
    "signature": "function getToken()",
    "file": "frontend/src/api.ts",
-   "line": 42,
+   "line": 44,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6905,7 +7726,7 @@
    "name": "setToken",
    "signature": "function setToken(token: string)",
    "file": "frontend/src/api.ts",
-   "line": 46,
+   "line": 48,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6914,7 +7735,7 @@
    "name": "clearToken",
    "signature": "function clearToken()",
    "file": "frontend/src/api.ts",
-   "line": 50,
+   "line": 52,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6923,7 +7744,7 @@
    "name": "health",
    "signature": "function health()",
    "file": "frontend/src/api.ts",
-   "line": 113,
+   "line": 115,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6932,7 +7753,7 @@
    "name": "register",
    "signature": "function register(body: RegisterRequest)",
    "file": "frontend/src/api.ts",
-   "line": 117,
+   "line": 119,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6941,7 +7762,7 @@
    "name": "login",
    "signature": "function login(body: LoginRequest)",
    "file": "frontend/src/api.ts",
-   "line": 124,
+   "line": 126,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6950,7 +7771,7 @@
    "name": "me",
    "signature": "function me()",
    "file": "frontend/src/api.ts",
-   "line": 131,
+   "line": 133,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6959,7 +7780,7 @@
    "name": "adminListAccounts",
    "signature": "function adminListAccounts(status?: Status)",
    "file": "frontend/src/api.ts",
-   "line": 135,
+   "line": 137,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6968,7 +7789,7 @@
    "name": "adminApprove",
    "signature": "function adminApprove(accountId: string)",
    "file": "frontend/src/api.ts",
-   "line": 140,
+   "line": 142,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6977,7 +7798,7 @@
    "name": "adminSuspend",
    "signature": "function adminSuspend(accountId: string)",
    "file": "frontend/src/api.ts",
-   "line": 144,
+   "line": 146,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6986,7 +7807,7 @@
    "name": "myCompany",
    "signature": "function myCompany()",
    "file": "frontend/src/api.ts",
-   "line": 148,
+   "line": 150,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -6995,7 +7816,7 @@
    "name": "createCompany",
    "signature": "function createCompany(body: CompanyInput)",
    "file": "frontend/src/api.ts",
-   "line": 152,
+   "line": 154,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7004,7 +7825,7 @@
    "name": "updateMyCompany",
    "signature": "function updateMyCompany(body: CompanyInput)",
    "file": "frontend/src/api.ts",
-   "line": 159,
+   "line": 161,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7013,7 +7834,7 @@
    "name": "companyById",
    "signature": "function companyById(companyId: string)",
    "file": "frontend/src/api.ts",
-   "line": 166,
+   "line": 168,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7022,7 +7843,7 @@
    "name": "listCompanies",
    "signature": "function listCompanies()",
    "file": "frontend/src/api.ts",
-   "line": 170,
+   "line": 172,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7031,7 +7852,7 @@
    "name": "searchProjects",
    "signature": "function searchProjects(params: SearchParams)",
    "file": "frontend/src/api.ts",
-   "line": 174,
+   "line": 176,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7040,7 +7861,7 @@
    "name": "getCatalogue",
    "signature": "function getCatalogue()",
    "file": "frontend/src/api.ts",
-   "line": 184,
+   "line": 186,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7049,7 +7870,7 @@
    "name": "createProject",
    "signature": "function createProject(body: ProjectInput)",
    "file": "frontend/src/api.ts",
-   "line": 188,
+   "line": 190,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7058,7 +7879,7 @@
    "name": "getProject",
    "signature": "function getProject(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 197,
+   "line": 199,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7067,7 +7888,7 @@
    "name": "updateProject",
    "signature": "function updateProject(projectId: string,\n  body: Partial<ProjectInput> & { status?: ProjectStatus })",
    "file": "frontend/src/api.ts",
-   "line": 205,
+   "line": 207,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7076,7 +7897,7 @@
    "name": "myProjects",
    "signature": "function myProjects(filters: {\n    status?: ProjectStatus;\n    name?: string;\n  } = {})",
    "file": "frontend/src/api.ts",
-   "line": 218,
+   "line": 220,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7085,7 +7906,7 @@
    "name": "suggestTags",
    "signature": "function suggestTags(projectId: string,\n  imageIndex = 0)",
    "file": "frontend/src/api.ts",
-   "line": 241,
+   "line": 243,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7094,7 +7915,7 @@
    "name": "suggestTagsFromUpload",
    "signature": "function suggestTagsFromUpload(file: File)",
    "file": "frontend/src/api.ts",
-   "line": 251,
+   "line": 253,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7103,7 +7924,7 @@
    "name": "uploadImage",
    "signature": "function uploadImage(file: File)",
    "file": "frontend/src/api.ts",
-   "line": 257,
+   "line": 259,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7112,7 +7933,7 @@
    "name": "recordView",
    "signature": "function recordView(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 263,
+   "line": 265,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7121,7 +7942,7 @@
    "name": "getShortlist",
    "signature": "function getShortlist()",
    "file": "frontend/src/api.ts",
-   "line": 269,
+   "line": 271,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7130,7 +7951,7 @@
    "name": "saveProject",
    "signature": "function saveProject(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 273,
+   "line": 275,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7139,7 +7960,7 @@
    "name": "unsaveProject",
    "signature": "function unsaveProject(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 280,
+   "line": 282,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7148,7 +7969,7 @@
    "name": "submitQuoteRequest",
    "signature": "function submitQuoteRequest(body: {\n  company_id: string;\n  title: string;\n  scope: string;\n  budget_min_cents: number;\n  budget_max_cents: number;\n  target_cents?: number;\n  project_id?: string;\n})",
    "file": "frontend/src/api.ts",
-   "line": 286,
+   "line": 288,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7157,7 +7978,7 @@
    "name": "listQuoteRequests",
    "signature": "function listQuoteRequests(state?: QuoteRequestState)",
    "file": "frontend/src/api.ts",
-   "line": 301,
+   "line": 303,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7166,7 +7987,7 @@
    "name": "getQuoteRequest",
    "signature": "function getQuoteRequest(requestId: string)",
    "file": "frontend/src/api.ts",
-   "line": 306,
+   "line": 308,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7175,7 +7996,7 @@
    "name": "counterQuoteRequest",
    "signature": "function counterQuoteRequest(requestId: string,\n  targetCents: number,\n  note: string)",
    "file": "frontend/src/api.ts",
-   "line": 312,
+   "line": 314,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7184,7 +8005,7 @@
    "name": "cancelQuoteRequest",
    "signature": "function cancelQuoteRequest(requestId: string,\n  reason: string)",
    "file": "frontend/src/api.ts",
-   "line": 323,
+   "line": 325,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7193,7 +8014,7 @@
    "name": "answerQuoteRequest",
    "signature": "function answerQuoteRequest(requestId: string,\n  body: { total_cents: number; valid_days: number; gst_included: boolean; note: string })",
    "file": "frontend/src/api.ts",
-   "line": 333,
+   "line": 335,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7202,7 +8023,7 @@
    "name": "reviseQuote",
    "signature": "function reviseQuote(quoteId: string,\n  body: { total_cents: number; valid_days: number; gst_included: boolean; note: string })",
    "file": "frontend/src/api.ts",
-   "line": 343,
+   "line": 345,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7211,7 +8032,7 @@
    "name": "refuseQuoteRequest",
    "signature": "function refuseQuoteRequest(requestId: string,\n  reason: string)",
    "file": "frontend/src/api.ts",
-   "line": 353,
+   "line": 355,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7220,7 +8041,7 @@
    "name": "acceptQuote",
    "signature": "function acceptQuote(quoteId: string)",
    "file": "frontend/src/api.ts",
-   "line": 363,
+   "line": 365,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7229,7 +8050,52 @@
    "name": "declineQuote",
    "signature": "function declineQuote(quoteId: string, reason: string)",
    "file": "frontend/src/api.ts",
-   "line": 369,
+   "line": 371,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "listSlots",
+   "signature": "function listSlots(companyId: string, day: string)",
+   "file": "frontend/src/api.ts",
+   "line": 378,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "bookAppointment",
+   "signature": "function bookAppointment(body: {\n  company_id: string;\n  date: string;\n  time: string;\n  requirements: string;\n})",
+   "file": "frontend/src/api.ts",
+   "line": 383,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "listAppointments",
+   "signature": "function listAppointments()",
+   "file": "frontend/src/api.ts",
+   "line": 395,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "acceptAppointment",
+   "signature": "function acceptAppointment(appointmentId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 399,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "cancelAppointment",
+   "signature": "function cancelAppointment(appointmentId: string)",
+   "file": "frontend/src/api.ts",
+   "line": 406,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7238,7 +8104,7 @@
    "name": "listAllCategories",
    "signature": "function listAllCategories()",
    "file": "frontend/src/api.ts",
-   "line": 376,
+   "line": 413,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7247,7 +8113,7 @@
    "name": "createCategory",
    "signature": "function createCategory(name: string)",
    "file": "frontend/src/api.ts",
-   "line": 380,
+   "line": 417,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7256,7 +8122,7 @@
    "name": "patchCategory",
    "signature": "function patchCategory(categoryId: string,\n  body: { name?: string; active?: boolean })",
    "file": "frontend/src/api.ts",
-   "line": 387,
+   "line": 424,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7265,7 +8131,7 @@
    "name": "getReport",
    "signature": "function getReport(period: string, buckets: number)",
    "file": "frontend/src/api.ts",
-   "line": 397,
+   "line": 434,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7274,7 +8140,7 @@
    "name": "deleteProject",
    "signature": "function deleteProject(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 401,
+   "line": 438,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7282,7 +8148,7 @@
    "kind": "component",
    "name": "App",
    "file": "frontend/src/App.tsx",
-   "line": 22,
+   "line": 24,
    "api": [],
    "hooks": [],
    "doc": "",
@@ -7356,6 +8222,46 @@
    ],
    "hooks": [
     "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "Appointments",
+   "file": "frontend/src/pages/Appointments.tsx",
+   "line": 21,
+   "api": [
+    "ApiError",
+    "acceptAppointment",
+    "cancelAppointment",
+    "listAppointments",
+    "listCompanies"
+   ],
+   "hooks": [
+    "Effect",
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "BookConsultation",
+   "file": "frontend/src/pages/BookConsultation.tsx",
+   "line": 36,
+   "api": [
+    "ApiError",
+    "bookAppointment",
+    "companyById",
+    "listSlots"
+   ],
+   "hooks": [
+    "Effect",
+    "Params",
     "State"
    ],
    "doc": "",
@@ -7737,6 +8643,16 @@
    "roles": "DESIGNER"
   },
   {
+   "path": "/designers/:companyId/book",
+   "component": "BookConsultation",
+   "roles": "CUSTOMER"
+  },
+  {
+   "path": "/appointments",
+   "component": "Appointments",
+   "roles": "CUSTOMER, DESIGNER"
+  },
+  {
    "path": "/quotes/new/:companyId",
    "component": "RequestQuote",
    "roles": "CUSTOMER"
@@ -7764,16 +8680,16 @@
  ],
  "counts": {
   "backend": {
-   "classes": 84,
-   "functions": 108,
+   "classes": 92,
+   "functions": 120,
    "components": 0,
-   "items": 192
+   "items": 212
   },
   "frontend": {
    "classes": 0,
-   "functions": 44,
-   "components": 21,
-   "items": 65
+   "functions": 49,
+   "components": 23,
+   "items": 72
   }
  }
 }

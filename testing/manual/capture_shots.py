@@ -15,6 +15,7 @@ Requires: playwright (chromium), and a seeded backend (``seed_all.py``).
 from __future__ import annotations
 
 import json
+from datetime import date, timedelta
 from pathlib import Path
 
 from playwright.sync_api import Page, sync_playwright
@@ -169,6 +170,37 @@ def main() -> int:
         page.goto(f"{WEB}/quotes/new/{company_id}", wait_until="networkidle")
         shoot(page, "07-customer-request-quote")
 
+        # A consultation, so the booking page and both appointment lists are real.
+        appointments = call(page, "GET", "/appointments")["body"] or []
+        already_open = any(
+            row["company_id"] == company_id and row["state"] != "CANCELLED"
+            for row in appointments
+        )
+        if not already_open:
+            day = (date.today() + timedelta(days=1)).isoformat()
+            booked = call(
+                page,
+                "POST",
+                "/appointments",
+                {
+                    "company_id": company_id,
+                    "date": day,
+                    "time": "15:00",
+                    "requirements": "Warm light and a calm palette.",
+                },
+            )
+            print("booked consultation", booked["status"])
+
+        page.goto(f"{WEB}/designers/{company_id}/book", wait_until="networkidle")
+        page.select_option(
+            "#appointment-day", (date.today() + timedelta(days=1)).isoformat()
+        )
+        page.wait_for_timeout(900)
+        shoot(page, "19-customer-booking")
+
+        page.goto(f"{WEB}/appointments", wait_until="networkidle")
+        shoot(page, "20-customer-appointments")
+
         # ----- designer
         page.evaluate("localStorage.removeItem('idp.token')")
         page.goto(f"{WEB}/login", wait_until="networkidle")
@@ -215,6 +247,9 @@ def main() -> int:
 
         page.goto(f"{WEB}/quotes", wait_until="networkidle")
         shoot(page, "12-designer-inbox")
+
+        page.goto(f"{WEB}/appointments", wait_until="networkidle")
+        shoot(page, "21-designer-appointments")
 
         page.goto(f"{WEB}/quotes/{request_id}", wait_until="networkidle")
         shoot(page, "13-designer-answer")

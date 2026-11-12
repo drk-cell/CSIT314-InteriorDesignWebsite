@@ -335,12 +335,12 @@ def main() -> int:
         [
             [
                 "Customer",
-                "Browse and search the catalogue, search by photo, save projects, request quotes, accept or decline a quote, name a target price",
+                "Browse and search the catalogue, search by photo, save projects, request quotes, accept or decline a quote, name a target price, book and cancel a consultation",
                 "Publish projects, answer quotes, manage accounts",
             ],
             [
                 "Designer (IDM)",
-                "Publish and edit projects, upload photos, read tags, set the company profile, answer and revise quotes",
+                "Publish and edit projects, upload photos, read tags, set the company profile, answer and revise quotes, accept or cancel a consultation",
                 "Approve accounts, manage categories, read platform reports",
             ],
             [
@@ -533,6 +533,40 @@ def main() -> int:
         "Figure 9  A quote with one version, the GST line, the validity date and the decision panel.",
     )
 
+    use_case(
+        doc,
+        "3.9  Book a consultation",
+        "A consultation is one hour with the designer, before any work is agreed.",
+        "Designers, then a studio, Book a consultation",
+        [
+            "Open Designers and choose a studio.",
+            "Press Book a consultation under the company details.",
+            "Choose a Day. The list covers the next 14 days.",
+            "Press one free Time. One hour is one slot, and a taken hour is not offered.",
+            "Write what you need in the box, then press Book this time.",
+            "Read the confirmation, then press View my appointments.",
+        ],
+        "The hour is held as Pending. The designer sees it in Consultations and confirms it.",
+        "19-customer-booking.png",
+        "Figure 10  The booking page: the day list, the free hours and the requirements box.",
+    )
+
+    use_case(
+        doc,
+        "3.10  Cancel a consultation",
+        "A booked hour can be given back. The record stays, so both parties keep the history.",
+        "Appointments",
+        [
+            "Press Appointments in the top navigation.",
+            "Find the row by Designer, Day and Time.",
+            "Press Cancel on that row.",
+            "Read the State column: the row now says Cancelled and the hour returns to the designer.",
+        ],
+        "The cancelled hour is offered again to other customers on the booking page.",
+        "20-customer-appointments.png",
+        "Figure 11  The customer's appointment list with the state of each booking.",
+    )
+
     # ----- 4 designer
     page_break(doc)
     heading(doc, "4  Designer (IDM)", 1)
@@ -541,7 +575,7 @@ def main() -> int:
         "A designer publishes work, keeps the portfolio current, and answers the requests that "
         "customers send.",
     )
-    figure(doc, "flow-designer.png", "Figure 10  The designer journey from profile to an answered request.", 150)
+    figure(doc, "flow-designer.png", "Figure 12  The designer journey from profile to an answered request.", 150)
 
     use_case(
         doc,
@@ -556,7 +590,7 @@ def main() -> int:
         ],
         "The account card states exactly what the platform will let this account do.",
         "09-designer-dashboard.png",
-        "Figure 11  The designer dashboard.",
+        "Figure 13  The designer dashboard.",
     )
 
     use_case(
@@ -571,7 +605,7 @@ def main() -> int:
         ],
         "The profile appears on the public designer page and beside every project.",
         "14-designer-company.png",
-        "Figure 12  The company profile form.",
+        "Figure 14  The company profile form.",
     )
 
     use_case(
@@ -589,7 +623,7 @@ def main() -> int:
         ],
         "The project appears in My Projects and in the catalogue, with the tags you kept.",
         "10-designer-project-editor.png",
-        "Figure 13  Two photos in the queue, the tags they suggested, and the empty tag field waiting for a choice.",
+        "Figure 15  Two photos in the queue, the tags they suggested, and the empty tag field waiting for a choice.",
     )
 
     use_case(
@@ -605,7 +639,7 @@ def main() -> int:
         ],
         "Counts on the card update as customers view and save the work.",
         "11-designer-projects.png",
-        "Figure 14  My Projects with views, saves and the actions for each row.",
+        "Figure 16  My Projects with views, saves and the actions for each row.",
     )
 
     use_case(
@@ -622,7 +656,7 @@ def main() -> int:
         ],
         "The request moves to Answered and the customer sees version one. A later answer becomes version two.",
         "13-designer-answer.png",
-        "Figure 15  One request with its versions and the answer form.",
+        "Figure 17  One request with its versions and the answer form.",
     )
 
     use_case(
@@ -637,7 +671,23 @@ def main() -> int:
         ],
         "The portfolio shows every published project with its tags and price range.",
         "15-designer-portfolio.png",
-        "Figure 16  The public page for Studio Verde.",
+        "Figure 18  The public page for Studio Verde.",
+    )
+
+    use_case(
+        doc,
+        "4.7  Accept or cancel a consultation",
+        "The consultation inbox is the designer's diary for the next two weeks.",
+        "Consultations",
+        [
+            "Press Consultations in the top navigation.",
+            "Read Customer, Day, Time, What they need and State.",
+            "Press Accept to confirm a Pending booking. The customer sees Accepted on Appointments.",
+            "Press Cancel to give the hour back. The row stays as Cancelled.",
+        ],
+        "A Pending booking becomes Accepted, and the customer reads that state on their own list.",
+        "21-designer-appointments.png",
+        "Figure 19  The designer's consultation inbox with a pending booking and its two actions.",
     )
 
     # ----- 5 admin
@@ -648,7 +698,7 @@ def main() -> int:
         "The administrator keeps the platform tidy: accounts are approved, categories stay "
         "current and activity is measured.",
     )
-    figure(doc, "flow-admin.png", "Figure 17  The administrator journey.", 150)
+    figure(doc, "flow-admin.png", "Figure 20  The administrator journey.", 150)
 
     use_case(
         doc,
@@ -663,7 +713,7 @@ def main() -> int:
         ],
         "An approved designer can sign in and publish. A suspended account cannot.",
         "17-admin-accounts.png",
-        "Figure 18  The account list with its status filter and the approve and suspend actions.",
+        "Figure 21  The account list with its status filter and the approve and suspend actions.",
     )
 
     use_case(
@@ -678,7 +728,7 @@ def main() -> int:
         ],
         "The category list on the project form follows these states.",
         "16-admin-platform.png",
-        "Figure 19  Platform management: the category list with Add, Archive and the state of each row.",
+        "Figure 22  Platform management: the category list with Add, Archive and the state of each row.",
     )
 
     use_case(
@@ -694,7 +744,7 @@ def main() -> int:
         ],
         "The newest bucket shows the current totals. The same numbers are served by GET /api/reports?period=weekly&buckets=6 for a script.",
         "18-admin-reports.png",
-        "Figure 20  A daily report. The last row carries the current totals.",
+        "Figure 23  A daily report. The last row carries the current totals.",
     )
 
     # ----- 6 reference
@@ -717,7 +767,7 @@ def main() -> int:
     heading(doc, "6.2  Where the data lives", 2)
     body(
         doc,
-        "Accounts, companies, projects, requests, quotes and categories live in the memory of "
+        "Accounts, companies, projects, requests, quotes, appointments and categories live in the memory of "
         "the backend process. A restart empties them. The repository carries the rebuild:",
     )
     steps(
