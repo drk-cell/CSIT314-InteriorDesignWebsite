@@ -5,6 +5,7 @@ import type {
   CategoryPublic,
   CompanyInput,
   CompanyPublic,
+  ConsultationMode,
   HealthResponse,
   LoginRequest,
   RegisterRequest,
@@ -384,6 +385,7 @@ export function bookAppointment(body: {
   company_id: string;
   date: string;
   time: string;
+  mode: ConsultationMode;
   requirements: string;
 }): Promise<AppointmentPublic> {
   return request<AppointmentPublic>('/appointments', {

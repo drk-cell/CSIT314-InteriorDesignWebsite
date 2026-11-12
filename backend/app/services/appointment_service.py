@@ -20,7 +20,7 @@ from app.domain.appointment import (
     ConsultationAppointment,
     is_bookable_date,
 )
-from app.domain.enums import AppointmentState, Role
+from app.domain.enums import AppointmentState, ConsultationMode, Role
 from app.domain.errors import (
     AppointmentNotFound,
     CompanyNotFound,
@@ -64,9 +64,10 @@ class AppointmentService:
         company_id: str,
         day: date,
         time: str,
+        mode: ConsultationMode = ConsultationMode.IN_PERSON,
         requirements: str = "",
     ) -> ConsultationAppointment:
-        """Keep one slot for one customer."""
+        """Keep one slot for one customer, in person or on a call."""
         self._require_customer(actor)
         company = self._companies.get(company_id)
         if company is None:
@@ -76,11 +77,18 @@ class AppointmentService:
                 raise InvalidState(
                     "You already hold an appointment with this company"
                 )
+        place = company.meeting_place(mode is ConsultationMode.ONLINE)
+        if not place:
+            if mode is ConsultationMode.ONLINE:
+                raise InvalidState("This designer has not set a call link yet")
+            raise InvalidState("This designer has not set a meeting place yet")
         appointment = ConsultationAppointment(
             customer_id=actor.id,
             company_id=company.id,
             appointment_date=day,
             appointment_time=time,
+            location=place,
+            mode=mode,
             requirements=requirements,
         )
         if not self._appointments.add_if_free(appointment):

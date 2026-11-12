@@ -229,7 +229,7 @@ a:hover { color: var(--accent-hover); }
 .tag-chip:hover { background: var(--accent); color: #ffffff; }
 .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 0; }
 
-.slot-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.slot-grid, .mode-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .slot {
   border: 1px solid var(--border); border-radius: 999px; background: var(--surface);
   color: var(--text); font: inherit; font-size: 0.9rem; padding: 7px 14px; cursor: pointer;

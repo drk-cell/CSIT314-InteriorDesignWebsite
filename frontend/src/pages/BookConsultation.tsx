@@ -7,7 +7,7 @@ import {
   companyById,
   listSlots,
 } from '../api';
-import type { AppointmentPublic, CompanyPublic } from '../types';
+import type { AppointmentPublic, CompanyPublic, ConsultationMode } from '../types';
 
 const BOOKING_DAYS = 14;
 
@@ -38,6 +38,7 @@ export default function BookConsultation() {
   const days = useMemo(bookingDays, []);
   const [company, setCompany] = useState<CompanyPublic | null>(null);
   const [day, setDay] = useState<string>(isoDay(days[0]));
+  const [mode, setMode] = useState<ConsultationMode>('IN_PERSON');
   const [slots, setSlots] = useState<string[]>([]);
   const [time, setTime] = useState<string>('');
   const [requirements, setRequirements] = useState<string>('');
@@ -54,6 +55,15 @@ export default function BookConsultation() {
         setError(caught instanceof ApiError ? caught.detail : 'Unable to load the designer.');
       });
   }, [companyId]);
+
+  const hasAddress = company !== null && company.meeting_address !== '';
+  const hasLink = company !== null && company.call_link !== '';
+
+  useEffect(() => {
+    if (company === null) return;
+    if (!hasAddress && hasLink) setMode('ONLINE');
+    if (hasAddress && !hasLink) setMode('IN_PERSON');
+  }, [company, hasAddress, hasLink]);
 
   useEffect(() => {
     if (companyId === undefined) return;
@@ -92,6 +102,7 @@ export default function BookConsultation() {
         company_id: companyId,
         date: day,
         time,
+        mode,
         requirements,
       });
       setBooked(appointment);
@@ -118,6 +129,10 @@ export default function BookConsultation() {
               at {booked.appointment_time}
             </strong>
             .
+          </p>
+          <p className="muted">
+            {booked.mode === 'ONLINE' ? 'Video call' : 'In person'} at{' '}
+            {booked.location}.
           </p>
           <p className="muted">
             The designer sees your booking and confirms it. You can cancel it from
@@ -158,6 +173,39 @@ export default function BookConsultation() {
       )}
 
       <form className="card stack" onSubmit={submit}>
+        <div className="field">
+          <span className="field-label">Where</span>
+          <div className="mode-grid" role="group" aria-label="Consultation type">
+            <button
+              type="button"
+              className="slot"
+              aria-pressed={mode === 'IN_PERSON'}
+              disabled={company !== null && !hasAddress}
+              onClick={() => setMode('IN_PERSON')}
+            >
+              In person
+            </button>
+            <button
+              type="button"
+              className="slot"
+              aria-pressed={mode === 'ONLINE'}
+              disabled={company !== null && !hasLink}
+              onClick={() => setMode('ONLINE')}
+            >
+              Video call
+            </button>
+          </div>
+          <p className="hint">
+            {mode === 'IN_PERSON'
+              ? hasAddress
+                ? `Meet at ${company?.meeting_address}.`
+                : 'This designer has not set a meeting address yet.'
+              : hasLink
+                ? `The call link is ${company?.call_link}.`
+                : 'This designer has not set a call link yet.'}
+          </p>
+        </div>
+
         <div className="field">
           <label htmlFor="appointment-day">Day</label>
           <select
@@ -209,7 +257,15 @@ export default function BookConsultation() {
         </div>
 
         <div className="actions">
-          <button className="button" type="submit" disabled={saving || time === ''}>
+          <button
+            className="button"
+            type="submit"
+            disabled={
+              saving ||
+              time === '' ||
+              (mode === 'IN_PERSON' ? !hasAddress : !hasLink)
+            }
+          >
             {saving ? 'Booking…' : 'Book this time'}
           </button>
         </div>

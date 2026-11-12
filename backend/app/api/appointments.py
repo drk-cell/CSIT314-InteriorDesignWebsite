@@ -87,6 +87,7 @@ def book(
             payload.company_id,
             payload.date,
             payload.time,
+            payload.mode,
             payload.requirements,
         )
     except (NotPermitted, CompanyNotFound, InvalidState, ValueError) as exc:

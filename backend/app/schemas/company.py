@@ -19,6 +19,8 @@ class CompanyPublic(BaseModel):
     contact_email: str
     contact_phone: str
     location: str
+    meeting_address: str
+    call_link: str
     logo_url: str
     created_at: datetime
     updated_at: datetime
@@ -32,6 +34,8 @@ class CompanyCreate(BaseModel):
     contact_email: str = Field(min_length=3, max_length=254)
     contact_phone: str = Field(default="", max_length=40)
     location: str = Field(default="", max_length=120)
+    meeting_address: str = Field(default="", max_length=240)
+    call_link: str = Field(default="", max_length=500)
     logo_url: str = Field(default="", max_length=500)
 
 
@@ -47,4 +51,6 @@ class CompanyUpdate(BaseModel):
     contact_email: str | None = Field(default=None, max_length=254)
     contact_phone: str | None = Field(default=None, max_length=40)
     location: str | None = Field(default=None, max_length=120)
+    meeting_address: str | None = Field(default=None, max_length=240)
+    call_link: str | None = Field(default=None, max_length=500)
     logo_url: str | None = Field(default=None, max_length=500)

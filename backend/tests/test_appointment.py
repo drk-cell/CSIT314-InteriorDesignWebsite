@@ -34,8 +34,10 @@ def sign_in(client: TestClient, account: dict[str, Any]) -> dict[str, str]:
     return {"Authorization": f"Bearer {response.json()['access_token']}"}
 
 
-def designer(client: TestClient, email: str = "dana@example.com") -> dict[str, str]:
-    """A signed in designer who holds a company."""
+def designer(
+    client: TestClient, email: str = "dana@example.com", *, with_place: bool = True
+) -> dict[str, str]:
+    """A signed in designer who holds a company, with a meeting place by default."""
     headers = sign_in(
         client,
         {
@@ -45,11 +47,11 @@ def designer(client: TestClient, email: str = "dana@example.com") -> dict[str, s
             "role": "DESIGNER",
         },
     )
-    response = client.post(
-        "/api/companies",
-        json={"name": f"Studio {email}", "contact_email": email},
-        headers=headers,
-    )
+    payload: dict[str, Any] = {"name": f"Studio {email}", "contact_email": email}
+    if with_place:
+        payload["meeting_address"] = "12 Orchard Road, Singapore"
+        payload["call_link"] = "https://meet.example.com/studio"
+    response = client.post("/api/companies", json=payload, headers=headers)
     assert response.status_code == 201, response.text
     headers["company_id"] = response.json()["id"]
     return headers
@@ -80,6 +82,7 @@ def book(
     *,
     when: str | None = None,
     time: str = "10:00",
+    mode: str = "IN_PERSON",
     requirements: str = "Two bedrooms, warm light.",
 ):
     """Post one booking and return the response."""
@@ -89,6 +92,7 @@ def book(
             "company_id": company_id,
             "date": when or tomorrow(),
             "time": time,
+            "mode": mode,
             "requirements": requirements,
         },
         headers=headers,
@@ -119,6 +123,7 @@ def test_an_appointment_refuses_a_bad_slot() -> None:
             company_id="k1",
             appointment_date=date.today() + timedelta(days=1),
             appointment_time="08:00",
+            location="12 Orchard Road, Singapore",
         )
 
 
@@ -128,6 +133,7 @@ def test_an_appointment_accepts_once_and_cancels_once() -> None:
         company_id="k1",
         appointment_date=date.today() + timedelta(days=1),
         appointment_time="10:00",
+        location="12 Orchard Road, Singapore",
     )
     assert appointment.is_pending()
     appointment.accept()
@@ -184,6 +190,8 @@ def test_a_customer_books_a_pending_appointment(client: TestClient) -> None:
     assert body["appointment_time"] == "10:00"
     assert body["notified_at"] is not None
     assert body["customer_name"] == "Casey"
+    assert body["mode"] == "IN_PERSON"
+    assert body["location"] == "12 Orchard Road, Singapore"
 
 
 def test_the_same_slot_cannot_be_booked_twice(client: TestClient) -> None:
@@ -346,3 +354,68 @@ def test_a_customer_reads_only_their_own_bookings(client: TestClient) -> None:
     book(client, casey, owner["company_id"])
     rows = client.get("/api/appointments", headers=robin).json()
     assert rows == []
+
+
+# --- in person or on a call ------------------------------------------------
+
+
+def test_an_online_booking_keeps_the_call_link(client: TestClient) -> None:
+    owner = designer(client)
+    casey = customer(client)
+    response = book(client, casey, owner["company_id"], mode="ONLINE")
+    assert response.status_code == 201, response.text
+    body = response.json()
+    assert body["mode"] == "ONLINE"
+    assert body["location"] == "https://meet.example.com/studio"
+
+
+def test_in_person_needs_a_meeting_place(client: TestClient) -> None:
+    owner = designer(client, "bare@example.com", with_place=False)
+    casey = customer(client)
+    response = book(client, casey, owner["company_id"])
+    assert response.status_code == 409
+    assert "meeting place" in response.json()["detail"]
+
+
+def test_online_needs_a_call_link(client: TestClient) -> None:
+    owner = designer(client, "noLink@example.com", with_place=False)
+    client.patch(
+        "/api/companies/me",
+        json={"meeting_address": "12 Orchard Road, Singapore"},
+        headers=owner,
+    )
+    casey = customer(client)
+    response = book(client, casey, owner["company_id"], mode="ONLINE")
+    assert response.status_code == 409
+    assert "call link" in response.json()["detail"]
+
+
+def test_the_meeting_place_is_kept_with_the_booking(client: TestClient) -> None:
+    owner = designer(client)
+    casey = customer(client)
+    created = book(client, casey, owner["company_id"]).json()
+    client.patch(
+        "/api/companies/me",
+        json={"meeting_address": "99 New Road, Singapore"},
+        headers=owner,
+    )
+    rows = client.get("/api/appointments", headers=casey).json()
+    kept = next(row for row in rows if row["id"] == created["id"])
+    assert kept["location"] == "12 Orchard Road, Singapore"
+
+
+def test_a_call_link_must_be_a_web_address(client: TestClient) -> None:
+    owner = designer(client)
+    response = client.patch(
+        "/api/companies/me",
+        json={"call_link": "zoom room 12"},
+        headers=owner,
+    )
+    assert response.status_code == 400
+
+
+def test_the_profile_carries_the_meeting_place(client: TestClient) -> None:
+    owner = designer(client)
+    body = client.get("/api/companies/me", headers=owner).json()
+    assert body["meeting_address"] == "12 Orchard Road, Singapore"
+    assert body["call_link"] == "https://meet.example.com/studio"

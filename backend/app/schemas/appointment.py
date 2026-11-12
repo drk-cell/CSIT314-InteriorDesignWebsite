@@ -6,7 +6,7 @@ from datetime import date, datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from app.domain.enums import AppointmentState
+from app.domain.enums import AppointmentState, ConsultationMode
 
 
 class AppointmentPublic(BaseModel):
@@ -19,6 +19,8 @@ class AppointmentPublic(BaseModel):
     company_id: str
     appointment_date: date
     appointment_time: str
+    mode: ConsultationMode
+    location: str
     requirements: str
     state: AppointmentState
     notified_at: datetime | None
@@ -40,4 +42,5 @@ class BookRequest(BaseModel):
     company_id: str = Field(min_length=1)
     date: date
     time: str = Field(pattern=r"^([01][0-9]|2[0-3]):[0-5][0-9]$")
+    mode: ConsultationMode
     requirements: str = Field(default="", max_length=1000)

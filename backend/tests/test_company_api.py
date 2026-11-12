@@ -67,6 +67,8 @@ def test_a_designer_creates_a_profile(client: TestClient) -> None:
         "contact_email",
         "contact_phone",
         "location",
+        "meeting_address",
+        "call_link",
         "logo_url",
         "created_at",
         "updated_at",

@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta, timezone
 from uuid import uuid4
 
-from app.domain.enums import AppointmentState
+from app.domain.enums import AppointmentState, ConsultationMode
 
 SLOT_TIMES: tuple[str, ...] = (
     "09:00",
@@ -59,6 +59,8 @@ class ConsultationAppointment:
     company_id: str
     appointment_date: date
     appointment_time: str
+    location: str = ""
+    mode: ConsultationMode = ConsultationMode.IN_PERSON
     requirements: str = ""
     state: AppointmentState = AppointmentState.PENDING
     notified_at: datetime | None = None
@@ -78,6 +80,9 @@ class ConsultationAppointment:
             raise ValueError(
                 f"Choose a day inside the next {BOOKING_DAYS} days"
             )
+        self.location = self.location.strip()
+        if not self.location:
+            raise ValueError("An appointment needs a meeting place")
         self.requirements = self.requirements.strip()
         if len(self.requirements) > MAX_REQUIREMENTS:
             raise ValueError(

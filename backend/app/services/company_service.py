@@ -23,6 +23,8 @@ class CompanyService:
         contact_email: str,
         contact_phone: str,
         location: str,
+        meeting_address: str = "",
+        call_link: str = "",
         logo_url: str = "",
     ) -> Company:
         """Create the company profile for ``actor``.
@@ -39,6 +41,10 @@ class CompanyService:
             location=location,
             logo_url=logo_url,
         )
+        if meeting_address:
+            company.set_meeting_address(meeting_address)
+        if call_link:
+            company.set_call_link(call_link)
         if not self._companies.add(company):
             raise CompanyAlreadyExists()
         return company
@@ -60,6 +66,8 @@ class CompanyService:
         contact_email: str | None = None,
         contact_phone: str | None = None,
         location: str | None = None,
+        meeting_address: str | None = None,
+        call_link: str | None = None,
         logo_url: str | None = None,
     ) -> Company:
         """Change only the fields that were supplied.
@@ -79,6 +87,10 @@ class CompanyService:
             )
         if location is not None:
             company.set_location(location)
+        if meeting_address is not None:
+            company.set_meeting_address(meeting_address)
+        if call_link is not None:
+            company.set_call_link(call_link)
         if logo_url is not None:
             company.attach_logo(logo_url)
         return company

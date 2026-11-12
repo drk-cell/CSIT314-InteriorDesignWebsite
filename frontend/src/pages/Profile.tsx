@@ -10,6 +10,8 @@ const EMPTY: CompanyInput = {
   contact_email: '',
   contact_phone: '',
   location: '',
+  meeting_address: '',
+  call_link: '',
   logo_url: '',
 };
 
@@ -20,6 +22,8 @@ function toInput(company: CompanyPublic): CompanyInput {
     contact_email: company.contact_email,
     contact_phone: company.contact_phone,
     location: company.location,
+    meeting_address: company.meeting_address,
+    call_link: company.call_link,
     logo_url: company.logo_url,
   };
 }
@@ -174,6 +178,33 @@ export default function Profile() {
               value={form.location}
               onChange={change('location')}
             />
+          </div>
+
+          <div className="field">
+            <label htmlFor="company-meeting">Meeting address</label>
+            <input
+              id="company-meeting"
+              maxLength={240}
+              value={form.meeting_address}
+              onChange={change('meeting_address')}
+            />
+            <p className="hint">
+              Where an in person consultation takes place. Leave it empty to offer
+              video calls only.
+            </p>
+          </div>
+
+          <div className="field">
+            <label htmlFor="company-call">Video call link</label>
+            <input
+              id="company-call"
+              maxLength={500}
+              value={form.call_link}
+              onChange={change('call_link')}
+            />
+            <p className="hint">
+              The room customers join. It must start with http:// or https://.
+            </p>
           </div>
 
           <div className="field">

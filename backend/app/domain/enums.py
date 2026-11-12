@@ -69,5 +69,12 @@ class AppointmentState(str, Enum):
     CANCELLED = "CANCELLED"
 
 
+class ConsultationMode(str, Enum):
+    """How the consultation happens."""
+
+    IN_PERSON = "IN_PERSON"
+    ONLINE = "ONLINE"
+
+
 PRIVILEGED_ROLES: frozenset[Role] = frozenset({Role.ADMIN, Role.PLATFORM_MANAGER})
 SELF_REGISTRATION_ROLES: frozenset[Role] = frozenset({Role.CUSTOMER, Role.DESIGNER})

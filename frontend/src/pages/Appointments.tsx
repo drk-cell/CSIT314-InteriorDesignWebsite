@@ -114,6 +114,7 @@ export default function Appointments() {
                 <th>{isDesigner ? 'Customer' : 'Designer'}</th>
                 <th>Day</th>
                 <th>Time</th>
+                <th>Where</th>
                 <th>What they need</th>
                 <th>State</th>
                 <th />
@@ -131,6 +132,19 @@ export default function Appointments() {
                   </td>
                   <td>{longDay(entry.appointment_date)}</td>
                   <td>{entry.appointment_time}</td>
+                  <td>
+                    <span className="muted">
+                      {entry.mode === 'ONLINE' ? 'Video call' : 'In person'}
+                    </span>
+                    <br />
+                    {entry.location.startsWith('http') ? (
+                      <a href={entry.location} target="_blank" rel="noreferrer">
+                        {entry.location}
+                      </a>
+                    ) : (
+                      entry.location
+                    )}
+                  </td>
                   <td>{entry.requirements === '' ? '—' : entry.requirements}</td>
                   <td>
                     <span className={`badge badge-${entry.state.toLowerCase()}`}>

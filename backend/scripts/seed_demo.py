@@ -23,6 +23,8 @@ DESIGNERS = [
         "email": "verde@example.com",
         "name": "Studio Verde",
         "location": "Singapore",
+        "meeting_address": "18 Duxton Road, #02-01, Singapore 089483",
+        "call_link": "https://meet.google.com/studio-verde",
         "contact_email": "hello@studioverde.sg",
         "contact_phone": "+65 6000 1000",
         "projects": [
@@ -35,6 +37,8 @@ DESIGNERS = [
         "email": "nordic@example.com",
         "name": "Nordic Haus",
         "location": "Kuala Lumpur",
+        "meeting_address": "12 Jalan Bangsar, Level 3, Kuala Lumpur 59000",
+        "call_link": "https://zoom.us/j/nordic-haus",
         "contact_email": "hello@nordichaus.my",
         "contact_phone": "+60 3 6000 2000",
         "projects": [
@@ -47,6 +51,8 @@ DESIGNERS = [
         "email": "atelier@example.com",
         "name": "Atelier One",
         "location": "Singapore",
+        "meeting_address": "88 Club Street, #01-02, Singapore 069452",
+        "call_link": "https://teams.microsoft.com/l/meetup-join/atelier-one",
         "contact_email": "hello@atelierone.sg",
         "contact_phone": "+65 6000 3000",
         "projects": [
@@ -81,6 +87,8 @@ def main() -> None:
                     "contact_email": designer["contact_email"],
                     "contact_phone": designer["contact_phone"],
                     "location": designer["location"],
+                    "meeting_address": designer["meeting_address"],
+                    "call_link": designer["call_link"],
                 },
             )
             for title, style, category, low, high, image in designer["projects"]:
@@ -117,9 +125,9 @@ def main() -> None:
         companies = client.get("/companies", headers=auth(customer_token)).json()
         by_name = {row["name"]: row for row in companies}
         day = (date.today() + timedelta(days=2)).isoformat()
-        for name, time, accept_as in (
-            ("Studio Verde", "10:00", None),
-            ("Nordic Haus", "14:00", "nordic@example.com"),
+        for name, time, mode, accept_as in (
+            ("Studio Verde", "10:00", "IN_PERSON", None),
+            ("Nordic Haus", "14:00", "ONLINE", "nordic@example.com"),
         ):
             company = by_name.get(name)
             if company is None:
@@ -131,6 +139,7 @@ def main() -> None:
                     "company_id": company["id"],
                     "date": day,
                     "time": time,
+                    "mode": mode,
                     "requirements": "Warm minimal living room. Keep the oak floor.",
                 },
             )
@@ -142,7 +151,8 @@ def main() -> None:
                     f"/appointments/{appointment['id']}/accept",
                     headers=auth(designer_token),
                 ).raise_for_status()
-            print(f"booked a consultation with {name} at {time}")
+            kind = "an in-person" if mode == "IN_PERSON" else "an online"
+            print(f"booked {kind} consultation with {name} at {time}")
 
 
 def auth(token: str) -> dict[str, str]:

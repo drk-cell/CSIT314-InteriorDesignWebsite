@@ -28,6 +28,8 @@ export interface CompanyPublic {
   contact_email: string;
   contact_phone: string;
   location: string;
+  meeting_address: string;
+  call_link: string;
   logo_url: string;
   created_at: string;
   updated_at: string;
@@ -39,6 +41,8 @@ export interface CompanyInput {
   contact_email: string;
   contact_phone: string;
   location: string;
+  meeting_address: string;
+  call_link: string;
   logo_url: string;
 }
 
@@ -229,6 +233,9 @@ export interface Report {
 
 export type AppointmentState = 'PENDING' | 'ACCEPTED' | 'CANCELLED';
 
+/** How the consultation happens: at the studio or on a call. */
+export type ConsultationMode = 'IN_PERSON' | 'ONLINE';
+
 /** One consultation booking, as both parties read it. */
 export interface AppointmentPublic {
   id: string;
@@ -236,6 +243,8 @@ export interface AppointmentPublic {
   company_id: string;
   appointment_date: string;
   appointment_time: string;
+  mode: ConsultationMode;
+  location: string;
   requirements: string;
   state: AppointmentState;
   notified_at: string | null;

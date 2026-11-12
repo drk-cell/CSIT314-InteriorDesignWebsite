@@ -89,6 +89,22 @@ export default function DesignerDetail() {
               </dd>
             </div>
           )}
+          {company.meeting_address !== '' && (
+            <div>
+              <dt>Meeting address</dt>
+              <dd>{company.meeting_address}</dd>
+            </div>
+          )}
+          {company.call_link !== '' && (
+            <div>
+              <dt>Video call</dt>
+              <dd>
+                <a href={company.call_link} target="_blank" rel="noreferrer">
+                  {company.call_link}
+                </a>
+              </dd>
+            </div>
+          )}
           <div>
             <dt>Profile updated</dt>
             <dd>{new Date(company.updated_at).toLocaleDateString()}</dd>
