@@ -456,18 +456,6 @@
   "offset": 0
  },
  {
-  "key": "repositories-appointment_repository-AppointmentRepository-12",
-  "name": "AppointmentRepository",
-  "file": "backend/app/repositories/appointment_repository.py",
-  "start": 12,
-  "end": 86,
-  "lang": "python",
-  "code": "# backend/app/repositories/appointment_repository.py — lines 12–86, signatures only\nclass AppointmentRepository:\n    \"\"\"Keeps every appointment in process memory, keyed by id.\"\"\"\n    def __init__() -> None\n    def add(appointment: ConsultationAppointment) -> bool\n        \"\"\"Store ``appointment`` unless its id is already present.\"\"\"\n    def add_if_free(appointment: ConsultationAppointment) -> bool\n        \"\"\"Store ``appointment`` only when the slot is still free.\"\"\"\n    def get(appointment_id: str) -> ConsultationAppointment | None\n        \"\"\"Return the appointment with ``appointment_id``, or ``None``.\"\"\"\n    def list_by_customer(customer_id: str) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments one customer booked.\"\"\"\n    def list_by_company(company_id: str) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments one company received.\"\"\"\n    def taken_times(company_id: str, day: date) -> set[str]\n        \"\"\"Return the times already held on one company's day.\"\"\"\n    def list_all() -> list[ConsultationAppointment]\n        \"\"\"Return every stored appointment.\"\"\"\n    def count() -> int\n        \"\"\"Return how many appointments are stored.\"\"\"\n    def clear() -> None\n        \"\"\"Remove every stored appointment.\"\"\"",
-  "part": 1,
-  "parts": 1,
-  "offset": 0
- },
- {
   "key": "repositories-category_repository-CategoryRepository-11",
   "name": "CategoryRepository",
   "file": "backend/app/repositories/category_repository.py",
@@ -487,6 +475,18 @@
   "end": 57,
   "lang": "python",
   "code": "# backend/app/repositories/company_repository.py — lines 10–57, signatures only\nclass CompanyRepository:\n    \"\"\"Keeps every company in process memory.\"\"\"\n    def __init__() -> None\n    def add(company: Company) -> bool\n        \"\"\"Store ``company`` unless its designer already has one.\"\"\"\n    def get(company_id: str) -> Company | None\n        \"\"\"Return the company with ``company_id``, or ``None``.\"\"\"\n    def get_by_owner(owner_id: str) -> Company | None\n        \"\"\"Return the company owned by ``owner_id``, or ``None``.\"\"\"\n    def list_all() -> list[Company]\n        \"\"\"Return every stored company.\"\"\"\n    def count() -> int\n        \"\"\"Return how many companies are stored.\"\"\"\n    def clear() -> None\n        \"\"\"Remove every stored company.\"\"\"",
+  "part": 1,
+  "parts": 1,
+  "offset": 0
+ },
+ {
+  "key": "repositories-consultation_appointment_repository-ConsultationAppointmentRepository-12",
+  "name": "ConsultationAppointmentRepository",
+  "file": "backend/app/repositories/consultation_appointment_repository.py",
+  "start": 12,
+  "end": 86,
+  "lang": "python",
+  "code": "# backend/app/repositories/consultation_appointment_repository.py — lines 12–86, signatures only\nclass ConsultationAppointmentRepository:\n    \"\"\"Keeps every appointment in process memory, keyed by id.\"\"\"\n    def __init__() -> None\n    def add(appointment: ConsultationAppointment) -> bool\n        \"\"\"Store ``appointment`` unless its id is already present.\"\"\"\n    def add_if_free(appointment: ConsultationAppointment) -> bool\n        \"\"\"Store ``appointment`` only when the slot is still free.\"\"\"\n    def get(appointment_id: str) -> ConsultationAppointment | None\n        \"\"\"Return the appointment with ``appointment_id``, or ``None``.\"\"\"\n    def list_by_customer(customer_id: str) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments one customer booked.\"\"\"\n    def list_by_company(company_id: str) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments one company received.\"\"\"\n    def taken_times(company_id: str, day: date) -> set[str]\n        \"\"\"Return the times already held on one company's day.\"\"\"\n    def list_all() -> list[ConsultationAppointment]\n        \"\"\"Return every stored appointment.\"\"\"\n    def count() -> int\n        \"\"\"Return how many appointments are stored.\"\"\"\n    def clear() -> None\n        \"\"\"Remove every stored appointment.\"\"\"",
   "part": 1,
   "parts": 1,
   "offset": 0
@@ -576,18 +576,6 @@
   "offset": 0
  },
  {
-  "key": "services-appointment_service-AppointmentService-40",
-  "name": "AppointmentService",
-  "file": "backend/app/services/appointment_service.py",
-  "start": 40,
-  "end": 220,
-  "lang": "python",
-  "code": "# backend/app/services/appointment_service.py — lines 40–220, signatures only\nclass AppointmentService:\n    \"\"\"Applies the booking rules on top of the three stores.\"\"\"\n    def __init__(appointments: AppointmentRepository, companies: CompanyRepository, accounts: AccountRepository) -> None\n    def available_slots(actor: Account, company_id: str, day: date) -> list[str]\n        \"\"\"Return the hours still free on one company's day.\"\"\"\n    def book(actor: Account, company_id: str, day: date, time: str, mode: ConsultationMode = ConsultationMode.IN_PERSON, requirements: str = '') -> ConsultationAppointment\n        \"\"\"Keep one slot for one customer, in person or on a call.\"\"\"\n    def list_for_customer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the caller's appointments, soonest first.\"\"\"\n    def cancel(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Return a slot to the diary. Either party may cancel.\"\"\"\n    def list_for_designer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments sent to the caller's company, soonest first.\"\"\"\n    def accept(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Confirm a pending appointment.\"\"\"\n    def may_read_call_link(actor: Account, company_id: str) -> bool\n        \"\"\"Return ``True`` when the caller may see the video room address.\"\"\"\n    def customer_name(appointment: ConsultationAppointment) -> str\n        \"\"\"Return the customer's display name for the designer's list.\"\"\"\n    @staticmethod\n    def _cutoff(day: date) -> str\n        \"\"\"Return the clock time before which today's slots are gone.\"\"\"\n    @staticmethod\n    def _sorted(appointments: list[ConsultationAppointment]) -> list[ConsultationAppointment]\n    def _get(appointment_id: str) -> ConsultationAppointment\n    def _may_cancel(actor: Account, appointment: ConsultationAppointment) -> bool\n    def _company_of(actor: Account)\n    def _notify_designer(appointment: ConsultationAppointment) -> None\n        \"\"\"Tell the designer.\"\"\"\n    @staticmethod\n    def _require_customer(actor: Account) -> None",
-  "part": 1,
-  "parts": 1,
-  "offset": 0
- },
- {
   "key": "services-category_service-CategoryNotFound-12",
   "name": "CategoryNotFound",
   "file": "backend/app/services/category_service.py",
@@ -631,6 +619,18 @@
   "end": 112,
   "lang": "python",
   "code": "# backend/app/services/company_service.py — lines 12–112, signatures only\nclass CompanyService:\n    \"\"\"Applies the company profile rules on top of the repository.\"\"\"\n    def __init__(companies: CompanyRepository) -> None\n    def create(actor: Account, name: str, description: str, contact_email: str, contact_phone: str, location: str, meeting_address: str = '', call_link: str = '', logo_url: str = '') -> Company\n        \"\"\"Create the company profile for ``actor``.\"\"\"\n    def get_for_owner(actor: Account) -> Company\n        \"\"\"Return the profile owned by ``actor``.\"\"\"\n    def update(actor: Account) -> Company\n        \"\"\"Change only the fields that were supplied.\"\"\"\n    def get(company_id: str) -> Company\n        \"\"\"Return a company by id. Any signed in account may read it.\"\"\"\n    def list_companies() -> list[Company]\n        \"\"\"Return every company, sorted by name for a stable listing.\"\"\"\n    @staticmethod\n    def _require_designer(actor: Account) -> None",
+  "part": 1,
+  "parts": 1,
+  "offset": 0
+ },
+ {
+  "key": "services-consultation_service-ConsultationService-40",
+  "name": "ConsultationService",
+  "file": "backend/app/services/consultation_service.py",
+  "start": 40,
+  "end": 220,
+  "lang": "python",
+  "code": "# backend/app/services/consultation_service.py — lines 40–220, signatures only\nclass ConsultationService:\n    \"\"\"Applies the booking rules on top of the three stores.\"\"\"\n    def __init__(appointments: ConsultationAppointmentRepository, companies: CompanyRepository, accounts: AccountRepository) -> None\n    def available_slots(actor: Account, company_id: str, day: date) -> list[str]\n        \"\"\"Return the hours still free on one company's day.\"\"\"\n    def book(actor: Account, company_id: str, day: date, time: str, mode: ConsultationMode = ConsultationMode.IN_PERSON, requirements: str = '') -> ConsultationAppointment\n        \"\"\"Keep one slot for one customer, in person or on a call.\"\"\"\n    def list_for_customer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the caller's appointments, soonest first.\"\"\"\n    def cancel(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Return a slot to the diary. Either party may cancel.\"\"\"\n    def list_for_designer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments sent to the caller's company, soonest first.\"\"\"\n    def accept(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Confirm a pending appointment.\"\"\"\n    def may_read_call_link(actor: Account, company_id: str) -> bool\n        \"\"\"Return ``True`` when the caller may see the video room address.\"\"\"\n    def customer_name(appointment: ConsultationAppointment) -> str\n        \"\"\"Return the customer's display name for the designer's list.\"\"\"\n    @staticmethod\n    def _cutoff(day: date) -> str\n        \"\"\"Return the clock time before which today's slots are gone.\"\"\"\n    @staticmethod\n    def _sorted(appointments: list[ConsultationAppointment]) -> list[ConsultationAppointment]\n    def _get(appointment_id: str) -> ConsultationAppointment\n    def _may_cancel(actor: Account, appointment: ConsultationAppointment) -> bool\n    def _company_of(actor: Account)\n    def _notify_designer(appointment: ConsultationAppointment) -> None\n        \"\"\"Tell the designer.\"\"\"\n    @staticmethod\n    def _require_customer(actor: Account) -> None",
   "part": 1,
   "parts": 1,
   "offset": 0
@@ -1050,7 +1050,7 @@
   "start": 45,
   "end": 61,
   "lang": "python",
-  "code": "def _public(\n    service: AppointmentService, appointment, actor: Account\n) -> AppointmentPublic:\n    \"\"\"Return one appointment with the customer's name and the visible place.\n\n    A customer does not see the room address of an online booking until the\n    designer accepts it. The designer always sees it.\n    \"\"\"\n    public = AppointmentPublic.model_validate(appointment)\n    public.customer_name = service.customer_name(appointment)\n    if (\n        actor.role is Role.CUSTOMER\n        and appointment.mode is ConsultationMode.ONLINE\n        and appointment.state is not AppointmentState.ACCEPTED\n    ):\n        public.location = \"\"\n    return public",
+  "code": "def _public(\n    service: ConsultationService, appointment, actor: Account\n) -> AppointmentPublic:\n    \"\"\"Return one appointment with the customer's name and the visible place.\n\n    A customer does not see the room address of an online booking until the\n    designer accepts it. The designer always sees it.\n    \"\"\"\n    public = AppointmentPublic.model_validate(appointment)\n    public.customer_name = service.customer_name(appointment)\n    if (\n        actor.role is Role.CUSTOMER\n        and appointment.mode is ConsultationMode.ONLINE\n        and appointment.state is not AppointmentState.ACCEPTED\n    ):\n        public.location = \"\"\n    return public",
   "part": 1,
   "parts": 1,
   "offset": 44
@@ -1302,7 +1302,7 @@
   "start": 27,
   "end": 34,
   "lang": "python",
-  "code": "def _public(\n    company, actor: Account, appointments: AppointmentService\n) -> CompanyPublic:\n    \"\"\"Return the public view, holding back the call link until it is earned.\"\"\"\n    public = CompanyPublic.model_validate(company)\n    if not appointments.may_read_call_link(actor, company.id):\n        public.call_link = \"\"\n    return public",
+  "code": "def _public(\n    company, actor: Account, appointments: ConsultationService\n) -> CompanyPublic:\n    \"\"\"Return the public view, holding back the call link until it is earned.\"\"\"\n    public = CompanyPublic.model_validate(company)\n    if not appointments.may_read_call_link(actor, company.id):\n        public.call_link = \"\"\n    return public",
   "part": 1,
   "parts": 1,
   "offset": 26
@@ -1524,25 +1524,25 @@
   "offset": 105
  },
  {
-  "key": "api-deps-get_appointment_repository-116",
-  "name": "get_appointment_repository",
+  "key": "api-deps-get_consultation_appointment_repository-116",
+  "name": "get_consultation_appointment_repository",
   "file": "backend/app/api/deps.py",
   "start": 116,
   "end": 118,
   "lang": "python",
-  "code": "def get_appointment_repository() -> AppointmentRepository:\n    \"\"\"Return the process wide appointment store.\"\"\"\n    return _appointment_repository",
+  "code": "def get_consultation_appointment_repository() -> ConsultationAppointmentRepository:\n    \"\"\"Return the process wide appointment store.\"\"\"\n    return _consultation_appointment_repository",
   "part": 1,
   "parts": 1,
   "offset": 115
  },
  {
-  "key": "api-deps-get_appointment_service-121",
-  "name": "get_appointment_service",
+  "key": "api-deps-get_consultation_service-121",
+  "name": "get_consultation_service",
   "file": "backend/app/api/deps.py",
   "start": 121,
   "end": 127,
   "lang": "python",
-  "code": "def get_appointment_service() -> AppointmentService:\n    \"\"\"Return a service bound to the appointment, company and account stores.\"\"\"\n    return AppointmentService(\n        get_appointment_repository(),\n        get_company_repository(),\n        get_account_repository(),\n    )",
+  "code": "def get_consultation_service() -> ConsultationService:\n    \"\"\"Return a service bound to the appointment, company and account stores.\"\"\"\n    return ConsultationService(\n        get_consultation_appointment_repository(),\n        get_company_repository(),\n        get_account_repository(),\n    )",
   "part": 1,
   "parts": 1,
   "offset": 120

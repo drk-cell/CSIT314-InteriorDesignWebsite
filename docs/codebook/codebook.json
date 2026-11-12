@@ -79,7 +79,7 @@
   {
    "kind": "function",
    "name": "_public",
-   "signature": "def _public(service: AppointmentService, appointment, actor: Account) -> AppointmentPublic",
+   "signature": "def _public(service: ConsultationService, appointment, actor: Account) -> AppointmentPublic",
    "doc": "Return one appointment with the customer's name and the visible place.",
    "decorators": [],
    "file": "backend/app/api/appointments.py",
@@ -499,7 +499,7 @@
   {
    "kind": "function",
    "name": "_public",
-   "signature": "def _public(company, actor: Account, appointments: AppointmentService) -> CompanyPublic",
+   "signature": "def _public(company, actor: Account, appointments: ConsultationService) -> CompanyPublic",
    "doc": "Return the public view, holding back the call link until it is earned.",
    "decorators": [],
    "file": "backend/app/api/companies.py",
@@ -774,8 +774,8 @@
   },
   {
    "kind": "function",
-   "name": "get_appointment_repository",
-   "signature": "def get_appointment_repository() -> AppointmentRepository",
+   "name": "get_consultation_appointment_repository",
+   "signature": "def get_consultation_appointment_repository() -> ConsultationAppointmentRepository",
    "doc": "Return the process wide appointment store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
@@ -788,8 +788,8 @@
   },
   {
    "kind": "function",
-   "name": "get_appointment_service",
-   "signature": "def get_appointment_service() -> AppointmentService",
+   "name": "get_consultation_service",
+   "signature": "def get_consultation_service() -> ConsultationService",
    "doc": "Return a service bound to the appointment, company and account stores.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
@@ -4310,134 +4310,6 @@
   },
   {
    "kind": "class",
-   "name": "AppointmentRepository",
-   "bases": [],
-   "doc": "Keeps every appointment in process memory, keyed by id.",
-   "decorators": [],
-   "file": "backend/app/repositories/appointment_repository.py",
-   "line": 12,
-   "lines": [
-    12,
-    86
-   ],
-   "layer": "Entity (access)",
-   "fields": [],
-   "methods": [
-    {
-     "name": "__init__",
-     "signature": "def __init__() -> None",
-     "doc": "",
-     "decorators": [],
-     "lines": [
-      15,
-      17
-     ]
-    },
-    {
-     "name": "add",
-     "signature": "def add(appointment: ConsultationAppointment) -> bool",
-     "doc": "Store ``appointment`` unless its id is already present.",
-     "decorators": [],
-     "lines": [
-      19,
-      25
-     ]
-    },
-    {
-     "name": "add_if_free",
-     "signature": "def add_if_free(appointment: ConsultationAppointment) -> bool",
-     "doc": "Store ``appointment`` only when the slot is still free.",
-     "decorators": [],
-     "lines": [
-      27,
-      45
-     ]
-    },
-    {
-     "name": "get",
-     "signature": "def get(appointment_id: str) -> ConsultationAppointment | None",
-     "doc": "Return the appointment with ``appointment_id``, or ``None``.",
-     "decorators": [],
-     "lines": [
-      47,
-      49
-     ]
-    },
-    {
-     "name": "list_by_customer",
-     "signature": "def list_by_customer(customer_id: str) -> list[ConsultationAppointment]",
-     "doc": "Return the appointments one customer booked.",
-     "decorators": [],
-     "lines": [
-      51,
-      57
-     ]
-    },
-    {
-     "name": "list_by_company",
-     "signature": "def list_by_company(company_id: str) -> list[ConsultationAppointment]",
-     "doc": "Return the appointments one company received.",
-     "decorators": [],
-     "lines": [
-      59,
-      63
-     ]
-    },
-    {
-     "name": "taken_times",
-     "signature": "def taken_times(company_id: str, day: date) -> set[str]",
-     "doc": "Return the times already held on one company's day.",
-     "decorators": [],
-     "lines": [
-      65,
-      74
-     ]
-    },
-    {
-     "name": "list_all",
-     "signature": "def list_all() -> list[ConsultationAppointment]",
-     "doc": "Return every stored appointment.",
-     "decorators": [],
-     "lines": [
-      76,
-      78
-     ]
-    },
-    {
-     "name": "count",
-     "signature": "def count() -> int",
-     "doc": "Return how many appointments are stored.",
-     "decorators": [],
-     "lines": [
-      80,
-      82
-     ]
-    },
-    {
-     "name": "clear",
-     "signature": "def clear() -> None",
-     "doc": "Remove every stored appointment.",
-     "decorators": [],
-     "lines": [
-      84,
-      86
-     ]
-    }
-   ],
-   "public_methods": [
-    "add",
-    "add_if_free",
-    "get",
-    "list_by_customer",
-    "list_by_company",
-    "taken_times",
-    "list_all",
-    "count",
-    "clear"
-   ]
-  },
-  {
-   "kind": "class",
    "name": "CategoryRepository",
    "bases": [],
    "doc": "Keeps every category, active or archived.",
@@ -4632,6 +4504,134 @@
     "add",
     "get",
     "get_by_owner",
+    "list_all",
+    "count",
+    "clear"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ConsultationAppointmentRepository",
+   "bases": [],
+   "doc": "Keeps every appointment in process memory, keyed by id.",
+   "decorators": [],
+   "file": "backend/app/repositories/consultation_appointment_repository.py",
+   "line": 12,
+   "lines": [
+    12,
+    86
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      15,
+      17
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(appointment: ConsultationAppointment) -> bool",
+     "doc": "Store ``appointment`` unless its id is already present.",
+     "decorators": [],
+     "lines": [
+      19,
+      25
+     ]
+    },
+    {
+     "name": "add_if_free",
+     "signature": "def add_if_free(appointment: ConsultationAppointment) -> bool",
+     "doc": "Store ``appointment`` only when the slot is still free.",
+     "decorators": [],
+     "lines": [
+      27,
+      45
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(appointment_id: str) -> ConsultationAppointment | None",
+     "doc": "Return the appointment with ``appointment_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      47,
+      49
+     ]
+    },
+    {
+     "name": "list_by_customer",
+     "signature": "def list_by_customer(customer_id: str) -> list[ConsultationAppointment]",
+     "doc": "Return the appointments one customer booked.",
+     "decorators": [],
+     "lines": [
+      51,
+      57
+     ]
+    },
+    {
+     "name": "list_by_company",
+     "signature": "def list_by_company(company_id: str) -> list[ConsultationAppointment]",
+     "doc": "Return the appointments one company received.",
+     "decorators": [],
+     "lines": [
+      59,
+      63
+     ]
+    },
+    {
+     "name": "taken_times",
+     "signature": "def taken_times(company_id: str, day: date) -> set[str]",
+     "doc": "Return the times already held on one company's day.",
+     "decorators": [],
+     "lines": [
+      65,
+      74
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all() -> list[ConsultationAppointment]",
+     "doc": "Return every stored appointment.",
+     "decorators": [],
+     "lines": [
+      76,
+      78
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many appointments are stored.",
+     "decorators": [],
+     "lines": [
+      80,
+      82
+     ]
+    },
+    {
+     "name": "clear",
+     "signature": "def clear() -> None",
+     "doc": "Remove every stored appointment.",
+     "decorators": [],
+     "lines": [
+      84,
+      86
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "add_if_free",
+    "get",
+    "list_by_customer",
+    "list_by_company",
+    "taken_times",
     "list_all",
     "count",
     "clear"
@@ -6832,199 +6832,6 @@
   },
   {
    "kind": "class",
-   "name": "AppointmentService",
-   "bases": [],
-   "doc": "Applies the booking rules on top of the three stores.",
-   "decorators": [],
-   "file": "backend/app/services/appointment_service.py",
-   "line": 40,
-   "lines": [
-    40,
-    220
-   ],
-   "layer": "Control",
-   "fields": [],
-   "methods": [
-    {
-     "name": "__init__",
-     "signature": "def __init__(appointments: AppointmentRepository, companies: CompanyRepository, accounts: AccountRepository) -> None",
-     "doc": "",
-     "decorators": [],
-     "lines": [
-      43,
-      51
-     ]
-    },
-    {
-     "name": "available_slots",
-     "signature": "def available_slots(actor: Account, company_id: str, day: date) -> list[str]",
-     "doc": "Return the hours still free on one company's day.",
-     "decorators": [],
-     "lines": [
-      55,
-      64
-     ]
-    },
-    {
-     "name": "book",
-     "signature": "def book(actor: Account, company_id: str, day: date, time: str, mode: ConsultationMode = ConsultationMode.IN_PERSON, requirements: str = '') -> ConsultationAppointment",
-     "doc": "Keep one slot for one customer, in person or on a call.",
-     "decorators": [],
-     "lines": [
-      66,
-      104
-     ]
-    },
-    {
-     "name": "list_for_customer",
-     "signature": "def list_for_customer(actor: Account) -> list[ConsultationAppointment]",
-     "doc": "Return the caller's appointments, soonest first.",
-     "decorators": [],
-     "lines": [
-      106,
-      110
-     ]
-    },
-    {
-     "name": "cancel",
-     "signature": "def cancel(actor: Account, appointment_id: str) -> ConsultationAppointment",
-     "doc": "Return a slot to the diary. Either party may cancel.",
-     "decorators": [],
-     "lines": [
-      112,
-      121
-     ]
-    },
-    {
-     "name": "list_for_designer",
-     "signature": "def list_for_designer(actor: Account) -> list[ConsultationAppointment]",
-     "doc": "Return the appointments sent to the caller's company, soonest first.",
-     "decorators": [],
-     "lines": [
-      125,
-      128
-     ]
-    },
-    {
-     "name": "accept",
-     "signature": "def accept(actor: Account, appointment_id: str) -> ConsultationAppointment",
-     "doc": "Confirm a pending appointment.",
-     "decorators": [],
-     "lines": [
-      130,
-      140
-     ]
-    },
-    {
-     "name": "may_read_call_link",
-     "signature": "def may_read_call_link(actor: Account, company_id: str) -> bool",
-     "doc": "Return ``True`` when the caller may see the video room address.",
-     "decorators": [],
-     "lines": [
-      144,
-      162
-     ]
-    },
-    {
-     "name": "customer_name",
-     "signature": "def customer_name(appointment: ConsultationAppointment) -> str",
-     "doc": "Return the customer's display name for the designer's list.",
-     "decorators": [],
-     "lines": [
-      164,
-      167
-     ]
-    },
-    {
-     "name": "_cutoff",
-     "signature": "def _cutoff(day: date) -> str",
-     "doc": "Return the clock time before which today's slots are gone.",
-     "decorators": [
-      "@staticmethod"
-     ],
-     "lines": [
-      172,
-      175
-     ]
-    },
-    {
-     "name": "_sorted",
-     "signature": "def _sorted(appointments: list[ConsultationAppointment]) -> list[ConsultationAppointment]",
-     "doc": "",
-     "decorators": [
-      "@staticmethod"
-     ],
-     "lines": [
-      178,
-      184
-     ]
-    },
-    {
-     "name": "_get",
-     "signature": "def _get(appointment_id: str) -> ConsultationAppointment",
-     "doc": "",
-     "decorators": [],
-     "lines": [
-      186,
-      190
-     ]
-    },
-    {
-     "name": "_may_cancel",
-     "signature": "def _may_cancel(actor: Account, appointment: ConsultationAppointment) -> bool",
-     "doc": "",
-     "decorators": [],
-     "lines": [
-      192,
-      198
-     ]
-    },
-    {
-     "name": "_company_of",
-     "signature": "def _company_of(actor: Account)",
-     "doc": "",
-     "decorators": [],
-     "lines": [
-      200,
-      206
-     ]
-    },
-    {
-     "name": "_notify_designer",
-     "signature": "def _notify_designer(appointment: ConsultationAppointment) -> None",
-     "doc": "Tell the designer.",
-     "decorators": [],
-     "lines": [
-      208,
-      215
-     ]
-    },
-    {
-     "name": "_require_customer",
-     "signature": "def _require_customer(actor: Account) -> None",
-     "doc": "",
-     "decorators": [
-      "@staticmethod"
-     ],
-     "lines": [
-      218,
-      220
-     ]
-    }
-   ],
-   "public_methods": [
-    "available_slots",
-    "book",
-    "list_for_customer",
-    "cancel",
-    "list_for_designer",
-    "accept",
-    "may_read_call_link",
-    "customer_name"
-   ]
-  },
-  {
-   "kind": "class",
    "name": "CategoryNotFound",
    "bases": [
     "Exception"
@@ -7284,6 +7091,199 @@
     "update",
     "get",
     "list_companies"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ConsultationService",
+   "bases": [],
+   "doc": "Applies the booking rules on top of the three stores.",
+   "decorators": [],
+   "file": "backend/app/services/consultation_service.py",
+   "line": 40,
+   "lines": [
+    40,
+    220
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(appointments: ConsultationAppointmentRepository, companies: CompanyRepository, accounts: AccountRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      43,
+      51
+     ]
+    },
+    {
+     "name": "available_slots",
+     "signature": "def available_slots(actor: Account, company_id: str, day: date) -> list[str]",
+     "doc": "Return the hours still free on one company's day.",
+     "decorators": [],
+     "lines": [
+      55,
+      64
+     ]
+    },
+    {
+     "name": "book",
+     "signature": "def book(actor: Account, company_id: str, day: date, time: str, mode: ConsultationMode = ConsultationMode.IN_PERSON, requirements: str = '') -> ConsultationAppointment",
+     "doc": "Keep one slot for one customer, in person or on a call.",
+     "decorators": [],
+     "lines": [
+      66,
+      104
+     ]
+    },
+    {
+     "name": "list_for_customer",
+     "signature": "def list_for_customer(actor: Account) -> list[ConsultationAppointment]",
+     "doc": "Return the caller's appointments, soonest first.",
+     "decorators": [],
+     "lines": [
+      106,
+      110
+     ]
+    },
+    {
+     "name": "cancel",
+     "signature": "def cancel(actor: Account, appointment_id: str) -> ConsultationAppointment",
+     "doc": "Return a slot to the diary. Either party may cancel.",
+     "decorators": [],
+     "lines": [
+      112,
+      121
+     ]
+    },
+    {
+     "name": "list_for_designer",
+     "signature": "def list_for_designer(actor: Account) -> list[ConsultationAppointment]",
+     "doc": "Return the appointments sent to the caller's company, soonest first.",
+     "decorators": [],
+     "lines": [
+      125,
+      128
+     ]
+    },
+    {
+     "name": "accept",
+     "signature": "def accept(actor: Account, appointment_id: str) -> ConsultationAppointment",
+     "doc": "Confirm a pending appointment.",
+     "decorators": [],
+     "lines": [
+      130,
+      140
+     ]
+    },
+    {
+     "name": "may_read_call_link",
+     "signature": "def may_read_call_link(actor: Account, company_id: str) -> bool",
+     "doc": "Return ``True`` when the caller may see the video room address.",
+     "decorators": [],
+     "lines": [
+      144,
+      162
+     ]
+    },
+    {
+     "name": "customer_name",
+     "signature": "def customer_name(appointment: ConsultationAppointment) -> str",
+     "doc": "Return the customer's display name for the designer's list.",
+     "decorators": [],
+     "lines": [
+      164,
+      167
+     ]
+    },
+    {
+     "name": "_cutoff",
+     "signature": "def _cutoff(day: date) -> str",
+     "doc": "Return the clock time before which today's slots are gone.",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      172,
+      175
+     ]
+    },
+    {
+     "name": "_sorted",
+     "signature": "def _sorted(appointments: list[ConsultationAppointment]) -> list[ConsultationAppointment]",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      178,
+      184
+     ]
+    },
+    {
+     "name": "_get",
+     "signature": "def _get(appointment_id: str) -> ConsultationAppointment",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      186,
+      190
+     ]
+    },
+    {
+     "name": "_may_cancel",
+     "signature": "def _may_cancel(actor: Account, appointment: ConsultationAppointment) -> bool",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      192,
+      198
+     ]
+    },
+    {
+     "name": "_company_of",
+     "signature": "def _company_of(actor: Account)",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      200,
+      206
+     ]
+    },
+    {
+     "name": "_notify_designer",
+     "signature": "def _notify_designer(appointment: ConsultationAppointment) -> None",
+     "doc": "Tell the designer.",
+     "decorators": [],
+     "lines": [
+      208,
+      215
+     ]
+    },
+    {
+     "name": "_require_customer",
+     "signature": "def _require_customer(actor: Account) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      218,
+      220
+     ]
+    }
+   ],
+   "public_methods": [
+    "available_slots",
+    "book",
+    "list_for_customer",
+    "cancel",
+    "list_for_designer",
+    "accept",
+    "may_read_call_link",
+    "customer_name"
    ]
   },
   {
