@@ -204,13 +204,13 @@ def main() -> int:
         # The report form, filled but not sent, so a re-run adds no reports.
         page.goto(f"{WEB}/projects/{project_id}", wait_until="networkidle")
         page.click("text=Report this project")
-        page.wait_for_timeout(600)
+        page.wait_for_selector("#report-reason")
         page.select_option("#report-reason", "Spam or misleading")
         page.fill(
             "#report-comments",
             "This looks like a stock catalogue photo, not this studio's work.",
         )
-        shoot(page, "22-customer-report", anchor="#report-reason")
+        shoot(page, "22-customer-report")
 
         # ----- designer
         page.evaluate("localStorage.removeItem('idp.token')")

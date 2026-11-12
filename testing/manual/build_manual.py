@@ -575,14 +575,14 @@ def main() -> int:
         "A project that breaks the rules can be flagged for the administrator.",
         "A project page, Report this project",
         [
-            "Open the project page and press Report this project under View designer.",
+            "Open the project page and press Report this project under View designer. The Report a project page opens.",
             "Choose a Reason from the list.",
             "Write what is wrong in the Comments box, then press Send report.",
             "Read the confirmation on the page.",
         ],
         "The report reaches the administrator's queue. One customer holds one open report per project, and the reported project stays visible until staff act.",
         "22-customer-report.png",
-        "Figure 12  The report form in the project sidebar: the reason list, the comments box and Send report.",
+        "Figure 12  The report page: the reason list, the comments box and Send report.",
     )
 
     # ----- 4 designer

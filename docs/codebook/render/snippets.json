@@ -2112,16 +2112,16 @@
   "offset": 74
  },
  {
-  "key": "page-App-App-24",
+  "key": "page-App-App-25",
   "name": "App",
   "file": "frontend/src/App.tsx",
-  "start": 24,
-  "end": 24,
+  "start": 25,
+  "end": 25,
   "lang": "tsx",
   "code": "export default function App() {\n  const { account, loading, logout } = useAuth();\n\n  return (\n    <div className=\"shell\">\n      <header className=\"site-header\">\n        <div className=\"container header-inner\">\n          <Link className=\"brand\" to=\"/\">\n            Interior Design Platform\n          </Link>\n          <nav className=\"nav\" aria-label=\"Main\">\n            <NavLink to=\"/\" end>\n              Home\n            </NavLink>\n            {account !== null && (\n              <>\n                <NavLink to=\"/dashboard\">Dashboard</NavLink>\n                <NavLink to=\"/search\">Find a project</NavLink>\n                <NavLink to=\"/designers\">Designers</NavLink>\n                {account.role === 'CUSTOMER' && <NavLink to=\"/saved\">Saved</NavLink>}\n                {(account.role === 'CUSTOMER' || account.role === 'DESIGNER') && (\n                  <NavLink to=\"/quotes\">\n                    {account.role === 'DESIGNER' ? 'Quote inbox' : 'Requests'}\n                  </NavLink>\n                )}\n                {(account.role === 'CUSTOMER' || account.role === 'DESIGNER') && (\n                  <NavLink to=\"/appointments\">\n                    {account.role === 'DESIGNER' ? 'Consultations' : 'Appointments'}\n                  </NavLink>",
   "part": 1,
   "parts": 1,
-  "offset": 23
+  "offset": 24
  },
  {
   "key": "page-auth-AuthProvider-25",
@@ -2208,16 +2208,16 @@
   "offset": 17
  },
  {
-  "key": "page-ProjectDetail-ProjectDetail-22",
+  "key": "page-ProjectDetail-ProjectDetail-19",
   "name": "ProjectDetail",
   "file": "frontend/src/pages/ProjectDetail.tsx",
-  "start": 22,
-  "end": 22,
+  "start": 19,
+  "end": 19,
   "lang": "tsx",
-  "code": "export default function ProjectDetail() {\n  const { projectId } = useParams<{ projectId: string }>();\n  const { account } = useAuth();\n  const [project, setProject] = useState<ProjectPublic | null>(null);\n  const [companies, setCompanies] = useState<CompanyPublic[]>([]);\n  const [active, setActive] = useState(0);\n  const [saved, setSaved] = useState(false);\n  const [busy, setBusy] = useState(false);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState<string | null>(null);\n  const [reportOpen, setReportOpen] = useState(false);\n  const [reasons, setReasons] = useState<string[]>([]);\n  const [reason, setReason] = useState('');\n  const [comments, setComments] = useState('');\n  const [reportBusy, setReportBusy] = useState(false);\n  const [reportNotice, setReportNotice] = useState<string | null>(null);\n  const [reportError, setReportError] = useState<string | null>(null);\n  const counted = useRef(false);\n\n  useEffect(() => {\n    if (!projectId) return;\n    let live = true;\n    setLoading(true);\n    setError(null);\n\n    getProject(projectId)\n      .then((data) => {\n        if (!live) return;\n        setProject(data);",
+  "code": "export default function ProjectDetail() {\n  const { projectId } = useParams<{ projectId: string }>();\n  const { account } = useAuth();\n  const [project, setProject] = useState<ProjectPublic | null>(null);\n  const [companies, setCompanies] = useState<CompanyPublic[]>([]);\n  const [active, setActive] = useState(0);\n  const [saved, setSaved] = useState(false);\n  const [busy, setBusy] = useState(false);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState<string | null>(null);\n  const counted = useRef(false);\n\n  useEffect(() => {\n    if (!projectId) return;\n    let live = true;\n    setLoading(true);\n    setError(null);\n\n    getProject(projectId)\n      .then((data) => {\n        if (!live) return;\n        setProject(data);\n        setActive(0);\n      })\n      .catch((caught: unknown) => {\n        if (!live) return;\n        setError(caught instanceof ApiError ? caught.detail : 'Unable to load the project.');\n      })\n      .finally(() => {",
   "part": 1,
   "parts": 1,
-  "offset": 21
+  "offset": 18
  },
  {
   "key": "page-Saved-Saved-10",
@@ -2386,5 +2386,17 @@
   "part": 1,
   "parts": 1,
   "offset": 35
+ },
+ {
+  "key": "page-ReportProject-ReportProject-7",
+  "name": "ReportProject",
+  "file": "frontend/src/pages/ReportProject.tsx",
+  "start": 7,
+  "end": 7,
+  "lang": "tsx",
+  "code": "export default function ReportProject() {\n  const { projectId } = useParams<{ projectId: string }>();\n  const [project, setProject] = useState<ProjectPublic | null>(null);\n  const [reasons, setReasons] = useState<string[]>([]);\n  const [reason, setReason] = useState('');\n  const [comments, setComments] = useState('');\n  const [loading, setLoading] = useState(true);\n  const [sending, setSending] = useState(false);\n  const [error, setError] = useState<string | null>(null);\n  const [sent, setSent] = useState(false);\n\n  useEffect(() => {\n    if (projectId === undefined) return;\n    let live = true;\n    setLoading(true);\n    setError(null);\n    Promise.all([getProject(projectId), reportReasons()])\n      .then(([found, list]) => {\n        if (!live) return;\n        setProject(found);\n        setReasons(list);\n      })\n      .catch((caught: unknown) => {\n        if (live) {\n          setError(\n            caught instanceof ApiError ? caught.detail : 'Unable to load the project.'\n          );\n        }\n      })",
+  "part": 1,
+  "parts": 1,
+  "offset": 6
  }
 ]

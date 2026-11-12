@@ -8995,7 +8995,7 @@
    "kind": "component",
    "name": "App",
    "file": "frontend/src/App.tsx",
-   "line": 24,
+   "line": 25,
    "api": [],
    "hooks": [],
    "doc": "",
@@ -9260,15 +9260,13 @@
    "kind": "component",
    "name": "ProjectDetail",
    "file": "frontend/src/pages/ProjectDetail.tsx",
-   "line": 22,
+   "line": 19,
    "api": [
     "ApiError",
     "getProject",
     "getShortlist",
     "listCompanies",
     "recordView",
-    "reportProject",
-    "reportReasons",
     "saveProject",
     "unsaveProject"
    ],
@@ -9357,6 +9355,26 @@
     "ApiError"
    ],
    "hooks": [
+    "State"
+   ],
+   "doc": "",
+   "layer": "Boundary (page)",
+   "imports_api": true
+  },
+  {
+   "kind": "component",
+   "name": "ReportProject",
+   "file": "frontend/src/pages/ReportProject.tsx",
+   "line": 7,
+   "api": [
+    "ApiError",
+    "getProject",
+    "reportProject",
+    "reportReasons"
+   ],
+   "hooks": [
+    "Effect",
+    "Params",
     "State"
    ],
    "doc": "",
@@ -9474,6 +9492,11 @@
    "roles": "DESIGNER"
   },
   {
+   "path": "/projects/:projectId/report",
+   "component": "ReportProject",
+   "roles": "CUSTOMER"
+  },
+  {
    "path": "/projects/:projectId/edit",
    "component": "ProjectEditor",
    "roles": "DESIGNER"
@@ -9539,8 +9562,8 @@
   "frontend": {
    "classes": 0,
    "functions": 53,
-   "components": 23,
-   "items": 76
+   "components": 24,
+   "items": 77
   }
  }
 }
