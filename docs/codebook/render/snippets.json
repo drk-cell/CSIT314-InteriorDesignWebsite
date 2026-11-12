@@ -72,13 +72,13 @@
   "offset": 0
  },
  {
-  "key": "entity-Company-18",
+  "key": "entity-Company-20",
   "name": "Company",
   "file": "backend/app/domain/company.py",
-  "start": 18,
-  "end": 88,
+  "start": 20,
+  "end": 120,
   "lang": "python",
-  "code": "# backend/app/domain/company.py — lines 18–88, signatures only\n@dataclass\nclass Company:\n    \"\"\"A designer's company profile.\"\"\"\n    owner_id: str\n    name: str\n    description: str = ''\n    contact_email: str = ''\n    contact_phone: str = ''\n    location: str = ''\n    logo_url: str = ''\n    id: str = field(default_factory=lambda: str(uuid4()))\n    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))\n    updated_at: datetime | None = None\n\n    def __post_init__() -> None\n        \"\"\"Normalise the values customers will read.\"\"\"\n    def rename(name: str) -> None\n        \"\"\"Replace the company name.\"\"\"\n    def update_description(text: str) -> None\n        \"\"\"Replace the description customers read.\"\"\"\n    def update_contact(email: str, phone: str) -> None\n        \"\"\"Replace the contact pair after checking the address has a domain.\"\"\"\n    def set_location(location: str) -> None\n        \"\"\"Replace the service area.\"\"\"\n    def attach_logo(url: str) -> None\n        \"\"\"Point the profile at a logo image.\"\"\"\n    def is_owned_by(account_id: str) -> bool\n        \"\"\"Return ``True`` when ``account_id`` is the designer behind this company.\"\"\"\n    def _touch() -> None",
+  "code": "# backend/app/domain/company.py — lines 20–120, signatures only\n@dataclass\nclass Company:\n    \"\"\"A designer's company profile.\"\"\"\n    owner_id: str\n    name: str\n    description: str = ''\n    contact_email: str = ''\n    contact_phone: str = ''\n    location: str = ''\n    meeting_address: str = ''\n    call_link: str = ''\n    logo_url: str = ''\n    id: str = field(default_factory=lambda: str(uuid4()))\n    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))\n    updated_at: datetime | None = None\n\n    def __post_init__() -> None\n        \"\"\"Normalise the values customers will read.\"\"\"\n    def rename(name: str) -> None\n        \"\"\"Replace the company name.\"\"\"\n    def update_description(text: str) -> None\n        \"\"\"Replace the description customers read.\"\"\"\n    def update_contact(email: str, phone: str) -> None\n        \"\"\"Replace the contact pair after checking the address has a domain.\"\"\"\n    def set_location(location: str) -> None\n        \"\"\"Replace the service area.\"\"\"\n    def attach_logo(url: str) -> None\n        \"\"\"Point the profile at a logo image.\"\"\"\n    def set_meeting_address(text: str) -> None\n        \"\"\"Set where an in person consultation takes place.\"\"\"\n    def set_call_link(url: str) -> None\n        \"\"\"Set the video call room, or clear it with a blank value.\"\"\"\n    def meeting_place(online: bool) -> str\n        \"\"\"Return the address a consultation uses, or the call link.\"\"\"\n    def is_owned_by(account_id: str) -> bool\n        \"\"\"Return ``True`` when ``account_id`` is the designer behind this company.\"\"\"\n    def _touch() -> None",
   "part": 1,
   "parts": 1,
   "offset": 0
@@ -202,6 +202,18 @@
   "part": 1,
   "parts": 1,
   "offset": 63
+ },
+ {
+  "key": "entity-ConsultationMode-72",
+  "name": "ConsultationMode",
+  "file": "backend/app/domain/enums.py",
+  "start": 72,
+  "end": 76,
+  "lang": "python",
+  "code": "class ConsultationMode(str, Enum):\n    \"\"\"How the consultation happens.\"\"\"\n\n    IN_PERSON = \"IN_PERSON\"\n    ONLINE = \"ONLINE\"",
+  "part": 1,
+  "parts": 1,
+  "offset": 71
  },
  {
   "key": "entity-DomainError-12",
@@ -388,9 +400,9 @@
   "name": "ConsultationAppointment",
   "file": "backend/app/domain/appointment.py",
   "start": 55,
-  "end": 117,
+  "end": 122,
   "lang": "python",
-  "code": "# backend/app/domain/appointment.py — lines 55–117, signatures only\n@dataclass\nclass ConsultationAppointment:\n    \"\"\"One slot a customer asked a designer to keep.\"\"\"\n    customer_id: str\n    company_id: str\n    appointment_date: date\n    appointment_time: str\n    requirements: str = ''\n    state: AppointmentState = AppointmentState.PENDING\n    notified_at: datetime | None = None\n    created_at: datetime = field(default_factory=_now)\n    updated_at: datetime | None = None\n    id: str = field(default_factory=lambda: str(uuid4()))\n\n    def __post_init__() -> None\n        \"\"\"Check the identifiers, the slot and the day.\"\"\"\n    @property\n    def is_open() -> bool\n        \"\"\"Return ``True`` while the slot still blocks the diary.\"\"\"\n    def is_pending() -> bool\n        \"\"\"Return ``True`` until the designer answers.\"\"\"\n    def accept() -> None\n        \"\"\"The designer confirms the slot.\"\"\"\n    def cancel() -> None\n        \"\"\"Either party gives the slot back.\"\"\"\n    def mark_notified() -> None\n        \"\"\"Record that the designer was told about the new booking.\"\"\"\n    def _touch() -> None",
+  "code": "# backend/app/domain/appointment.py — lines 55–122, signatures only\n@dataclass\nclass ConsultationAppointment:\n    \"\"\"One slot a customer asked a designer to keep.\"\"\"\n    customer_id: str\n    company_id: str\n    appointment_date: date\n    appointment_time: str\n    location: str = ''\n    mode: ConsultationMode = ConsultationMode.IN_PERSON\n    requirements: str = ''\n    state: AppointmentState = AppointmentState.PENDING\n    notified_at: datetime | None = None\n    created_at: datetime = field(default_factory=_now)\n    updated_at: datetime | None = None\n    id: str = field(default_factory=lambda: str(uuid4()))\n\n    def __post_init__() -> None\n        \"\"\"Check the identifiers, the slot and the day.\"\"\"\n    @property\n    def is_open() -> bool\n        \"\"\"Return ``True`` while the slot still blocks the diary.\"\"\"\n    def is_pending() -> bool\n        \"\"\"Return ``True`` until the designer answers.\"\"\"\n    def accept() -> None\n        \"\"\"The designer confirms the slot.\"\"\"\n    def cancel() -> None\n        \"\"\"Either party gives the slot back.\"\"\"\n    def mark_notified() -> None\n        \"\"\"Record that the designer was told about the new booking.\"\"\"\n    def _touch() -> None",
   "part": 1,
   "parts": 1,
   "offset": 0
@@ -508,9 +520,9 @@
   "name": "AppointmentService",
   "file": "backend/app/services/appointment_service.py",
   "start": 35,
-  "end": 187,
+  "end": 195,
   "lang": "python",
-  "code": "# backend/app/services/appointment_service.py — lines 35–187, signatures only\nclass AppointmentService:\n    \"\"\"Applies the booking rules on top of the three stores.\"\"\"\n    def __init__(appointments: AppointmentRepository, companies: CompanyRepository, accounts: AccountRepository) -> None\n    def available_slots(actor: Account, company_id: str, day: date) -> list[str]\n        \"\"\"Return the hours still free on one company's day.\"\"\"\n    def book(actor: Account, company_id: str, day: date, time: str, requirements: str = '') -> ConsultationAppointment\n        \"\"\"Keep one slot for one customer.\"\"\"\n    def list_for_customer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the caller's appointments, soonest first.\"\"\"\n    def cancel(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Return a slot to the diary. Either party may cancel.\"\"\"\n    def list_for_designer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments sent to the caller's company, soonest first.\"\"\"\n    def accept(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Confirm a pending appointment.\"\"\"\n    def customer_name(appointment: ConsultationAppointment) -> str\n        \"\"\"Return the customer's display name for the designer's list.\"\"\"\n    @staticmethod\n    def _cutoff(day: date) -> str\n        \"\"\"Return the clock time before which today's slots are gone.\"\"\"\n    @staticmethod\n    def _sorted(appointments: list[ConsultationAppointment]) -> list[ConsultationAppointment]\n    def _get(appointment_id: str) -> ConsultationAppointment\n    def _may_cancel(actor: Account, appointment: ConsultationAppointment) -> bool\n    def _company_of(actor: Account)\n    def _notify_designer(appointment: ConsultationAppointment) -> None\n        \"\"\"Tell the designer.\"\"\"\n    @staticmethod\n    def _require_customer(actor: Account) -> None",
+  "code": "# backend/app/services/appointment_service.py — lines 35–195, signatures only\nclass AppointmentService:\n    \"\"\"Applies the booking rules on top of the three stores.\"\"\"\n    def __init__(appointments: AppointmentRepository, companies: CompanyRepository, accounts: AccountRepository) -> None\n    def available_slots(actor: Account, company_id: str, day: date) -> list[str]\n        \"\"\"Return the hours still free on one company's day.\"\"\"\n    def book(actor: Account, company_id: str, day: date, time: str, mode: ConsultationMode = ConsultationMode.IN_PERSON, requirements: str = '') -> ConsultationAppointment\n        \"\"\"Keep one slot for one customer, in person or on a call.\"\"\"\n    def list_for_customer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the caller's appointments, soonest first.\"\"\"\n    def cancel(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Return a slot to the diary. Either party may cancel.\"\"\"\n    def list_for_designer(actor: Account) -> list[ConsultationAppointment]\n        \"\"\"Return the appointments sent to the caller's company, soonest first.\"\"\"\n    def accept(actor: Account, appointment_id: str) -> ConsultationAppointment\n        \"\"\"Confirm a pending appointment.\"\"\"\n    def customer_name(appointment: ConsultationAppointment) -> str\n        \"\"\"Return the customer's display name for the designer's list.\"\"\"\n    @staticmethod\n    def _cutoff(day: date) -> str\n        \"\"\"Return the clock time before which today's slots are gone.\"\"\"\n    @staticmethod\n    def _sorted(appointments: list[ConsultationAppointment]) -> list[ConsultationAppointment]\n    def _get(appointment_id: str) -> ConsultationAppointment\n    def _may_cancel(actor: Account, appointment: ConsultationAppointment) -> bool\n    def _company_of(actor: Account)\n    def _notify_designer(appointment: ConsultationAppointment) -> None\n        \"\"\"Tell the designer.\"\"\"\n    @staticmethod\n    def _require_customer(actor: Account) -> None",
   "part": 1,
   "parts": 1,
   "offset": 0
@@ -556,9 +568,9 @@
   "name": "CompanyService",
   "file": "backend/app/services/company_service.py",
   "start": 12,
-  "end": 100,
+  "end": 112,
   "lang": "python",
-  "code": "# backend/app/services/company_service.py — lines 12–100, signatures only\nclass CompanyService:\n    \"\"\"Applies the company profile rules on top of the repository.\"\"\"\n    def __init__(companies: CompanyRepository) -> None\n    def create(actor: Account, name: str, description: str, contact_email: str, contact_phone: str, location: str, logo_url: str = '') -> Company\n        \"\"\"Create the company profile for ``actor``.\"\"\"\n    def get_for_owner(actor: Account) -> Company\n        \"\"\"Return the profile owned by ``actor``.\"\"\"\n    def update(actor: Account) -> Company\n        \"\"\"Change only the fields that were supplied.\"\"\"\n    def get(company_id: str) -> Company\n        \"\"\"Return a company by id. Any signed in account may read it.\"\"\"\n    def list_companies() -> list[Company]\n        \"\"\"Return every company, sorted by name for a stable listing.\"\"\"\n    @staticmethod\n    def _require_designer(actor: Account) -> None",
+  "code": "# backend/app/services/company_service.py — lines 12–112, signatures only\nclass CompanyService:\n    \"\"\"Applies the company profile rules on top of the repository.\"\"\"\n    def __init__(companies: CompanyRepository) -> None\n    def create(actor: Account, name: str, description: str, contact_email: str, contact_phone: str, location: str, meeting_address: str = '', call_link: str = '', logo_url: str = '') -> Company\n        \"\"\"Create the company profile for ``actor``.\"\"\"\n    def get_for_owner(actor: Account) -> Company\n        \"\"\"Return the profile owned by ``actor``.\"\"\"\n    def update(actor: Account) -> Company\n        \"\"\"Change only the fields that were supplied.\"\"\"\n    def get(company_id: str) -> Company\n        \"\"\"Return a company by id. Any signed in account may read it.\"\"\"\n    def list_companies() -> list[Company]\n        \"\"\"Return every company, sorted by name for a stable listing.\"\"\"\n    @staticmethod\n    def _require_designer(actor: Account) -> None",
   "part": 1,
   "parts": 1,
   "offset": 0
@@ -988,48 +1000,48 @@
   "name": "book",
   "file": "backend/app/api/appointments.py",
   "start": 78,
-  "end": 94,
+  "end": 95,
   "lang": "python",
-  "code": "def book(\n    payload: BookRequest,\n    actor: CurrentAccountDep,\n    service: ServiceDep,\n) -> AppointmentPublic:\n    \"\"\"A customer keeps one hour in a designer's diary.\"\"\"\n    try:\n        appointment = service.book(\n            actor,\n            payload.company_id,\n            payload.date,\n            payload.time,\n            payload.requirements,\n        )\n    except (NotPermitted, CompanyNotFound, InvalidState, ValueError) as exc:\n        raise _fail(exc) from exc\n    return _public(service, appointment)",
+  "code": "def book(\n    payload: BookRequest,\n    actor: CurrentAccountDep,\n    service: ServiceDep,\n) -> AppointmentPublic:\n    \"\"\"A customer keeps one hour in a designer's diary.\"\"\"\n    try:\n        appointment = service.book(\n            actor,\n            payload.company_id,\n            payload.date,\n            payload.time,\n            payload.mode,\n            payload.requirements,\n        )\n    except (NotPermitted, CompanyNotFound, InvalidState, ValueError) as exc:\n        raise _fail(exc) from exc\n    return _public(service, appointment)",
   "part": 1,
   "parts": 1,
   "offset": 77
  },
  {
-  "key": "api-list_appointments-102",
+  "key": "api-list_appointments-103",
   "name": "list_appointments",
   "file": "backend/app/api/appointments.py",
-  "start": 102,
-  "end": 113,
+  "start": 103,
+  "end": 114,
   "lang": "python",
   "code": "def list_appointments(\n    actor: CurrentAccountDep, service: ServiceDep\n) -> list[AppointmentPublic]:\n    \"\"\"Customers see their bookings; designers see their company diary.\"\"\"\n    try:\n        if actor.role.value == \"CUSTOMER\":\n            appointments = service.list_for_customer(actor)\n        else:\n            appointments = service.list_for_designer(actor)\n    except (NotPermitted, CompanyNotFound) as exc:\n        raise _fail(exc) from exc\n    return [_public(service, entry) for entry in appointments]",
   "part": 1,
   "parts": 1,
-  "offset": 101
+  "offset": 102
  },
  {
-  "key": "api-accept_appointment-121",
+  "key": "api-accept_appointment-122",
   "name": "accept_appointment",
   "file": "backend/app/api/appointments.py",
-  "start": 121,
-  "end": 129,
+  "start": 122,
+  "end": 130,
   "lang": "python",
   "code": "def accept_appointment(\n    appointment_id: str, actor: CurrentAccountDep, service: ServiceDep\n) -> AppointmentPublic:\n    \"\"\"The designer confirms the hour.\"\"\"\n    try:\n        appointment = service.accept(actor, appointment_id)\n    except (AppointmentNotFound, NotPermitted, CompanyNotFound, InvalidState) as exc:\n        raise _fail(exc) from exc\n    return _public(service, appointment)",
   "part": 1,
   "parts": 1,
-  "offset": 120
+  "offset": 121
  },
  {
-  "key": "api-cancel_appointment-137",
+  "key": "api-cancel_appointment-138",
   "name": "cancel_appointment",
   "file": "backend/app/api/appointments.py",
-  "start": 137,
-  "end": 145,
+  "start": 138,
+  "end": 146,
   "lang": "python",
   "code": "def cancel_appointment(\n    appointment_id: str, actor: CurrentAccountDep, service: ServiceDep\n) -> AppointmentPublic:\n    \"\"\"Either party gives the hour back.\"\"\"\n    try:\n        appointment = service.cancel(actor, appointment_id)\n    except (AppointmentNotFound, NotPermitted, InvalidState) as exc:\n        raise _fail(exc) from exc\n    return _public(service, appointment)",
   "part": 1,
   "parts": 1,
-  "offset": 136
+  "offset": 137
  },
  {
   "key": "api-register-40",
@@ -2124,16 +2136,16 @@
   "offset": 43
  },
  {
-  "key": "page-Profile-27",
+  "key": "page-Profile-31",
   "name": "Profile",
   "file": "frontend/src/pages/Profile.tsx",
-  "start": 27,
-  "end": 27,
+  "start": 31,
+  "end": 31,
   "lang": "tsx",
   "code": "export default function Profile() {\n  const { account } = useAuth();\n  const [company, setCompany] = useState<CompanyPublic | null>(null);\n  const [form, setForm] = useState<CompanyInput>(EMPTY);\n  const [loading, setLoading] = useState(true);\n  const [saving, setSaving] = useState(false);\n  const [error, setError] = useState<string | null>(null);\n  const [notice, setNotice] = useState<string | null>(null);\n\n  useEffect(() => {\n    let cancelled = false;\n\n    myCompany()\n      .then((found) => {\n        if (cancelled) return;\n        setCompany(found);\n        setForm(toInput(found));\n      })\n      .catch((caught: unknown) => {\n        if (cancelled) return;\n        if (caught instanceof ApiError && caught.status === 404) {\n          setCompany(null);\n          return;\n        }\n        setError(caught instanceof ApiError ? caught.detail : 'Unable to load the profile.');\n      })\n      .finally(() => {\n        if (!cancelled) setLoading(false);\n      });",
   "part": 1,
   "parts": 1,
-  "offset": 26
+  "offset": 30
  },
  {
   "key": "page-Admin-21",
@@ -2190,7 +2202,7 @@
   "start": 36,
   "end": 36,
   "lang": "tsx",
-  "code": "export default function BookConsultation() {\n  const { companyId } = useParams<{ companyId: string }>();\n  const days = useMemo(bookingDays, []);\n  const [company, setCompany] = useState<CompanyPublic | null>(null);\n  const [day, setDay] = useState<string>(isoDay(days[0]));\n  const [slots, setSlots] = useState<string[]>([]);\n  const [time, setTime] = useState<string>('');\n  const [requirements, setRequirements] = useState<string>('');\n  const [loadingSlots, setLoadingSlots] = useState<boolean>(true);\n  const [saving, setSaving] = useState<boolean>(false);\n  const [error, setError] = useState<string | null>(null);\n  const [booked, setBooked] = useState<AppointmentPublic | null>(null);\n\n  useEffect(() => {\n    if (companyId === undefined) return;\n    companyById(companyId)\n      .then(setCompany)\n      .catch((caught: unknown) => {\n        setError(caught instanceof ApiError ? caught.detail : 'Unable to load the designer.');\n      });\n  }, [companyId]);\n\n  useEffect(() => {\n    if (companyId === undefined) return;\n    let live = true;\n    setLoadingSlots(true);\n    setTime('');\n    listSlots(companyId, day)\n      .then((result) => {",
+  "code": "export default function BookConsultation() {\n  const { companyId } = useParams<{ companyId: string }>();\n  const days = useMemo(bookingDays, []);\n  const [company, setCompany] = useState<CompanyPublic | null>(null);\n  const [day, setDay] = useState<string>(isoDay(days[0]));\n  const [mode, setMode] = useState<ConsultationMode>('IN_PERSON');\n  const [slots, setSlots] = useState<string[]>([]);\n  const [time, setTime] = useState<string>('');\n  const [requirements, setRequirements] = useState<string>('');\n  const [loadingSlots, setLoadingSlots] = useState<boolean>(true);\n  const [saving, setSaving] = useState<boolean>(false);\n  const [error, setError] = useState<string | null>(null);\n  const [booked, setBooked] = useState<AppointmentPublic | null>(null);\n\n  useEffect(() => {\n    if (companyId === undefined) return;\n    companyById(companyId)\n      .then(setCompany)\n      .catch((caught: unknown) => {\n        setError(caught instanceof ApiError ? caught.detail : 'Unable to load the designer.');\n      });\n  }, [companyId]);\n\n  const hasAddress = company !== null && company.meeting_address !== '';\n  const hasLink = company !== null && company.call_link !== '';\n\n  useEffect(() => {\n    if (company === null) return;\n    if (!hasAddress && hasLink) setMode('ONLINE');",
   "part": 1,
   "parts": 1,
   "offset": 35

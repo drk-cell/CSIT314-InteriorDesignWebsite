@@ -340,7 +340,7 @@ def main() -> int:
             ],
             [
                 "Designer (IDM)",
-                "Publish and edit projects, upload photos, read tags, set the company profile, answer and revise quotes, accept or cancel a consultation",
+                "Publish and edit projects, upload photos, read tags, set the company profile with a meeting address and a call link, answer and revise quotes, accept or cancel a consultation",
                 "Approve accounts, manage categories, read platform reports",
             ],
             [
@@ -541,14 +541,15 @@ def main() -> int:
         [
             "Open Designers and choose a studio.",
             "Press Book a consultation under the company details.",
+            "Choose Where: In person or Video call. The line under it shows the meeting address or the call link.",
             "Choose a Day. The list covers the next 14 days.",
             "Press one free Time. One hour is one slot, and a taken hour is not offered.",
             "Write what you need in the box, then press Book this time.",
             "Read the confirmation, then press View my appointments.",
         ],
-        "The hour is held as Pending. The designer sees it in Consultations and confirms it.",
+        "The hour is held as Pending with its meeting place. The designer sees it in Consultations and confirms it.",
         "19-customer-booking.png",
-        "Figure 10  The booking page: the day list, the free hours and the requirements box.",
+        "Figure 10  The booking page: the meeting type, the day list, the free hours and the requirements box.",
     )
 
     use_case(
@@ -559,6 +560,7 @@ def main() -> int:
         [
             "Press Appointments in the top navigation.",
             "Find the row by Designer, Day and Time.",
+            "Read the Where column: it shows the meeting address or the call link.",
             "Press Cancel on that row.",
             "Read the State column: the row now says Cancelled and the hour returns to the designer.",
         ],
@@ -601,9 +603,10 @@ def main() -> int:
         [
             "Press Company profile in the top navigation.",
             "Enter the studio name, the city, a short description, a contact email and a phone number.",
+            "Enter the Meeting address for in person consultations, and the Video call link for online ones.",
             "Press Save profile.",
         ],
-        "The profile appears on the public designer page and beside every project.",
+        "The profile appears on the public designer page and beside every project. A customer reads the meeting address and the call link there.",
         "14-designer-company.png",
         "Figure 14  The company profile form.",
     )
@@ -681,7 +684,7 @@ def main() -> int:
         "Consultations",
         [
             "Press Consultations in the top navigation.",
-            "Read Customer, Day, Time, What they need and State.",
+            "Read Customer, Day, Time, Where, What they need and State.",
             "Press Accept to confirm a Pending booking. The customer sees Accepted on Appointments.",
             "Press Cancel to give the hour back. The row stays as Cancelled.",
         ],

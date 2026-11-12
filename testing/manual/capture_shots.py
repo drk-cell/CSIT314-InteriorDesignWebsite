@@ -255,7 +255,7 @@ def main() -> int:
         shoot(page, "13-designer-answer")
 
         page.goto(f"{WEB}/profile", wait_until="networkidle")
-        shoot(page, "14-designer-company")
+        shoot(page, "14-designer-company", anchor="#company-meeting")
 
         mine = call(page, "GET", "/companies/me")["body"]["id"]
         page.goto(f"{WEB}/designers/{mine}", wait_until="networkidle")
