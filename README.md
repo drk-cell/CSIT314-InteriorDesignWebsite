@@ -270,6 +270,11 @@ interior" instead of being tagged.
 
 ## Demo walkthrough
 
+The recorded run through six use cases is
+`testing/demo/CSIT314-interior-design-demo.mp4` (2 min 01 s, all three roles).
+The voice-over script sits beside it in `testing/demo/CSIT314-demo-script.md`,
+and `testing/demo/demo_drive.py` re-records the take.
+
 Six screens carry the whole story. Run them in this order.
 
 **Setup.** Start the backend, then the frontend:

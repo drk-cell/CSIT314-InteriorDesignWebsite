@@ -40,3 +40,7 @@ testing/data/import-report.txt
 
 # Photos a designer uploads while running
 backend/uploads/
+
+# Demo recording scratch space
+testing/demo/raw/
+testing/demo/frame-*.png
