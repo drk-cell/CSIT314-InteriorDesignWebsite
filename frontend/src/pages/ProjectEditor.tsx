@@ -208,18 +208,26 @@ export default function ProjectEditor() {
 
     try {
       for (const file of files.slice(0, room)) {
-        const stored = await uploadImage(file);
-        const reading = await suggestTagsFromUpload(file);
+        // One bad file must not discard the ones that already worked. The
+        // batch used to be all-or-nothing, so a refused photo left the queue
+        // empty and the designer saw nothing for a picture that had uploaded.
+        try {
+          const stored = await uploadImage(file);
+          const reading = await suggestTagsFromUpload(file);
 
-        // A photo is kept even when the analyser refuses to read it. The
-        // designer chose the picture; only the tags depend on the reading.
-        const tags = reading.subject === 'other' ? [] : reading.tags;
-        if (reading.subject === 'other') {
-          warnings.push(`${file.name} does not look like an interior, so it added no tags.`);
-        } else if ((reading.objects ?? []).length === 0 && reading.objects !== undefined) {
-          warnings.push(`No furniture was recognised in ${file.name}, so it added no tags.`);
+          // A photo is kept even when the analyser refuses to read it. The
+          // designer chose the picture; only the tags depend on the reading.
+          const tags = reading.subject === 'other' ? [] : reading.tags;
+          if (reading.subject === 'other') {
+            warnings.push(`${file.name} does not look like an interior, so it added no tags.`);
+          } else if ((reading.objects ?? []).length === 0 && reading.objects !== undefined) {
+            warnings.push(`No furniture was recognised in ${file.name}, so it added no tags.`);
+          }
+          added.push({ key: stored.url, url: stored.url, tags });
+        } catch (caught) {
+          const why = caught instanceof ApiError ? caught.detail : 'it could not be read';
+          warnings.push(`${file.name} was skipped: ${why}.`);
         }
-        added.push({ key: stored.url, url: stored.url, tags });
       }
 
       setQueue((previous) => [...previous, ...added]);
