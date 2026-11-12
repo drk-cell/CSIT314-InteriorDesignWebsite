@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import type { FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   ApiError,
@@ -7,8 +6,6 @@ import {
   getShortlist,
   listCompanies,
   recordView,
-  reportProject,
-  reportReasons,
   saveProject,
   unsaveProject,
 } from '../api';
@@ -29,13 +26,6 @@ export default function ProjectDetail() {
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [reportOpen, setReportOpen] = useState(false);
-  const [reasons, setReasons] = useState<string[]>([]);
-  const [reason, setReason] = useState('');
-  const [comments, setComments] = useState('');
-  const [reportBusy, setReportBusy] = useState(false);
-  const [reportNotice, setReportNotice] = useState<string | null>(null);
-  const [reportError, setReportError] = useState<string | null>(null);
   const counted = useRef(false);
 
   useEffect(() => {
@@ -81,37 +71,6 @@ export default function ProjectDetail() {
     counted.current = true;
     recordView(projectId).catch(() => undefined);
   }, [projectId]);
-
-  async function openReport() {
-    setReportOpen(true);
-    setReportError(null);
-    if (reasons.length > 0) return;
-    try {
-      setReasons(await reportReasons());
-    } catch {
-      setReportError('Unable to load the reasons.');
-    }
-  }
-
-  async function submitReport(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!projectId || reason === '') return;
-    setReportBusy(true);
-    setReportError(null);
-    try {
-      await reportProject({ project_id: projectId, reason, comments });
-      setReportNotice('Report sent. The administrator will review it.');
-      setReportOpen(false);
-      setReason('');
-      setComments('');
-    } catch (caught) {
-      setReportError(
-        caught instanceof ApiError ? caught.detail : 'Unable to send the report.'
-      );
-    } finally {
-      setReportBusy(false);
-    }
-  }
 
   async function toggleSaved() {
     if (!projectId || busy) return;
@@ -265,72 +224,12 @@ export default function ProjectDetail() {
           </Link>
 
           {account?.role === 'CUSTOMER' && (
-            <div className="stack">
-              {reportNotice !== null && (
-                <p className="alert alert-success" role="status">
-                  {reportNotice}
-                </p>
-              )}
-              {reportError !== null && (
-                <p className="alert alert-error" role="alert">
-                  {reportError}
-                </p>
-              )}
-              {reportOpen ? (
-                <form className="form" onSubmit={submitReport}>
-                  <div className="field">
-                    <label htmlFor="report-reason">Reason</label>
-                    <select
-                      id="report-reason"
-                      required
-                      value={reason}
-                      onChange={(event) => setReason(event.target.value)}
-                    >
-                      <option value="">Choose a reason</option>
-                      {reasons.map((entry) => (
-                        <option key={entry} value={entry}>
-                          {entry}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="field">
-                    <label htmlFor="report-comments">Comments (optional)</label>
-                    <textarea
-                      id="report-comments"
-                      rows={3}
-                      maxLength={1000}
-                      value={comments}
-                      onChange={(event) => setComments(event.target.value)}
-                    />
-                  </div>
-                  <div className="actions">
-                    <button
-                      className="button"
-                      type="submit"
-                      disabled={reportBusy || reason === ''}
-                    >
-                      {reportBusy ? 'Sending…' : 'Send report'}
-                    </button>
-                    <button
-                      className="button button-secondary"
-                      type="button"
-                      onClick={() => setReportOpen(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              ) : (
-                <button
-                  type="button"
-                  className="link-button"
-                  onClick={() => void openReport()}
-                >
-                  Report this project
-                </button>
-              )}
-            </div>
+            <Link
+              className="button button-secondary"
+              to={`/projects/${project.id}/report`}
+            >
+              Report this project
+            </Link>
           )}
         </aside>
       </div>

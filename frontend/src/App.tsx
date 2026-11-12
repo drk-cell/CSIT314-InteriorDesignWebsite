@@ -10,6 +10,7 @@ import Designers from './pages/Designers';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ProjectDetail from './pages/ProjectDetail';
+import ReportProject from './pages/ReportProject';
 import Platform from './pages/Platform';
 import QuoteDetail from './pages/QuoteDetail';
 import Quotes from './pages/Quotes';
@@ -134,6 +135,14 @@ export default function App() {
             element={
               <ProtectedRoute roles={['DESIGNER']}>
                 <ProjectEditor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/projects/:projectId/report"
+            element={
+              <ProtectedRoute roles={['CUSTOMER']}>
+                <ReportProject />
               </ProtectedRoute>
             }
           />
