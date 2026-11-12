@@ -10,6 +10,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.api import (
     admin,
+    appointments,
     auth,
     catalogue,
     categories,
@@ -76,6 +77,7 @@ def create_app() -> FastAPI:
     application.include_router(catalogue.router, prefix=API_PREFIX)
     application.include_router(shortlist.router, prefix=API_PREFIX)
     application.include_router(quotes.router, prefix=API_PREFIX)
+    application.include_router(appointments.router, prefix=API_PREFIX)
     application.include_router(categories.router, prefix=API_PREFIX)
     application.include_router(reports.router, prefix=API_PREFIX)
 

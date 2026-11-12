@@ -236,6 +236,17 @@ numbered plan above.
 
 - [x]  E1 photo tag suggestions from colour and light, with searchable tags (`bc5dc28`, `9078b41`)
 - [x]  E2 photo tags from a 14 MB object model, with a photo search for customers (`fcd22eb`, `7bc2c1d`, `d82a0d4`, `e464d38`, `4c150d6`)
+- [x]  E3 consultation appointment scheduler: free slots, one hour bookings, designer accept and cancel
+
+E3 follows the reference class diagram: `ConsultationBookingPage` is
+`frontend/src/pages/BookConsultation.tsx`, `ConsultationService` is
+`backend/app/services/appointment_service.py`, `ConsultationAppointment` is
+`backend/app/domain/appointment.py`, and `ConsultationAppointmentRepository` is
+`backend/app/repositories/appointment_repository.py`. A day holds nine hours
+(09:00 to 17:00), the diary looks 14 days ahead, and one company holds a slot
+once. The designer accepts a pending booking, or either party cancels it. The
+inbox is the notification: there is no mail server, so the appointment carries
+`notified_at` instead of a fake email.
 
 The tag analyser is measured, not assumed. `backend/scripts/evaluate_tags.py`
 runs it over COCO val 2017 and checks every tag against the annotation. On 500

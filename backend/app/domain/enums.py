@@ -61,5 +61,13 @@ class QuoteState(str, Enum):
     EXPIRED = "EXPIRED"
 
 
+class AppointmentState(str, Enum):
+    """Where one consultation booking sits."""
+
+    PENDING = "PENDING"
+    ACCEPTED = "ACCEPTED"
+    CANCELLED = "CANCELLED"
+
+
 PRIVILEGED_ROLES: frozenset[Role] = frozenset({Role.ADMIN, Role.PLATFORM_MANAGER})
 SELF_REGISTRATION_ROLES: frozenset[Role] = frozenset({Role.CUSTOMER, Role.DESIGNER})

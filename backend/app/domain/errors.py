@@ -104,6 +104,12 @@ class QuoteNotFound(DomainError):
     default_message = "Quote not found"
 
 
+class AppointmentNotFound(DomainError):
+    """No consultation appointment matches the request."""
+
+    default_message = "Appointment not found"
+
+
 class InvalidState(DomainError):
     """The record is in a state that does not allow this action."""
 

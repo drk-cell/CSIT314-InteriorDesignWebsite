@@ -2,6 +2,8 @@ import { Link, Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import { useAuth } from './auth';
 import ProtectedRoute from './components/ProtectedRoute';
 import Admin from './pages/Admin';
+import Appointments from './pages/Appointments';
+import BookConsultation from './pages/BookConsultation';
 import Dashboard from './pages/Dashboard';
 import DesignerDetail from './pages/DesignerDetail';
 import Designers from './pages/Designers';
@@ -42,6 +44,11 @@ export default function App() {
                 {(account.role === 'CUSTOMER' || account.role === 'DESIGNER') && (
                   <NavLink to="/quotes">
                     {account.role === 'DESIGNER' ? 'Quote inbox' : 'Requests'}
+                  </NavLink>
+                )}
+                {(account.role === 'CUSTOMER' || account.role === 'DESIGNER') && (
+                  <NavLink to="/appointments">
+                    {account.role === 'DESIGNER' ? 'Consultations' : 'Appointments'}
                   </NavLink>
                 )}
                 {account.role === 'DESIGNER' && (
@@ -159,6 +166,22 @@ export default function App() {
             element={
               <ProtectedRoute roles={['DESIGNER']}>
                 <MyProjects />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/designers/:companyId/book"
+            element={
+              <ProtectedRoute roles={['CUSTOMER']}>
+                <BookConsultation />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/appointments"
+            element={
+              <ProtectedRoute roles={['CUSTOMER', 'DESIGNER']}>
+                <Appointments />
               </ProtectedRoute>
             }
           />

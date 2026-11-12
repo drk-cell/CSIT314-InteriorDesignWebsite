@@ -9,6 +9,7 @@ Usage: python scripts/seed_demo.py
 from __future__ import annotations
 
 import os
+from datetime import date, timedelta
 from pathlib import Path
 
 import httpx
@@ -111,6 +112,37 @@ def main() -> None:
         for project in page["items"][:3]:
             client.post(f"/shortlist/{project['id']}", headers=auth(customer_token))
         print(f"saved {min(3, len(page['items']))} projects to the customer shortlist")
+
+        # Two consultations: one waits for the designer, one is already accepted.
+        companies = client.get("/companies", headers=auth(customer_token)).json()
+        by_name = {row["name"]: row for row in companies}
+        day = (date.today() + timedelta(days=2)).isoformat()
+        for name, time, accept_as in (
+            ("Studio Verde", "10:00", None),
+            ("Nordic Haus", "14:00", "nordic@example.com"),
+        ):
+            company = by_name.get(name)
+            if company is None:
+                continue
+            response = client.post(
+                "/appointments",
+                headers=auth(customer_token),
+                json={
+                    "company_id": company["id"],
+                    "date": day,
+                    "time": time,
+                    "requirements": "Warm minimal living room. Keep the oak floor.",
+                },
+            )
+            response.raise_for_status()
+            appointment = response.json()
+            if accept_as is not None:
+                designer_token = login(client, accept_as, PASSWORD)
+                client.post(
+                    f"/appointments/{appointment['id']}/accept",
+                    headers=auth(designer_token),
+                ).raise_for_status()
+            print(f"booked a consultation with {name} at {time}")
 
 
 def auth(token: str) -> dict[str, str]:

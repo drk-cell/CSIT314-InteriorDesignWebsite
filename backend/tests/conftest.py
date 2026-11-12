@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 
 from app.api.deps import (
     get_account_repository,
+    get_appointment_repository,
     get_category_repository,
     get_company_repository,
     get_project_repository,
@@ -18,6 +19,7 @@ from app.api.deps import (
 )
 from app.main import create_app
 from app.repositories.account_repository import AccountRepository
+from app.repositories.appointment_repository import AppointmentRepository
 from app.repositories.company_repository import CompanyRepository
 from app.repositories.project_repository import ProjectRepository
 from app.repositories.shortlist_repository import ShortlistRepository
@@ -57,6 +59,15 @@ def project_repository() -> Iterator[ProjectRepository]:
 def shortlist_repository() -> Iterator[ShortlistRepository]:
     """The singleton shortlist store, emptied before and after each test."""
     repository = get_shortlist_repository()
+    repository.clear()
+    yield repository
+    repository.clear()
+
+
+@pytest.fixture()
+def appointment_repository() -> Iterator[AppointmentRepository]:
+    """The singleton appointment store, emptied before and after each test."""
+    repository = get_appointment_repository()
     repository.clear()
     yield repository
     repository.clear()
@@ -110,6 +121,7 @@ def client(
     company_repository: CompanyRepository,
     project_repository: ProjectRepository,
     shortlist_repository: ShortlistRepository,
+    appointment_repository: AppointmentRepository,
     quote_repositories: None,
     category_repository: None,
 ) -> Iterator[TestClient]:

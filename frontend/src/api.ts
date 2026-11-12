@@ -1,5 +1,6 @@
 import type {
   AccountPublic,
+  AppointmentPublic,
   Catalogue,
   CategoryPublic,
   CompanyInput,
@@ -18,6 +19,7 @@ import type {
   QuoteRequestPublic,
   QuoteRequestState,
   ShortlistResponse,
+  SlotsResponse,
   Status,
   StoredImage,
   TagSuggestion,
@@ -371,6 +373,41 @@ export function declineQuote(quoteId: string, reason: string): Promise<QuotePubl
     method: 'POST',
     body: JSON.stringify({ reason }),
   });
+}
+
+export function listSlots(companyId: string, day: string): Promise<SlotsResponse> {
+  const query = `company_id=${encodeURIComponent(companyId)}&date=${encodeURIComponent(day)}`;
+  return request<SlotsResponse>(`/appointments/slots?${query}`);
+}
+
+export function bookAppointment(body: {
+  company_id: string;
+  date: string;
+  time: string;
+  requirements: string;
+}): Promise<AppointmentPublic> {
+  return request<AppointmentPublic>('/appointments', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export function listAppointments(): Promise<AppointmentPublic[]> {
+  return request<AppointmentPublic[]>('/appointments');
+}
+
+export function acceptAppointment(appointmentId: string): Promise<AppointmentPublic> {
+  return request<AppointmentPublic>(
+    `/appointments/${encodeURIComponent(appointmentId)}/accept`,
+    { method: 'POST' }
+  );
+}
+
+export function cancelAppointment(appointmentId: string): Promise<AppointmentPublic> {
+  return request<AppointmentPublic>(
+    `/appointments/${encodeURIComponent(appointmentId)}/cancel`,
+    { method: 'POST' }
+  );
 }
 
 export function listAllCategories(): Promise<CategoryPublic[]> {

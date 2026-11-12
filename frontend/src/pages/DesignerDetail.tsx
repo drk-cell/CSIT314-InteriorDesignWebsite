@@ -100,6 +100,9 @@ export default function DesignerDetail() {
             <Link className="button" to={`/quotes/new/${company.id}`}>
               Request a quote
             </Link>
+            <Link className="button button-secondary" to={`/designers/${company.id}/book`}>
+              Book a consultation
+            </Link>
           </div>
         )}
       </section>

@@ -226,3 +226,26 @@ export interface Report {
   period: string;
   buckets: ReportBucket[];
 }
+
+export type AppointmentState = 'PENDING' | 'ACCEPTED' | 'CANCELLED';
+
+/** One consultation booking, as both parties read it. */
+export interface AppointmentPublic {
+  id: string;
+  customer_id: string;
+  company_id: string;
+  appointment_date: string;
+  appointment_time: string;
+  requirements: string;
+  state: AppointmentState;
+  notified_at: string | null;
+  created_at: string;
+  updated_at: string;
+  customer_name: string;
+}
+
+/** The free hours on one company's day. */
+export interface SlotsResponse {
+  date: string;
+  slots: string[];
+}
