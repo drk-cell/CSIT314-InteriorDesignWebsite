@@ -335,7 +335,7 @@ def main() -> int:
         [
             [
                 "Customer",
-                "Browse and search the catalogue, search by photo, save projects, request quotes, accept or decline a quote, name a target price, book and cancel a consultation",
+                "Browse and search the catalogue, search by photo, save projects, request quotes, accept or decline a quote, name a target price, book and cancel a consultation, report a project",
                 "Publish projects, answer quotes, manage accounts",
             ],
             [
@@ -345,7 +345,7 @@ def main() -> int:
             ],
             [
                 "Platform manager",
-                "Approve or suspend accounts, add, archive and restore categories, read activity reports",
+                "Approve or suspend accounts, review reported projects, take a project down, suspend a designer, add, archive and restore categories, read activity reports",
                 "Publish projects, send or answer quotes",
             ],
         ],
@@ -569,6 +569,22 @@ def main() -> int:
         "Figure 11  The customer's appointment list with the state of each booking.",
     )
 
+    use_case(
+        doc,
+        "3.11  Report a project",
+        "A project that breaks the rules can be flagged for the administrator.",
+        "A project page, Report this project",
+        [
+            "Open the project page and press Report this project under View designer.",
+            "Choose a Reason from the list.",
+            "Write what is wrong in the Comments box, then press Send report.",
+            "Read the confirmation on the page.",
+        ],
+        "The report reaches the administrator's queue. One customer holds one open report per project, and the reported project stays visible until staff act.",
+        "22-customer-report.png",
+        "Figure 12  The report form in the project sidebar: the reason list, the comments box and Send report.",
+    )
+
     # ----- 4 designer
     page_break(doc)
     heading(doc, "4  Designer (IDM)", 1)
@@ -577,7 +593,7 @@ def main() -> int:
         "A designer publishes work, keeps the portfolio current, and answers the requests that "
         "customers send.",
     )
-    figure(doc, "flow-designer.png", "Figure 12  The designer journey from profile to an answered request.", 150)
+    figure(doc, "flow-designer.png", "Figure 13  The designer journey from profile to an answered request.", 150)
 
     use_case(
         doc,
@@ -592,7 +608,7 @@ def main() -> int:
         ],
         "The account card states exactly what the platform will let this account do.",
         "09-designer-dashboard.png",
-        "Figure 13  The designer dashboard.",
+        "Figure 14  The designer dashboard.",
     )
 
     use_case(
@@ -608,7 +624,7 @@ def main() -> int:
         ],
         "The profile appears on the public designer page and beside every project. A customer reads the meeting address there. The video call link stays hidden until the customer holds an accepted booking.",
         "14-designer-company.png",
-        "Figure 14  The company profile form.",
+        "Figure 15  The company profile form.",
     )
 
     use_case(
@@ -626,7 +642,7 @@ def main() -> int:
         ],
         "The project appears in My Projects and in the catalogue, with the tags you kept.",
         "10-designer-project-editor.png",
-        "Figure 15  Two photos in the queue, the tags they suggested, and the empty tag field waiting for a choice.",
+        "Figure 16  Two photos in the queue, the tags they suggested, and the empty tag field waiting for a choice.",
     )
 
     use_case(
@@ -642,7 +658,7 @@ def main() -> int:
         ],
         "Counts on the card update as customers view and save the work.",
         "11-designer-projects.png",
-        "Figure 16  My Projects with views, saves and the actions for each row.",
+        "Figure 17  My Projects with views, saves and the actions for each row.",
     )
 
     use_case(
@@ -659,7 +675,7 @@ def main() -> int:
         ],
         "The request moves to Answered and the customer sees version one. A later answer becomes version two.",
         "13-designer-answer.png",
-        "Figure 17  One request with its versions and the answer form.",
+        "Figure 18  One request with its versions and the answer form.",
     )
 
     use_case(
@@ -674,7 +690,7 @@ def main() -> int:
         ],
         "The portfolio shows every published project with its tags and price range.",
         "15-designer-portfolio.png",
-        "Figure 18  The public page for Studio Verde.",
+        "Figure 19  The public page for Studio Verde.",
     )
 
     use_case(
@@ -690,7 +706,7 @@ def main() -> int:
         ],
         "A Pending booking becomes Accepted, and the customer reads that state on their own list.",
         "21-designer-appointments.png",
-        "Figure 19  The designer's consultation inbox with a pending booking and its two actions.",
+        "Figure 20  The designer's consultation inbox with a pending booking and its two actions.",
     )
 
     # ----- 5 admin
@@ -701,7 +717,7 @@ def main() -> int:
         "The administrator keeps the platform tidy: accounts are approved, categories stay "
         "current and activity is measured.",
     )
-    figure(doc, "flow-admin.png", "Figure 20  The administrator journey.", 150)
+    figure(doc, "flow-admin.png", "Figure 21  The administrator journey.", 150)
 
     use_case(
         doc,
@@ -716,7 +732,7 @@ def main() -> int:
         ],
         "An approved designer can sign in and publish. A suspended account cannot.",
         "17-admin-accounts.png",
-        "Figure 21  The account list with its status filter and the approve and suspend actions.",
+        "Figure 22  The account list with its status filter and the approve and suspend actions.",
     )
 
     use_case(
@@ -731,7 +747,7 @@ def main() -> int:
         ],
         "The category list on the project form follows these states.",
         "16-admin-platform.png",
-        "Figure 22  Platform management: the category list with Add, Archive and the state of each row.",
+        "Figure 23  Platform management: the category list with Add, Archive and the state of each row.",
     )
 
     use_case(
@@ -747,7 +763,23 @@ def main() -> int:
         ],
         "The newest bucket shows the current totals. The same numbers are served by GET /api/reports?period=weekly&buckets=6 for a script.",
         "18-admin-reports.png",
-        "Figure 23  A daily report. The last row carries the current totals.",
+        "Figure 24  A daily report. The last row carries the current totals.",
+    )
+
+    use_case(
+        doc,
+        "5.4  Review reported projects",
+        "The report queue is where a complaint becomes a decision.",
+        "Admin, Reported projects",
+        [
+            "Sign in as an administrator and press Admin in the top navigation.",
+            "Scroll to Reported projects and read the Project, Reporter, Reason and Status.",
+            "Tick Take down project, Suspend designer, or both.",
+            "Press Apply and close. Press Dismiss when the report needs no action.",
+        ],
+        "A taken down project leaves the catalogue and the search, and stays on the designer's My Projects page marked Taken down. A suspended designer cannot sign in.",
+        "23-admin-reports.png",
+        "Figure 25  The report queue with two open reports and their actions.",
     )
 
     # ----- 6 reference

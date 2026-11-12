@@ -1,6 +1,6 @@
 [
  {
-  "key": "entity-SearchCriteria-44",
+  "key": "entity-project-SearchCriteria-44",
   "name": "SearchCriteria",
   "file": "backend/app/domain/project.py",
   "start": 44,
@@ -12,31 +12,31 @@
   "offset": 43
  },
  {
-  "key": "entity-Project-73-p1",
+  "key": "entity-project-Project-73-p1",
   "name": "Project",
   "file": "backend/app/domain/project.py",
   "start": 73,
-  "end": 313,
+  "end": 318,
   "lang": "python",
-  "code": "# backend/app/domain/project.py — lines 73–313, signatures only\n@dataclass\nclass Project:\n    \"\"\"One entry in a designer's portfolio.\"\"\"\n    owner_id: str\n    company_id: str\n    title: str\n    description: str = ''\n    style: str = ''\n    category: str = ''\n    budget_min: int = 0\n    budget_max: int = 0\n    status: ProjectStatus = ProjectStatus.CURRENT\n    images: list[str] = field(default_factory=list)\n    tags: list[str] = field(default_factory=list)\n    view_count: int = 0\n    shortlist_count: int = 0\n    id: str = field(default_factory=lambda: str(uuid4()))\n    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))\n    updated_at: datetime | None = None\n\n    def __post_init__() -> None\n        \"\"\"Check the values a project cannot be created without.\"\"\"\n    def rename(title: str) -> None\n        \"\"\"Replace the project title.\"\"\"\n    def update_details() -> None\n        \"\"\"Replace the searchable details after checking them.\"\"\"\n    def mark_past() -> None\n        \"\"\"Mark the job as finished.\"\"\"\n    def mark_current() -> None\n        \"\"\"Mark the job as still running.\"\"\"\n    def add_image(url: str) -> None\n        \"\"\"Attach a photo address. A repeated address changes nothing.\"\"\"\n    def remove_image(url: str) -> None\n        \"\"\"Detach a photo address when it is present.\"\"\"\n    def replace_images(urls: list[str]) -> None\n        \"\"\"Replace the whole photo list, dropping blank and repeated entries.\"\"\"\n    def _clean_tags(tags: list[str]) -> list[str]\n        \"\"\"Strip, deduplicate and bound a tag list.\"\"\"\n    def replace_tags(tags: list[str]) -> None\n        \"\"\"Replace the whole tag list after checking it.\"\"\"\n    def add_tag(tag: str) -> None",
+  "code": "# backend/app/domain/project.py — lines 73–318, signatures only\n@dataclass\nclass Project:\n    \"\"\"One entry in a designer's portfolio.\"\"\"\n    owner_id: str\n    company_id: str\n    title: str\n    description: str = ''\n    style: str = ''\n    category: str = ''\n    budget_min: int = 0\n    budget_max: int = 0\n    status: ProjectStatus = ProjectStatus.CURRENT\n    images: list[str] = field(default_factory=list)\n    tags: list[str] = field(default_factory=list)\n    view_count: int = 0\n    shortlist_count: int = 0\n    id: str = field(default_factory=lambda: str(uuid4()))\n    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))\n    updated_at: datetime | None = None\n\n    def __post_init__() -> None\n        \"\"\"Check the values a project cannot be created without.\"\"\"\n    def rename(title: str) -> None\n        \"\"\"Replace the project title.\"\"\"\n    def update_details() -> None\n        \"\"\"Replace the searchable details after checking them.\"\"\"\n    def mark_past() -> None\n        \"\"\"Mark the job as finished.\"\"\"\n    def mark_current() -> None\n        \"\"\"Mark the job as still running.\"\"\"\n    def mark_taken_down() -> None\n        \"\"\"Hide the project from customers after a report is upheld.\"\"\"\n    def add_image(url: str) -> None\n        \"\"\"Attach a photo address. A repeated address changes nothing.\"\"\"\n    def remove_image(url: str) -> None\n        \"\"\"Detach a photo address when it is present.\"\"\"\n    def replace_images(urls: list[str]) -> None\n        \"\"\"Replace the whole photo list, dropping blank and repeated entries.\"\"\"\n    def _clean_tags(tags: list[str]) -> list[str]\n        \"\"\"Strip, deduplicate and bound a tag list.\"\"\"\n    def replace_tags(tags: list[str]) -> None",
   "part": 1,
   "parts": 2,
   "offset": 0
  },
  {
-  "key": "entity-Project-73-p2",
+  "key": "entity-project-Project-73-p2",
   "name": "Project",
   "file": "backend/app/domain/project.py",
   "start": 73,
-  "end": 313,
+  "end": 318,
   "lang": "python",
-  "code": "        \"\"\"Attach one tag. A repeated tag changes nothing.\"\"\"\n    def remove_tag(tag: str) -> None\n        \"\"\"Detach one tag when it is present.\"\"\"\n    def record_view() -> None\n        \"\"\"Count one look at the detail page.\"\"\"\n    def record_shortlist() -> None\n        \"\"\"Count one customer saving this project.\"\"\"\n    def withdraw_shortlist() -> None\n        \"\"\"Count one customer removing it. The count never falls below zero.\"\"\"\n    def is_owned_by(account_id: str) -> bool\n        \"\"\"Return ``True`` when ``account_id`` is the designer behind this project.\"\"\"\n    def matches(criteria: SearchCriteria) -> bool\n        \"\"\"Return ``True`` when this project answers ``criteria``.\"\"\"\n    def tag_overlap(wanted: list[str]) -> int\n        \"\"\"Return how many of ``wanted`` this project carries, ignoring case.\"\"\"\n    def specific_overlap(wanted: list[str]) -> int\n        \"\"\"Return how many of ``wanted`` are object tags this project carries.\"\"\"\n    def tag_score(wanted: list[str]) -> int\n        \"\"\"Return the ranking weight: objects count double, mood counts once.\"\"\"\n    @staticmethod\n    def _require_valid_budget(minimum: int, maximum: int) -> None\n    def _touch() -> None",
+  "code": "        \"\"\"Replace the whole tag list after checking it.\"\"\"\n    def add_tag(tag: str) -> None\n        \"\"\"Attach one tag. A repeated tag changes nothing.\"\"\"\n    def remove_tag(tag: str) -> None\n        \"\"\"Detach one tag when it is present.\"\"\"\n    def record_view() -> None\n        \"\"\"Count one look at the detail page.\"\"\"\n    def record_shortlist() -> None\n        \"\"\"Count one customer saving this project.\"\"\"\n    def withdraw_shortlist() -> None\n        \"\"\"Count one customer removing it. The count never falls below zero.\"\"\"\n    def is_owned_by(account_id: str) -> bool\n        \"\"\"Return ``True`` when ``account_id`` is the designer behind this project.\"\"\"\n    def matches(criteria: SearchCriteria) -> bool\n        \"\"\"Return ``True`` when this project answers ``criteria``.\"\"\"\n    def tag_overlap(wanted: list[str]) -> int\n        \"\"\"Return how many of ``wanted`` this project carries, ignoring case.\"\"\"\n    def specific_overlap(wanted: list[str]) -> int\n        \"\"\"Return how many of ``wanted`` are object tags this project carries.\"\"\"\n    def tag_score(wanted: list[str]) -> int\n        \"\"\"Return the ranking weight: objects count double, mood counts once.\"\"\"\n    @staticmethod\n    def _require_valid_budget(minimum: int, maximum: int) -> None\n    def _touch() -> None",
   "part": 2,
   "parts": 2,
   "offset": 42
  },
  {
-  "key": "entity-Quote-38",
+  "key": "entity-quote-Quote-38",
   "name": "Quote",
   "file": "backend/app/domain/quote.py",
   "start": 38,
@@ -48,7 +48,7 @@
   "offset": 0
  },
  {
-  "key": "entity-Counter-28",
+  "key": "entity-quote_request-Counter-28",
   "name": "Counter",
   "file": "backend/app/domain/quote_request.py",
   "start": 28,
@@ -60,7 +60,7 @@
   "offset": 27
  },
  {
-  "key": "entity-QuoteRequest-44",
+  "key": "entity-quote_request-QuoteRequest-44",
   "name": "QuoteRequest",
   "file": "backend/app/domain/quote_request.py",
   "start": 44,
@@ -72,7 +72,7 @@
   "offset": 0
  },
  {
-  "key": "entity-Company-20",
+  "key": "entity-company-Company-20",
   "name": "Company",
   "file": "backend/app/domain/company.py",
   "start": 20,
@@ -84,7 +84,7 @@
   "offset": 0
  },
  {
-  "key": "entity-Account-19-p1",
+  "key": "entity-account-Account-19-p1",
   "name": "Account",
   "file": "backend/app/domain/account.py",
   "start": 19,
@@ -96,7 +96,7 @@
   "offset": 18
  },
  {
-  "key": "entity-Account-19-p2",
+  "key": "entity-account-Account-19-p2",
   "name": "Account",
   "file": "backend/app/domain/account.py",
   "start": 19,
@@ -108,7 +108,7 @@
   "offset": 60
  },
  {
-  "key": "entity-Category-22",
+  "key": "entity-category-Category-22",
   "name": "Category",
   "file": "backend/app/domain/category.py",
   "start": 22,
@@ -120,7 +120,7 @@
   "offset": 21
  },
  {
-  "key": "entity-Shortlist-17",
+  "key": "entity-shortlist-Shortlist-17",
   "name": "Shortlist",
   "file": "backend/app/domain/shortlist.py",
   "start": 17,
@@ -132,7 +132,7 @@
   "offset": 0
  },
  {
-  "key": "entity-Role-8",
+  "key": "entity-enums-Role-8",
   "name": "Role",
   "file": "backend/app/domain/enums.py",
   "start": 8,
@@ -144,7 +144,7 @@
   "offset": 7
  },
  {
-  "key": "entity-AccountStatus-27",
+  "key": "entity-enums-AccountStatus-27",
   "name": "AccountStatus",
   "file": "backend/app/domain/enums.py",
   "start": 27,
@@ -156,67 +156,79 @@
   "offset": 26
  },
  {
-  "key": "entity-ProjectStatus-35",
+  "key": "entity-enums-ProjectStatus-35",
   "name": "ProjectStatus",
   "file": "backend/app/domain/enums.py",
   "start": 35,
-  "end": 39,
+  "end": 40,
   "lang": "python",
-  "code": "class ProjectStatus(str, Enum):\n    \"\"\"Where a project sits in its life.\"\"\"\n\n    CURRENT = \"CURRENT\"\n    PAST = \"PAST\"",
+  "code": "class ProjectStatus(str, Enum):\n    \"\"\"Where a project sits in its life.\"\"\"\n\n    CURRENT = \"CURRENT\"\n    PAST = \"PAST\"\n    TAKEN_DOWN = \"TAKEN_DOWN\"",
   "part": 1,
   "parts": 1,
   "offset": 34
  },
  {
-  "key": "entity-QuoteRequestState-42",
+  "key": "entity-enums-QuoteRequestState-43",
   "name": "QuoteRequestState",
   "file": "backend/app/domain/enums.py",
-  "start": 42,
-  "end": 51,
+  "start": 43,
+  "end": 52,
   "lang": "python",
   "code": "class QuoteRequestState(str, Enum):\n    \"\"\"Where a customer's quote request sits.\"\"\"\n\n    PENDING = \"PENDING\"\n    ANSWERED = \"ANSWERED\"\n    ACCEPTED = \"ACCEPTED\"\n    DECLINED = \"DECLINED\"\n    CANCELLED = \"CANCELLED\"\n    REFUSED = \"REFUSED\"\n    EXPIRED = \"EXPIRED\"",
   "part": 1,
   "parts": 1,
-  "offset": 41
+  "offset": 42
  },
  {
-  "key": "entity-QuoteState-54",
+  "key": "entity-enums-QuoteState-55",
   "name": "QuoteState",
   "file": "backend/app/domain/enums.py",
-  "start": 54,
-  "end": 61,
+  "start": 55,
+  "end": 62,
   "lang": "python",
   "code": "class QuoteState(str, Enum):\n    \"\"\"Where one priced answer sits.\"\"\"\n\n    OFFERED = \"OFFERED\"\n    ACCEPTED = \"ACCEPTED\"\n    DECLINED = \"DECLINED\"\n    SUPERSEDED = \"SUPERSEDED\"\n    EXPIRED = \"EXPIRED\"",
   "part": 1,
   "parts": 1,
-  "offset": 53
+  "offset": 54
  },
  {
-  "key": "entity-AppointmentState-64",
+  "key": "entity-enums-AppointmentState-65",
   "name": "AppointmentState",
   "file": "backend/app/domain/enums.py",
-  "start": 64,
-  "end": 69,
+  "start": 65,
+  "end": 70,
   "lang": "python",
   "code": "class AppointmentState(str, Enum):\n    \"\"\"Where one consultation booking sits.\"\"\"\n\n    PENDING = \"PENDING\"\n    ACCEPTED = \"ACCEPTED\"\n    CANCELLED = \"CANCELLED\"",
   "part": 1,
   "parts": 1,
-  "offset": 63
+  "offset": 64
  },
  {
-  "key": "entity-ConsultationMode-72",
+  "key": "entity-enums-ConsultationMode-73",
   "name": "ConsultationMode",
   "file": "backend/app/domain/enums.py",
-  "start": 72,
-  "end": 76,
+  "start": 73,
+  "end": 77,
   "lang": "python",
   "code": "class ConsultationMode(str, Enum):\n    \"\"\"How the consultation happens.\"\"\"\n\n    IN_PERSON = \"IN_PERSON\"\n    ONLINE = \"ONLINE\"",
   "part": 1,
   "parts": 1,
-  "offset": 71
+  "offset": 72
  },
  {
-  "key": "entity-DomainError-12",
+  "key": "entity-enums-ReportStatus-80",
+  "name": "ReportStatus",
+  "file": "backend/app/domain/enums.py",
+  "start": 80,
+  "end": 85,
+  "lang": "python",
+  "code": "class ReportStatus(str, Enum):\n    \"\"\"Where one project report sits.\"\"\"\n\n    OPEN = \"OPEN\"\n    ACTIONED = \"ACTIONED\"\n    DISMISSED = \"DISMISSED\"",
+  "part": 1,
+  "parts": 1,
+  "offset": 79
+ },
+ {
+  "key": "entity-errors-DomainError-12",
   "name": "DomainError",
   "file": "backend/app/domain/errors.py",
   "start": 12,
@@ -228,7 +240,7 @@
   "offset": 11
  },
  {
-  "key": "entity-EmailAlreadyRegistered-22",
+  "key": "entity-errors-EmailAlreadyRegistered-22",
   "name": "EmailAlreadyRegistered",
   "file": "backend/app/domain/errors.py",
   "start": 22,
@@ -240,7 +252,7 @@
   "offset": 21
  },
  {
-  "key": "entity-InvalidCredentials-28",
+  "key": "entity-errors-InvalidCredentials-28",
   "name": "InvalidCredentials",
   "file": "backend/app/domain/errors.py",
   "start": 28,
@@ -252,7 +264,7 @@
   "offset": 27
  },
  {
-  "key": "entity-AccountNotActive-34",
+  "key": "entity-errors-AccountNotActive-34",
   "name": "AccountNotActive",
   "file": "backend/app/domain/errors.py",
   "start": 34,
@@ -264,7 +276,7 @@
   "offset": 33
  },
  {
-  "key": "entity-InvalidRoleForSelfRegistration-53",
+  "key": "entity-errors-InvalidRoleForSelfRegistration-53",
   "name": "InvalidRoleForSelfRegistration",
   "file": "backend/app/domain/errors.py",
   "start": 53,
@@ -276,7 +288,7 @@
   "offset": 52
  },
  {
-  "key": "entity-WeakPassword-59",
+  "key": "entity-errors-WeakPassword-59",
   "name": "WeakPassword",
   "file": "backend/app/domain/errors.py",
   "start": 59,
@@ -288,7 +300,7 @@
   "offset": 58
  },
  {
-  "key": "entity-NotPermitted-65",
+  "key": "entity-errors-NotPermitted-65",
   "name": "NotPermitted",
   "file": "backend/app/domain/errors.py",
   "start": 65,
@@ -300,7 +312,7 @@
   "offset": 64
  },
  {
-  "key": "entity-AccountNotFound-71",
+  "key": "entity-errors-AccountNotFound-71",
   "name": "AccountNotFound",
   "file": "backend/app/domain/errors.py",
   "start": 71,
@@ -312,7 +324,7 @@
   "offset": 70
  },
  {
-  "key": "entity-CompanyAlreadyExists-77",
+  "key": "entity-errors-CompanyAlreadyExists-77",
   "name": "CompanyAlreadyExists",
   "file": "backend/app/domain/errors.py",
   "start": 77,
@@ -324,7 +336,7 @@
   "offset": 76
  },
  {
-  "key": "entity-CompanyNotFound-83",
+  "key": "entity-errors-CompanyNotFound-83",
   "name": "CompanyNotFound",
   "file": "backend/app/domain/errors.py",
   "start": 83,
@@ -336,7 +348,7 @@
   "offset": 82
  },
  {
-  "key": "entity-ProjectNotFound-89",
+  "key": "entity-errors-ProjectNotFound-89",
   "name": "ProjectNotFound",
   "file": "backend/app/domain/errors.py",
   "start": 89,
@@ -348,7 +360,7 @@
   "offset": 88
  },
  {
-  "key": "entity-QuoteRequestNotFound-95",
+  "key": "entity-errors-QuoteRequestNotFound-95",
   "name": "QuoteRequestNotFound",
   "file": "backend/app/domain/errors.py",
   "start": 95,
@@ -360,7 +372,7 @@
   "offset": 94
  },
  {
-  "key": "entity-QuoteNotFound-101",
+  "key": "entity-errors-QuoteNotFound-101",
   "name": "QuoteNotFound",
   "file": "backend/app/domain/errors.py",
   "start": 101,
@@ -372,7 +384,7 @@
   "offset": 100
  },
  {
-  "key": "entity-AppointmentNotFound-107",
+  "key": "entity-errors-AppointmentNotFound-107",
   "name": "AppointmentNotFound",
   "file": "backend/app/domain/errors.py",
   "start": 107,
@@ -384,19 +396,43 @@
   "offset": 106
  },
  {
-  "key": "entity-InvalidState-113",
-  "name": "InvalidState",
+  "key": "entity-errors-ReportNotFound-113",
+  "name": "ReportNotFound",
   "file": "backend/app/domain/errors.py",
   "start": 113,
   "end": 116,
   "lang": "python",
-  "code": "class InvalidState(DomainError):\n    \"\"\"The record is in a state that does not allow this action.\"\"\"\n\n    default_message = \"The record is not in a state that allows this action\"",
+  "code": "class ReportNotFound(DomainError):\n    \"\"\"No project report matches the request.\"\"\"\n\n    default_message = \"Report not found\"",
   "part": 1,
   "parts": 1,
   "offset": 112
  },
  {
-  "key": "entity-ConsultationAppointment-55",
+  "key": "entity-errors-InvalidState-119",
+  "name": "InvalidState",
+  "file": "backend/app/domain/errors.py",
+  "start": 119,
+  "end": 122,
+  "lang": "python",
+  "code": "class InvalidState(DomainError):\n    \"\"\"The record is in a state that does not allow this action.\"\"\"\n\n    default_message = \"The record is not in a state that allows this action\"",
+  "part": 1,
+  "parts": 1,
+  "offset": 118
+ },
+ {
+  "key": "entity-report-ProjectReport-32",
+  "name": "ProjectReport",
+  "file": "backend/app/domain/report.py",
+  "start": 32,
+  "end": 69,
+  "lang": "python",
+  "code": "class ProjectReport:\n    \"\"\"One complaint, from the customer who raised it.\"\"\"\n\n    customer_id: str\n    project_id: str\n    reason: str\n    comments: str = \"\"\n    status: ReportStatus = ReportStatus.OPEN\n    created_at: datetime = field(default_factory=_now)\n    resolved_at: datetime | None = None\n    id: str = field(default_factory=lambda: str(uuid4()))\n\n    def __post_init__(self) -> None:\n        \"\"\"Check the identifiers, the reason and the comments.\"\"\"\n        if not self.customer_id.strip():\n            raise ValueError(\"A report needs a customer\")\n        if not self.project_id.strip():\n            raise ValueError(\"A report needs a project\")\n        self.reason = self.reason.strip()\n        if self.reason not in REPORT_REASONS:\n            raise ValueError(\"Choose one of the listed reasons\")\n        self.comments = self.comments.strip()\n        if len(self.comments) > MAX_COMMENTS:\n            raise ValueError(\n                f\"Comments must be {MAX_COMMENTS} characters or fewer\"\n            )\n\n    @property\n    def is_open(self) -> bool:\n        \"\"\"Return ``True`` until staff close the report.\"\"\"\n        return self.status is ReportStatus.OPEN\n\n    def close(self, actioned: bool) -> None:\n        \"\"\"Close the report, with a note of whether anything was done.\"\"\"\n        if self.status is not ReportStatus.OPEN:\n            raise ValueError(\"This report is already closed\")\n        self.status = ReportStatus.ACTIONED if actioned else ReportStatus.DISMISSED\n        self.resolved_at = _now()",
+  "part": 1,
+  "parts": 1,
+  "offset": 31
+ },
+ {
+  "key": "entity-appointment-ConsultationAppointment-55",
   "name": "ConsultationAppointment",
   "file": "backend/app/domain/appointment.py",
   "start": 55,
@@ -408,7 +444,7 @@
   "offset": 0
  },
  {
-  "key": "repositories-AccountRepository-10",
+  "key": "repositories-account_repository-AccountRepository-10",
   "name": "AccountRepository",
   "file": "backend/app/repositories/account_repository.py",
   "start": 10,
@@ -420,7 +456,7 @@
   "offset": 0
  },
  {
-  "key": "repositories-AppointmentRepository-12",
+  "key": "repositories-appointment_repository-AppointmentRepository-12",
   "name": "AppointmentRepository",
   "file": "backend/app/repositories/appointment_repository.py",
   "start": 12,
@@ -432,7 +468,7 @@
   "offset": 0
  },
  {
-  "key": "repositories-CategoryRepository-11",
+  "key": "repositories-category_repository-CategoryRepository-11",
   "name": "CategoryRepository",
   "file": "backend/app/repositories/category_repository.py",
   "start": 11,
@@ -444,7 +480,7 @@
   "offset": 0
  },
  {
-  "key": "repositories-CompanyRepository-10",
+  "key": "repositories-company_repository-CompanyRepository-10",
   "name": "CompanyRepository",
   "file": "backend/app/repositories/company_repository.py",
   "start": 10,
@@ -456,7 +492,7 @@
   "offset": 0
  },
  {
-  "key": "repositories-ProjectRepository-10",
+  "key": "repositories-project_repository-ProjectRepository-10",
   "name": "ProjectRepository",
   "file": "backend/app/repositories/project_repository.py",
   "start": 10,
@@ -468,7 +504,7 @@
   "offset": 0
  },
  {
-  "key": "repositories-QuoteRequestRepository-11",
+  "key": "repositories-quote_repository-QuoteRequestRepository-11",
   "name": "QuoteRequestRepository",
   "file": "backend/app/repositories/quote_repository.py",
   "start": 11,
@@ -480,7 +516,7 @@
   "offset": 10
  },
  {
-  "key": "repositories-QuoteRepository-51",
+  "key": "repositories-quote_repository-QuoteRepository-51",
   "name": "QuoteRepository",
   "file": "backend/app/repositories/quote_repository.py",
   "start": 51,
@@ -492,7 +528,31 @@
   "offset": 50
  },
  {
-  "key": "repositories-ShortlistRepository-10",
+  "key": "repositories-report_repository-ReportRepository-10-p1",
+  "name": "ReportRepository",
+  "file": "backend/app/repositories/report_repository.py",
+  "start": 10,
+  "end": 53,
+  "lang": "python",
+  "code": "class ReportRepository:\n    \"\"\"Keeps every project report in process memory, keyed by id.\"\"\"\n\n    def __init__(self) -> None:\n        self._by_id: dict[str, ProjectReport] = {}\n        self._lock = threading.Lock()\n\n    def add(self, report: ProjectReport) -> bool:\n        \"\"\"Store ``report`` unless its id is already present.\"\"\"\n        with self._lock:\n            if report.id in self._by_id:\n                return False\n            self._by_id[report.id] = report\n            return True\n\n    def get(self, report_id: str) -> ProjectReport | None:\n        \"\"\"Return the report with ``report_id``, or ``None``.\"\"\"\n        return self._by_id.get(report_id)\n\n    def list_by_customer(self, customer_id: str) -> list[ProjectReport]:\n        \"\"\"Return the reports one customer raised.\"\"\"\n        return [\n            entry\n            for entry in self._by_id.values()\n            if entry.customer_id == customer_id\n        ]\n\n    def list_by_project(self, project_id: str) -> list[ProjectReport]:\n        \"\"\"Return the reports raised about one project.\"\"\"\n        return [\n            entry for entry in self._by_id.values() if entry.project_id == project_id\n        ]\n\n    def list_all(self) -> list[ProjectReport]:\n        \"\"\"Return every stored report.\"\"\"\n        return list(self._by_id.values())\n\n    def count(self) -> int:\n        \"\"\"Return how many reports are stored.\"\"\"\n        return len(self._by_id)\n\n    def clear(self) -> None:",
+  "part": 1,
+  "parts": 2,
+  "offset": 9
+ },
+ {
+  "key": "repositories-report_repository-ReportRepository-10-p2",
+  "name": "ReportRepository",
+  "file": "backend/app/repositories/report_repository.py",
+  "start": 10,
+  "end": 53,
+  "lang": "python",
+  "code": "        \"\"\"Remove every stored report.\"\"\"\n        self._by_id.clear()",
+  "part": 2,
+  "parts": 2,
+  "offset": 51
+ },
+ {
+  "key": "repositories-shortlist_repository-ShortlistRepository-10",
   "name": "ShortlistRepository",
   "file": "backend/app/repositories/shortlist_repository.py",
   "start": 10,
@@ -504,7 +564,7 @@
   "offset": 9
  },
  {
-  "key": "services-AccountService-31",
+  "key": "services-account_service-AccountService-31",
   "name": "AccountService",
   "file": "backend/app/services/account_service.py",
   "start": 31,
@@ -516,7 +576,7 @@
   "offset": 0
  },
  {
-  "key": "services-AppointmentService-40",
+  "key": "services-appointment_service-AppointmentService-40",
   "name": "AppointmentService",
   "file": "backend/app/services/appointment_service.py",
   "start": 40,
@@ -528,7 +588,7 @@
   "offset": 0
  },
  {
-  "key": "services-CategoryNotFound-12",
+  "key": "services-category_service-CategoryNotFound-12",
   "name": "CategoryNotFound",
   "file": "backend/app/services/category_service.py",
   "start": 12,
@@ -540,7 +600,7 @@
   "offset": 11
  },
  {
-  "key": "services-CategoryExists-19",
+  "key": "services-category_service-CategoryExists-19",
   "name": "CategoryExists",
   "file": "backend/app/services/category_service.py",
   "start": 19,
@@ -552,7 +612,7 @@
   "offset": 18
  },
  {
-  "key": "services-CategoryService-26",
+  "key": "services-category_service-CategoryService-26",
   "name": "CategoryService",
   "file": "backend/app/services/category_service.py",
   "start": 26,
@@ -564,7 +624,7 @@
   "offset": 0
  },
  {
-  "key": "services-CompanyService-12",
+  "key": "services-company_service-CompanyService-12",
   "name": "CompanyService",
   "file": "backend/app/services/company_service.py",
   "start": 12,
@@ -576,7 +636,7 @@
   "offset": 0
  },
  {
-  "key": "services-ImageUnavailable-28",
+  "key": "services-image_source-ImageUnavailable-28",
   "name": "ImageUnavailable",
   "file": "backend/app/services/image_source.py",
   "start": 28,
@@ -588,7 +648,7 @@
   "offset": 27
  },
  {
-  "key": "services-load_image_bytes-32",
+  "key": "services-image_source-load_image_bytes-32",
   "name": "load_image_bytes",
   "file": "backend/app/services/image_source.py",
   "start": 32,
@@ -600,7 +660,7 @@
   "offset": 31
  },
  {
-  "key": "services-_read_local-42",
+  "key": "services-image_source-_read_local-42",
   "name": "_read_local",
   "file": "backend/app/services/image_source.py",
   "start": 42,
@@ -612,7 +672,7 @@
   "offset": 41
  },
  {
-  "key": "services-_read_remote-54",
+  "key": "services-image_source-_read_remote-54",
   "name": "_read_remote",
   "file": "backend/app/services/image_source.py",
   "start": 54,
@@ -624,7 +684,7 @@
   "offset": 53
  },
  {
-  "key": "services-_resolve-85",
+  "key": "services-image_source-_resolve-85",
   "name": "_resolve",
   "file": "backend/app/services/image_source.py",
   "start": 85,
@@ -636,7 +696,7 @@
   "offset": 84
  },
  {
-  "key": "services-_is_public-93",
+  "key": "services-image_source-_is_public-93",
   "name": "_is_public",
   "file": "backend/app/services/image_source.py",
   "start": 93,
@@ -648,7 +708,7 @@
   "offset": 92
  },
  {
-  "key": "services-is_animal-122",
+  "key": "services-object_labels-is_animal-122",
   "name": "is_animal",
   "file": "backend/app/services/object_labels.py",
   "start": 122,
@@ -660,7 +720,7 @@
   "offset": 121
  },
  {
-  "key": "services-_session-133",
+  "key": "services-object_labels-_session-133",
   "name": "_session",
   "file": "backend/app/services/object_labels.py",
   "start": 133,
@@ -672,7 +732,7 @@
   "offset": 132
  },
  {
-  "key": "services-available-156",
+  "key": "services-object_labels-available-156",
   "name": "available",
   "file": "backend/app/services/object_labels.py",
   "start": 156,
@@ -684,7 +744,7 @@
   "offset": 155
  },
  {
-  "key": "services-Reading-162",
+  "key": "services-object_labels-Reading-162",
   "name": "Reading",
   "file": "backend/app/services/object_labels.py",
   "start": 162,
@@ -696,7 +756,7 @@
   "offset": 161
  },
  {
-  "key": "services-read-172",
+  "key": "services-object_labels-read-172",
   "name": "read",
   "file": "backend/app/services/object_labels.py",
   "start": 172,
@@ -708,7 +768,7 @@
   "offset": 0
  },
  {
-  "key": "services-object_tags-234",
+  "key": "services-object_labels-object_tags-234",
   "name": "object_tags",
   "file": "backend/app/services/object_labels.py",
   "start": 234,
@@ -720,7 +780,7 @@
   "offset": 233
  },
  {
-  "key": "services-engine_name-244",
+  "key": "services-object_labels-engine_name-244",
   "name": "engine_name",
   "file": "backend/app/services/object_labels.py",
   "start": 244,
@@ -732,43 +792,55 @@
   "offset": 243
  },
  {
-  "key": "services-SearchResult-20",
+  "key": "services-project_report_service-ProjectReportService-28",
+  "name": "ProjectReportService",
+  "file": "backend/app/services/project_report_service.py",
+  "start": 28,
+  "end": 124,
+  "lang": "python",
+  "code": "# backend/app/services/project_report_service.py — lines 28–124, signatures only\nclass ProjectReportService:\n    \"\"\"Applies the reporting rules on top of the three stores.\"\"\"\n    def __init__(reports: ReportRepository, projects: ProjectRepository, accounts: AccountRepository) -> None\n    def submit(actor: Account, project_id: str, reason: str, comments: str = '') -> ProjectReport\n        \"\"\"Record one customer complaint about one project.\"\"\"\n    def list_reports(actor: Account) -> list[ProjectReport]\n        \"\"\"Return every report, newest first, for platform staff.\"\"\"\n    def resolve(actor: Account, report_id: str) -> ProjectReport\n        \"\"\"Close one report, after the chosen actions.\"\"\"\n    def project_title(report: ProjectReport) -> str\n        \"\"\"Return the project title the administrator reads.\"\"\"\n    def designer_of(report: ProjectReport) -> Account | None\n        \"\"\"Return the account that published the reported project.\"\"\"\n    def customer_of(report: ProjectReport) -> Account | None\n        \"\"\"Return the account that raised the report.\"\"\"\n    @staticmethod\n    def _require_staff(actor: Account) -> None",
+  "part": 1,
+  "parts": 1,
+  "offset": 0
+ },
+ {
+  "key": "services-project_search_service-SearchResult-21",
   "name": "SearchResult",
   "file": "backend/app/services/project_search_service.py",
-  "start": 20,
-  "end": 33,
+  "start": 21,
+  "end": 34,
   "lang": "python",
   "code": "class SearchResult:\n    \"\"\"One page of matches plus the numbers the screen needs.\"\"\"\n\n    items: list[Project]\n    total: int\n    page: int\n    page_size: int\n\n    @property\n    def pages(self) -> int:\n        \"\"\"Return how many pages the total fills, at least one.\"\"\"\n        if self.page_size <= 0:\n            return 1\n        return max(1, -(-self.total // self.page_size))",
   "part": 1,
   "parts": 1,
-  "offset": 19
+  "offset": 20
  },
  {
-  "key": "services-ProjectSearchService-36",
+  "key": "services-project_search_service-ProjectSearchService-37",
   "name": "ProjectSearchService",
   "file": "backend/app/services/project_search_service.py",
-  "start": 36,
-  "end": 92,
+  "start": 37,
+  "end": 98,
   "lang": "python",
-  "code": "# backend/app/services/project_search_service.py — lines 36–92, signatures only\nclass ProjectSearchService:\n    \"\"\"Filters the catalogue. Holds no state of its own.\"\"\"\n    def __init__(projects: ProjectRepository) -> None\n    def search() -> SearchResult\n        \"\"\"Return the matches for one page of results.\"\"\"",
+  "code": "# backend/app/services/project_search_service.py — lines 37–98, signatures only\nclass ProjectSearchService:\n    \"\"\"Filters the catalogue. Holds no state of its own.\"\"\"\n    def __init__(projects: ProjectRepository) -> None\n    def search() -> SearchResult\n        \"\"\"Return the matches for one page of results.\"\"\"",
   "part": 1,
   "parts": 1,
   "offset": 0
  },
  {
-  "key": "services-ProjectService-13",
+  "key": "services-project_service-ProjectService-13",
   "name": "ProjectService",
   "file": "backend/app/services/project_service.py",
   "start": 13,
-  "end": 178,
+  "end": 201,
   "lang": "python",
-  "code": "# backend/app/services/project_service.py — lines 13–178, signatures only\nclass ProjectService:\n    \"\"\"Applies the portfolio rules on top of the two stores.\"\"\"\n    def __init__(projects: ProjectRepository, companies: CompanyRepository) -> None\n    def create(actor: Account) -> Project\n        \"\"\"Publish a project under the caller's company.\"\"\"\n    def get(project_id: str) -> Project\n        \"\"\"Return a project by id. Any signed in account may read it.\"\"\"\n    def update(actor: Account, project_id: str) -> Project\n        \"\"\"Change only the fields that were supplied. Owner only.\"\"\"\n    def require_owned(actor: Account, project_id: str) -> Project\n        \"\"\"Return the project only when the caller owns it.\"\"\"\n    def delete(actor: Account, project_id: str) -> None\n        \"\"\"Remove a project. Owner only.\"\"\"\n    def list_for_owner(actor: Account, status: ProjectStatus | None = None, name: str = '') -> list[Project]\n        \"\"\"List the owner's projects, optionally filtered by status and title.\"\"\"\n    def list_for_company(company_id: str) -> list[Project]\n        \"\"\"Return the projects published under one company, newest first.\"\"\"\n    @staticmethod\n    def _require_designer(actor: Account) -> None\n    def _require_owned(actor: Account, project_id: str) -> Project",
+  "code": "# backend/app/services/project_service.py — lines 13–201, signatures only\nclass ProjectService:\n    \"\"\"Applies the portfolio rules on top of the two stores.\"\"\"\n    def __init__(projects: ProjectRepository, companies: CompanyRepository) -> None\n    def create(actor: Account) -> Project\n        \"\"\"Publish a project under the caller's company.\"\"\"\n    def get(project_id: str, viewer: Account | None = None) -> Project\n        \"\"\"Return a project by id.\"\"\"\n    def update(actor: Account, project_id: str) -> Project\n        \"\"\"Change only the fields that were supplied. Owner only.\"\"\"\n    def require_owned(actor: Account, project_id: str) -> Project\n        \"\"\"Return the project only when the caller owns it.\"\"\"\n    def delete(actor: Account, project_id: str) -> None\n        \"\"\"Remove a project. Owner only.\"\"\"\n    def list_for_owner(actor: Account, status: ProjectStatus | None = None, name: str = '') -> list[Project]\n        \"\"\"List the owner's projects, optionally filtered by status and title.\"\"\"\n    def list_for_company(company_id: str) -> list[Project]\n        \"\"\"Return the projects published under one company, newest first.\"\"\"\n    @staticmethod\n    def _may_read_hidden(project: Project, viewer: Account | None) -> bool\n        \"\"\"Return ``True`` when ``viewer`` may still read a taken down project.\"\"\"\n    @staticmethod\n    def _require_designer(actor: Account) -> None\n    def _require_owned(actor: Account, project_id: str) -> Project",
   "part": 1,
   "parts": 1,
   "offset": 0
  },
  {
-  "key": "services-QuoteService-32",
+  "key": "services-quote_service-QuoteService-32",
   "name": "QuoteService",
   "file": "backend/app/services/quote_service.py",
   "start": 32,
@@ -780,7 +852,7 @@
   "offset": 0
  },
  {
-  "key": "services-Bucket-22",
+  "key": "services-report_service-Bucket-22",
   "name": "Bucket",
   "file": "backend/app/services/report_service.py",
   "start": 22,
@@ -792,7 +864,7 @@
   "offset": 21
  },
  {
-  "key": "services-Report-35",
+  "key": "services-report_service-Report-35",
   "name": "Report",
   "file": "backend/app/services/report_service.py",
   "start": 35,
@@ -804,7 +876,7 @@
   "offset": 34
  },
  {
-  "key": "services-ReportService-42",
+  "key": "services-report_service-ReportService-42",
   "name": "ReportService",
   "file": "backend/app/services/report_service.py",
   "start": 42,
@@ -816,19 +888,19 @@
   "offset": 0
  },
  {
-  "key": "services-ShortlistService-14",
+  "key": "services-shortlist_service-ShortlistService-14",
   "name": "ShortlistService",
   "file": "backend/app/services/shortlist_service.py",
   "start": 14,
-  "end": 72,
+  "end": 76,
   "lang": "python",
-  "code": "# backend/app/services/shortlist_service.py — lines 14–72, signatures only\nclass ShortlistService:\n    \"\"\"Keeps the saved list and the project counters in step.\"\"\"\n    def __init__(shortlists: ShortlistRepository, projects: ProjectRepository) -> None\n    def add(actor: Account, project_id: str) -> Project\n        \"\"\"Save a project for the caller. Saving twice changes nothing.\"\"\"\n    def remove(actor: Account, project_id: str) -> None\n        \"\"\"Drop a project from the caller's list.\"\"\"\n    def list_for(actor: Account) -> list[Project]\n        \"\"\"Return the saved projects, oldest save first, skipping deleted ones.\"\"\"\n    def ids_for(actor: Account) -> list[str]\n        \"\"\"Return the saved project ids.\"\"\"\n    def _own_list(actor: Account) -> Shortlist\n    @staticmethod\n    def _require_customer(actor: Account) -> None",
+  "code": "# backend/app/services/shortlist_service.py — lines 14–76, signatures only\nclass ShortlistService:\n    \"\"\"Keeps the saved list and the project counters in step.\"\"\"\n    def __init__(shortlists: ShortlistRepository, projects: ProjectRepository) -> None\n    def add(actor: Account, project_id: str) -> Project\n        \"\"\"Save a project for the caller. Saving twice changes nothing.\"\"\"\n    def remove(actor: Account, project_id: str) -> None\n        \"\"\"Drop a project from the caller's list.\"\"\"\n    def list_for(actor: Account) -> list[Project]\n        \"\"\"Return the saved projects, oldest save first, skipping deleted ones.\"\"\"\n    def ids_for(actor: Account) -> list[str]\n        \"\"\"Return the saved project ids.\"\"\"\n    def _own_list(actor: Account) -> Shortlist\n    @staticmethod\n    def _require_customer(actor: Account) -> None",
   "part": 1,
   "parts": 1,
   "offset": 0
  },
  {
-  "key": "services-PaletteEntry-36",
+  "key": "services-tag_suggestion_service-PaletteEntry-36",
   "name": "PaletteEntry",
   "file": "backend/app/services/tag_suggestion_service.py",
   "start": 36,
@@ -840,7 +912,7 @@
   "offset": 35
  },
  {
-  "key": "services-TagSuggestion-44",
+  "key": "services-tag_suggestion_service-TagSuggestion-44",
   "name": "TagSuggestion",
   "file": "backend/app/services/tag_suggestion_service.py",
   "start": 44,
@@ -852,7 +924,7 @@
   "offset": 43
  },
  {
-  "key": "services-suggest_tags-55",
+  "key": "services-tag_suggestion_service-suggest_tags-55",
   "name": "suggest_tags",
   "file": "backend/app/services/tag_suggestion_service.py",
   "start": 55,
@@ -864,7 +936,7 @@
   "offset": 54
  },
  {
-  "key": "services-_merge-85",
+  "key": "services-tag_suggestion_service-_merge-85",
   "name": "_merge",
   "file": "backend/app/services/tag_suggestion_service.py",
   "start": 85,
@@ -876,7 +948,7 @@
   "offset": 84
  },
  {
-  "key": "services-_palette-94",
+  "key": "services-tag_suggestion_service-_palette-94",
   "name": "_palette",
   "file": "backend/app/services/tag_suggestion_service.py",
   "start": 94,
@@ -888,7 +960,7 @@
   "offset": 93
  },
  {
-  "key": "services-_stats-112",
+  "key": "services-tag_suggestion_service-_stats-112",
   "name": "_stats",
   "file": "backend/app/services/tag_suggestion_service.py",
   "start": 112,
@@ -900,7 +972,7 @@
   "offset": 111
  },
  {
-  "key": "services-_tags-127",
+  "key": "services-tag_suggestion_service-_tags-127",
   "name": "_tags",
   "file": "backend/app/services/tag_suggestion_service.py",
   "start": 127,
@@ -912,7 +984,7 @@
   "offset": 126
  },
  {
-  "key": "api-_to_http-22",
+  "key": "api-admin-_to_http-22",
   "name": "_to_http",
   "file": "backend/app/api/admin.py",
   "start": 22,
@@ -924,7 +996,7 @@
   "offset": 21
  },
  {
-  "key": "api-list_accounts-34",
+  "key": "api-admin-list_accounts-34",
   "name": "list_accounts",
   "file": "backend/app/api/admin.py",
   "start": 34,
@@ -936,7 +1008,7 @@
   "offset": 33
  },
  {
-  "key": "api-approve_account-52",
+  "key": "api-admin-approve_account-52",
   "name": "approve_account",
   "file": "backend/app/api/admin.py",
   "start": 52,
@@ -948,7 +1020,7 @@
   "offset": 51
  },
  {
-  "key": "api-suspend_account-68",
+  "key": "api-admin-suspend_account-68",
   "name": "suspend_account",
   "file": "backend/app/api/admin.py",
   "start": 68,
@@ -960,7 +1032,7 @@
   "offset": 67
  },
  {
-  "key": "api-_fail-28",
+  "key": "api-appointments-_fail-28",
   "name": "_fail",
   "file": "backend/app/api/appointments.py",
   "start": 28,
@@ -972,7 +1044,7 @@
   "offset": 27
  },
  {
-  "key": "api-_public-45",
+  "key": "api-appointments-_public-45",
   "name": "_public",
   "file": "backend/app/api/appointments.py",
   "start": 45,
@@ -984,7 +1056,7 @@
   "offset": 44
  },
  {
-  "key": "api-read_slots-69",
+  "key": "api-appointments-read_slots-69",
   "name": "read_slots",
   "file": "backend/app/api/appointments.py",
   "start": 69,
@@ -996,7 +1068,7 @@
   "offset": 68
  },
  {
-  "key": "api-book-89",
+  "key": "api-appointments-book-89",
   "name": "book",
   "file": "backend/app/api/appointments.py",
   "start": 89,
@@ -1008,7 +1080,7 @@
   "offset": 88
  },
  {
-  "key": "api-list_appointments-114",
+  "key": "api-appointments-list_appointments-114",
   "name": "list_appointments",
   "file": "backend/app/api/appointments.py",
   "start": 114,
@@ -1020,7 +1092,7 @@
   "offset": 113
  },
  {
-  "key": "api-accept_appointment-133",
+  "key": "api-appointments-accept_appointment-133",
   "name": "accept_appointment",
   "file": "backend/app/api/appointments.py",
   "start": 133,
@@ -1032,7 +1104,7 @@
   "offset": 132
  },
  {
-  "key": "api-cancel_appointment-149",
+  "key": "api-appointments-cancel_appointment-149",
   "name": "cancel_appointment",
   "file": "backend/app/api/appointments.py",
   "start": 149,
@@ -1044,7 +1116,7 @@
   "offset": 148
  },
  {
-  "key": "api-register-40",
+  "key": "api-auth-register-40",
   "name": "register",
   "file": "backend/app/api/auth.py",
   "start": 40,
@@ -1056,7 +1128,7 @@
   "offset": 39
  },
  {
-  "key": "api-login-59",
+  "key": "api-auth-login-59",
   "name": "login",
   "file": "backend/app/api/auth.py",
   "start": 59,
@@ -1068,7 +1140,7 @@
   "offset": 58
  },
  {
-  "key": "api-read_current_account-80",
+  "key": "api-auth-read_current_account-80",
   "name": "read_current_account",
   "file": "backend/app/api/auth.py",
   "start": 80,
@@ -1080,7 +1152,7 @@
   "offset": 79
  },
  {
-  "key": "api-BudgetRange-17",
+  "key": "api-catalogue-BudgetRange-17",
   "name": "BudgetRange",
   "file": "backend/app/api/catalogue.py",
   "start": 17,
@@ -1092,7 +1164,7 @@
   "offset": 16
  },
  {
-  "key": "api-CatalogueResponse-25",
+  "key": "api-catalogue-CatalogueResponse-25",
   "name": "CatalogueResponse",
   "file": "backend/app/api/catalogue.py",
   "start": 25,
@@ -1104,7 +1176,7 @@
   "offset": 24
  },
  {
-  "key": "api-read_catalogue-38",
+  "key": "api-catalogue-read_catalogue-38",
   "name": "read_catalogue",
   "file": "backend/app/api/catalogue.py",
   "start": 38,
@@ -1116,7 +1188,7 @@
   "offset": 37
  },
  {
-  "key": "api-CategoryPublic-25",
+  "key": "api-categories-CategoryPublic-25",
   "name": "CategoryPublic",
   "file": "backend/app/api/categories.py",
   "start": 25,
@@ -1128,7 +1200,7 @@
   "offset": 24
  },
  {
-  "key": "api-CategoryInput-35",
+  "key": "api-categories-CategoryInput-35",
   "name": "CategoryInput",
   "file": "backend/app/api/categories.py",
   "start": 35,
@@ -1140,7 +1212,7 @@
   "offset": 34
  },
  {
-  "key": "api-CategoryPatch-41",
+  "key": "api-categories-CategoryPatch-41",
   "name": "CategoryPatch",
   "file": "backend/app/api/categories.py",
   "start": 41,
@@ -1152,7 +1224,7 @@
   "offset": 40
  },
  {
-  "key": "api-_to_public-48",
+  "key": "api-categories-_to_public-48",
   "name": "_to_public",
   "file": "backend/app/api/categories.py",
   "start": 48,
@@ -1164,7 +1236,7 @@
   "offset": 47
  },
  {
-  "key": "api-_fail-58",
+  "key": "api-categories-_fail-58",
   "name": "_fail",
   "file": "backend/app/api/categories.py",
   "start": 58,
@@ -1176,7 +1248,7 @@
   "offset": 57
  },
  {
-  "key": "api-list_categories-73",
+  "key": "api-categories-list_categories-73",
   "name": "list_categories",
   "file": "backend/app/api/categories.py",
   "start": 73,
@@ -1188,7 +1260,7 @@
   "offset": 72
  },
  {
-  "key": "api-list_all_categories-83",
+  "key": "api-categories-list_all_categories-83",
   "name": "list_all_categories",
   "file": "backend/app/api/categories.py",
   "start": 83,
@@ -1200,7 +1272,7 @@
   "offset": 82
  },
  {
-  "key": "api-create_category-100",
+  "key": "api-categories-create_category-100",
   "name": "create_category",
   "file": "backend/app/api/categories.py",
   "start": 100,
@@ -1212,7 +1284,7 @@
   "offset": 99
  },
  {
-  "key": "api-update_category-116",
+  "key": "api-categories-update_category-116",
   "name": "update_category",
   "file": "backend/app/api/categories.py",
   "start": 116,
@@ -1224,7 +1296,7 @@
   "offset": 115
  },
  {
-  "key": "api-_public-27",
+  "key": "api-companies-_public-27",
   "name": "_public",
   "file": "backend/app/api/companies.py",
   "start": 27,
@@ -1236,7 +1308,7 @@
   "offset": 26
  },
  {
-  "key": "api-_to_http-37",
+  "key": "api-companies-_to_http-37",
   "name": "_to_http",
   "file": "backend/app/api/companies.py",
   "start": 37,
@@ -1248,7 +1320,7 @@
   "offset": 36
  },
  {
-  "key": "api-create_company-56",
+  "key": "api-companies-create_company-56",
   "name": "create_company",
   "file": "backend/app/api/companies.py",
   "start": 56,
@@ -1260,7 +1332,7 @@
   "offset": 55
  },
  {
-  "key": "api-read_my_company-75",
+  "key": "api-companies-read_my_company-75",
   "name": "read_my_company",
   "file": "backend/app/api/companies.py",
   "start": 75,
@@ -1272,7 +1344,7 @@
   "offset": 74
  },
  {
-  "key": "api-update_my_company-91",
+  "key": "api-companies-update_my_company-91",
   "name": "update_my_company",
   "file": "backend/app/api/companies.py",
   "start": 91,
@@ -1284,7 +1356,7 @@
   "offset": 90
  },
  {
-  "key": "api-list_companies-111",
+  "key": "api-companies-list_companies-111",
   "name": "list_companies",
   "file": "backend/app/api/companies.py",
   "start": 111,
@@ -1296,7 +1368,7 @@
   "offset": 110
  },
  {
-  "key": "api-read_company-126",
+  "key": "api-companies-read_company-126",
   "name": "read_company",
   "file": "backend/app/api/companies.py",
   "start": 126,
@@ -1308,223 +1380,247 @@
   "offset": 125
  },
  {
-  "key": "api-get_account_repository-48",
+  "key": "api-deps-get_account_repository-51",
   "name": "get_account_repository",
   "file": "backend/app/api/deps.py",
-  "start": 48,
-  "end": 50,
+  "start": 51,
+  "end": 53,
   "lang": "python",
   "code": "def get_account_repository() -> AccountRepository:\n    \"\"\"Return the process wide account store.\"\"\"\n    return _account_repository",
   "part": 1,
   "parts": 1,
-  "offset": 47
+  "offset": 50
  },
  {
-  "key": "api-get_account_service-53",
+  "key": "api-deps-get_account_service-56",
   "name": "get_account_service",
   "file": "backend/app/api/deps.py",
-  "start": 53,
-  "end": 55,
+  "start": 56,
+  "end": 58,
   "lang": "python",
   "code": "def get_account_service() -> AccountService:\n    \"\"\"Return a service bound to the shared account store.\"\"\"\n    return AccountService(get_account_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 52
+  "offset": 55
  },
  {
-  "key": "api-get_company_repository-58",
+  "key": "api-deps-get_company_repository-61",
   "name": "get_company_repository",
   "file": "backend/app/api/deps.py",
-  "start": 58,
-  "end": 60,
+  "start": 61,
+  "end": 63,
   "lang": "python",
   "code": "def get_company_repository() -> CompanyRepository:\n    \"\"\"Return the process wide company store.\"\"\"\n    return _company_repository",
   "part": 1,
   "parts": 1,
-  "offset": 57
+  "offset": 60
  },
  {
-  "key": "api-get_company_service-63",
+  "key": "api-deps-get_company_service-66",
   "name": "get_company_service",
   "file": "backend/app/api/deps.py",
-  "start": 63,
-  "end": 65,
+  "start": 66,
+  "end": 68,
   "lang": "python",
   "code": "def get_company_service() -> CompanyService:\n    \"\"\"Return a service bound to the shared company store.\"\"\"\n    return CompanyService(get_company_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 62
+  "offset": 65
  },
  {
-  "key": "api-get_project_repository-68",
+  "key": "api-deps-get_project_repository-71",
   "name": "get_project_repository",
   "file": "backend/app/api/deps.py",
-  "start": 68,
-  "end": 70,
+  "start": 71,
+  "end": 73,
   "lang": "python",
   "code": "def get_project_repository() -> ProjectRepository:\n    \"\"\"Return the process wide project store.\"\"\"\n    return _project_repository",
   "part": 1,
   "parts": 1,
-  "offset": 67
+  "offset": 70
  },
  {
-  "key": "api-get_project_service-73",
+  "key": "api-deps-get_project_service-76",
   "name": "get_project_service",
   "file": "backend/app/api/deps.py",
-  "start": 73,
-  "end": 75,
+  "start": 76,
+  "end": 78,
   "lang": "python",
   "code": "def get_project_service() -> ProjectService:\n    \"\"\"Return a service bound to the shared project and company stores.\"\"\"\n    return ProjectService(get_project_repository(), get_company_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 72
+  "offset": 75
  },
  {
-  "key": "api-get_project_search_service-78",
+  "key": "api-deps-get_project_search_service-81",
   "name": "get_project_search_service",
   "file": "backend/app/api/deps.py",
-  "start": 78,
-  "end": 80,
+  "start": 81,
+  "end": 83,
   "lang": "python",
   "code": "def get_project_search_service() -> ProjectSearchService:\n    \"\"\"Return a search service bound to the shared project store.\"\"\"\n    return ProjectSearchService(get_project_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 77
+  "offset": 80
  },
  {
-  "key": "api-get_shortlist_repository-83",
+  "key": "api-deps-get_shortlist_repository-86",
   "name": "get_shortlist_repository",
   "file": "backend/app/api/deps.py",
-  "start": 83,
-  "end": 85,
+  "start": 86,
+  "end": 88,
   "lang": "python",
   "code": "def get_shortlist_repository() -> ShortlistRepository:\n    \"\"\"Return the process wide shortlist store.\"\"\"\n    return _shortlist_repository",
   "part": 1,
   "parts": 1,
-  "offset": 82
+  "offset": 85
  },
  {
-  "key": "api-get_shortlist_service-88",
+  "key": "api-deps-get_shortlist_service-91",
   "name": "get_shortlist_service",
   "file": "backend/app/api/deps.py",
-  "start": 88,
-  "end": 90,
+  "start": 91,
+  "end": 93,
   "lang": "python",
   "code": "def get_shortlist_service() -> ShortlistService:\n    \"\"\"Return a service bound to the shared shortlist and project stores.\"\"\"\n    return ShortlistService(get_shortlist_repository(), get_project_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 87
+  "offset": 90
  },
  {
-  "key": "api-get_quote_request_repository-93",
+  "key": "api-deps-get_quote_request_repository-96",
   "name": "get_quote_request_repository",
   "file": "backend/app/api/deps.py",
-  "start": 93,
-  "end": 95,
+  "start": 96,
+  "end": 98,
   "lang": "python",
   "code": "def get_quote_request_repository() -> QuoteRequestRepository:\n    \"\"\"Return the process wide quote request store.\"\"\"\n    return _quote_request_repository",
   "part": 1,
   "parts": 1,
-  "offset": 92
+  "offset": 95
  },
  {
-  "key": "api-get_quote_repository-98",
+  "key": "api-deps-get_quote_repository-101",
   "name": "get_quote_repository",
   "file": "backend/app/api/deps.py",
-  "start": 98,
-  "end": 100,
+  "start": 101,
+  "end": 103,
   "lang": "python",
   "code": "def get_quote_repository() -> QuoteRepository:\n    \"\"\"Return the process wide quote store.\"\"\"\n    return _quote_repository",
   "part": 1,
   "parts": 1,
-  "offset": 97
+  "offset": 100
  },
  {
-  "key": "api-get_quote_service-103",
+  "key": "api-deps-get_quote_service-106",
   "name": "get_quote_service",
   "file": "backend/app/api/deps.py",
-  "start": 103,
-  "end": 110,
+  "start": 106,
+  "end": 113,
   "lang": "python",
   "code": "def get_quote_service() -> QuoteService:\n    \"\"\"Return a service bound to the shared quote, company and project stores.\"\"\"\n    return QuoteService(\n        get_quote_request_repository(),\n        get_quote_repository(),\n        get_company_repository(),\n        get_project_repository(),\n    )",
   "part": 1,
   "parts": 1,
-  "offset": 102
+  "offset": 105
  },
  {
-  "key": "api-get_appointment_repository-113",
+  "key": "api-deps-get_appointment_repository-116",
   "name": "get_appointment_repository",
   "file": "backend/app/api/deps.py",
-  "start": 113,
-  "end": 115,
+  "start": 116,
+  "end": 118,
   "lang": "python",
   "code": "def get_appointment_repository() -> AppointmentRepository:\n    \"\"\"Return the process wide appointment store.\"\"\"\n    return _appointment_repository",
   "part": 1,
   "parts": 1,
-  "offset": 112
+  "offset": 115
  },
  {
-  "key": "api-get_appointment_service-118",
+  "key": "api-deps-get_appointment_service-121",
   "name": "get_appointment_service",
   "file": "backend/app/api/deps.py",
-  "start": 118,
-  "end": 124,
+  "start": 121,
+  "end": 127,
   "lang": "python",
   "code": "def get_appointment_service() -> AppointmentService:\n    \"\"\"Return a service bound to the appointment, company and account stores.\"\"\"\n    return AppointmentService(\n        get_appointment_repository(),\n        get_company_repository(),\n        get_account_repository(),\n    )",
   "part": 1,
   "parts": 1,
-  "offset": 117
+  "offset": 120
  },
  {
-  "key": "api-get_category_repository-127",
+  "key": "api-deps-get_report_repository-130",
+  "name": "get_report_repository",
+  "file": "backend/app/api/deps.py",
+  "start": 130,
+  "end": 132,
+  "lang": "python",
+  "code": "def get_report_repository() -> ReportRepository:\n    \"\"\"Return the process wide project report store.\"\"\"\n    return _report_repository",
+  "part": 1,
+  "parts": 1,
+  "offset": 129
+ },
+ {
+  "key": "api-deps-get_project_report_service-135",
+  "name": "get_project_report_service",
+  "file": "backend/app/api/deps.py",
+  "start": 135,
+  "end": 141,
+  "lang": "python",
+  "code": "def get_project_report_service() -> ProjectReportService:\n    \"\"\"Return a service bound to the report, project and account stores.\"\"\"\n    return ProjectReportService(\n        get_report_repository(),\n        get_project_repository(),\n        get_account_repository(),\n    )",
+  "part": 1,
+  "parts": 1,
+  "offset": 134
+ },
+ {
+  "key": "api-deps-get_category_repository-144",
   "name": "get_category_repository",
   "file": "backend/app/api/deps.py",
-  "start": 127,
-  "end": 129,
+  "start": 144,
+  "end": 146,
   "lang": "python",
   "code": "def get_category_repository() -> CategoryRepository:\n    \"\"\"Return the process wide category store.\"\"\"\n    return _category_repository",
   "part": 1,
   "parts": 1,
-  "offset": 126
+  "offset": 143
  },
  {
-  "key": "api-get_category_service-132",
+  "key": "api-deps-get_category_service-149",
   "name": "get_category_service",
   "file": "backend/app/api/deps.py",
-  "start": 132,
-  "end": 134,
+  "start": 149,
+  "end": 151,
   "lang": "python",
   "code": "def get_category_service() -> CategoryService:\n    \"\"\"Return a service bound to the shared category store.\"\"\"\n    return CategoryService(get_category_repository())",
   "part": 1,
   "parts": 1,
-  "offset": 131
+  "offset": 148
  },
  {
-  "key": "api-get_report_service-137",
+  "key": "api-deps-get_report_service-154",
   "name": "get_report_service",
   "file": "backend/app/api/deps.py",
-  "start": 137,
-  "end": 144,
+  "start": 154,
+  "end": 161,
   "lang": "python",
   "code": "def get_report_service() -> ReportService:\n    \"\"\"Return a report service bound to the four stores that hold timestamps.\"\"\"\n    return ReportService(\n        get_account_repository(),\n        get_project_repository(),\n        get_quote_request_repository(),\n        get_quote_repository(),\n    )",
   "part": 1,
   "parts": 1,
-  "offset": 136
+  "offset": 153
  },
  {
-  "key": "api-get_current_account-147",
+  "key": "api-deps-get_current_account-164",
   "name": "get_current_account",
   "file": "backend/app/api/deps.py",
-  "start": 147,
-  "end": 181,
+  "start": 164,
+  "end": 198,
   "lang": "python",
-  "code": "# backend/app/api/deps.py — lines 147–181, first 20 lines of 35\ndef get_current_account(\n    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer_scheme)],\n    service: Annotated[AccountService, Depends(get_account_service)],\n) -> Account:\n    \"\"\"Return the account named by the bearer token.\n\n    Raises 401 for a missing, malformed, expired or orphaned token.\n    \"\"\"\n    if credentials is None:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Not authenticated\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    try:\n        claims = decode_access_token(credentials.credentials)\n    except ValueError as exc:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=str(exc),\n    ...",
+  "code": "# backend/app/api/deps.py — lines 164–198, first 20 lines of 35\ndef get_current_account(\n    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer_scheme)],\n    service: Annotated[AccountService, Depends(get_account_service)],\n) -> Account:\n    \"\"\"Return the account named by the bearer token.\n\n    Raises 401 for a missing, malformed, expired or orphaned token.\n    \"\"\"\n    if credentials is None:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Not authenticated\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    try:\n        claims = decode_access_token(credentials.credentials)\n    except ValueError as exc:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=str(exc),\n    ...",
   "part": 1,
   "parts": 1,
   "offset": 0
  },
  {
-  "key": "api-HealthResponse-16",
+  "key": "api-health-HealthResponse-16",
   "name": "HealthResponse",
   "file": "backend/app/api/health.py",
   "start": 16,
@@ -1536,7 +1632,7 @@
   "offset": 15
  },
  {
-  "key": "api-read_health-25",
+  "key": "api-health-read_health-25",
   "name": "read_health",
   "file": "backend/app/api/health.py",
   "start": 25,
@@ -1548,7 +1644,7 @@
   "offset": 24
  },
  {
-  "key": "api-_read_photo-58",
+  "key": "api-images-_read_photo-58",
   "name": "_read_photo",
   "file": "backend/app/api/images.py",
   "start": 58,
@@ -1560,7 +1656,7 @@
   "offset": 57
  },
  {
-  "key": "api-store_upload-86",
+  "key": "api-images-store_upload-86",
   "name": "store_upload",
   "file": "backend/app/api/images.py",
   "start": 86,
@@ -1572,7 +1668,7 @@
   "offset": 85
  },
  {
-  "key": "api-tags_for_upload-122",
+  "key": "api-images-tags_for_upload-122",
   "name": "tags_for_upload",
   "file": "backend/app/api/images.py",
   "start": 122,
@@ -1584,7 +1680,79 @@
   "offset": 0
  },
  {
-  "key": "api-_to_http-43",
+  "key": "api-project_reports-_fail-28",
+  "name": "_fail",
+  "file": "backend/app/api/project_reports.py",
+  "start": 28,
+  "end": 42,
+  "lang": "python",
+  "code": "def _fail(exc: Exception) -> HTTPException:\n    \"\"\"Map a domain refusal to the matching response.\"\"\"\n    if isinstance(exc, (ReportNotFound, ProjectNotFound, AccountNotFound)):\n        return HTTPException(\n            status_code=http_status.HTTP_404_NOT_FOUND, detail=exc.message\n        )\n    if isinstance(exc, NotPermitted):\n        return HTTPException(\n            status_code=http_status.HTTP_403_FORBIDDEN, detail=exc.message\n        )\n    if isinstance(exc, InvalidState):\n        return HTTPException(\n            status_code=http_status.HTTP_409_CONFLICT, detail=exc.message\n        )\n    return HTTPException(status_code=http_status.HTTP_400_BAD_REQUEST, detail=str(exc))",
+  "part": 1,
+  "parts": 1,
+  "offset": 27
+ },
+ {
+  "key": "api-project_reports-_public-45",
+  "name": "_public",
+  "file": "backend/app/api/project_reports.py",
+  "start": 45,
+  "end": 58,
+  "lang": "python",
+  "code": "def _public(\n    service: ProjectReportService, report: ProjectReport\n) -> ProjectReportPublic:\n    \"\"\"Return one report with the names the staff screen shows.\"\"\"\n    public = ProjectReportPublic.model_validate(report)\n    public.project_title = service.project_title(report)\n    designer = service.designer_of(report)\n    if designer is not None:\n        public.designer_name = designer.display_name\n        public.designer_email = designer.email\n    customer = service.customer_of(report)\n    if customer is not None:\n        public.customer_name = customer.display_name\n    return public",
+  "part": 1,
+  "parts": 1,
+  "offset": 44
+ },
+ {
+  "key": "api-project_reports-list_reasons-66",
+  "name": "list_reasons",
+  "file": "backend/app/api/project_reports.py",
+  "start": 66,
+  "end": 68,
+  "lang": "python",
+  "code": "def list_reasons() -> list[str]:\n    \"\"\"Return the fixed vocabulary, so the screen and the entity agree.\"\"\"\n    return list(REPORT_REASONS)",
+  "part": 1,
+  "parts": 1,
+  "offset": 65
+ },
+ {
+  "key": "api-project_reports-report_project-77",
+  "name": "report_project",
+  "file": "backend/app/api/project_reports.py",
+  "start": 77,
+  "end": 87,
+  "lang": "python",
+  "code": "def report_project(\n    payload: SubmitReport, actor: CurrentAccountDep, service: ServiceDep\n) -> ProjectReportPublic:\n    \"\"\"A customer flags a project for the administrator.\"\"\"\n    try:\n        report = service.submit(\n            actor, payload.project_id, payload.reason, payload.comments\n        )\n    except (NotPermitted, ProjectNotFound, InvalidState, ValueError) as exc:\n        raise _fail(exc) from exc\n    return _public(service, report)",
+  "part": 1,
+  "parts": 1,
+  "offset": 76
+ },
+ {
+  "key": "api-project_reports-list_reports-95",
+  "name": "list_reports",
+  "file": "backend/app/api/project_reports.py",
+  "start": 95,
+  "end": 103,
+  "lang": "python",
+  "code": "def list_reports(\n    actor: CurrentAccountDep, service: ServiceDep\n) -> list[ProjectReportPublic]:\n    \"\"\"Return the report queue, newest first. Platform staff only.\"\"\"\n    try:\n        reports = service.list_reports(actor)\n    except NotPermitted as exc:\n        raise _fail(exc) from exc\n    return [_public(service, report) for report in reports]",
+  "part": 1,
+  "parts": 1,
+  "offset": 94
+ },
+ {
+  "key": "api-project_reports-resolve_report-111",
+  "name": "resolve_report",
+  "file": "backend/app/api/project_reports.py",
+  "start": 111,
+  "end": 136,
+  "lang": "python",
+  "code": "def resolve_report(\n    report_id: str,\n    payload: ResolveReport,\n    actor: CurrentAccountDep,\n    service: ServiceDep,\n) -> ProjectReportPublic:\n    \"\"\"Close one report, applying the chosen actions.\n\n    Both flags may be set. Neither flag dismisses the report.\n    \"\"\"\n    try:\n        report = service.resolve(\n            actor,\n            report_id,\n            take_down=payload.take_down,\n            suspend_designer=payload.suspend_designer,\n        )\n    except (\n        ReportNotFound,\n        ProjectNotFound,\n        AccountNotFound,\n        NotPermitted,\n        InvalidState,\n    ) as exc:\n        raise _fail(exc) from exc\n    return _public(service, report)",
+  "part": 1,
+  "parts": 1,
+  "offset": 110
+ },
+ {
+  "key": "api-projects-_to_http-43",
   "name": "_to_http",
   "file": "backend/app/api/projects.py",
   "start": 43,
@@ -1596,7 +1764,7 @@
   "offset": 42
  },
  {
-  "key": "api-create_project-60",
+  "key": "api-projects-create_project-60",
   "name": "create_project",
   "file": "backend/app/api/projects.py",
   "start": 60,
@@ -1608,7 +1776,7 @@
   "offset": 59
  },
  {
-  "key": "api-list_my_projects-76",
+  "key": "api-projects-list_my_projects-76",
   "name": "list_my_projects",
   "file": "backend/app/api/projects.py",
   "start": 76,
@@ -1620,7 +1788,7 @@
   "offset": 75
  },
  {
-  "key": "api-list_company_projects-102",
+  "key": "api-projects-list_company_projects-102",
   "name": "list_company_projects",
   "file": "backend/app/api/projects.py",
   "start": 102,
@@ -1632,7 +1800,7 @@
   "offset": 101
  },
  {
-  "key": "api-search_projects-115",
+  "key": "api-projects-search_projects-115",
   "name": "search_projects",
   "file": "backend/app/api/projects.py",
   "start": 115,
@@ -1644,19 +1812,19 @@
   "offset": 0
  },
  {
-  "key": "api-read_project-161",
+  "key": "api-projects-read_project-161",
   "name": "read_project",
   "file": "backend/app/api/projects.py",
   "start": 161,
   "end": 169,
   "lang": "python",
-  "code": "def read_project(\n    project_id: str, actor: CurrentAccountDep, service: ServiceDep\n) -> ProjectPublic:\n    \"\"\"Return a project. Any signed in account may read it.\"\"\"\n    try:\n        project = service.get(project_id)\n    except ProjectNotFound as exc:\n        raise _to_http(exc) from exc\n    return ProjectPublic.model_validate(project)",
+  "code": "def read_project(\n    project_id: str, actor: CurrentAccountDep, service: ServiceDep\n) -> ProjectPublic:\n    \"\"\"Return a project. Any signed in account may read it, unless it was taken down.\"\"\"\n    try:\n        project = service.get(project_id, actor)\n    except ProjectNotFound as exc:\n        raise _to_http(exc) from exc\n    return ProjectPublic.model_validate(project)",
   "part": 1,
   "parts": 1,
   "offset": 160
  },
  {
-  "key": "api-update_project-177",
+  "key": "api-projects-update_project-177",
   "name": "update_project",
   "file": "backend/app/api/projects.py",
   "start": 177,
@@ -1668,7 +1836,7 @@
   "offset": 176
  },
  {
-  "key": "api-delete_project-197",
+  "key": "api-projects-delete_project-197",
   "name": "delete_project",
   "file": "backend/app/api/projects.py",
   "start": 197,
@@ -1680,7 +1848,7 @@
   "offset": 196
  },
  {
-  "key": "api-record_project_view-213",
+  "key": "api-projects-record_project_view-213",
   "name": "record_project_view",
   "file": "backend/app/api/projects.py",
   "start": 213,
@@ -1692,7 +1860,7 @@
   "offset": 212
  },
  {
-  "key": "api-suggest_project_tags-230",
+  "key": "api-projects-suggest_project_tags-230",
   "name": "suggest_project_tags",
   "file": "backend/app/api/projects.py",
   "start": 230,
@@ -1704,7 +1872,7 @@
   "offset": 0
  },
  {
-  "key": "api-_fail-37",
+  "key": "api-quotes-_fail-37",
   "name": "_fail",
   "file": "backend/app/api/quotes.py",
   "start": 37,
@@ -1716,7 +1884,7 @@
   "offset": 36
  },
  {
-  "key": "api-_detail-48",
+  "key": "api-quotes-_detail-48",
   "name": "_detail",
   "file": "backend/app/api/quotes.py",
   "start": 48,
@@ -1728,7 +1896,7 @@
   "offset": 47
  },
  {
-  "key": "api-submit_request-63",
+  "key": "api-quotes-submit_request-63",
   "name": "submit_request",
   "file": "backend/app/api/quotes.py",
   "start": 63,
@@ -1740,7 +1908,7 @@
   "offset": 62
  },
  {
-  "key": "api-list_requests-79",
+  "key": "api-quotes-list_requests-79",
   "name": "list_requests",
   "file": "backend/app/api/quotes.py",
   "start": 79,
@@ -1752,7 +1920,7 @@
   "offset": 78
  },
  {
-  "key": "api-read_request-100",
+  "key": "api-quotes-read_request-100",
   "name": "read_request",
   "file": "backend/app/api/quotes.py",
   "start": 100,
@@ -1764,7 +1932,7 @@
   "offset": 99
  },
  {
-  "key": "api-counter_request-115",
+  "key": "api-quotes-counter_request-115",
   "name": "counter_request",
   "file": "backend/app/api/quotes.py",
   "start": 115,
@@ -1776,7 +1944,7 @@
   "offset": 114
  },
  {
-  "key": "api-cancel_request-134",
+  "key": "api-quotes-cancel_request-134",
   "name": "cancel_request",
   "file": "backend/app/api/quotes.py",
   "start": 134,
@@ -1788,7 +1956,7 @@
   "offset": 133
  },
  {
-  "key": "api-refuse_request-153",
+  "key": "api-quotes-refuse_request-153",
   "name": "refuse_request",
   "file": "backend/app/api/quotes.py",
   "start": 153,
@@ -1800,7 +1968,7 @@
   "offset": 152
  },
  {
-  "key": "api-answer_request-173",
+  "key": "api-quotes-answer_request-173",
   "name": "answer_request",
   "file": "backend/app/api/quotes.py",
   "start": 173,
@@ -1812,7 +1980,7 @@
   "offset": 172
  },
  {
-  "key": "api-list_quotes-192",
+  "key": "api-quotes-list_quotes-192",
   "name": "list_quotes",
   "file": "backend/app/api/quotes.py",
   "start": 192,
@@ -1824,7 +1992,7 @@
   "offset": 191
  },
  {
-  "key": "api-revise_quote-209",
+  "key": "api-quotes-revise_quote-209",
   "name": "revise_quote",
   "file": "backend/app/api/quotes.py",
   "start": 209,
@@ -1836,7 +2004,7 @@
   "offset": 208
  },
  {
-  "key": "api-accept_quote-228",
+  "key": "api-quotes-accept_quote-228",
   "name": "accept_quote",
   "file": "backend/app/api/quotes.py",
   "start": 228,
@@ -1848,7 +2016,7 @@
   "offset": 227
  },
  {
-  "key": "api-decline_quote-244",
+  "key": "api-quotes-decline_quote-244",
   "name": "decline_quote",
   "file": "backend/app/api/quotes.py",
   "start": 244,
@@ -1860,7 +2028,7 @@
   "offset": 243
  },
  {
-  "key": "api-BucketPublic-22",
+  "key": "api-reports-BucketPublic-22",
   "name": "BucketPublic",
   "file": "backend/app/api/reports.py",
   "start": 22,
@@ -1872,7 +2040,7 @@
   "offset": 21
  },
  {
-  "key": "api-ReportPublic-34",
+  "key": "api-reports-ReportPublic-34",
   "name": "ReportPublic",
   "file": "backend/app/api/reports.py",
   "start": 34,
@@ -1884,7 +2052,7 @@
   "offset": 33
  },
  {
-  "key": "api-read_report-46",
+  "key": "api-reports-read_report-46",
   "name": "read_report",
   "file": "backend/app/api/reports.py",
   "start": 46,
@@ -1896,7 +2064,7 @@
   "offset": 0
  },
  {
-  "key": "api-_forbidden-22",
+  "key": "api-shortlist-_forbidden-22",
   "name": "_forbidden",
   "file": "backend/app/api/shortlist.py",
   "start": 22,
@@ -1908,7 +2076,7 @@
   "offset": 21
  },
  {
-  "key": "api-read_shortlist-31",
+  "key": "api-shortlist-read_shortlist-31",
   "name": "read_shortlist",
   "file": "backend/app/api/shortlist.py",
   "start": 31,
@@ -1920,7 +2088,7 @@
   "offset": 30
  },
  {
-  "key": "api-save_project-50",
+  "key": "api-shortlist-save_project-50",
   "name": "save_project",
   "file": "backend/app/api/shortlist.py",
   "start": 50,
@@ -1932,7 +2100,7 @@
   "offset": 49
  },
  {
-  "key": "api-unsave_project-75",
+  "key": "api-shortlist-unsave_project-75",
   "name": "unsave_project",
   "file": "backend/app/api/shortlist.py",
   "start": 75,
@@ -1944,7 +2112,7 @@
   "offset": 74
  },
  {
-  "key": "page-App-24",
+  "key": "page-App-App-24",
   "name": "App",
   "file": "frontend/src/App.tsx",
   "start": 24,
@@ -1956,7 +2124,7 @@
   "offset": 23
  },
  {
-  "key": "page-AuthProvider-25",
+  "key": "page-auth-AuthProvider-25",
   "name": "AuthProvider",
   "file": "frontend/src/auth.tsx",
   "start": 25,
@@ -1968,7 +2136,7 @@
   "offset": 24
  },
  {
-  "key": "page-ProtectedRoute-11",
+  "key": "page-ProtectedRoute-ProtectedRoute-11",
   "name": "ProtectedRoute",
   "file": "frontend/src/components/ProtectedRoute.tsx",
   "start": 11,
@@ -1980,7 +2148,7 @@
   "offset": 10
  },
  {
-  "key": "page-Home-19",
+  "key": "page-Home-Home-19",
   "name": "Home",
   "file": "frontend/src/pages/Home.tsx",
   "start": 19,
@@ -1992,7 +2160,7 @@
   "offset": 18
  },
  {
-  "key": "page-Login-7",
+  "key": "page-Login-Login-7",
   "name": "Login",
   "file": "frontend/src/pages/Login.tsx",
   "start": 7,
@@ -2004,7 +2172,7 @@
   "offset": 6
  },
  {
-  "key": "page-Register-8",
+  "key": "page-Register-Register-8",
   "name": "Register",
   "file": "frontend/src/pages/Register.tsx",
   "start": 8,
@@ -2016,7 +2184,7 @@
   "offset": 7
  },
  {
-  "key": "page-Dashboard-24",
+  "key": "page-Dashboard-Dashboard-24",
   "name": "Dashboard",
   "file": "frontend/src/pages/Dashboard.tsx",
   "start": 24,
@@ -2028,7 +2196,7 @@
   "offset": 23
  },
  {
-  "key": "page-Search-18",
+  "key": "page-Search-Search-18",
   "name": "Search",
   "file": "frontend/src/pages/Search.tsx",
   "start": 18,
@@ -2040,19 +2208,19 @@
   "offset": 17
  },
  {
-  "key": "page-ProjectDetail-19",
+  "key": "page-ProjectDetail-ProjectDetail-22",
   "name": "ProjectDetail",
   "file": "frontend/src/pages/ProjectDetail.tsx",
-  "start": 19,
-  "end": 19,
+  "start": 22,
+  "end": 22,
   "lang": "tsx",
-  "code": "export default function ProjectDetail() {\n  const { projectId } = useParams<{ projectId: string }>();\n  const { account } = useAuth();\n  const [project, setProject] = useState<ProjectPublic | null>(null);\n  const [companies, setCompanies] = useState<CompanyPublic[]>([]);\n  const [active, setActive] = useState(0);\n  const [saved, setSaved] = useState(false);\n  const [busy, setBusy] = useState(false);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState<string | null>(null);\n  const counted = useRef(false);\n\n  useEffect(() => {\n    if (!projectId) return;\n    let live = true;\n    setLoading(true);\n    setError(null);\n\n    getProject(projectId)\n      .then((data) => {\n        if (!live) return;\n        setProject(data);\n        setActive(0);\n      })\n      .catch((caught: unknown) => {\n        if (!live) return;\n        setError(caught instanceof ApiError ? caught.detail : 'Unable to load the project.');\n      })\n      .finally(() => {",
+  "code": "export default function ProjectDetail() {\n  const { projectId } = useParams<{ projectId: string }>();\n  const { account } = useAuth();\n  const [project, setProject] = useState<ProjectPublic | null>(null);\n  const [companies, setCompanies] = useState<CompanyPublic[]>([]);\n  const [active, setActive] = useState(0);\n  const [saved, setSaved] = useState(false);\n  const [busy, setBusy] = useState(false);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState<string | null>(null);\n  const [reportOpen, setReportOpen] = useState(false);\n  const [reasons, setReasons] = useState<string[]>([]);\n  const [reason, setReason] = useState('');\n  const [comments, setComments] = useState('');\n  const [reportBusy, setReportBusy] = useState(false);\n  const [reportNotice, setReportNotice] = useState<string | null>(null);\n  const [reportError, setReportError] = useState<string | null>(null);\n  const counted = useRef(false);\n\n  useEffect(() => {\n    if (!projectId) return;\n    let live = true;\n    setLoading(true);\n    setError(null);\n\n    getProject(projectId)\n      .then((data) => {\n        if (!live) return;\n        setProject(data);",
   "part": 1,
   "parts": 1,
-  "offset": 18
+  "offset": 21
  },
  {
-  "key": "page-Saved-10",
+  "key": "page-Saved-Saved-10",
   "name": "Saved",
   "file": "frontend/src/pages/Saved.tsx",
   "start": 10,
@@ -2064,7 +2232,7 @@
   "offset": 9
  },
  {
-  "key": "page-Designers-6",
+  "key": "page-Designers-Designers-6",
   "name": "Designers",
   "file": "frontend/src/pages/Designers.tsx",
   "start": 6,
@@ -2076,7 +2244,7 @@
   "offset": 5
  },
  {
-  "key": "page-DesignerDetail-7",
+  "key": "page-DesignerDetail-DesignerDetail-7",
   "name": "DesignerDetail",
   "file": "frontend/src/pages/DesignerDetail.tsx",
   "start": 7,
@@ -2088,7 +2256,7 @@
   "offset": 6
  },
  {
-  "key": "page-RequestQuote-7",
+  "key": "page-RequestQuote-RequestQuote-7",
   "name": "RequestQuote",
   "file": "frontend/src/pages/RequestQuote.tsx",
   "start": 7,
@@ -2100,7 +2268,7 @@
   "offset": 6
  },
  {
-  "key": "page-Quotes-8",
+  "key": "page-Quotes-Quotes-8",
   "name": "Quotes",
   "file": "frontend/src/pages/Quotes.tsx",
   "start": 8,
@@ -2112,7 +2280,7 @@
   "offset": 7
  },
  {
-  "key": "page-QuoteDetail-19",
+  "key": "page-QuoteDetail-QuoteDetail-19",
   "name": "QuoteDetail",
   "file": "frontend/src/pages/QuoteDetail.tsx",
   "start": 19,
@@ -2124,7 +2292,7 @@
   "offset": 18
  },
  {
-  "key": "page-MyProjects-12",
+  "key": "page-MyProjects-MyProjects-12",
   "name": "MyProjects",
   "file": "frontend/src/pages/MyProjects.tsx",
   "start": 12,
@@ -2136,7 +2304,7 @@
   "offset": 11
  },
  {
-  "key": "page-ProjectEditor-44",
+  "key": "page-ProjectEditor-ProjectEditor-44",
   "name": "ProjectEditor",
   "file": "frontend/src/pages/ProjectEditor.tsx",
   "start": 44,
@@ -2148,7 +2316,7 @@
   "offset": 43
  },
  {
-  "key": "page-Profile-31",
+  "key": "page-Profile-Profile-31",
   "name": "Profile",
   "file": "frontend/src/pages/Profile.tsx",
   "start": 31,
@@ -2160,19 +2328,19 @@
   "offset": 30
  },
  {
-  "key": "page-Admin-21",
+  "key": "page-Admin-Admin-28",
   "name": "Admin",
   "file": "frontend/src/pages/Admin.tsx",
-  "start": 21,
-  "end": 21,
+  "start": 28,
+  "end": 28,
   "lang": "tsx",
-  "code": "export default function Admin() {\n  const { account } = useAuth();\n  const [rows, setRows] = useState<AccountPublic[]>([]);\n  const [filter, setFilter] = useState<Filter>('PENDING');\n  const [error, setError] = useState<string | null>(null);\n  const [loading, setLoading] = useState(true);\n  const [busyId, setBusyId] = useState<string | null>(null);\n\n  const load = useCallback(async () => {\n    setLoading(true);\n    setError(null);\n    try {\n      const next = await adminListAccounts(filter === 'ALL' ? undefined : filter);\n      setRows(next);\n    } catch (caught) {\n      setError(caught instanceof ApiError ? caught.detail : 'Unable to load accounts.');\n      setRows([]);\n    } finally {\n      setLoading(false);\n    }\n  }, [filter]);\n\n  useEffect(() => {\n    void load();\n  }, [load]);\n\n  async function change(accountId: string, action: (id: string) => Promise<AccountPublic>) {\n    setBusyId(accountId);\n    setError(null);",
+  "code": "export default function Admin() {\n  const { account } = useAuth();\n  const [rows, setRows] = useState<AccountPublic[]>([]);\n  const [filter, setFilter] = useState<Filter>('PENDING');\n  const [error, setError] = useState<string | null>(null);\n  const [loading, setLoading] = useState(true);\n  const [busyId, setBusyId] = useState<string | null>(null);\n  const [reports, setReports] = useState<ProjectReportPublic[]>([]);\n  const [reportBusy, setReportBusy] = useState<string | null>(null);\n  const [takeDown, setTakeDown] = useState<Record<string, boolean>>({});\n  const [suspend, setSuspend] = useState<Record<string, boolean>>({});\n\n  const load = useCallback(async () => {\n    setLoading(true);\n    setError(null);\n    try {\n      const next = await adminListAccounts(filter === 'ALL' ? undefined : filter);\n      setRows(next);\n    } catch (caught) {\n      setError(caught instanceof ApiError ? caught.detail : 'Unable to load accounts.');\n      setRows([]);\n    } finally {\n      setLoading(false);\n    }\n  }, [filter]);\n\n  const loadReports = useCallback(async () => {\n    try {\n      setReports(await listProjectReports());",
   "part": 1,
   "parts": 1,
-  "offset": 20
+  "offset": 27
  },
  {
-  "key": "page-Platform-14",
+  "key": "page-Platform-Platform-14",
   "name": "Platform",
   "file": "frontend/src/pages/Platform.tsx",
   "start": 14,
@@ -2184,7 +2352,7 @@
   "offset": 13
  },
  {
-  "key": "page-BudgetSlider-13",
+  "key": "page-BudgetSlider-BudgetSlider-13",
   "name": "BudgetSlider",
   "file": "frontend/src/components/BudgetSlider.tsx",
   "start": 13,
@@ -2196,7 +2364,7 @@
   "offset": 12
  },
  {
-  "key": "page-Appointments-21",
+  "key": "page-Appointments-Appointments-21",
   "name": "Appointments",
   "file": "frontend/src/pages/Appointments.tsx",
   "start": 21,
@@ -2208,7 +2376,7 @@
   "offset": 20
  },
  {
-  "key": "page-BookConsultation-36",
+  "key": "page-BookConsultation-BookConsultation-36",
   "name": "BookConsultation",
   "file": "frontend/src/pages/BookConsultation.tsx",
   "start": 36,

@@ -89,7 +89,9 @@ def page_items() -> list[dict]:
 
 
 def snippet_key(kind: str, item: dict) -> str:
-    return f"{kind}-{item['name']}-{item.get('line', 0)}"
+    """Return a file unique key: two modules may hold a function of one name."""
+    stem = Path(item["file"]).stem
+    return f"{kind}-{stem}-{item['name']}-{item.get('line', 0)}"
 
 
 def class_excerpt(item: dict, limit: int = 46) -> list[str]:

@@ -201,6 +201,17 @@ def main() -> int:
         page.goto(f"{WEB}/appointments", wait_until="networkidle")
         shoot(page, "20-customer-appointments")
 
+        # The report form, filled but not sent, so a re-run adds no reports.
+        page.goto(f"{WEB}/projects/{project_id}", wait_until="networkidle")
+        page.click("text=Report this project")
+        page.wait_for_timeout(600)
+        page.select_option("#report-reason", "Spam or misleading")
+        page.fill(
+            "#report-comments",
+            "This looks like a stock catalogue photo, not this studio's work.",
+        )
+        shoot(page, "22-customer-report", anchor="#report-reason")
+
         # ----- designer
         page.evaluate("localStorage.removeItem('idp.token')")
         page.goto(f"{WEB}/login", wait_until="networkidle")
@@ -276,6 +287,10 @@ def main() -> int:
 
         page.goto(f"{WEB}/admin", wait_until="networkidle")
         shoot(page, "17-admin-accounts")
+
+        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        page.wait_for_timeout(800)
+        shoot(page, "23-admin-reports")
 
         # ----- back to the customer for the accepted-quote screen
         page.evaluate("localStorage.removeItem('idp.token')")

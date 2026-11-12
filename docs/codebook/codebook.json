@@ -611,11 +611,11 @@
    "doc": "Return the process wide account store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 48,
+   "line": 51,
    "layer": "Control (boundary)",
    "lines": [
-    48,
-    50
+    51,
+    53
    ]
   },
   {
@@ -625,11 +625,11 @@
    "doc": "Return a service bound to the shared account store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 53,
+   "line": 56,
    "layer": "Control (boundary)",
    "lines": [
-    53,
-    55
+    56,
+    58
    ]
   },
   {
@@ -639,11 +639,11 @@
    "doc": "Return the process wide company store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 58,
+   "line": 61,
    "layer": "Control (boundary)",
    "lines": [
-    58,
-    60
+    61,
+    63
    ]
   },
   {
@@ -653,11 +653,11 @@
    "doc": "Return a service bound to the shared company store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 63,
+   "line": 66,
    "layer": "Control (boundary)",
    "lines": [
-    63,
-    65
+    66,
+    68
    ]
   },
   {
@@ -667,11 +667,11 @@
    "doc": "Return the process wide project store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 68,
+   "line": 71,
    "layer": "Control (boundary)",
    "lines": [
-    68,
-    70
+    71,
+    73
    ]
   },
   {
@@ -681,11 +681,11 @@
    "doc": "Return a service bound to the shared project and company stores.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 73,
+   "line": 76,
    "layer": "Control (boundary)",
    "lines": [
-    73,
-    75
+    76,
+    78
    ]
   },
   {
@@ -695,11 +695,11 @@
    "doc": "Return a search service bound to the shared project store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 78,
+   "line": 81,
    "layer": "Control (boundary)",
    "lines": [
-    78,
-    80
+    81,
+    83
    ]
   },
   {
@@ -709,11 +709,11 @@
    "doc": "Return the process wide shortlist store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 83,
+   "line": 86,
    "layer": "Control (boundary)",
    "lines": [
-    83,
-    85
+    86,
+    88
    ]
   },
   {
@@ -723,11 +723,11 @@
    "doc": "Return a service bound to the shared shortlist and project stores.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 88,
+   "line": 91,
    "layer": "Control (boundary)",
    "lines": [
-    88,
-    90
+    91,
+    93
    ]
   },
   {
@@ -737,11 +737,11 @@
    "doc": "Return the process wide quote request store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 93,
+   "line": 96,
    "layer": "Control (boundary)",
    "lines": [
-    93,
-    95
+    96,
+    98
    ]
   },
   {
@@ -751,11 +751,11 @@
    "doc": "Return the process wide quote store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 98,
+   "line": 101,
    "layer": "Control (boundary)",
    "lines": [
-    98,
-    100
+    101,
+    103
    ]
   },
   {
@@ -765,11 +765,11 @@
    "doc": "Return a service bound to the shared quote, company and project stores.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 103,
+   "line": 106,
    "layer": "Control (boundary)",
    "lines": [
-    103,
-    110
+    106,
+    113
    ]
   },
   {
@@ -779,11 +779,11 @@
    "doc": "Return the process wide appointment store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 113,
+   "line": 116,
    "layer": "Control (boundary)",
    "lines": [
-    113,
-    115
+    116,
+    118
    ]
   },
   {
@@ -793,11 +793,39 @@
    "doc": "Return a service bound to the appointment, company and account stores.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 118,
+   "line": 121,
    "layer": "Control (boundary)",
    "lines": [
-    118,
-    124
+    121,
+    127
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_report_repository",
+   "signature": "def get_report_repository() -> ReportRepository",
+   "doc": "Return the process wide project report store.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 130,
+   "layer": "Control (boundary)",
+   "lines": [
+    130,
+    132
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "get_project_report_service",
+   "signature": "def get_project_report_service() -> ProjectReportService",
+   "doc": "Return a service bound to the report, project and account stores.",
+   "decorators": [],
+   "file": "backend/app/api/deps.py",
+   "line": 135,
+   "layer": "Control (boundary)",
+   "lines": [
+    135,
+    141
    ]
   },
   {
@@ -807,11 +835,11 @@
    "doc": "Return the process wide category store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 127,
+   "line": 144,
    "layer": "Control (boundary)",
    "lines": [
-    127,
-    129
+    144,
+    146
    ]
   },
   {
@@ -821,11 +849,11 @@
    "doc": "Return a service bound to the shared category store.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 132,
+   "line": 149,
    "layer": "Control (boundary)",
    "lines": [
-    132,
-    134
+    149,
+    151
    ]
   },
   {
@@ -835,11 +863,11 @@
    "doc": "Return a report service bound to the four stores that hold timestamps.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 137,
+   "line": 154,
    "layer": "Control (boundary)",
    "lines": [
-    137,
-    144
+    154,
+    161
    ]
   },
   {
@@ -849,11 +877,11 @@
    "doc": "Return the account named by the bearer token.",
    "decorators": [],
    "file": "backend/app/api/deps.py",
-   "line": 147,
+   "line": 164,
    "layer": "Control (boundary)",
    "lines": [
-    147,
-    181
+    164,
+    198
    ]
   },
   {
@@ -955,6 +983,98 @@
   },
   {
    "kind": "function",
+   "name": "_fail",
+   "signature": "def _fail(exc: Exception) -> HTTPException",
+   "doc": "Map a domain refusal to the matching response.",
+   "decorators": [],
+   "file": "backend/app/api/project_reports.py",
+   "line": 28,
+   "layer": "Control (boundary)",
+   "lines": [
+    28,
+    42
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "_public",
+   "signature": "def _public(service: ProjectReportService, report: ProjectReport) -> ProjectReportPublic",
+   "doc": "Return one report with the names the staff screen shows.",
+   "decorators": [],
+   "file": "backend/app/api/project_reports.py",
+   "line": 45,
+   "layer": "Control (boundary)",
+   "lines": [
+    45,
+    58
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_reasons",
+   "signature": "def list_reasons() -> list[str]",
+   "doc": "Return the fixed vocabulary, so the screen and the entity agree.",
+   "decorators": [
+    "@router.get('/reasons', response_model=list[str], summary='List the reasons the report form offers')"
+   ],
+   "file": "backend/app/api/project_reports.py",
+   "line": 66,
+   "layer": "Control (boundary)",
+   "lines": [
+    66,
+    68
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "report_project",
+   "signature": "def report_project(payload: SubmitReport, actor: CurrentAccountDep, service: ServiceDep) -> ProjectReportPublic",
+   "doc": "A customer flags a project for the administrator.",
+   "decorators": [
+    "@router.post('', response_model=ProjectReportPublic, status_code=http_status.HTTP_201_CREATED, summary='Report a project')"
+   ],
+   "file": "backend/app/api/project_reports.py",
+   "line": 77,
+   "layer": "Control (boundary)",
+   "lines": [
+    77,
+    87
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "list_reports",
+   "signature": "def list_reports(actor: CurrentAccountDep, service: ServiceDep) -> list[ProjectReportPublic]",
+   "doc": "Return the report queue, newest first. Platform staff only.",
+   "decorators": [
+    "@router.get('', response_model=list[ProjectReportPublic], summary='List every project report')"
+   ],
+   "file": "backend/app/api/project_reports.py",
+   "line": 95,
+   "layer": "Control (boundary)",
+   "lines": [
+    95,
+    103
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "resolve_report",
+   "signature": "def resolve_report(report_id: str, payload: ResolveReport, actor: CurrentAccountDep, service: ServiceDep) -> ProjectReportPublic",
+   "doc": "Close one report, applying the chosen actions.",
+   "decorators": [
+    "@router.post('/{report_id}/resolve', response_model=ProjectReportPublic, summary='Take a project down, suspend the designer, or dismiss')"
+   ],
+   "file": "backend/app/api/project_reports.py",
+   "line": 111,
+   "layer": "Control (boundary)",
+   "lines": [
+    111,
+    136
+   ]
+  },
+  {
+   "kind": "function",
    "name": "_to_http",
    "signature": "def _to_http(exc: Exception) -> HTTPException",
    "doc": "Map a domain refusal to the matching response.",
@@ -1035,7 +1155,7 @@
    "kind": "function",
    "name": "read_project",
    "signature": "def read_project(project_id: str, actor: CurrentAccountDep, service: ServiceDep) -> ProjectPublic",
-   "doc": "Return a project. Any signed in account may read it.",
+   "doc": "Return a project. Any signed in account may read it, unless it was taken down.",
    "decorators": [
     "@router.get('/{project_id}', response_model=ProjectPublic, summary='Read one project')"
    ],
@@ -2406,7 +2526,7 @@
    "line": 35,
    "lines": [
     35,
-    39
+    40
    ],
    "layer": "Entity",
    "fields": [],
@@ -2423,10 +2543,10 @@
    "doc": "Where a customer's quote request sits.",
    "decorators": [],
    "file": "backend/app/domain/enums.py",
-   "line": 42,
+   "line": 43,
    "lines": [
-    42,
-    51
+    43,
+    52
    ],
    "layer": "Entity",
    "fields": [],
@@ -2443,10 +2563,10 @@
    "doc": "Where one priced answer sits.",
    "decorators": [],
    "file": "backend/app/domain/enums.py",
-   "line": 54,
+   "line": 55,
    "lines": [
-    54,
-    61
+    55,
+    62
    ],
    "layer": "Entity",
    "fields": [],
@@ -2463,10 +2583,10 @@
    "doc": "Where one consultation booking sits.",
    "decorators": [],
    "file": "backend/app/domain/enums.py",
-   "line": 64,
+   "line": 65,
    "lines": [
-    64,
-    69
+    65,
+    70
    ],
    "layer": "Entity",
    "fields": [],
@@ -2483,10 +2603,30 @@
    "doc": "How the consultation happens.",
    "decorators": [],
    "file": "backend/app/domain/enums.py",
-   "line": 72,
+   "line": 73,
    "lines": [
-    72,
-    76
+    73,
+    77
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ReportStatus",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "doc": "Where one project report sits.",
+   "decorators": [],
+   "file": "backend/app/domain/enums.py",
+   "line": 80,
+   "lines": [
+    80,
+    85
    ],
    "layer": "Entity",
    "fields": [],
@@ -2803,6 +2943,25 @@
   },
   {
    "kind": "class",
+   "name": "ReportNotFound",
+   "bases": [
+    "DomainError"
+   ],
+   "doc": "No project report matches the request.",
+   "decorators": [],
+   "file": "backend/app/domain/errors.py",
+   "line": 113,
+   "lines": [
+    113,
+    116
+   ],
+   "layer": "Entity",
+   "fields": [],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
    "name": "InvalidState",
    "bases": [
     "DomainError"
@@ -2810,10 +2969,10 @@
    "doc": "The record is in a state that does not allow this action.",
    "decorators": [],
    "file": "backend/app/domain/errors.py",
-   "line": 113,
+   "line": 119,
    "lines": [
-    113,
-    116
+    119,
+    122
    ],
    "layer": "Entity",
    "fields": [],
@@ -2963,7 +3122,7 @@
    "line": 73,
    "lines": [
     73,
-    313
+    318
    ],
    "layer": "Entity",
    "fields": [
@@ -3100,13 +3259,23 @@
      ]
     },
     {
+     "name": "mark_taken_down",
+     "signature": "def mark_taken_down() -> None",
+     "doc": "Hide the project from customers after a report is upheld.",
+     "decorators": [],
+     "lines": [
+      153,
+      156
+     ]
+    },
+    {
      "name": "add_image",
      "signature": "def add_image(url: str) -> None",
      "doc": "Attach a photo address. A repeated address changes nothing.",
      "decorators": [],
      "lines": [
-      153,
-      163
+      158,
+      168
      ]
     },
     {
@@ -3115,8 +3284,8 @@
      "doc": "Detach a photo address when it is present.",
      "decorators": [],
      "lines": [
-      165,
-      170
+      170,
+      175
      ]
     },
     {
@@ -3125,8 +3294,8 @@
      "doc": "Replace the whole photo list, dropping blank and repeated entries.",
      "decorators": [],
      "lines": [
-      172,
-      178
+      177,
+      183
      ]
     },
     {
@@ -3135,8 +3304,8 @@
      "doc": "Strip, deduplicate and bound a tag list.",
      "decorators": [],
      "lines": [
-      180,
-      199
+      185,
+      204
      ]
     },
     {
@@ -3145,8 +3314,8 @@
      "doc": "Replace the whole tag list after checking it.",
      "decorators": [],
      "lines": [
-      201,
-      204
+      206,
+      209
      ]
     },
     {
@@ -3155,8 +3324,8 @@
      "doc": "Attach one tag. A repeated tag changes nothing.",
      "decorators": [],
      "lines": [
-      206,
-      209
+      211,
+      214
      ]
     },
     {
@@ -3165,8 +3334,8 @@
      "doc": "Detach one tag when it is present.",
      "decorators": [],
      "lines": [
-      211,
-      217
+      216,
+      222
      ]
     },
     {
@@ -3175,8 +3344,8 @@
      "doc": "Count one look at the detail page.",
      "decorators": [],
      "lines": [
-      219,
-      221
+      224,
+      226
      ]
     },
     {
@@ -3185,8 +3354,8 @@
      "doc": "Count one customer saving this project.",
      "decorators": [],
      "lines": [
-      223,
-      225
+      228,
+      230
      ]
     },
     {
@@ -3195,8 +3364,8 @@
      "doc": "Count one customer removing it. The count never falls below zero.",
      "decorators": [],
      "lines": [
-      227,
-      229
+      232,
+      234
      ]
     },
     {
@@ -3205,8 +3374,8 @@
      "doc": "Return ``True`` when ``account_id`` is the designer behind this project.",
      "decorators": [],
      "lines": [
-      231,
-      233
+      236,
+      238
      ]
     },
     {
@@ -3215,8 +3384,8 @@
      "doc": "Return ``True`` when this project answers ``criteria``.",
      "decorators": [],
      "lines": [
-      235,
-      269
+      240,
+      274
      ]
     },
     {
@@ -3225,8 +3394,8 @@
      "doc": "Return how many of ``wanted`` this project carries, ignoring case.",
      "decorators": [],
      "lines": [
-      271,
-      278
+      276,
+      283
      ]
     },
     {
@@ -3235,8 +3404,8 @@
      "doc": "Return how many of ``wanted`` are object tags this project carries.",
      "decorators": [],
      "lines": [
-      280,
-      292
+      285,
+      297
      ]
     },
     {
@@ -3245,8 +3414,8 @@
      "doc": "Return the ranking weight: objects count double, mood counts once.",
      "decorators": [],
      "lines": [
-      294,
-      303
+      299,
+      308
      ]
     },
     {
@@ -3257,8 +3426,8 @@
       "@staticmethod"
      ],
      "lines": [
-      306,
-      310
+      311,
+      315
      ]
     },
     {
@@ -3267,8 +3436,8 @@
      "doc": "",
      "decorators": [],
      "lines": [
-      312,
-      313
+      317,
+      318
      ]
     }
    ],
@@ -3277,6 +3446,7 @@
     "update_details",
     "mark_past",
     "mark_current",
+    "mark_taken_down",
     "add_image",
     "remove_image",
     "replace_images",
@@ -3796,6 +3966,116 @@
    ]
   },
   {
+   "kind": "function",
+   "name": "_now",
+   "signature": "def _now() -> datetime",
+   "doc": "",
+   "decorators": [],
+   "file": "backend/app/domain/report.py",
+   "line": 27,
+   "layer": "Entity",
+   "lines": [
+    27,
+    28
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ProjectReport",
+   "bases": [],
+   "doc": "One complaint, from the customer who raised it.",
+   "decorators": [
+    "@dataclass"
+   ],
+   "file": "backend/app/domain/report.py",
+   "line": 32,
+   "lines": [
+    32,
+    69
+   ],
+   "layer": "Entity",
+   "fields": [
+    {
+     "name": "customer_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "project_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "reason",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "comments",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "status",
+     "type": "ReportStatus",
+     "default": "ReportStatus.OPEN"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": "field(default_factory=_now)"
+    },
+    {
+     "name": "resolved_at",
+     "type": "datetime | None",
+     "default": "None"
+    },
+    {
+     "name": "id",
+     "type": "str",
+     "default": "field(default_factory=lambda: str(uuid4()))"
+    }
+   ],
+   "methods": [
+    {
+     "name": "__post_init__",
+     "signature": "def __post_init__() -> None",
+     "doc": "Check the identifiers, the reason and the comments.",
+     "decorators": [],
+     "lines": [
+      44,
+      57
+     ]
+    },
+    {
+     "name": "is_open",
+     "signature": "def is_open() -> bool",
+     "doc": "Return ``True`` until staff close the report.",
+     "decorators": [
+      "@property"
+     ],
+     "lines": [
+      60,
+      62
+     ]
+    },
+    {
+     "name": "close",
+     "signature": "def close(actioned: bool) -> None",
+     "doc": "Close the report, with a note of whether anything was done.",
+     "decorators": [],
+     "lines": [
+      64,
+      69
+     ]
+    }
+   ],
+   "public_methods": [
+    "is_open",
+    "close"
+   ]
+  },
+  {
    "kind": "class",
    "name": "Shortlist",
    "bases": [],
@@ -3912,11 +4192,11 @@
    "doc": "Create the staff accounts the environment supplies.",
    "decorators": [],
    "file": "backend/app/main.py",
-   "line": 44,
+   "line": 45,
    "layer": "Support",
    "lines": [
-    44,
-    52
+    45,
+    53
    ]
   },
   {
@@ -3926,11 +4206,11 @@
    "doc": "Build the FastAPI application for the interior design platform.",
    "decorators": [],
    "file": "backend/app/main.py",
-   "line": 55,
+   "line": 56,
    "layer": "Support",
    "lines": [
-    55,
-    93
+    56,
+    95
    ]
   },
   {
@@ -4681,6 +4961,112 @@
     "get",
     "list_by_request",
     "latest_for_request",
+    "list_all",
+    "count",
+    "clear"
+   ]
+  },
+  {
+   "kind": "class",
+   "name": "ReportRepository",
+   "bases": [],
+   "doc": "Keeps every project report in process memory, keyed by id.",
+   "decorators": [],
+   "file": "backend/app/repositories/report_repository.py",
+   "line": 10,
+   "lines": [
+    10,
+    53
+   ],
+   "layer": "Entity (access)",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__() -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      13,
+      15
+     ]
+    },
+    {
+     "name": "add",
+     "signature": "def add(report: ProjectReport) -> bool",
+     "doc": "Store ``report`` unless its id is already present.",
+     "decorators": [],
+     "lines": [
+      17,
+      23
+     ]
+    },
+    {
+     "name": "get",
+     "signature": "def get(report_id: str) -> ProjectReport | None",
+     "doc": "Return the report with ``report_id``, or ``None``.",
+     "decorators": [],
+     "lines": [
+      25,
+      27
+     ]
+    },
+    {
+     "name": "list_by_customer",
+     "signature": "def list_by_customer(customer_id: str) -> list[ProjectReport]",
+     "doc": "Return the reports one customer raised.",
+     "decorators": [],
+     "lines": [
+      29,
+      35
+     ]
+    },
+    {
+     "name": "list_by_project",
+     "signature": "def list_by_project(project_id: str) -> list[ProjectReport]",
+     "doc": "Return the reports raised about one project.",
+     "decorators": [],
+     "lines": [
+      37,
+      41
+     ]
+    },
+    {
+     "name": "list_all",
+     "signature": "def list_all() -> list[ProjectReport]",
+     "doc": "Return every stored report.",
+     "decorators": [],
+     "lines": [
+      43,
+      45
+     ]
+    },
+    {
+     "name": "count",
+     "signature": "def count() -> int",
+     "doc": "Return how many reports are stored.",
+     "decorators": [],
+     "lines": [
+      47,
+      49
+     ]
+    },
+    {
+     "name": "clear",
+     "signature": "def clear() -> None",
+     "doc": "Remove every stored report.",
+     "decorators": [],
+     "lines": [
+      51,
+      53
+     ]
+    }
+   ],
+   "public_methods": [
+    "add",
+    "get",
+    "list_by_customer",
+    "list_by_project",
     "list_all",
     "count",
     "clear"
@@ -6091,6 +6477,151 @@
   },
   {
    "kind": "class",
+   "name": "ProjectReportPublic",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "One report, with the names the administrator needs.",
+   "decorators": [],
+   "file": "backend/app/schemas/report.py",
+   "line": 12,
+   "lines": [
+    12,
+    28
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "customer_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "project_id",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "reason",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "comments",
+     "type": "str",
+     "default": ""
+    },
+    {
+     "name": "status",
+     "type": "ReportStatus",
+     "default": ""
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "default": ""
+    },
+    {
+     "name": "resolved_at",
+     "type": "datetime | None",
+     "default": ""
+    },
+    {
+     "name": "customer_name",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "project_title",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "designer_name",
+     "type": "str",
+     "default": "''"
+    },
+    {
+     "name": "designer_email",
+     "type": "str",
+     "default": "''"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "SubmitReport",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Payload a customer sends from the project page.",
+   "decorators": [],
+   "file": "backend/app/schemas/report.py",
+   "line": 31,
+   "lines": [
+    31,
+    36
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "project_id",
+     "type": "str",
+     "default": "Field(min_length=1)"
+    },
+    {
+     "name": "reason",
+     "type": "str",
+     "default": "Field(min_length=1, max_length=80)"
+    },
+    {
+     "name": "comments",
+     "type": "str",
+     "default": "Field(default='', max_length=1000)"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
+   "name": "ResolveReport",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Which actions the administrator applies when closing a report.",
+   "decorators": [],
+   "file": "backend/app/schemas/report.py",
+   "line": 39,
+   "lines": [
+    39,
+    46
+   ],
+   "layer": "Data transfer",
+   "fields": [
+    {
+     "name": "take_down",
+     "type": "bool",
+     "default": "False"
+    },
+    {
+     "name": "suspend_designer",
+     "type": "bool",
+     "default": "False"
+    }
+   ],
+   "methods": [],
+   "public_methods": []
+  },
+  {
+   "kind": "class",
    "name": "ShortlistResponse",
    "bases": [
     "BaseModel"
@@ -6977,6 +7508,113 @@
   },
   {
    "kind": "class",
+   "name": "ProjectReportService",
+   "bases": [],
+   "doc": "Applies the reporting rules on top of the three stores.",
+   "decorators": [],
+   "file": "backend/app/services/project_report_service.py",
+   "line": 28,
+   "lines": [
+    28,
+    124
+   ],
+   "layer": "Control",
+   "fields": [],
+   "methods": [
+    {
+     "name": "__init__",
+     "signature": "def __init__(reports: ReportRepository, projects: ProjectRepository, accounts: AccountRepository) -> None",
+     "doc": "",
+     "decorators": [],
+     "lines": [
+      31,
+      39
+     ]
+    },
+    {
+     "name": "submit",
+     "signature": "def submit(actor: Account, project_id: str, reason: str, comments: str = '') -> ProjectReport",
+     "doc": "Record one customer complaint about one project.",
+     "decorators": [],
+     "lines": [
+      41,
+      62
+     ]
+    },
+    {
+     "name": "list_reports",
+     "signature": "def list_reports(actor: Account) -> list[ProjectReport]",
+     "doc": "Return every report, newest first, for platform staff.",
+     "decorators": [],
+     "lines": [
+      64,
+      69
+     ]
+    },
+    {
+     "name": "resolve",
+     "signature": "def resolve(actor: Account, report_id: str) -> ProjectReport",
+     "doc": "Close one report, after the chosen actions.",
+     "decorators": [],
+     "lines": [
+      71,
+      101
+     ]
+    },
+    {
+     "name": "project_title",
+     "signature": "def project_title(report: ProjectReport) -> str",
+     "doc": "Return the project title the administrator reads.",
+     "decorators": [],
+     "lines": [
+      105,
+      108
+     ]
+    },
+    {
+     "name": "designer_of",
+     "signature": "def designer_of(report: ProjectReport) -> Account | None",
+     "doc": "Return the account that published the reported project.",
+     "decorators": [],
+     "lines": [
+      110,
+      115
+     ]
+    },
+    {
+     "name": "customer_of",
+     "signature": "def customer_of(report: ProjectReport) -> Account | None",
+     "doc": "Return the account that raised the report.",
+     "decorators": [],
+     "lines": [
+      117,
+      119
+     ]
+    },
+    {
+     "name": "_require_staff",
+     "signature": "def _require_staff(actor: Account) -> None",
+     "doc": "",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      122,
+      124
+     ]
+    }
+   ],
+   "public_methods": [
+    "submit",
+    "list_reports",
+    "resolve",
+    "project_title",
+    "designer_of",
+    "customer_of"
+   ]
+  },
+  {
+   "kind": "class",
    "name": "SearchResult",
    "bases": [],
    "doc": "One page of matches plus the numbers the screen needs.",
@@ -6984,10 +7622,10 @@
     "@dataclass(frozen=True)"
    ],
    "file": "backend/app/services/project_search_service.py",
-   "line": 20,
+   "line": 21,
    "lines": [
-    20,
-    33
+    21,
+    34
    ],
    "layer": "Control",
    "fields": [
@@ -7021,8 +7659,8 @@
       "@property"
      ],
      "lines": [
-      29,
-      33
+      30,
+      34
      ]
     }
    ],
@@ -7037,10 +7675,10 @@
    "doc": "Filters the catalogue. Holds no state of its own.",
    "decorators": [],
    "file": "backend/app/services/project_search_service.py",
-   "line": 36,
+   "line": 37,
    "lines": [
-    36,
-    92
+    37,
+    98
    ],
    "layer": "Control",
    "fields": [],
@@ -7051,8 +7689,8 @@
      "doc": "",
      "decorators": [],
      "lines": [
-      39,
-      40
+      40,
+      41
      ]
     },
     {
@@ -7061,8 +7699,8 @@
      "doc": "Return the matches for one page of results.",
      "decorators": [],
      "lines": [
-      42,
-      92
+      43,
+      98
      ]
     }
    ],
@@ -7080,7 +7718,7 @@
    "line": 13,
    "lines": [
     13,
-    178
+    201
    ],
    "layer": "Control",
    "fields": [],
@@ -7107,12 +7745,12 @@
     },
     {
      "name": "get",
-     "signature": "def get(project_id: str) -> Project",
-     "doc": "Return a project by id. Any signed in account may read it.",
+     "signature": "def get(project_id: str, viewer: Account | None = None) -> Project",
+     "doc": "Return a project by id.",
      "decorators": [],
      "lines": [
       63,
-      68
+      76
      ]
     },
     {
@@ -7121,8 +7759,8 @@
      "doc": "Change only the fields that were supplied. Owner only.",
      "decorators": [],
      "lines": [
-      70,
-      108
+      78,
+      122
      ]
     },
     {
@@ -7131,8 +7769,8 @@
      "doc": "Return the project only when the caller owns it.",
      "decorators": [],
      "lines": [
-      110,
-      112
+      124,
+      126
      ]
     },
     {
@@ -7141,8 +7779,8 @@
      "doc": "Remove a project. Owner only.",
      "decorators": [],
      "lines": [
-      114,
-      117
+      128,
+      131
      ]
     },
     {
@@ -7151,8 +7789,8 @@
      "doc": "List the owner's projects, optionally filtered by status and title.",
      "decorators": [],
      "lines": [
-      119,
-      156
+      133,
+      170
      ]
     },
     {
@@ -7161,8 +7799,20 @@
      "doc": "Return the projects published under one company, newest first.",
      "decorators": [],
      "lines": [
-      158,
-      164
+      172,
+      178
+     ]
+    },
+    {
+     "name": "_may_read_hidden",
+     "signature": "def _may_read_hidden(project: Project, viewer: Account | None) -> bool",
+     "doc": "Return ``True`` when ``viewer`` may still read a taken down project.",
+     "decorators": [
+      "@staticmethod"
+     ],
+     "lines": [
+      181,
+      187
      ]
     },
     {
@@ -7173,8 +7823,8 @@
       "@staticmethod"
      ],
      "lines": [
-      167,
-      169
+      190,
+      192
      ]
     },
     {
@@ -7183,8 +7833,8 @@
      "doc": "",
      "decorators": [],
      "lines": [
-      171,
-      178
+      194,
+      201
      ]
     }
    ],
@@ -7636,7 +8286,7 @@
    "line": 14,
    "lines": [
     14,
-    72
+    76
    ],
    "layer": "Control",
    "fields": [],
@@ -7678,7 +8328,7 @@
      "decorators": [],
      "lines": [
       47,
-      54
+      58
      ]
     },
     {
@@ -7687,8 +8337,8 @@
      "doc": "Return the saved project ids.",
      "decorators": [],
      "lines": [
-      56,
-      60
+      60,
+      64
      ]
     },
     {
@@ -7697,8 +8347,8 @@
      "doc": "",
      "decorators": [],
      "lines": [
-      62,
-      67
+      66,
+      71
      ]
     },
     {
@@ -7709,8 +8359,8 @@
       "@staticmethod"
      ],
      "lines": [
-      70,
-      72
+      74,
+      76
      ]
     }
    ],
@@ -7878,7 +8528,7 @@
    "name": "getToken",
    "signature": "function getToken()",
    "file": "frontend/src/api.ts",
-   "line": 45,
+   "line": 46,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7887,7 +8537,7 @@
    "name": "setToken",
    "signature": "function setToken(token: string)",
    "file": "frontend/src/api.ts",
-   "line": 49,
+   "line": 50,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7896,7 +8546,7 @@
    "name": "clearToken",
    "signature": "function clearToken()",
    "file": "frontend/src/api.ts",
-   "line": 53,
+   "line": 54,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7905,7 +8555,7 @@
    "name": "health",
    "signature": "function health()",
    "file": "frontend/src/api.ts",
-   "line": 116,
+   "line": 117,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7914,7 +8564,7 @@
    "name": "register",
    "signature": "function register(body: RegisterRequest)",
    "file": "frontend/src/api.ts",
-   "line": 120,
+   "line": 121,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7923,7 +8573,7 @@
    "name": "login",
    "signature": "function login(body: LoginRequest)",
    "file": "frontend/src/api.ts",
-   "line": 127,
+   "line": 128,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7932,7 +8582,7 @@
    "name": "me",
    "signature": "function me()",
    "file": "frontend/src/api.ts",
-   "line": 134,
+   "line": 135,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7941,7 +8591,7 @@
    "name": "adminListAccounts",
    "signature": "function adminListAccounts(status?: Status)",
    "file": "frontend/src/api.ts",
-   "line": 138,
+   "line": 139,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7950,7 +8600,7 @@
    "name": "adminApprove",
    "signature": "function adminApprove(accountId: string)",
    "file": "frontend/src/api.ts",
-   "line": 143,
+   "line": 144,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7959,7 +8609,7 @@
    "name": "adminSuspend",
    "signature": "function adminSuspend(accountId: string)",
    "file": "frontend/src/api.ts",
-   "line": 147,
+   "line": 148,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7968,7 +8618,7 @@
    "name": "myCompany",
    "signature": "function myCompany()",
    "file": "frontend/src/api.ts",
-   "line": 151,
+   "line": 152,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7977,7 +8627,7 @@
    "name": "createCompany",
    "signature": "function createCompany(body: CompanyInput)",
    "file": "frontend/src/api.ts",
-   "line": 155,
+   "line": 156,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7986,7 +8636,7 @@
    "name": "updateMyCompany",
    "signature": "function updateMyCompany(body: CompanyInput)",
    "file": "frontend/src/api.ts",
-   "line": 162,
+   "line": 163,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -7995,7 +8645,7 @@
    "name": "companyById",
    "signature": "function companyById(companyId: string)",
    "file": "frontend/src/api.ts",
-   "line": 169,
+   "line": 170,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8004,7 +8654,7 @@
    "name": "listCompanies",
    "signature": "function listCompanies()",
    "file": "frontend/src/api.ts",
-   "line": 173,
+   "line": 174,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8013,7 +8663,7 @@
    "name": "searchProjects",
    "signature": "function searchProjects(params: SearchParams)",
    "file": "frontend/src/api.ts",
-   "line": 177,
+   "line": 178,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8022,7 +8672,7 @@
    "name": "getCatalogue",
    "signature": "function getCatalogue()",
    "file": "frontend/src/api.ts",
-   "line": 187,
+   "line": 188,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8031,7 +8681,7 @@
    "name": "createProject",
    "signature": "function createProject(body: ProjectInput)",
    "file": "frontend/src/api.ts",
-   "line": 191,
+   "line": 192,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8040,7 +8690,7 @@
    "name": "getProject",
    "signature": "function getProject(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 200,
+   "line": 201,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8049,7 +8699,7 @@
    "name": "updateProject",
    "signature": "function updateProject(projectId: string,\n  body: Partial<ProjectInput> & { status?: ProjectStatus })",
    "file": "frontend/src/api.ts",
-   "line": 208,
+   "line": 209,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8058,7 +8708,7 @@
    "name": "myProjects",
    "signature": "function myProjects(filters: {\n    status?: ProjectStatus;\n    name?: string;\n  } = {})",
    "file": "frontend/src/api.ts",
-   "line": 221,
+   "line": 222,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8067,7 +8717,7 @@
    "name": "suggestTags",
    "signature": "function suggestTags(projectId: string,\n  imageIndex = 0)",
    "file": "frontend/src/api.ts",
-   "line": 244,
+   "line": 245,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8076,7 +8726,7 @@
    "name": "suggestTagsFromUpload",
    "signature": "function suggestTagsFromUpload(file: File)",
    "file": "frontend/src/api.ts",
-   "line": 254,
+   "line": 255,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8085,7 +8735,7 @@
    "name": "uploadImage",
    "signature": "function uploadImage(file: File)",
    "file": "frontend/src/api.ts",
-   "line": 260,
+   "line": 261,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8094,7 +8744,7 @@
    "name": "recordView",
    "signature": "function recordView(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 266,
+   "line": 267,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8103,7 +8753,7 @@
    "name": "getShortlist",
    "signature": "function getShortlist()",
    "file": "frontend/src/api.ts",
-   "line": 272,
+   "line": 273,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8112,7 +8762,7 @@
    "name": "saveProject",
    "signature": "function saveProject(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 276,
+   "line": 277,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8121,7 +8771,7 @@
    "name": "unsaveProject",
    "signature": "function unsaveProject(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 283,
+   "line": 284,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8130,7 +8780,7 @@
    "name": "submitQuoteRequest",
    "signature": "function submitQuoteRequest(body: {\n  company_id: string;\n  title: string;\n  scope: string;\n  budget_min_cents: number;\n  budget_max_cents: number;\n  target_cents?: number;\n  project_id?: string;\n})",
    "file": "frontend/src/api.ts",
-   "line": 289,
+   "line": 290,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8139,7 +8789,7 @@
    "name": "listQuoteRequests",
    "signature": "function listQuoteRequests(state?: QuoteRequestState)",
    "file": "frontend/src/api.ts",
-   "line": 304,
+   "line": 305,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8148,7 +8798,7 @@
    "name": "getQuoteRequest",
    "signature": "function getQuoteRequest(requestId: string)",
    "file": "frontend/src/api.ts",
-   "line": 309,
+   "line": 310,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8157,7 +8807,7 @@
    "name": "counterQuoteRequest",
    "signature": "function counterQuoteRequest(requestId: string,\n  targetCents: number,\n  note: string)",
    "file": "frontend/src/api.ts",
-   "line": 315,
+   "line": 316,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8166,7 +8816,7 @@
    "name": "cancelQuoteRequest",
    "signature": "function cancelQuoteRequest(requestId: string,\n  reason: string)",
    "file": "frontend/src/api.ts",
-   "line": 326,
+   "line": 327,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8175,7 +8825,7 @@
    "name": "answerQuoteRequest",
    "signature": "function answerQuoteRequest(requestId: string,\n  body: { total_cents: number; valid_days: number; gst_included: boolean; note: string })",
    "file": "frontend/src/api.ts",
-   "line": 336,
+   "line": 337,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8184,7 +8834,7 @@
    "name": "reviseQuote",
    "signature": "function reviseQuote(quoteId: string,\n  body: { total_cents: number; valid_days: number; gst_included: boolean; note: string })",
    "file": "frontend/src/api.ts",
-   "line": 346,
+   "line": 347,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8193,7 +8843,7 @@
    "name": "refuseQuoteRequest",
    "signature": "function refuseQuoteRequest(requestId: string,\n  reason: string)",
    "file": "frontend/src/api.ts",
-   "line": 356,
+   "line": 357,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8202,7 +8852,7 @@
    "name": "acceptQuote",
    "signature": "function acceptQuote(quoteId: string)",
    "file": "frontend/src/api.ts",
-   "line": 366,
+   "line": 367,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8211,7 +8861,7 @@
    "name": "declineQuote",
    "signature": "function declineQuote(quoteId: string, reason: string)",
    "file": "frontend/src/api.ts",
-   "line": 372,
+   "line": 373,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8220,7 +8870,7 @@
    "name": "listSlots",
    "signature": "function listSlots(companyId: string, day: string)",
    "file": "frontend/src/api.ts",
-   "line": 379,
+   "line": 380,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8229,7 +8879,7 @@
    "name": "bookAppointment",
    "signature": "function bookAppointment(body: {\n  company_id: string;\n  date: string;\n  time: string;\n  mode: ConsultationMode;\n  requirements: string;\n})",
    "file": "frontend/src/api.ts",
-   "line": 384,
+   "line": 385,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8238,7 +8888,7 @@
    "name": "listAppointments",
    "signature": "function listAppointments()",
    "file": "frontend/src/api.ts",
-   "line": 397,
+   "line": 398,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8247,7 +8897,7 @@
    "name": "acceptAppointment",
    "signature": "function acceptAppointment(appointmentId: string)",
    "file": "frontend/src/api.ts",
-   "line": 401,
+   "line": 402,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8256,7 +8906,43 @@
    "name": "cancelAppointment",
    "signature": "function cancelAppointment(appointmentId: string)",
    "file": "frontend/src/api.ts",
-   "line": 408,
+   "line": 409,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "reportReasons",
+   "signature": "function reportReasons()",
+   "file": "frontend/src/api.ts",
+   "line": 416,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "reportProject",
+   "signature": "function reportProject(body: {\n  project_id: string;\n  reason: string;\n  comments: string;\n})",
+   "file": "frontend/src/api.ts",
+   "line": 420,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "listProjectReports",
+   "signature": "function listProjectReports()",
+   "file": "frontend/src/api.ts",
+   "line": 431,
+   "doc": "",
+   "layer": "Boundary (API client)"
+  },
+  {
+   "kind": "function",
+   "name": "resolveProjectReport",
+   "signature": "function resolveProjectReport(reportId: string,\n  body: { take_down: boolean; suspend_designer: boolean })",
+   "file": "frontend/src/api.ts",
+   "line": 435,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8265,7 +8951,7 @@
    "name": "listAllCategories",
    "signature": "function listAllCategories()",
    "file": "frontend/src/api.ts",
-   "line": 415,
+   "line": 445,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8274,7 +8960,7 @@
    "name": "createCategory",
    "signature": "function createCategory(name: string)",
    "file": "frontend/src/api.ts",
-   "line": 419,
+   "line": 449,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8283,7 +8969,7 @@
    "name": "patchCategory",
    "signature": "function patchCategory(categoryId: string,\n  body: { name?: string; active?: boolean })",
    "file": "frontend/src/api.ts",
-   "line": 426,
+   "line": 456,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8292,7 +8978,7 @@
    "name": "getReport",
    "signature": "function getReport(period: string, buckets: number)",
    "file": "frontend/src/api.ts",
-   "line": 436,
+   "line": 466,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8301,7 +8987,7 @@
    "name": "deleteProject",
    "signature": "function deleteProject(projectId: string)",
    "file": "frontend/src/api.ts",
-   "line": 440,
+   "line": 470,
    "doc": "",
    "layer": "Boundary (API client)"
   },
@@ -8374,12 +9060,14 @@
    "kind": "component",
    "name": "Admin",
    "file": "frontend/src/pages/Admin.tsx",
-   "line": 21,
+   "line": 28,
    "api": [
     "ApiError",
     "adminApprove",
     "adminListAccounts",
-    "adminSuspend"
+    "adminSuspend",
+    "listProjectReports",
+    "resolveProjectReport"
    ],
    "hooks": [
     "Effect",
@@ -8572,13 +9260,15 @@
    "kind": "component",
    "name": "ProjectDetail",
    "file": "frontend/src/pages/ProjectDetail.tsx",
-   "line": 19,
+   "line": 22,
    "api": [
     "ApiError",
     "getProject",
     "getShortlist",
     "listCompanies",
     "recordView",
+    "reportProject",
+    "reportReasons",
     "saveProject",
     "unsaveProject"
    ],
@@ -8841,16 +9531,16 @@
  ],
  "counts": {
   "backend": {
-   "classes": 93,
-   "functions": 121,
+   "classes": 101,
+   "functions": 130,
    "components": 0,
-   "items": 214
+   "items": 231
   },
   "frontend": {
    "classes": 0,
-   "functions": 49,
+   "functions": 53,
    "components": 23,
-   "items": 72
+   "items": 76
   }
  }
 }
