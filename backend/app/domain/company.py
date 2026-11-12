@@ -79,11 +79,13 @@ class Company:
         self._touch()
 
     def attach_logo(self, url: str) -> None:
-        """Point the profile at a logo image."""
-        candidate = url.strip()
-        if not candidate:
-            raise ValueError("Logo address must not be empty")
-        self.logo_url = candidate
+        """Point the profile at a logo image, or clear it with a blank value.
+
+        The profile form posts every field on each save, so a designer without
+        a logo sends an empty address. Rejecting it made every save return 400;
+        a blank address now clears the logo, the same rule the call link uses.
+        """
+        self.logo_url = url.strip()
         self._touch()
 
     def set_meeting_address(self, text: str) -> None:

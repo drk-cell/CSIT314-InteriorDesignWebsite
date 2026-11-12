@@ -70,11 +70,13 @@ def test_update_contact_stores_a_clean_pair() -> None:
     assert company.contact_phone == "+65 6000 0000"
 
 
-def test_attach_logo_rejects_blank() -> None:
+def test_attach_logo_clears_with_a_blank_address() -> None:
     company = make_company()
+    company.attach_logo("https://cdn.example.com/verde.png")
 
-    with pytest.raises(ValueError):
-        company.attach_logo("  ")
+    company.attach_logo("  ")
+
+    assert company.logo_url == ""
 
 
 def test_attach_logo_stores_the_address() -> None:
