@@ -270,10 +270,13 @@ interior" instead of being tagged.
 
 ## Demo walkthrough
 
-The recorded run through six use cases is
-`testing/demo/CSIT314-interior-design-demo.mp4` (2 min 01 s, all three roles).
-The voice-over script sits beside it in `testing/demo/CSIT314-demo-script.md`,
-and `testing/demo/demo_drive.py` re-records the take.
+Two recordings show the system. `testing/demo/CSIT314-interior-design-tour.mp4`
+runs every feature for all three roles in about five minutes, including the full
+quote exchange, the report queue with take down and suspend, the approval of a
+designer and the platform screen. Its voice-over script is
+`testing/demo/CSIT314-demo-tour-script.md` and `testing/demo/demo_tour.py`
+re-records it. The short `CSIT314-interior-design-demo.mp4` (2 min 01 s) covers
+six use cases only, with `CSIT314-demo-script.md` and `demo_drive.py`.
 
 Six screens carry the whole story. Run them in this order.
 
