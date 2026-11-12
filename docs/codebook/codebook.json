@@ -69,25 +69,25 @@
    "doc": "Map a domain refusal to the matching response.",
    "decorators": [],
    "file": "backend/app/api/appointments.py",
-   "line": 27,
+   "line": 28,
    "layer": "Control (boundary)",
    "lines": [
-    27,
-    41
+    28,
+    42
    ]
   },
   {
    "kind": "function",
    "name": "_public",
-   "signature": "def _public(service: AppointmentService, appointment) -> AppointmentPublic",
-   "doc": "Return one appointment with the customer's name filled in.",
+   "signature": "def _public(service: AppointmentService, appointment, actor: Account) -> AppointmentPublic",
+   "doc": "Return one appointment with the customer's name and the visible place.",
    "decorators": [],
    "file": "backend/app/api/appointments.py",
-   "line": 44,
+   "line": 45,
    "layer": "Control (boundary)",
    "lines": [
-    44,
-    50
+    45,
+    61
    ]
   },
   {
@@ -99,11 +99,11 @@
     "@router.get('/slots', response_model=SlotsPublic, summary=\"Show the free hours on one company's day\")"
    ],
    "file": "backend/app/api/appointments.py",
-   "line": 58,
+   "line": 69,
    "layer": "Control (boundary)",
    "lines": [
-    58,
-    69
+    69,
+    80
    ]
   },
   {
@@ -115,11 +115,11 @@
     "@router.post('', response_model=AppointmentPublic, status_code=http_status.HTTP_201_CREATED, summary='Book a consultation')"
    ],
    "file": "backend/app/api/appointments.py",
-   "line": 78,
+   "line": 89,
    "layer": "Control (boundary)",
    "lines": [
-    78,
-    95
+    89,
+    106
    ]
   },
   {
@@ -131,11 +131,11 @@
     "@router.get('', response_model=list[AppointmentPublic], summary='List the appointments you may see')"
    ],
    "file": "backend/app/api/appointments.py",
-   "line": 103,
+   "line": 114,
    "layer": "Control (boundary)",
    "lines": [
-    103,
-    114
+    114,
+    125
    ]
   },
   {
@@ -147,11 +147,11 @@
     "@router.post('/{appointment_id}/accept', response_model=AppointmentPublic, summary='Accept a consultation')"
    ],
    "file": "backend/app/api/appointments.py",
-   "line": 122,
+   "line": 133,
    "layer": "Control (boundary)",
    "lines": [
-    122,
-    130
+    133,
+    141
    ]
   },
   {
@@ -163,11 +163,11 @@
     "@router.post('/{appointment_id}/cancel', response_model=AppointmentPublic, summary='Cancel a consultation')"
    ],
    "file": "backend/app/api/appointments.py",
-   "line": 138,
+   "line": 149,
    "layer": "Control (boundary)",
    "lines": [
-    138,
-    146
+    149,
+    157
    ]
   },
   {
@@ -498,96 +498,110 @@
   },
   {
    "kind": "function",
+   "name": "_public",
+   "signature": "def _public(company, actor: Account, appointments: AppointmentService) -> CompanyPublic",
+   "doc": "Return the public view, holding back the call link until it is earned.",
+   "decorators": [],
+   "file": "backend/app/api/companies.py",
+   "line": 27,
+   "layer": "Control (boundary)",
+   "lines": [
+    27,
+    34
+   ]
+  },
+  {
+   "kind": "function",
    "name": "_to_http",
    "signature": "def _to_http(exc: Exception) -> HTTPException",
    "doc": "Map a domain refusal to the matching response.",
    "decorators": [],
    "file": "backend/app/api/companies.py",
-   "line": 21,
+   "line": 37,
    "layer": "Control (boundary)",
    "lines": [
-    21,
-    31
+    37,
+    47
    ]
   },
   {
    "kind": "function",
    "name": "create_company",
-   "signature": "def create_company(payload: CompanyCreate, actor: CurrentAccountDep, service: ServiceDep) -> CompanyPublic",
+   "signature": "def create_company(payload: CompanyCreate, actor: CurrentAccountDep, service: ServiceDep, appointments: AppointmentsDep) -> CompanyPublic",
    "doc": "Create the one profile this designer may hold.",
    "decorators": [
     "@router.post('', response_model=CompanyPublic, status_code=http_status.HTTP_201_CREATED, summary='Create the company profile of the signed in designer')"
-   ],
-   "file": "backend/app/api/companies.py",
-   "line": 40,
-   "layer": "Control (boundary)",
-   "lines": [
-    40,
-    48
-   ]
-  },
-  {
-   "kind": "function",
-   "name": "read_my_company",
-   "signature": "def read_my_company(actor: CurrentAccountDep, service: ServiceDep) -> CompanyPublic",
-   "doc": "Return the caller's own profile.",
-   "decorators": [
-    "@router.get('/me', response_model=CompanyPublic, summary='Read the company profile of the signed in designer')"
    ],
    "file": "backend/app/api/companies.py",
    "line": 56,
    "layer": "Control (boundary)",
    "lines": [
     56,
-    62
+    67
+   ]
+  },
+  {
+   "kind": "function",
+   "name": "read_my_company",
+   "signature": "def read_my_company(actor: CurrentAccountDep, service: ServiceDep, appointments: AppointmentsDep) -> CompanyPublic",
+   "doc": "Return the caller's own profile.",
+   "decorators": [
+    "@router.get('/me', response_model=CompanyPublic, summary='Read the company profile of the signed in designer')"
+   ],
+   "file": "backend/app/api/companies.py",
+   "line": 75,
+   "layer": "Control (boundary)",
+   "lines": [
+    75,
+    83
    ]
   },
   {
    "kind": "function",
    "name": "update_my_company",
-   "signature": "def update_my_company(payload: CompanyUpdate, actor: CurrentAccountDep, service: ServiceDep) -> CompanyPublic",
+   "signature": "def update_my_company(payload: CompanyUpdate, actor: CurrentAccountDep, service: ServiceDep, appointments: AppointmentsDep) -> CompanyPublic",
    "doc": "Write only the fields that were supplied.",
    "decorators": [
     "@router.patch('/me', response_model=CompanyPublic, summary=\"Change fields of the signed in designer's profile\")"
    ],
    "file": "backend/app/api/companies.py",
-   "line": 70,
+   "line": 91,
    "layer": "Control (boundary)",
    "lines": [
-    70,
-    79
+    91,
+    103
    ]
   },
   {
    "kind": "function",
    "name": "list_companies",
-   "signature": "def list_companies(actor: CurrentAccountDep, service: ServiceDep) -> list[CompanyPublic]",
+   "signature": "def list_companies(actor: CurrentAccountDep, service: ServiceDep, appointments: AppointmentsDep) -> list[CompanyPublic]",
    "doc": "Return the published profiles so a customer can browse them.",
    "decorators": [
     "@router.get('', response_model=list[CompanyPublic], summary='List every company profile')"
    ],
    "file": "backend/app/api/companies.py",
-   "line": 87,
+   "line": 111,
    "layer": "Control (boundary)",
    "lines": [
-    87,
-    89
+    111,
+    118
    ]
   },
   {
    "kind": "function",
    "name": "read_company",
-   "signature": "def read_company(company_id: str, actor: CurrentAccountDep, service: ServiceDep) -> CompanyPublic",
+   "signature": "def read_company(company_id: str, actor: CurrentAccountDep, service: ServiceDep, appointments: AppointmentsDep) -> CompanyPublic",
    "doc": "Return a profile. Any signed in account may read it.",
    "decorators": [
     "@router.get('/{company_id}', response_model=CompanyPublic, summary='Read any company profile by id')"
    ],
    "file": "backend/app/api/companies.py",
-   "line": 97,
+   "line": 126,
    "layer": "Control (boundary)",
    "lines": [
-    97,
-    105
+    126,
+    137
    ]
   },
   {
@@ -2109,7 +2123,7 @@
    "line": 20,
    "lines": [
     20,
-    120
+    129
    ],
    "layer": "Entity",
    "fields": [
@@ -2266,13 +2280,25 @@
      ]
     },
     {
+     "name": "offers_online",
+     "signature": "def offers_online() -> bool",
+     "doc": "Return ``True`` when this company can take video calls.",
+     "decorators": [
+      "@property"
+     ],
+     "lines": [
+      116,
+      122
+     ]
+    },
+    {
      "name": "is_owned_by",
      "signature": "def is_owned_by(account_id: str) -> bool",
      "doc": "Return ``True`` when ``account_id`` is the designer behind this company.",
      "decorators": [],
      "lines": [
-      115,
-      117
+      124,
+      126
      ]
     },
     {
@@ -2281,8 +2307,8 @@
      "doc": "",
      "decorators": [],
      "lines": [
-      119,
-      120
+      128,
+      129
      ]
     }
    ],
@@ -2295,6 +2321,7 @@
     "set_meeting_address",
     "set_call_link",
     "meeting_place",
+    "offers_online",
     "is_owned_by"
    ]
   },
@@ -5094,7 +5121,7 @@
    "line": 10,
    "lines": [
     10,
-    26
+    27
    ],
    "layer": "Data transfer",
    "fields": [
@@ -5144,6 +5171,11 @@
      "default": ""
     },
     {
+     "name": "offers_online",
+     "type": "bool",
+     "default": ""
+    },
+    {
      "name": "logo_url",
      "type": "str",
      "default": ""
@@ -5171,10 +5203,10 @@
    "doc": "Payload accepted when a designer creates the profile.",
    "decorators": [],
    "file": "backend/app/schemas/company.py",
-   "line": 29,
+   "line": 30,
    "lines": [
-    29,
-    39
+    30,
+    40
    ],
    "layer": "Data transfer",
    "fields": [
@@ -5231,10 +5263,10 @@
    "doc": "Payload accepted when the owner changes the profile.",
    "decorators": [],
    "file": "backend/app/schemas/company.py",
-   "line": 42,
+   "line": 43,
    "lines": [
-    42,
-    56
+    43,
+    57
    ],
    "layer": "Data transfer",
    "fields": [
@@ -6274,10 +6306,10 @@
    "doc": "Applies the booking rules on top of the three stores.",
    "decorators": [],
    "file": "backend/app/services/appointment_service.py",
-   "line": 35,
+   "line": 40,
    "lines": [
-    35,
-    195
+    40,
+    220
    ],
    "layer": "Control",
    "fields": [],
@@ -6288,8 +6320,8 @@
      "doc": "",
      "decorators": [],
      "lines": [
-      38,
-      46
+      43,
+      51
      ]
     },
     {
@@ -6298,8 +6330,8 @@
      "doc": "Return the hours still free on one company's day.",
      "decorators": [],
      "lines": [
-      50,
-      59
+      55,
+      64
      ]
     },
     {
@@ -6308,8 +6340,8 @@
      "doc": "Keep one slot for one customer, in person or on a call.",
      "decorators": [],
      "lines": [
-      61,
-      99
+      66,
+      104
      ]
     },
     {
@@ -6318,8 +6350,8 @@
      "doc": "Return the caller's appointments, soonest first.",
      "decorators": [],
      "lines": [
-      101,
-      105
+      106,
+      110
      ]
     },
     {
@@ -6328,8 +6360,8 @@
      "doc": "Return a slot to the diary. Either party may cancel.",
      "decorators": [],
      "lines": [
-      107,
-      116
+      112,
+      121
      ]
     },
     {
@@ -6338,8 +6370,8 @@
      "doc": "Return the appointments sent to the caller's company, soonest first.",
      "decorators": [],
      "lines": [
-      120,
-      123
+      125,
+      128
      ]
     },
     {
@@ -6348,8 +6380,18 @@
      "doc": "Confirm a pending appointment.",
      "decorators": [],
      "lines": [
-      125,
-      135
+      130,
+      140
+     ]
+    },
+    {
+     "name": "may_read_call_link",
+     "signature": "def may_read_call_link(actor: Account, company_id: str) -> bool",
+     "doc": "Return ``True`` when the caller may see the video room address.",
+     "decorators": [],
+     "lines": [
+      144,
+      162
      ]
     },
     {
@@ -6358,8 +6400,8 @@
      "doc": "Return the customer's display name for the designer's list.",
      "decorators": [],
      "lines": [
-      139,
-      142
+      164,
+      167
      ]
     },
     {
@@ -6370,8 +6412,8 @@
       "@staticmethod"
      ],
      "lines": [
-      147,
-      150
+      172,
+      175
      ]
     },
     {
@@ -6382,8 +6424,8 @@
       "@staticmethod"
      ],
      "lines": [
-      153,
-      159
+      178,
+      184
      ]
     },
     {
@@ -6392,8 +6434,8 @@
      "doc": "",
      "decorators": [],
      "lines": [
-      161,
-      165
+      186,
+      190
      ]
     },
     {
@@ -6402,8 +6444,8 @@
      "doc": "",
      "decorators": [],
      "lines": [
-      167,
-      173
+      192,
+      198
      ]
     },
     {
@@ -6412,8 +6454,8 @@
      "doc": "",
      "decorators": [],
      "lines": [
-      175,
-      181
+      200,
+      206
      ]
     },
     {
@@ -6422,8 +6464,8 @@
      "doc": "Tell the designer.",
      "decorators": [],
      "lines": [
-      183,
-      190
+      208,
+      215
      ]
     },
     {
@@ -6434,8 +6476,8 @@
       "@staticmethod"
      ],
      "lines": [
-      193,
-      195
+      218,
+      220
      ]
     }
    ],
@@ -6446,6 +6488,7 @@
     "cancel",
     "list_for_designer",
     "accept",
+    "may_read_call_link",
     "customer_name"
    ]
   },
@@ -8799,9 +8842,9 @@
  "counts": {
   "backend": {
    "classes": 93,
-   "functions": 120,
+   "functions": 121,
    "components": 0,
-   "items": 213
+   "items": 214
   },
   "frontend": {
    "classes": 0,

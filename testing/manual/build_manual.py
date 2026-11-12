@@ -541,13 +541,13 @@ def main() -> int:
         [
             "Open Designers and choose a studio.",
             "Press Book a consultation under the company details.",
-            "Choose Where: In person or Video call. The line under it shows the meeting address or the call link.",
+            "Choose Where: In person or Video call. The line under it names the meeting address, or says that the call link arrives after the designer accepts.",
             "Choose a Day. The list covers the next 14 days.",
             "Press one free Time. One hour is one slot, and a taken hour is not offered.",
             "Write what you need in the box, then press Book this time.",
             "Read the confirmation, then press View my appointments.",
         ],
-        "The hour is held as Pending with its meeting place. The designer sees it in Consultations and confirms it.",
+        "The hour is held as Pending with its meeting place. An online link stays hidden until the designer accepts. The designer sees the booking in Consultations and confirms it.",
         "19-customer-booking.png",
         "Figure 10  The booking page: the meeting type, the day list, the free hours and the requirements box.",
     )
@@ -606,7 +606,7 @@ def main() -> int:
             "Enter the Meeting address for in person consultations, and the Video call link for online ones.",
             "Press Save profile.",
         ],
-        "The profile appears on the public designer page and beside every project. A customer reads the meeting address and the call link there.",
+        "The profile appears on the public designer page and beside every project. A customer reads the meeting address there. The video call link stays hidden until the customer holds an accepted booking.",
         "14-designer-company.png",
         "Figure 14  The company profile form.",
     )
@@ -685,7 +685,7 @@ def main() -> int:
         [
             "Press Consultations in the top navigation.",
             "Read Customer, Day, Time, Where, What they need and State.",
-            "Press Accept to confirm a Pending booking. The customer sees Accepted on Appointments.",
+            "Press Accept to confirm a Pending booking. The customer sees Accepted on Appointments, and an online booking then shows the room link.",
             "Press Cancel to give the hour back. The row stays as Cancelled.",
         ],
         "A Pending booking becomes Accepted, and the customer reads that state on their own list.",
