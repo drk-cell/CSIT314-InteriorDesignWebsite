@@ -37,6 +37,7 @@ class ProjectStatus(str, Enum):
 
     CURRENT = "CURRENT"
     PAST = "PAST"
+    TAKEN_DOWN = "TAKEN_DOWN"
 
 
 class QuoteRequestState(str, Enum):
@@ -74,6 +75,14 @@ class ConsultationMode(str, Enum):
 
     IN_PERSON = "IN_PERSON"
     ONLINE = "ONLINE"
+
+
+class ReportStatus(str, Enum):
+    """Where one project report sits."""
+
+    OPEN = "OPEN"
+    ACTIONED = "ACTIONED"
+    DISMISSED = "DISMISSED"
 
 
 PRIVILEGED_ROLES: frozenset[Role] = frozenset({Role.ADMIN, Role.PLATFORM_MANAGER})

@@ -47,7 +47,7 @@ export interface CompanyInput {
   logo_url: string;
 }
 
-export type ProjectStatus = 'CURRENT' | 'PAST';
+export type ProjectStatus = 'CURRENT' | 'PAST' | 'TAKEN_DOWN';
 
 export interface ProjectPublic {
   id: string;
@@ -258,4 +258,22 @@ export interface AppointmentPublic {
 export interface SlotsResponse {
   date: string;
   slots: string[];
+}
+
+export type ReportStatus = 'OPEN' | 'ACTIONED' | 'DISMISSED';
+
+/** One customer complaint about one project, as the staff screen reads it. */
+export interface ProjectReportPublic {
+  id: string;
+  customer_id: string;
+  project_id: string;
+  reason: string;
+  comments: string;
+  status: ReportStatus;
+  created_at: string;
+  resolved_at: string | null;
+  customer_name: string;
+  project_title: string;
+  designer_name: string;
+  designer_email: string;
 }

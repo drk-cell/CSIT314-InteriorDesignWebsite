@@ -110,6 +110,12 @@ class AppointmentNotFound(DomainError):
     default_message = "Appointment not found"
 
 
+class ReportNotFound(DomainError):
+    """No project report matches the request."""
+
+    default_message = "Report not found"
+
+
 class InvalidState(DomainError):
     """The record is in a state that does not allow this action."""
 

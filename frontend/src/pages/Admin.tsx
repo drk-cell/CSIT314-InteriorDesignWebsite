@@ -1,7 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ApiError, adminApprove, adminListAccounts, adminSuspend } from '../api';
+import {
+  ApiError,
+  adminApprove,
+  adminListAccounts,
+  adminSuspend,
+  listProjectReports,
+  resolveProjectReport,
+} from '../api';
 import { useAuth } from '../auth';
-import type { AccountPublic, Status } from '../types';
+import type { AccountPublic, ProjectReportPublic, Status } from '../types';
 
 type Filter = Status | 'ALL';
 
@@ -25,6 +32,10 @@ export default function Admin() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [reports, setReports] = useState<ProjectReportPublic[]>([]);
+  const [reportBusy, setReportBusy] = useState<string | null>(null);
+  const [takeDown, setTakeDown] = useState<Record<string, boolean>>({});
+  const [suspend, setSuspend] = useState<Record<string, boolean>>({});
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -40,9 +51,36 @@ export default function Admin() {
     }
   }, [filter]);
 
+  const loadReports = useCallback(async () => {
+    try {
+      setReports(await listProjectReports());
+    } catch (caught) {
+      setError(caught instanceof ApiError ? caught.detail : 'Unable to load reports.');
+      setReports([]);
+    }
+  }, []);
+
   useEffect(() => {
     void load();
-  }, [load]);
+    void loadReports();
+  }, [load, loadReports]);
+
+  async function closeReport(reportId: string, take: boolean, susp: boolean) {
+    setReportBusy(reportId);
+    setError(null);
+    try {
+      await resolveProjectReport(reportId, {
+        take_down: take,
+        suspend_designer: susp,
+      });
+      await loadReports();
+      await load();
+    } catch (caught) {
+      setError(caught instanceof ApiError ? caught.detail : 'Unable to close the report.');
+    } finally {
+      setReportBusy(null);
+    }
+  }
 
   async function change(accountId: string, action: (id: string) => Promise<AccountPublic>) {
     setBusyId(accountId);
@@ -143,6 +181,122 @@ export default function Admin() {
                         </button>
                       )}
                     </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+
+      <section className="card">
+        <div className="page-head">
+          <div>
+            <h2>Reported projects</h2>
+            <p className="muted">
+              Customers flagged these. Take the project down, suspend the designer, or
+              dismiss the report.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="button button-secondary"
+            onClick={() => void loadReports()}
+          >
+            Refresh reports
+          </button>
+        </div>
+
+        {reports.length === 0 ? (
+          <p className="page-state">No reports yet.</p>
+        ) : (
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Reporter</th>
+                <th scope="col">Reason</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reports.map((row) => (
+                <tr key={row.id}>
+                  <td>
+                    <strong>{row.project_title}</strong>
+                    <div className="muted">{row.designer_name}</div>
+                    <div className="muted">{row.designer_email}</div>
+                  </td>
+                  <td>{row.customer_name}</td>
+                  <td>
+                    {row.reason}
+                    {row.comments !== '' && (
+                      <div className="muted">{row.comments}</div>
+                    )}
+                  </td>
+                  <td>
+                    <span className={`badge badge-${row.status.toLowerCase()}`}>
+                      {row.status}
+                    </span>
+                  </td>
+                  <td>
+                    {row.status === 'OPEN' ? (
+                      <div className="stack">
+                        <label className="check-row">
+                          <input
+                            type="checkbox"
+                            checked={takeDown[row.id] === true}
+                            onChange={(event) =>
+                              setTakeDown((current) => ({
+                                ...current,
+                                [row.id]: event.target.checked,
+                              }))
+                            }
+                          />
+                          Take down project
+                        </label>
+                        <label className="check-row">
+                          <input
+                            type="checkbox"
+                            checked={suspend[row.id] === true}
+                            onChange={(event) =>
+                              setSuspend((current) => ({
+                                ...current,
+                                [row.id]: event.target.checked,
+                              }))
+                            }
+                          />
+                          Suspend designer
+                        </label>
+                        <div className="row-actions">
+                          <button
+                            type="button"
+                            className="button"
+                            disabled={reportBusy !== null}
+                            onClick={() =>
+                              void closeReport(
+                                row.id,
+                                takeDown[row.id] === true,
+                                suspend[row.id] === true
+                              )
+                            }
+                          >
+                            {reportBusy === row.id ? 'Closing…' : 'Apply and close'}
+                          </button>
+                          <button
+                            type="button"
+                            className="button button-secondary"
+                            disabled={reportBusy !== null}
+                            onClick={() => void closeReport(row.id, false, false)}
+                          >
+                            Dismiss
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="muted">Closed</span>
+                    )}
                   </td>
                 </tr>
               ))}

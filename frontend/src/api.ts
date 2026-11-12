@@ -14,6 +14,7 @@ import type {
   SearchResponse,
   ProjectInput,
   ProjectPublic,
+  ProjectReportPublic,
   ProjectStatus,
   QuotePublic,
   QuoteRequestDetail,
@@ -409,6 +410,35 @@ export function cancelAppointment(appointmentId: string): Promise<AppointmentPub
   return request<AppointmentPublic>(
     `/appointments/${encodeURIComponent(appointmentId)}/cancel`,
     { method: 'POST' }
+  );
+}
+
+export function reportReasons(): Promise<string[]> {
+  return request<string[]>('/project-reports/reasons');
+}
+
+export function reportProject(body: {
+  project_id: string;
+  reason: string;
+  comments: string;
+}): Promise<ProjectReportPublic> {
+  return request<ProjectReportPublic>('/project-reports', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export function listProjectReports(): Promise<ProjectReportPublic[]> {
+  return request<ProjectReportPublic[]>('/project-reports');
+}
+
+export function resolveProjectReport(
+  reportId: string,
+  body: { take_down: boolean; suspend_designer: boolean }
+): Promise<ProjectReportPublic> {
+  return request<ProjectReportPublic>(
+    `/project-reports/${encodeURIComponent(reportId)}/resolve`,
+    { method: 'POST', body: JSON.stringify(body) }
   );
 }
 

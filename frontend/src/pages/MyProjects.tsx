@@ -259,12 +259,16 @@ export default function MyProjects() {
                       className={
                         project.status === 'CURRENT'
                           ? 'badge badge-active'
-                          : 'badge'
+                          : project.status === 'TAKEN_DOWN'
+                            ? 'badge badge-suspended'
+                            : 'badge'
                       }
                     >
                       {project.status === 'CURRENT'
                         ? 'Current'
-                        : 'Past'}
+                        : project.status === 'TAKEN_DOWN'
+                          ? 'Taken down'
+                          : 'Past'}
                     </span>
                   </p>
 
@@ -276,18 +280,20 @@ export default function MyProjects() {
                       Edit
                     </Link>
 
-                    <button
-                      type="button"
-                      className="button button-secondary"
-                      disabled={busyId !== null}
-                      onClick={() =>
-                        void handleStatusChange(project)
-                      }
-                    >
-                      {project.status === 'CURRENT'
-                        ? 'Mark as Past'
-                        : 'Mark as Current'}
-                    </button>
+                    {project.status !== 'TAKEN_DOWN' && (
+                      <button
+                        type="button"
+                        className="button button-secondary"
+                        disabled={busyId !== null}
+                        onClick={() =>
+                          void handleStatusChange(project)
+                        }
+                      >
+                        {project.status === 'CURRENT'
+                          ? 'Mark as Past'
+                          : 'Mark as Current'}
+                      </button>
+                    )}
 
                     <button
                       type="button"

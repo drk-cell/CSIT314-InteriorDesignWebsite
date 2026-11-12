@@ -237,6 +237,7 @@ numbered plan above.
 - [x]  E1 photo tag suggestions from colour and light, with searchable tags (`bc5dc28`, `9078b41`)
 - [x]  E2 photo tags from a 14 MB object model, with a photo search for customers (`fcd22eb`, `7bc2c1d`, `d82a0d4`, `e464d38`, `4c150d6`)
 - [x]  E3 consultation appointment scheduler: free slots, one hour bookings, designer accept and cancel
+- [x]  E4 project reports: a customer flags a project, staff take it down, suspend the designer or dismiss
 
 E3 follows the reference class diagram: `ConsultationBookingPage` is
 `frontend/src/pages/BookConsultation.tsx`, `ConsultationService` is
@@ -252,6 +253,13 @@ and a pending booking shows "shared after the designer accepts" instead. The
 designer accepts a pending booking, or either party cancels it. The inbox is the
 notification: there is no mail server, so the appointment carries `notified_at`
 instead of a fake email.
+
+E4 adds `POST /api/project-reports` (customer), `GET /api/project-reports`
+(staff) and `POST /api/project-reports/{id}/resolve` with `take_down` and
+`suspend_designer` flags. A fixed reason list keeps the queue readable. A
+taken down project returns 404 to customers, drops out of search and every
+shortlist, and stays on the owner's My Projects page as Taken down. No action
+closes the report as Dismissed.
 
 The tag analyser is measured, not assumed. `backend/scripts/evaluate_tags.py`
 runs it over COCO val 2017 and checks every tag against the annotation. On 500

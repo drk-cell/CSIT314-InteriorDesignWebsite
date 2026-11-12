@@ -161,9 +161,9 @@ def search_projects(
 def read_project(
     project_id: str, actor: CurrentAccountDep, service: ServiceDep
 ) -> ProjectPublic:
-    """Return a project. Any signed in account may read it."""
+    """Return a project. Any signed in account may read it, unless it was taken down."""
     try:
-        project = service.get(project_id)
+        project = service.get(project_id, actor)
     except ProjectNotFound as exc:
         raise _to_http(exc) from exc
     return ProjectPublic.model_validate(project)

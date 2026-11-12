@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from app.domain.account import Account
-from app.domain.enums import ProjectStatus, Role
+from app.domain.enums import PRIVILEGED_ROLES, ProjectStatus, Role
 from app.domain.errors import CompanyNotFound, NotPermitted, ProjectNotFound
 from app.domain.project import Project
 from app.repositories.company_repository import CompanyRepository
@@ -60,10 +60,18 @@ class ProjectService:
         self._projects.add(project)
         return project
 
-    def get(self, project_id: str) -> Project:
-        """Return a project by id. Any signed in account may read it."""
+    def get(self, project_id: str, viewer: Account | None = None) -> Project:
+        """Return a project by id.
+
+        A taken down project reads as missing to everyone except its owner and
+        platform staff, so a report does not leave a public record behind.
+        """
         project = self._projects.get(project_id)
         if project is None:
+            raise ProjectNotFound()
+        if project.status is ProjectStatus.TAKEN_DOWN and not self._may_read_hidden(
+            project, viewer
+        ):
             raise ProjectNotFound()
         return project
 
@@ -96,6 +104,12 @@ class ProjectService:
                 category=category if category is not None else project.category,
                 budget_min=budget_min if budget_min is not None else project.budget_min,
                 budget_max=budget_max if budget_max is not None else project.budget_max,
+            )
+        if status is ProjectStatus.TAKEN_DOWN:
+            raise NotPermitted("Only platform staff may take a project down")
+        if project.status is ProjectStatus.TAKEN_DOWN and status is not None:
+            raise NotPermitted(
+                "A taken down project can only be restored by platform staff"
             )
         if status is ProjectStatus.PAST:
             project.mark_past()
@@ -162,6 +176,15 @@ class ProjectService:
             key=lambda project: project.created_at,
             reverse=True,
         )
+
+    @staticmethod
+    def _may_read_hidden(project: Project, viewer: Account | None) -> bool:
+        """Return ``True`` when ``viewer`` may still read a taken down project."""
+        if viewer is None:
+            return False
+        if viewer.role in PRIVILEGED_ROLES:
+            return True
+        return project.is_owned_by(viewer.id)
 
     @staticmethod
     def _require_designer(actor: Account) -> None:

@@ -154,6 +154,23 @@ def main() -> None:
             kind = "an in-person" if mode == "IN_PERSON" else "an online"
             print(f"booked {kind} consultation with {name} at {time}")
 
+        # One open report, so the administrator has a queue to read.
+        newest = client.get(
+            "/projects/search", headers=auth(customer_token), params={"page_size": 1}
+        ).json()["items"]
+        if newest:
+            reported = client.post(
+                "/project-reports",
+                headers=auth(customer_token),
+                json={
+                    "project_id": newest[0]["id"],
+                    "reason": "Spam or misleading",
+                    "comments": "This looks like a stock catalogue photo, not this studio's work.",
+                },
+            )
+            reported.raise_for_status()
+            print(f"reported one project: {newest[0]['title']}")
+
 
 def auth(token: str) -> dict[str, str]:
     return {"Authorization": f"Bearer {token}"}

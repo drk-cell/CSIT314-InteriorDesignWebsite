@@ -21,12 +21,14 @@ from app.repositories.appointment_repository import AppointmentRepository
 from app.repositories.company_repository import CompanyRepository
 from app.repositories.project_repository import ProjectRepository
 from app.repositories.quote_repository import QuoteRepository, QuoteRequestRepository
+from app.repositories.report_repository import ReportRepository
 from app.repositories.shortlist_repository import ShortlistRepository
 from app.security import decode_access_token
 from app.services.account_service import AccountService
 from app.services.appointment_service import AppointmentService
 from app.services.category_service import CategoryService
 from app.services.company_service import CompanyService
+from app.services.project_report_service import ProjectReportService
 from app.services.project_search_service import ProjectSearchService
 from app.services.project_service import ProjectService
 from app.services.quote_service import QuoteService
@@ -42,6 +44,7 @@ _shortlist_repository = ShortlistRepository()
 _quote_request_repository = QuoteRequestRepository()
 _quote_repository = QuoteRepository()
 _appointment_repository = AppointmentRepository()
+_report_repository = ReportRepository()
 _bearer_scheme = HTTPBearer(auto_error=False)
 
 
@@ -120,6 +123,20 @@ def get_appointment_service() -> AppointmentService:
     return AppointmentService(
         get_appointment_repository(),
         get_company_repository(),
+        get_account_repository(),
+    )
+
+
+def get_report_repository() -> ReportRepository:
+    """Return the process wide project report store."""
+    return _report_repository
+
+
+def get_project_report_service() -> ProjectReportService:
+    """Return a service bound to the report, project and account stores."""
+    return ProjectReportService(
+        get_report_repository(),
+        get_project_repository(),
         get_account_repository(),
     )
 

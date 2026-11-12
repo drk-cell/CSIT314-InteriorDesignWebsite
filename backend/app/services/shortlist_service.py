@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from app.domain.account import Account
-from app.domain.enums import Role
+from app.domain.enums import ProjectStatus, Role
 from app.domain.errors import NotPermitted, ProjectNotFound
 from app.domain.project import Project
 from app.domain.shortlist import Shortlist
@@ -26,7 +26,7 @@ class ShortlistService:
         """Save a project for the caller. Saving twice changes nothing."""
         self._require_customer(actor)
         project = self._projects.get(project_id)
-        if project is None:
+        if project is None or project.status is ProjectStatus.TAKEN_DOWN:
             raise ProjectNotFound()
         shortlist = self._own_list(actor)
         if shortlist.add(project.id):
@@ -51,7 +51,11 @@ class ShortlistService:
         if shortlist is None:
             return []
         projects = [self._projects.get(entry) for entry in shortlist.project_ids]
-        return [project for project in projects if project is not None]
+        return [
+            project
+            for project in projects
+            if project is not None and project.status is not ProjectStatus.TAKEN_DOWN
+        ]
 
     def ids_for(self, actor: Account) -> list[str]:
         """Return the saved project ids."""

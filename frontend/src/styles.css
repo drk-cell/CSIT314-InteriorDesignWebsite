@@ -264,6 +264,11 @@ a:hover { color: var(--accent-hover); }
 .badge-expired,
 .badge-superseded { background: var(--danger-bg); border-color: var(--danger-border); color: var(--danger-text); }
 .badge-pending { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.badge-open { background: var(--notice-bg); border-color: var(--notice-border); color: var(--notice-text); }
+.badge-actioned { background: var(--success-bg); border-color: var(--success-border); color: var(--success-text); }
+.badge-dismissed { background: var(--surface); border-color: var(--border); color: var(--muted); }
+
+.check-row { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
 @media (max-width: 760px) {
   .detail-layout { grid-template-columns: 1fr; }
 }

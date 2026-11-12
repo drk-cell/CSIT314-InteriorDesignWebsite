@@ -14,6 +14,7 @@ from app.api.deps import (
     get_company_repository,
     get_project_repository,
     get_quote_repository,
+    get_report_repository,
     get_quote_request_repository,
     get_shortlist_repository,
 )
@@ -22,6 +23,7 @@ from app.repositories.account_repository import AccountRepository
 from app.repositories.appointment_repository import AppointmentRepository
 from app.repositories.company_repository import CompanyRepository
 from app.repositories.project_repository import ProjectRepository
+from app.repositories.report_repository import ReportRepository
 from app.repositories.shortlist_repository import ShortlistRepository
 from app.services.account_service import AccountService
 from app.services.company_service import CompanyService
@@ -68,6 +70,15 @@ def shortlist_repository() -> Iterator[ShortlistRepository]:
 def appointment_repository() -> Iterator[AppointmentRepository]:
     """The singleton appointment store, emptied before and after each test."""
     repository = get_appointment_repository()
+    repository.clear()
+    yield repository
+    repository.clear()
+
+
+@pytest.fixture()
+def report_repository() -> Iterator[ReportRepository]:
+    """The singleton report store, emptied before and after each test."""
+    repository = get_report_repository()
     repository.clear()
     yield repository
     repository.clear()
@@ -122,6 +133,7 @@ def client(
     project_repository: ProjectRepository,
     shortlist_repository: ShortlistRepository,
     appointment_repository: AppointmentRepository,
+    report_repository: ReportRepository,
     quote_repositories: None,
     category_repository: None,
 ) -> Iterator[TestClient]:

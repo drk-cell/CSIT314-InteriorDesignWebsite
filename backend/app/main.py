@@ -17,6 +17,7 @@ from app.api import (
     companies,
     health,
     images,
+    project_reports,
     projects,
     quotes,
     reports,
@@ -78,6 +79,7 @@ def create_app() -> FastAPI:
     application.include_router(shortlist.router, prefix=API_PREFIX)
     application.include_router(quotes.router, prefix=API_PREFIX)
     application.include_router(appointments.router, prefix=API_PREFIX)
+    application.include_router(project_reports.router, prefix=API_PREFIX)
     application.include_router(categories.router, prefix=API_PREFIX)
     application.include_router(reports.router, prefix=API_PREFIX)
 

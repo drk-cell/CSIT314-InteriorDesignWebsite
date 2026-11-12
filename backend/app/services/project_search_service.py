@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from app.domain.enums import ProjectStatus
 from app.domain.project import Project, SearchCriteria
 from app.repositories.project_repository import ProjectRepository
 
@@ -73,7 +74,12 @@ class ProjectSearchService:
             tags=list(tags or []),
         )
         size = min(page_size, MAX_PAGE_SIZE)
-        matches = [project for project in self._projects.list_all() if project.matches(criteria)]
+        matches = [
+            project
+            for project in self._projects.list_all()
+            if project.status is not ProjectStatus.TAKEN_DOWN
+            and project.matches(criteria)
+        ]
         if criteria.tags:
             matches.sort(
                 key=lambda project: (

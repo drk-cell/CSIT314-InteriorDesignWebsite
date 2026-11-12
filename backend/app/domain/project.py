@@ -150,6 +150,11 @@ class Project:
         self.status = ProjectStatus.CURRENT
         self._touch()
 
+    def mark_taken_down(self) -> None:
+        """Hide the project from customers after a report is upheld."""
+        self.status = ProjectStatus.TAKEN_DOWN
+        self._touch()
+
     def add_image(self, url: str) -> None:
         """Attach a photo address. A repeated address changes nothing."""
         candidate = url.strip()
